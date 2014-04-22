@@ -6970,11 +6970,13 @@
 
     // #8138, IE may throw an exception when accessing
     // a field from window.location if document.domain has been set
+    // 在IE中，如果document.domain被设置了，获取window.location会报错
     try {
         ajaxLocation = location.href;
     } catch (e) {
         // Use the href attribute of an A element
         // since IE will modify it given document.location
+        // 因为IE会修改A标签元素的href属性，添加window.location字符串
         ajaxLocation = document.createElement("a");
         ajaxLocation.href = "";
         ajaxLocation = ajaxLocation.href;
@@ -7087,6 +7089,7 @@
             self = this,
             off = url.indexOf(" ");
 
+        // 如果url有空格，空格前面是url，后面是选择器selector
         if (off >= 0) {
             selector = url.slice(off);
             url = url.slice(0, off);
@@ -7203,27 +7206,43 @@
              */
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 
-            
-            /*
-        timeout: 0,
-        data: null,
-        dataType: null,
-        username: null,
-        password: null,
-        cache: null,
-        throws: false,
-        traditional: false,
-        headers: {},
-        */
 
+            /*
+               //设置请求超时时间（毫秒）。此设置将覆盖全局设置。
+               timeout: 0,
+               data: null,
+               dataType: null,
+               // 用于响应HTTP访问认证请求的用户名
+               username: null,
+               // 用于响应HTTP访问认证请求的密码
+               password: null,
+               // (默认: true,dataType为script和jsonp时默认为false)，设置为 false 将不缓存此页面。
+               cache: null,
+               throws: false,
+               // 如果你想要用传统的方式来序列化数据，那么就设置为true
+               traditional: false,
+               // 个额外的"{键:值}"对映射到请求一起发送。此设置被设置之前beforeSend函数被调用;因此，消息头中的值设置可以在覆盖beforeSend函数范围内的任何设置。
+               headers: {},
+           */
+          
+            /**
+             * 接受的数据的type类型
+             * 内容类型发送请求头，告诉服务器什么样的响应会接受返回。
+             * 如果accepts设置需要修改，推荐在$.ajaxSetup()方法中做一次。
+             * @type {Object}
+             */
             accepts: {
-                "*": allTypes,
-                text: "text/plain",
-                html: "text/html",
-                xml: "application/xml, text/xml",
-                json: "application/json, text/javascript"
+                "*"  : allTypes,
+                text : "text/plain",
+                html : "text/html",
+                xml  : "application/xml, text/xml",
+                json : "application/json, text/javascript"
             },
 
+            /**
+             * 一个以"{字符串:正则表达式}"配对的对象，用来确定jQuery将如何解析响应，给定其内容类型。
+             * @type {Object}
+             */
             contents: {
                 xml: /xml/,
                 html: /html/,
@@ -7238,6 +7257,11 @@
 
             // Data converters
             // Keys separate source (or catchall "*") and destination types with a single space
+            /**
+             * 数据转换器
+             * 一个数据类型对数据类型转换器的对象。每个转换器的值是一个函数，返回响应的转化值
+             * @type {Object}
+             */
             converters: {
 
                 // Convert anything to text
@@ -7267,6 +7291,8 @@
         // Creates a full fledged settings object into target
         // with both ajaxSettings and settings fields.
         // If target is omitted, writes into ajaxSettings.
+        // 创建更健壮的配置项到target中，包含了ajaxSettings和settings参数
+        // 如果只有一个参数，直接添加到jQuery.ajaxSettings中
         ajaxSetup: function(target, settings) {
             return settings ?
 
