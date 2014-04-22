@@ -6985,8 +6985,13 @@
     // Segment location into parts
     ajaxLocParts = rurl.exec(ajaxLocation.toLowerCase()) || [];
 
-    // Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
 
+    /**
+     * 返回一个函数，为prefilters或者transport添加属性,
+     * 该属性值是一个数组，里面存放的是函数func，
+     * 可以给dataTypeExpression字符串添加标识，表示是添加到数组头部还是尾部
+     * @param {[type]} structure [description]
+     */
     function addToPrefiltersOrTransports(structure) {
 
         // dataTypeExpression is optional and defaults to "*"
@@ -7019,7 +7024,6 @@
     }
 
     // Base inspection function for prefilters and transports
-
     function inspectPrefiltersOrTransports(structure, options, originalOptions, jqXHR) {
 
         var inspected = {},
@@ -7731,7 +7735,6 @@
      * - finds the right dataType (mediates between content-type and expected dataType)
      * - returns the corresponding response
      */
-
     function ajaxHandleResponses(s, jqXHR, responses) {
 
         var ct, type, finalDataType, firstDataType,
@@ -7890,6 +7893,11 @@
     // Install script dataType
     // Ajax请求设置默认的值
     jQuery.ajaxSetup({
+        /**
+         * 内容类型发送请求头（Content-Type），用于通知服务器该请求需要接收何种类型的返回结果。
+         * 如果accepts设置需要修改，推荐在$.ajaxSetup() 方法中设置一次。
+         * @type {Object}
+         */
         accepts: {
             script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
         },
@@ -8141,7 +8149,7 @@
     });
 
 
-
+console.log(prefilters,transports)
     /**
      *
      *
