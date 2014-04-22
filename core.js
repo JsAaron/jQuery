@@ -2,58 +2,24 @@
 
 $(function(){
 
-//        var p1 = $('#p1')
-//
-//   console.log( p1.innerWidth() )
-
-
-
-    function mixin(receiver, supplier) {
-        for (var property in supplier) {
-            if (supplier.hasOwnProperty(property)) {
-                receiver[property] = supplier[property];
-                }
-        }
-    }
-
-    var aa = {}
-
-//    mixin(aa, {
-//        name: "Nicholas",
-//
-//        sayName: function() {
-//            console.log(this.name);
-//        }
-//    });
-//
-//    aa.sayName();       // outputs "Nicholas"
-
-
-
-    ;(function() {
-        // to be filled in later
-        var name;
-
-        mixin(aa, {
-            get name() {
-                return name;
-            }
+        $(document).ajaxComplete(function() {
+            $(".log").text("Triggered ajaxComplete handler.");
         });
 
-        // let's just say this is later
-        name = "Nicholas";
-    }());
 
-    console.log(aa.name);       // undefined
+        $(".trigger").click(function() {
 
+            $.ajax({
+                url     : "php.html",
+                context : document.body,
+                complete:function(){
+                    console.log(this)
+                }
+            }).done(function() {
+                console.log(this)
+            });
 
-
-
-
-
-
-
-
+        });
 
 })
 
