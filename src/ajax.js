@@ -93,8 +93,13 @@ function addToPrefiltersOrTransports(structure) {
     };
 }
 
-// Base inspection function for prefilters and transports
 
+// 遍历structure[dataType]数组，并执行回调，
+// prefilterOrFactory为函数数组元素，
+// 执行该函数如果返回的结果dataTypeOrTransport是字符串且时prefilters且没有被inspected过，
+// 就给options.dataTypes数组头部添加该字符串，
+// 继续递归dataTypeOrTransport(当我们使用json/jsonp的时候会返回“script”，于是会执行“script”相关的回调)。
+// 如果是transport就返回dataTypeOrTransport的假结果
 function inspectPrefiltersOrTransports(structure, options, originalOptions, jqXHR) {
 
     var inspected = {},
@@ -409,20 +414,29 @@ jQuery.extend({
             i,
             // Create the final options object
             s = jQuery.ajaxSetup({}, options),
+
             // Callbacks context
             callbackContext = s.context || s,
             // Context for global events is callbackContext if it is a DOM node or jQuery collection
             globalEventContext = s.context && (callbackContext.nodeType || callbackContext.jquery) ?
                 jQuery(callbackContext) :
                 jQuery.event,
+
             // Deferreds
             deferred = jQuery.Deferred(),
+
+            /**
+             * 所有的回调队列，不管任何时候增加的回调保证只触发一次
+             * @type {[type]}
+             */
             completeDeferred = jQuery.Callbacks("once memory"),
+
             // Status-dependent callbacks
             statusCode = s.statusCode || {},
             // Headers (they are sent all at once)
             requestHeaders = {},
             requestHeadersNames = {},
+
             // The jqXHR state
             state = 0,
             // Default abort message
@@ -497,15 +511,21 @@ jQuery.extend({
                 }
             };
 
-        // Attach deferreds
+        // 给jqXHR扩充添加promise的属性和方法，
+        // 然后添加complete方法，这里用的是回调列表的add方法（即添加回调）
+        // 订阅完成回调
         deferred.promise(jqXHR).complete = completeDeferred.add;
         jqXHR.success = jqXHR.done;
-        jqXHR.error = jqXHR.fail;
+        jqXHR.error   = jqXHR.fail;
 
         // Remove hash character (#7531: and string promotion)
         // Add protocol if not provided (prefilters might expect it)
         // Handle falsy url in the settings object (#10093: consistency with old signature)
         // We also use the url parameter if available
+        // Remove 将url的hash去掉 
+        // rhash=/#.*$/ 
+        // rprotocol = /^\/\//  
+        // ajaxLocParts[1]="http:"
         s.url = ((url || s.url || ajaxLocation) + "").replace(rhash, "")
             .replace(rprotocol, ajaxLocParts[1] + "//");
 
@@ -513,11 +533,21 @@ jQuery.extend({
         s.type = options.method || options.type || s.method || s.type;
 
         // Extract dataTypes list
+        // 取出dataTypes list，不存在则为*  
+        // core_rnotwhite = /\s+/ 
+        // 如:s.dataType=[*]
         s.dataTypes = jQuery.trim(s.dataType || "*").toLowerCase().match(core_rnotwhite) || [""];
 
         // A cross-domain request is in order when we have a protocol:host:port mismatch
+        // 如果你想在同一域中强制跨域请求（如JSONP形式），
+        // 例如，想服务器端重定向到另一个域，那么需要将crossDomain设置为 true 
         if (s.crossDomain == null) {
+
+            //同ajaxLocParts变量,这里也是通过这个请求的url来判断是否是跨域请求
             parts = rurl.exec(s.url.toLowerCase());
+
+            //这里来判断是否是跨域请求,又是!! 主要判断请求的url parts与 ajaxLocParts     
+            //这里智能判断你的请求地址是否是跨越
             s.crossDomain = !! (parts &&
                 (parts[1] !== ajaxLocParts[1] || parts[2] !== ajaxLocParts[2] ||
                     (parts[3] || (parts[1] === "http:" ? "80" : "443")) !==
@@ -526,11 +556,14 @@ jQuery.extend({
         }
 
         // Convert data if not already a string
+        // 数据序列化
+        // 如果数据不是字符串，则需要转化
         if (s.data && s.processData && typeof s.data !== "string") {
             s.data = jQuery.param(s.data, s.traditional);
         }
 
         // Apply prefilters
+        // 过滤器
         inspectPrefiltersOrTransports(prefilters, s, options, jqXHR);
 
         // If request was aborted inside a prefilter, stop there
@@ -538,10 +571,11 @@ jQuery.extend({
             return jqXHR;
         }
 
-        // We can fire global events as of now if asked to
+        // 这个请求是否将触发全局AJAX事件处理程序
         fireGlobals = s.global;
 
         // Watch for a new set of requests
+        // 触发监听的ajaxStart监听
         if (fireGlobals && jQuery.active++ === 0) {
             jQuery.event.trigger("ajaxStart");
         }
@@ -550,6 +584,7 @@ jQuery.extend({
         s.type = s.type.toUpperCase();
 
         // Determine if request has content
+        // 请求是否有内容
         s.hasContent = !rnoContent.test(s.type);
 
         // Save the URL in case we're toying with the If-Modified-Since
@@ -579,6 +614,9 @@ jQuery.extend({
         }
 
         // Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
+        // 只有上次请求响应改变时，才允许请求成功。
+        // 使用 HTTP 包 Last-Modified 头信息判断。默认值是false，忽略HTTP头信息。
+        // 2在jQuery 1.4中，他也会检查服务器指定的'etag'来确定数据没有被修改过。
         if (s.ifModified) {
             if (jQuery.lastModified[cacheURL]) {
                 jqXHR.setRequestHeader("If-Modified-Since", jQuery.lastModified[cacheURL]);
@@ -589,11 +627,13 @@ jQuery.extend({
         }
 
         // Set the correct header, if data is being sent
+        // 设置正确的头信息
         if (s.data && s.hasContent && s.contentType !== false || options.contentType) {
             jqXHR.setRequestHeader("Content-Type", s.contentType);
         }
 
         // Set the Accepts header for the server, depending on the dataType
+        // 为服务器设置接收头,根据不同的数据类型
         jqXHR.setRequestHeader(
             "Accept",
             s.dataTypes[0] && s.accepts[s.dataTypes[0]] ?
@@ -602,11 +642,16 @@ jQuery.extend({
         );
 
         // Check for headers option
+        // 混入用户定义的头部信息设置
         for (i in s.headers) {
             jqXHR.setRequestHeader(i, s.headers[i]);
         }
 
         // Allow custom headers/mimetypes and early abort
+        // 请求发送前的回调函数，用来修改请求发送前jqXHR（在jQuery 1.4.x的中，XMLHttpRequest）对象，
+        // 此功能用来设置自定义 HTTP 头信息，等等。该jqXHR和设置对象作为参数传递。
+        // 这是一个Ajax事件 。在beforeSend函数中返回false将取消这个请求。
+        // 从jQuery 1.5开始， beforeSend选项将被访问，不管请求的类型
         if (s.beforeSend && (s.beforeSend.call(callbackContext, jqXHR, s) === false || state === 2)) {
             // Abort if not done already and return
             return jqXHR.abort();
@@ -616,11 +661,17 @@ jQuery.extend({
         strAbort = "abort";
 
         // Install callbacks on deferreds
+        // 增加回调队列
         for (i in {
-            success: 1,
-            error: 1,
-            complete: 1
+            success  : 1,
+            error    : 1,
+            complete : 1
         }) {
+            /**
+             * 把参数的回调函数注册到内部jqXHR对象上,实现统一调用
+             * 给ajax对象注册 回调函数add
+             * deferred返回complete,error外部捕获
+             */
             jqXHR[i](s[i]);
         }
 
@@ -659,7 +710,6 @@ jQuery.extend({
         }
 
         // Callback for when everything is done
-
         function done(status, nativeStatusText, responses, headers) {
             var isSuccess, success, error, response, modified,
                 statusText = nativeStatusText;
@@ -801,6 +851,7 @@ jQuery.each(["get", "post"], function(i, method) {
         });
     };
 });
+
 
 /* Handles responses to an ajax request:
  * - finds the right dataType (mediates between content-type and expected dataType)
