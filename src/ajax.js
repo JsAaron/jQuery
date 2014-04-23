@@ -682,12 +682,16 @@ jQuery.extend({
         if (!transport) {
             done(-1, "No Transport");
         } else {
+
             jqXHR.readyState = 1;
 
-            // Send global event
+            /**
+             * 全局事件ajaxSend
+             */
             if (fireGlobals) {
                 globalEventContext.trigger("ajaxSend", [jqXHR, s]);
             }
+
             // Timeout
             if (s.async && s.timeout > 0) {
                 timeoutTimer = setTimeout(function() {
@@ -695,6 +699,9 @@ jQuery.extend({
                 }, s.timeout);
             }
 
+            /**
+             * 发送AJAX请求
+             */
             try {
                 state = 1;
                 transport.send(requestHeaders, done);
@@ -1191,16 +1198,21 @@ if (window.ActiveXObject) {
 jQuery.support.cors = !! xhrSupported && ("withCredentials" in xhrSupported);
 jQuery.support.ajax = xhrSupported = !! xhrSupported;
 
+
 jQuery.ajaxTransport(function(options) {
     var callback;
     // Cross domain only allowed if supported through XMLHttpRequest
+    // 不进行跨域请求或者只有支持XMLHttpRequest跨域请求的才符合条件
     if (jQuery.support.cors || xhrSupported && !options.crossDomain) {
         return {
             send: function(headers, complete) {
                 var i, id,
                     xhr = options.xhr();
                 xhr.open(options.type, options.url, options.async, options.username, options.password);
+
                 // Apply custom fields if provided
+                // 一对“文件名-文件值”组成的映射，用于设定原生的 XHR对象。
+                // 例如，如果需要的话，在进行跨域请求时，你可以用它来设置withCredentials为true。
                 if (options.xhrFields) {
                     for (i in options.xhrFields) {
                         xhr[i] = options.xhrFields[i];
