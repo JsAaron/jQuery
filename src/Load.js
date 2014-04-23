@@ -14,5 +14,5 @@
 	'Ajax',
 	'Animation'
 ].forEach(function(name) {
-	document.write("<scr" + "ipt type='text/javascript' src='src/" + name + ".js'></scr" + "ipt>");
+	document.write("<scr" + "ipt type='text/javascript' src='../src/" + name + ".js'></scr" + "ipt>");
 })
