@@ -1,6 +1,7 @@
 $(function() {
 
 
+    //全局事件触发
     $(document).ajaxStart(function() {
         console.log(arguments)
     }).ajaxComplete(function() {
@@ -9,7 +10,8 @@ $(function() {
 
 
     $(".trigger").click(function() {
-
+        //发送ajax请求
+        //
         $.ajax({
             url: "php.html",
             context: document.body,
@@ -19,7 +21,9 @@ $(function() {
         }).done(function() {
             console.log(this)
         });
-
     });
 
+
 })
+
+
