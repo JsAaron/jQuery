@@ -236,6 +236,7 @@ jQuery.extend({
 
     // ajax配置项
     ajaxSettings: {
+
         //用来包含发送请求的URL字符串。
         url: ajaxLocation,
 
@@ -418,6 +419,7 @@ jQuery.extend({
             // Callbacks context
             callbackContext = s.context || s,
             // Context for global events is callbackContext if it is a DOM node or jQuery collection
+            // 全局事件的上下文
             globalEventContext = s.context && (callbackContext.nodeType || callbackContext.jquery) ?
                 jQuery(callbackContext) :
                 jQuery.event,
