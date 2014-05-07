@@ -93,9 +93,10 @@
                         // First, we save the current length
                         var start = list.length;
                         (function add(args) {
+                            //增加回调队列
                             jQuery.each(args, function(_, arg) {
                                 var type = jQuery.type(arg);
-                                if (type === "function") {
+                                if (type === "function") {//如果是函数，是否是去重添加
                                     if (!options.unique || !self.has(arg)) {
                                         list.push(arg);
                                     }

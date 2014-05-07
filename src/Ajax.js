@@ -384,7 +384,16 @@ jQuery.extend({
         ajaxExtend(jQuery.ajaxSettings, target);
     },
 
+    /**
+     * 前置过滤器
+     * @type {[type]}
+     */
     ajaxPrefilter: addToPrefiltersOrTransports(prefilters),
+
+    /**
+     * 请求分发器
+     * @type {[type]}
+     */
     ajaxTransport: addToPrefiltersOrTransports(transports),
 
     // Main method
@@ -418,6 +427,7 @@ jQuery.extend({
 
             // Callbacks context
             callbackContext = s.context || s,
+
             // Context for global events is callbackContext if it is a DOM node or jQuery collection
             // 全局事件的上下文
             globalEventContext = s.context && (callbackContext.nodeType || callbackContext.jquery) ?
@@ -923,7 +933,6 @@ function ajaxHandleResponses(s, jqXHR, responses) {
 /* Chain conversions given the request and the original response
  * Also sets the responseXXX fields on the jqXHR instance
  */
-
 function ajaxConvert(s, response, jqXHR, isSuccess) {
     var conv2, current, conv, tmp, prev,
         converters = {},
@@ -1286,4 +1295,4 @@ jQuery.ajaxTransport(function(options) {
 });
 
 
-console.log(prefilters, transports)
+// console.log(prefilters, transports)
