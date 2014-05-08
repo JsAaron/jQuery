@@ -5,41 +5,29 @@ $(function() {
 
 
 
-function fn1( value ) {
-   console.log("fn1 says: " + value);
-}
- 
-function fn2( value ) {
-    console.log("fn2 says: " + value);
-    return false;
-}
+        // a sample logging function to be added to a callbacks list
+        var foo = function( value ) {
+          console.log( value );
+        };
+         
+        // another function to also be added to the list
+        var bar = function( value ){
+          console.log(  value );
+        };
+         
+        var callbacks = $.Callbacks('memory');
+
+        callbacks.add( foo );
+
+        callbacks.fire( "hello" );
+
+        callbacks.add( bar );
+         
+        callbacks.fire( "hello world" );
+         
 
 
-var callbacks = $.Callbacks("once,memory");
-
-callbacks.add( fn1 );
-callbacks.fire( "1" );
-
-callbacks.add( fn1 );
-callbacks.fire( "2" );
-
-callbacks.add( fn1 );
-callbacks.fire( "3" );
-
-callbacks.add( fn1 );
-callbacks.fire( "4" );
-
-// callbacks.remove( fn2 );
-// callbacks.fire( "foobar" );
-     
-
-
-
-    // var callbacks = $.Callbacks("once memory")
-
-    // console.log(callbacks)
-
- 
+        console.log(callbacks)
 
 
 
