@@ -7,12 +7,12 @@ $(function() {
 
         // a sample logging function to be added to a callbacks list
         var foo = function( value ) {
-          console.log( value );
+          console.log( 'foo '+value );
         };
          
         // another function to also be added to the list
         var bar = function( value ){
-          console.log(  value );
+          console.log('bar '+  value );
         };
          
         var callbacks = $.Callbacks('memory');
@@ -23,8 +23,7 @@ $(function() {
 
         callbacks.add( bar );
          
-        callbacks.fire( "hello world" );
-         
+      //  callbacks.fire( "hello world" );
 
 
         console.log(callbacks)
