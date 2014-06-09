@@ -630,8 +630,8 @@ jQuery.extend({
         // 使用 HTTP 包 Last-Modified 头信息判断。默认值是false，忽略HTTP头信息。
         // 2在jQuery 1.4中，他也会检查服务器指定的'etag'来确定数据没有被修改过。
         if (s.ifModified) {
-            if (jQuery.lastModified[cacheURL]) {
-                jqXHR.setRequestHeader("If-Modified-Since", jQuery.lastModified[cacheURL]);
+            if (jQuery.lastModified[cacheURL]) {01
+                jqXHR.setRequestHeader("If-Modified-Since", jQuery.lastModified[cacheURL]);4
             }
             if (jQuery.etag[cacheURL]) {
                 jqXHR.setRequestHeader("If-None-Match", jQuery.etag[cacheURL]);
@@ -1054,10 +1054,14 @@ jQuery.ajaxSetup({
 });
 
 // Handle cache's special case and crossDomain
+// 处理缓存的特殊情况和crossDomain
+// 设置script的前置过滤器，script并不一定意思着跨域
 jQuery.ajaxPrefilter("script", function(s) {
     if (s.cache === undefined) {
+        //如果缓存未设置，则设置false
         s.cache = false;
     }
+    // 跨域未被禁用，强制类型为GET，不触发全局时间
     if (s.crossDomain) {
         s.type = "GET";
     }

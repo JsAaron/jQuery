@@ -1,3 +1,5 @@
+
+alert(1)
 $(document).ajaxComplete(function() {
     console.log('ajax请求成功')
 });

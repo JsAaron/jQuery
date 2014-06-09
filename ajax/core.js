@@ -1,72 +1,61 @@
 $(function() {
 
 
+var prefilters = {};
+
+var addToPrefiltersOrTransports = function(structure) {
+
+    return function(func) {
+        structure['*'] = func;
+    }
+}
+
+var ajaxPrefilter = addToPrefiltersOrTransports(prefilters)
 
 
+ajaxPrefilter(function(options){
+    return {
+        send:function(){
+
+        },
+        callback:function(){
+
+        }
+    }
+})
 
 
-        // a sample logging function to be added to a callbacks list
-        var foo = function( value ) {
-          console.log( 'foo '+value );
-        };
-         
-        // another function to also be added to the list
-        var bar = function( value ){
-          console.log('bar '+  value );
-        };
-         
-        var callbacks = $.Callbacks('memory');
+$.ajax({
+    type     : "GET",
+    url      : "test.js",
+    dataType : "script"
+});
 
-        callbacks.add( foo );
-
-        callbacks.fire( "hello" );
-
-        callbacks.add( bar );
-         
-      //  callbacks.fire( "hello world" );
-
-
-        console.log(callbacks)
-
-
-
-
-    // var dfd = $.Deferred();
-
-    // console.log(dfd)
-
-
-    // setTimeout(function(){
-    //     dfd.resolve(111)
-    // },1000)
-
-
-    // dfd.done(function(a){
-    //     console.log(a)
-    // })
 
 
     //全局事件触发
-    // $(document).ajaxStart(function() {
-    //     console.log(arguments)
-    // }).ajaxComplete(function() {
-    //     $(".log").text("Triggered ajaxComplete handler.");
-    // });
+    $(document).ajaxStart(function() {
+        console.log(arguments)
+    }).ajaxComplete(function() {
+        $(".log").text("Triggered ajaxComplete handler.");
+    });
 
 
-    // $(".trigger").click(function() {
-    //     //发送ajax请求
-    //     //
-    //     $.ajax({
-    //         url: "php.html",
-    //         context: document.body,
-    //         complete: function() {
-    //             console.log(this)
-    //         }
-    //     }).done(function() {
-    //         console.log(this)
-    //     });
-    // });
+    $(".trigger").click(function() {
+
+
+        //发送ajax请求
+        //
+        // $.ajax({
+        //     url: "php.html",
+        //     context: document.body,
+        //     complete: function() {
+        //         console.log(this)
+        //     }
+        // }).done(function() {
+        //     console.log(this)
+        // });
+    });
 
 
 })
