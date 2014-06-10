@@ -597,6 +597,7 @@ jQuery.extend({
 
         // Determine if request has content
         // 请求是否有内容
+        // 通过类型判断当前是GET还是POST 从而只知道请求是否有内容
         s.hasContent = !rnoContent.test(s.type);
 
         // Save the URL in case we're toying with the If-Modified-Since
@@ -604,9 +605,11 @@ jQuery.extend({
         cacheURL = s.url;
 
         // More options handling for requests with no content
+        // 如果是GET请求肯定是有内容
         if (!s.hasContent) {
 
             // If data is available, append data to url
+            // 假如有发送数据
             if (s.data) {
                 cacheURL = (s.url += (ajax_rquery.test(cacheURL) ? "&" : "?") + s.data);
                 // #9682: remove data so that it's not used in an eventual retry
@@ -616,10 +619,8 @@ jQuery.extend({
             // Add anti-cache in url if needed
             if (s.cache === false) {
                 s.url = rts.test(cacheURL) ?
-
                 // If there is already a '_' parameter, set its value
                 cacheURL.replace(rts, "$1_=" + ajax_nonce++) :
-
                 // Otherwise add one to the end
                 cacheURL + (ajax_rquery.test(cacheURL) ? "&" : "?") + "_=" + ajax_nonce++;
             }
@@ -645,6 +646,7 @@ jQuery.extend({
         }
 
         // Set the Accepts header for the server, depending on the dataType
+        // 自定义头部信息
         // 为服务器设置接收头,根据不同的数据类型
         jqXHR.setRequestHeader(
             "Accept",

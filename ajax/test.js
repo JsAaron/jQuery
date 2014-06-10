@@ -1,8 +1,6 @@
 
 alert(1)
-$(document).ajaxComplete(function() {
-    console.log('ajax请求成功')
-});
+
 
 
 var tAjax = function(config) {
@@ -36,18 +34,12 @@ var tAjax = function(config) {
 }
 
 
-
-$(document).ajaxComplete(function() {
-    console.log('ajax请求成功')
-});
-
-
-tAjax({
-    url: "php.html",
-    complete: function(data) {
-         console.log(data)
-    }
-}).done(function(data){
-    console.log(data)
-})
+// tAjax({
+//     url: "php.html",
+//     complete: function(data) {
+//          console.log(data)
+//     }
+// }).done(function(data){
+//     console.log(data)
+// })
 

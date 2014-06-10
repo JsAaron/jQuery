@@ -1,61 +1,61 @@
 $(function() {
 
 
-var prefilters = {};
+// var prefilters = {};
 
-var addToPrefiltersOrTransports = function(structure) {
+// var addToPrefiltersOrTransports = function(structure) {
 
-    return function(func) {
-        structure['*'] = func;
-    }
-}
+//     return function(func) {
+//         structure['*'] = func;
+//     }
+// }
 
-var ajaxPrefilter = addToPrefiltersOrTransports(prefilters)
+// var ajaxPrefilter = addToPrefiltersOrTransports(prefilters)
 
 
-ajaxPrefilter(function(options){
-    return {
-        send:function(){
+// ajaxPrefilter(function(options){
+//     return {
+//         send:function(){
 
-        },
-        callback:function(){
+//         },
+//         callback:function(){
 
+//         }
+//     }
+// })
+
+
+    $.ajax({
+        type     : "GET",
+        url      : "test.js",
+        dataType : "script",
+        complete: function(jqXHR, status) {
+            console.log(jqXHR, status)
         }
-    }
-})
-
-
-$.ajax({
-    type     : "GET",
-    url      : "test.js",
-    dataType : "script"
-});
-
-
-
-    //全局事件触发
-    $(document).ajaxStart(function() {
-        console.log(arguments)
-    }).ajaxComplete(function() {
-        $(".log").text("Triggered ajaxComplete handler.");
     });
 
 
-    $(".trigger").click(function() {
+
+    // //全局事件触发
+    // $(document).ajaxStart(function() {
+    //     console.log(arguments)
+    // }).ajaxComplete(function() {
+    //     $(".log").text("Triggered ajaxComplete handler.");
+    // });
 
 
-        //发送ajax请求
-        //
-        // $.ajax({
-        //     url: "php.html",
-        //     context: document.body,
-        //     complete: function() {
-        //         console.log(this)
-        //     }
-        // }).done(function() {
-        //     console.log(this)
-        // });
-    });
+    // $(".trigger").click(function() {
+    //     //发送ajax请求
+    //     $.ajax({
+    //         url: "php.html",
+    //         context: document.body,
+    //         complete: function() {
+    //             console.log(this)
+    //         }
+    //     }).done(function() {
+    //         console.log(this)
+    //     });
+    // });
 
 
 })
