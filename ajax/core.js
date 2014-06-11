@@ -25,15 +25,21 @@ $(function() {
 // })
 
 
+
+
+    // jQuery.getJSON(url, function(data) {
+    //     console.log(data)
+    //     //alert("Symbol:" + data.symbol + ", Price:" + data.price);
+    // });
+
+
     $.ajax({
-        type     : "GET",
-        url      : "test.js",
-        dataType : "script",
-        complete: function(jqXHR, status) {
-            console.log(jqXHR, status)
+        url: 'test.php';,
+        dataType: "jsonp",
+        success: function(data) {
+            console.log(arguments)
         }
     });
-
 
 
     // //全局事件触发

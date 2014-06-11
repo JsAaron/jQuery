@@ -2,7 +2,6 @@
 alert(1)
 
 
-
 var tAjax = function(config) {
 
     var doneFn;

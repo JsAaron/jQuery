@@ -108,8 +108,11 @@ function inspectPrefiltersOrTransports(structure, options, originalOptions, jqXH
     function inspect(dataType) {
         var selected;
         inspected[dataType] = true;
-        jQuery.each(structure[dataType] || [], function(_, prefilterOrFactory) {
+        jQuery.each(structure[dataType] || [], function(_, prefilterOrFactory) {、
             var dataTypeOrTransport = prefilterOrFactory(options, originalOptions, jqXHR);
+            /**
+             * 针对jonsp处理
+             */
             if (typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[dataTypeOrTransport]) {
                 options.dataTypes.unshift(dataTypeOrTransport);
                 inspect(dataTypeOrTransport);
@@ -690,6 +693,7 @@ jQuery.extend({
         }
 
         // Get transport
+        // 得到请求发送器
         transport = inspectPrefiltersOrTransports(transports, s, options, jqXHR);
 
         // If no transport, we auto-abort
@@ -1102,10 +1106,13 @@ jQuery.ajaxTransport("script", function(s) {
 });
 
 
+
 var oldCallbacks = [],
     rjsonp = /(=)\?(?=&|$)|\?\?/;
 
+
 // Default jsonp settings
+// 为jsonp的处理增加默认的callback设置
 jQuery.ajaxSetup({
     jsonp: "callback",
     jsonpCallback: function() {
@@ -1116,23 +1123,34 @@ jQuery.ajaxSetup({
 });
 
 // Detect, normalize options and install callbacks for jsonp requests
+// 向前置过滤器对象中添加特定类型的过滤器
+// 添加的过滤器将格式化参数，并且为jsonp请求增加callbacks
 jQuery.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR) {
 
-    var callbackName, overwritten, responseContainer,
+    var callbackName,
+        overwritten,
+        responseContainer,
+        // 如果是表单提交，则需要检查数据
         jsonProp = s.jsonp !== false && (rjsonp.test(s.url) ?
             "url" :
-            typeof s.data === "string" && !(s.contentType || "").indexOf("application/x-www-form-urlencoded") && rjsonp.test(s.data) && "data"
+            typeof s.data === "string" 
+            && !(s.contentType || "").indexOf("application/x-www-form-urlencoded") 
+            && rjsonp.test(s.data) && "data"
         );
 
     // Handle iff the expected data type is "jsonp" or we have a parameter to set
+    // 这个方法只处理jsonp，如果json的url或data有jsonp的特征，会被当成jsonp处理
     if (jsonProp || s.dataTypes[0] === "jsonp") {
 
         // Get callback name, remembering preexisting value associated with it
+        // s.jsonpCallback时函数，则执行函数用返回值做为回调函数名
         callbackName = s.jsonpCallback = jQuery.isFunction(s.jsonpCallback) ?
             s.jsonpCallback() :
             s.jsonpCallback;
 
         // Insert callback into url or form data
+        // 插入回调url或表单数据
+        // "test.php?symbol=IBM&callback=jQuery20309245402452070266_1402451299022"
         if (jsonProp) {
             s[jsonProp] = s[jsonProp].replace(rjsonp, "$1" + callbackName);
         } else if (s.jsonp !== false) {
@@ -1148,15 +1166,18 @@ jQuery.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR) {
         };
 
         // force json dataType
+        // 强制跟换类型
         s.dataTypes[0] = "json";
 
         // Install callback
+        // 增加一个全局的临时函数
         overwritten = window[callbackName];
         window[callbackName] = function() {
             responseContainer = arguments;
         };
 
         // Clean-up function (fires after converters)
+        // 在代码执行完毕后清理这个全部函数
         jqXHR.always(function() {
             // Restore preexisting value
             window[callbackName] = overwritten;
@@ -1183,11 +1204,13 @@ jQuery.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR) {
     }
 });
 
+
 jQuery.ajaxSettings.xhr = function() {
     try {
         return new XMLHttpRequest();
     } catch (e) {}
 };
+
 
 var xhrSupported = jQuery.ajaxSettings.xhr(),
     xhrSuccessStatus = {
