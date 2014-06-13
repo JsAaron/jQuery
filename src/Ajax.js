@@ -108,12 +108,17 @@ function inspectPrefiltersOrTransports(structure, options, originalOptions, jqXH
     function inspect(dataType) {
         var selected;
         inspected[dataType] = true;
-        jQuery.each(structure[dataType] || [], function(_, prefilterOrFactory) {、
+        jQuery.each(structure[dataType] || [], function(_, prefilterOrFactory) {
             var dataTypeOrTransport = prefilterOrFactory(options, originalOptions, jqXHR);
             /**
              * 针对jonsp处理
              */
             if (typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[dataTypeOrTransport]) {
+                //增加cache设置标记
+                //不需要缓存
+                //dataTypes: Array[2]
+                // 0: "script"
+                // 1: "json"
                 options.dataTypes.unshift(dataTypeOrTransport);
                 inspect(dataTypeOrTransport);
                 return false;
@@ -1083,6 +1088,7 @@ jQuery.ajaxTransport("script", function(s) {
                 script = jQuery("<script>").prop({
                     async: true,
                     charset: s.scriptCharset,
+                    //"http://192.168.1.114/yii/demos/test.php?backfunc=jQuery20308569577629677951_1402642881663&action=aaron&_=1402642881664"
                     src: s.url
                 }).on(
                     "load error",

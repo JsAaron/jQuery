@@ -1,18 +1,11 @@
 <?php
 
-	$jsondata = "{symbol:'IBM', price:120}";  
+$act = trim($_GET['action']);
 
-	echo $_GET['callback'].'('.$jsondata.')';
+if($act == 'aaron' ){
+    echo trim($_GET['backfunc']).'('. json_encode(array('status'=>1,'info'=>'OK')) .')';  
+}
+
+
 	
-
-	// $arr = array
-	//        (
-	//           'Name'=>'希亚',
-	//           'Age'=>20
-	//        );
-
-	// $jsonencode = json_encode($arr);
-
-	// echo $jsonencode;
-
 ?>
