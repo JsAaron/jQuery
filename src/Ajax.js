@@ -354,15 +354,20 @@ jQuery.extend({
         converters: {
 
             // Convert anything to text
+            // 任意内容转换为字符串
+            // window.String 将会在min文件中被压缩为 a.String
             "* text": String,
 
             // Text to html (true = no transformation)
+            // 文本转换为HTML（true表示不需要转换，直接返回）
             "text html": true,
 
             // Evaluate text as a json expression
+            // 文本转换为JSON
             "text json": jQuery.parseJSON,
 
             // Parse text as xml
+            // 文本转换为XML
             "text xml": jQuery.parseXML
         },
 
@@ -740,6 +745,9 @@ jQuery.extend({
         }
 
         // Callback for when everything is done
+        // 服务器响应完毕之后的回调函数，done将复杂的善后事宜封装了起来，执行的动作包括：
+        // 清除本次请求用到的变量、解析状态码&状态描述、执行异步回调函数队列、执行complete队列、触发全局Ajax事件
+        // status: -1 没有找到请求分发器
         function done(status, nativeStatusText, responses, headers) {
             var isSuccess, success, error, response, modified,
                 statusText = nativeStatusText;
@@ -771,6 +779,7 @@ jQuery.extend({
             isSuccess = status >= 200 && status < 300 || status === 304;
 
             // Get response data
+            // 得到ajax返回的数据
             if (responses) {
                 response = ajaxHandleResponses(s, jqXHR, responses);
             }
@@ -886,6 +895,8 @@ jQuery.each(["get", "post"], function(i, method) {
 /* Handles responses to an ajax request:
  * - finds the right dataType (mediates between content-type and expected dataType)
  * - returns the corresponding response
+ * 找到正确的数据类型
+ * 返回
  */
 
 function ajaxHandleResponses(s, jqXHR, responses) {
@@ -951,6 +962,7 @@ function ajaxConvert(s, response, jqXHR, isSuccess) {
         dataTypes = s.dataTypes.slice();
 
     // Create converters map with lowercased keys
+    // 用小写的键创建转换器map
     if (dataTypes[1]) {
         for (conv in s.converters) {
             converters[conv.toLowerCase()] = s.converters[conv];
@@ -1056,6 +1068,9 @@ jQuery.ajaxSetup({
     contents: {
         script: /(?:java|ecma)script/
     },
+
+    //初始化类型转换器,这个为什么不写在jQuery.ajaxSettings中而要用扩展的方式添加呢?
+    //这个转换器是用来出特殊处理JSONP请求的，显然,jQuery的作者John Resig,时时刻刻都认为JSONP和跨域要特殊处理!
     converters: {
         "text script": function(text) {
             jQuery.globalEval(text);

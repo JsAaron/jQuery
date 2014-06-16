@@ -25,25 +25,34 @@ $(function() {
 // })
 
 
+    $.ajax({
+        url: 'test.php',
+        dataType:'json',
+        complete: function(data) {
+            console.log(data.responseText,arguments)
+        }
+    })
+
     // jQuery.getJSON(url, function(data) {
     //     console.log(data)
     //     //alert("Symbol:" + data.symbol + ", Price:" + data.price);
     // });
     
 
-    $.ajax({
-        async: false, // 同步加载数据,即等到ajax执行完毕再接着执行下面的语句
-        url: 'http://192.168.1.114/yii/demos/test.php',
-        type: 'GET', // jsonp模式只有GET是合法的
-        data: {
-            'action': 'aaron'
-        }, // 预传参的数组
-        dataType: 'jsonp', // 数据类型
-        jsonp: 'backfunc', // 指定回调函数名，与服务器端接收的一致，并回传回来
-        success: function(json) {
-            console.log(json);
-        }
-    })
+    // $.ajax({
+    //     async: false, // 同步加载数据,即等到ajax执行完毕再接着执行下面的语句
+    //     // url: 'http://192.168.1.114/yii/demos/test.php',
+    //     url:'test.php',
+    //     type: 'GET', // jsonp模式只有GET是合法的
+    //     data: {
+    //         'action': 'aaron'
+    //     }, // 预传参的数组
+    //     dataType: 'jsonp', // 数据类型
+    //     jsonp: 'backfunc', // 指定回调函数名，与服务器端接收的一致，并回传回来
+    //     success: function(json) {
+    //         console.log(json);
+    //     }
+    // })
     
 
     // $.ajax({
