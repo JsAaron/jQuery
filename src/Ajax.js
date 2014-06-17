@@ -468,39 +468,59 @@ jQuery.extend({
             strAbort = "canceled",
             // Fake xhr
             jqXHR = {
+
+                // 准备状态
                 readyState: 0,
 
                 // Builds headers hashtable if needed
+                // 如果需要，创建一个响应头参数的表
                 getResponseHeader: function(key) {
                     var match;
+                    // 如果状态为2，状态2表示ajax完成
                     if (state === 2) {
+                        // 如果没有相应头
                         if (!responseHeaders) {
+                            // 相应头设空
                             responseHeaders = {};
+                            // 组装相应头
                             while ((match = rheaders.exec(responseHeadersString))) {
                                 responseHeaders[match[1].toLowerCase()] = match[2];
                             }
                         }
+                        // 响应头对应的key的值
                         match = responseHeaders[key.toLowerCase()];
                     }
                     return match == null ? null : match;
                 },
 
                 // Raw string
+                // 返回响应头字符串
                 getAllResponseHeaders: function() {
+                    // 看看是否接收到了，接收到直接返回，否则为null
                     return state === 2 ? responseHeadersString : null;
                 },
 
                 // Caches the header
+                // 设置请求头
                 setRequestHeader: function(name, value) {
                     var lname = name.toLowerCase();
                     if (!state) {
+                        // 如果requestHeadersNames[ lname ]不为空，
+                        // 则requestHeadersNames[ lname ]不变，name设置为该值
+                        // 否则，requestHeadersNames[ lname ]不空，
+                        // 则requestHeadersNames[ lname ]设置为name，
+                        // 该映射关系用于避免用户大小写书写错误之类的问题，容错处理
                         name = requestHeadersNames[lname] = requestHeadersNames[lname] || name;
+
+                        //现在的name是对的，或者是第一次设置这个name，不需要容错
+                        //设置请求头对应值
                         requestHeaders[name] = value;
                     }
                     return this;
                 },
 
                 // Overrides response content-type header
+                // 重写相应头content-type
                 overrideMimeType: function(type) {
                     if (!state) {
                         s.mimeType = type;
@@ -509,20 +529,24 @@ jQuery.extend({
                 },
 
                 // Status-dependent callbacks
+                // 对应状态的回调函数集
                 statusCode: function(map) {
                     var code;
                     if (map) {
+                        //如果状态小于2，表示旧的回调可能还没有用到
                         if (state < 2) {
                             for (code in map) {
                                 // Lazy-add the new callback in a way that preserves old ones
+                                //  用类似链表的方式添加，以保证旧的回调依然存在
                                 statusCode[code] = [statusCode[code], map[code]];
                             }
                         } else {
                             // Execute the appropriate callbacks
+                            // 无论Deferred成功还是失败都执行当前状态回调
                             jqXHR.always(map[jqXHR.status]);
                         }
                     }
-                    return this;
+                    return thisd
                 },
 
                 // Cancel the request
