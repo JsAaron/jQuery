@@ -29,7 +29,7 @@ $(function() {
         url: 'test.php',
         dataType:'json',
         complete: function(data) {
-            console.log(data.responseText,arguments)
+            console.log(arguments)
         }
     })
 

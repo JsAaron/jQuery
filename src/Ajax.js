@@ -624,8 +624,10 @@ jQuery.extend({
         fireGlobals = s.global;
 
         // Watch for a new set of requests
+        // 如果需要，而且全局事件没有被触发过
         // 触发监听的ajaxStart监听
         if (fireGlobals && jQuery.active++ === 0) {
+             // 则通过jQuery.event.trigger模拟触发
             jQuery.event.trigger("ajaxStart");
         }
 
@@ -739,6 +741,7 @@ jQuery.extend({
 
             /**
              * 全局事件ajaxSend
+             * 如果需要，对特定对象触发全局事件ajaxSend
              */
             if (fireGlobals) {
                 globalEventContext.trigger("ajaxSend", [jqXHR, s]);
@@ -930,6 +933,7 @@ function ajaxHandleResponses(s, jqXHR, responses) {
         dataTypes = s.dataTypes;
 
     // Remove auto dataType and get content-type in the process
+    // 删除掉通配dataType，得到返回的Content-Type
     while (dataTypes[0] === "*") {
         dataTypes.shift();
         if (ct === undefined) {
@@ -938,7 +942,9 @@ function ajaxHandleResponses(s, jqXHR, responses) {
     }
 
     // Check if we're dealing with a known content-type
+    // 看看是不是我们能处理的Content-Type，比如图片这类二进制类型就不好处理了
     if (ct) {
+        // 实际上能处理的就是text、xml和json
         for (type in contents) {
             if (contents[type] && contents[type].test(ct)) {
                 dataTypes.unshift(type);
@@ -948,30 +954,40 @@ function ajaxHandleResponses(s, jqXHR, responses) {
     }
 
     // Check to see if we have a response for the expected dataType
+    // 如果dataTypes是我们想要的，也就是text、xml、json
     if (dataTypes[0] in responses) {
         finalDataType = dataTypes[0];
     } else {
         // Try convertible dataTypes
+        // 尝试转换成我们要的dataType
         for (type in responses) {
+            // 如果dataTypes[ 0 ]不存在，则直接用type作为最终dataType
+            // 否则，看看能不能转换，能的话就用type作为最终dataType
             if (!dataTypes[0] || s.converters[type + " " + dataTypes[0]]) {
                 finalDataType = type;
                 break;
             }
+            // 保存第一个type
             if (!firstDataType) {
                 firstDataType = type;
             }
         }
         // Or just use first one
+        // 用最终dataType或者用第一个type
         finalDataType = finalDataType || firstDataType;
     }
 
     // If we found a dataType
     // We add the dataType to the list if needed
     // and return the corresponding response
+    //  如果有最终dataType
     if (finalDataType) {
+        //如果最终dataType不是dataTypes[ 0 ]
         if (finalDataType !== dataTypes[0]) {
+            // 将finalDataType推入dataTypes队列里
             dataTypes.unshift(finalDataType);
         }
+        // 返回responses对应的finalDataType数据
         return responses[finalDataType];
     }
 }
