@@ -546,7 +546,7 @@ jQuery.extend({
                             jqXHR.always(map[jqXHR.status]);
                         }
                     }
-                    return thisd
+                    return this
                 },
 
                 // Cancel the request
@@ -999,10 +999,12 @@ function ajaxConvert(s, response, jqXHR, isSuccess) {
     var conv2, current, conv, tmp, prev,
         converters = {},
         // Work with a copy of dataTypes in case we need to modify it for conversion
+        // 使用数据类型的副本,以防我们需要修改转换
         dataTypes = s.dataTypes.slice();
 
     // Create converters map with lowercased keys
     // 用小写的键创建转换器map
+    // 将s.converters复制到converters
     if (dataTypes[1]) {
         for (conv in s.converters) {
             converters[conv.toLowerCase()] = s.converters[conv];
@@ -1014,6 +1016,8 @@ function ajaxConvert(s, response, jqXHR, isSuccess) {
     // Convert to each sequential dataType
     while (current) {
 
+        //替换真实的值
+        //jqXHR.responseText: "{"a":1,"b":2,"c":3,"d":4,"e":5}"
         if (s.responseFields[current]) {
             jqXHR[s.responseFields[current]] = response;
         }
@@ -1029,17 +1033,30 @@ function ajaxConvert(s, response, jqXHR, isSuccess) {
         if (current) {
 
             // There's only work to do if current dataType is non-auto
+            // 如果碰到了*号,即一个任意类型,而转换为任意类型*没有意义
             if (current === "*") {
 
                 current = prev;
 
                 // Convert response if prev dataType is non-auto and differs from current
+                // 转化的重点
+                // 如果不是任意的类型，并且找到了一个不同的类型
             } else if (prev !== "*" && prev !== current) {
 
                 // Seek a direct converter
+                // 组成映射格式,匹配转化器
+                // * text: function String() { [native code] }
+                // script json: function () {
+                // text html: true
+                // text json: function parse() { [native code] }
+                // text script: function (text) {
+                // text xml: function (data) {
+                // 
                 conv = converters[prev + " " + current] || converters["* " + current];
 
                 // If none found, seek a pair
+                // 假如找不到转化器
+                // jsonp是有浏览器执行的呢,还是要调用globalEval
                 if (!conv) {
                     for (conv2 in converters) {
 
@@ -1067,6 +1084,7 @@ function ajaxConvert(s, response, jqXHR, isSuccess) {
                 }
 
                 // Apply converter (if not an equivalence)
+                // 如果有对应的处理句柄，执行转化
                 if (conv !== true) {
 
                     // Unless errors are allowed to bubble, catch and return them
@@ -1074,6 +1092,7 @@ function ajaxConvert(s, response, jqXHR, isSuccess) {
                         response = conv(response);
                     } else {
                         try {
+                            //执行对应的处理句柄,传入服务器返回的数据
                             response = conv(response);
                         } catch (e) {
                             return {
@@ -1251,7 +1270,6 @@ jQuery.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR) {
                 // save the callback name for future use
                 oldCallbacks.push(callbackName);
             }
-
             // Call if it was a function and we have a response
             if (responseContainer && jQuery.isFunction(overwritten)) {
                 overwritten(responseContainer[0]);
