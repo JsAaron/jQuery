@@ -1,11 +1,5 @@
 /**
- *
- *
- *
- *      动画
- *
- *
- *
+ * 动画部分
  */
 var fxNow, timerId,
     rfxtypes = /^(?:toggle|show|hide)$/,

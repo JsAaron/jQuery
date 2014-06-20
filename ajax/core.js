@@ -38,11 +38,24 @@ $(function() {
     //     //alert("Symbol:" + data.symbol + ", Price:" + data.price);
     // });
     
+var x = 1;
+if (function(){}) { 
+  x += typeof f; 
+} 
+x; 
+
+
+    
+    $(document).ajaxStart(function() {
+        console.log(arguments)
+    }).ajaxComplete(function() {
+        $(".log").text("Triggered ajaxComplete handler.");
+    });
 
     $.ajax({
         async: false, // 同步加载数据,即等到ajax执行完毕再接着执行下面的语句
-        url: 'http://192.168.1.114/yii/demos/test.php',
-        // url:'test.php',
+        // url: 'http://192.168.1.114/yii/demos/test.php',
+        url:'test.php',
         type: 'GET', // jsonp模式只有GET是合法的
         data: {
             'action': 'aaron'
@@ -72,12 +85,14 @@ $(function() {
     
 
 
-    // //全局事件触发
+    //全局事件触发
     // $(document).ajaxStart(function() {
     //     console.log(arguments)
     // }).ajaxComplete(function() {
     //     $(".log").text("Triggered ajaxComplete handler.");
     // });
+
+
 
 
     // $(".trigger").click(function() {
