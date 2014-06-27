@@ -69,10 +69,12 @@ jQuery.extend({
     }
 });
 
+//内部动画队列
 jQuery.fn.extend({
     queue: function(type, data) {
         var setter = 2;
-
+        //修正type, 默认为表示jquery动画的fx, 如果不为"fx", 
+        //即为自己的自定义动画, 一般我们用"fx"就足够了.  
         if (typeof type !== "string") {
             data = type;
             type = "fx";

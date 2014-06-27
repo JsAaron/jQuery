@@ -1,34 +1,31 @@
 $(function() {
 
 
+// var body = $('body');
+// function cb1(next,hoost) {
+//     console.log(11111)
+//     next()  //执行了cb2 //22222
+// }
 
-var body = $('body');
-function cb1(next,hoost) {
-    console.log(11111)
-    next()  //执行了cb2 //22222
-}
+// function cb2() {
+//     console.log(22222)
+// }
 
-function cb2() {
-    console.log(22222)
-}
+// //set
+// $.queue(body, 'aa', cb1); // 第三个参数为function
+// $.queue(body, 'aa', cb2); 
 
-//set
-$.queue(body, 'aa', cb1); // 第三个参数为function
-$.queue(body, 'aa', cb2); 
-
-$.dequeue(body, 'aa')  
-
+// $.dequeue(body, 'aa')  
 
 
 
-return
     var div = $("div");
 
     function runIt() {
 
 
         div.show(1000);
-        // div.slideToggle(1000);
+        div.slideToggle(1000);
         // div.slideToggle("fast");
 
         return

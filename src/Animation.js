@@ -117,16 +117,16 @@ function Animation(elem, properties, options) {
             }
         },
         animation = deferred.promise({
-            elem: elem,
-            props: jQuery.extend({}, properties),
-            opts: jQuery.extend(true, {
-                specialEasing: {}
+            elem               : elem,
+            props              : jQuery.extend({}, properties),
+            opts               : jQuery.extend(true, {
+            specialEasing      : {}
             }, options),
-            originalProperties: properties,
-            originalOptions: options,
-            startTime: fxNow || createFxNow(),
-            duration: options.duration,
-            tweens: [],
+            originalProperties : properties,
+            originalOptions    : options,
+            startTime          : fxNow || createFxNow(),
+            duration           : options.duration,
+            tweens             : [],
             createTween: function(prop, end) {
                 var tween = jQuery.Tween(elem, animation.opts, prop, end,
                     animation.opts.specialEasing[prop] || animation.opts.easing);
@@ -175,9 +175,9 @@ function Animation(elem, properties, options) {
 
     jQuery.fx.timer(
         jQuery.extend(tick, {
-            elem: elem,
-            anim: animation,
-            queue: animation.opts.queue
+            elem  : elem,
+            anim  : animation,
+            queue : animation.opts.queue
         })
     );
 
@@ -187,6 +187,7 @@ function Animation(elem, properties, options) {
         .fail(animation.opts.fail)
         .always(animation.opts.always);
 }
+
 
 function propFilter(props, specialEasing) {
     var index, name, easing, value, hooks;
@@ -483,10 +484,8 @@ jQuery.each(["toggle", "show", "hide"], function(i, name) {
 
 jQuery.fn.extend({
     fadeTo: function(speed, to, easing, callback) {
-
         // show any hidden elements after setting opacity to 0
         return this.filter(isHidden).css("opacity", 0).show()
-
         // animate to the value specified
         .end().animate({
             opacity: to
@@ -498,14 +497,12 @@ jQuery.fn.extend({
             doAnimation = function() {
                 // Operate on a copy of prop so per-property easing won't be lost
                 var anim = Animation(this, jQuery.extend({}, prop), optall);
-
                 // Empty animations, or finishing resolves immediately
                 if (empty || data_priv.get(this, "finish")) {
                     anim.stop(true);
                 }
             };
         doAnimation.finish = doAnimation;
-
         return empty || optall.queue === false ?
             this.each(doAnimation) :
             this.queue(optall.queue, doAnimation);
