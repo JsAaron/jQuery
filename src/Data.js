@@ -24,9 +24,11 @@
             }
         });
 
+        //dom与data映射的uuid
         this.expando = jQuery.expando + Math.random();
     }
 
+    //每次自增变量
     Data.uid = 1;
 
     Data.accepts = function(owner) {
@@ -45,25 +47,27 @@
             // We can accept data for non-element nodes in modern browsers,
             // but we should not, see #8335.
             // Always return the key for a frozen object.
+            // 只能保证是DOM节点才可以
             if (!Data.accepts(owner)) {
                 return 0;
             }
 
             var descriptor = {},
                 // Check if the owner object already has a cache key
+                // 看看node对象有没有这个UUID映射
                 unlock = owner[this.expando];
 
             // If not, create one
+            // 如果没有，就创建它
             if (!unlock) {
                 unlock = Data.uid++;
-
                 // Secure it in a non-enumerable, non-writable property
+                // 为了安全起见，这个值通过es5设置，保证不能遍历，不能改写
                 try {
                     descriptor[this.expando] = {
                         value: unlock
                     };
                     Object.defineProperties(owner, descriptor);
-
                     // Support: Android < 4
                     // Fallback to a less secure definition
                 } catch (e) {
@@ -73,6 +77,7 @@
             }
 
             // Ensure the cache object
+            // 确保缓存中有个对象容器
             if (!this.cache[unlock]) {
                 this.cache[unlock] = {};
             }
@@ -199,8 +204,13 @@
         }
     };
 
-    // These may be used throughout the jQuery core codebase
+    //These may be used throughout the jQuery core codebase
+    //存数据的
+    //用户使用
     data_user = new Data();
+    //存储对象
+    //jQuery内部私有
+    //用来存事件的, 如click事件那种
     data_priv = new Data();
 
 

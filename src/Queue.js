@@ -9,7 +9,9 @@ jQuery.extend({
     queue: function(elem, type, data) {
         var queue;
         if (elem) {
+            //默认处理动画队列
             type = (type || "fx") + "queue";
+            //取出关联到现有元素上的所有队列
             queue = data_priv.get(elem, type);
             // Speed up dequeue by getting out quickly if this is just a lookup
             if (data) {
@@ -81,6 +83,11 @@ jQuery.fn.extend({
             setter--;
         }
 
+        //只有动画的回调
+        // div.slideToggle(1000);
+        // div.slideToggle("fast");
+        // div.animate({left:'-=200'},1500);
+        // div.queue('fx')
         if (arguments.length < setter) {
             return jQuery.queue(this[0], type);
         }
@@ -88,6 +95,9 @@ jQuery.fn.extend({
         return data === undefined ?
             this :
             this.each(function() {
+                //调用基础队列
+                //设置动画队列缓存
+                //并返回队列总数
                 var queue = jQuery.queue(this, type, data);
 
                 // ensure a hooks for this queue
