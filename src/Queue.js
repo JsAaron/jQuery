@@ -6,6 +6,8 @@
  */
 
 jQuery.extend({
+
+    //加入动画队列
     queue: function(elem, type, data) {
         var queue;
         if (elem) {
@@ -23,8 +25,9 @@ jQuery.extend({
             }
             return queue || [];
         }
-    },
+    },  
 
+    //执行动画队列
     dequeue: function(elem, type) {
         type = type || "fx";
 
@@ -43,15 +46,17 @@ jQuery.extend({
         }
 
         if (fn) {
-
             // Add a progress sentinel to prevent the fx queue from being
             // automatically dequeued
+            // 函数执行前, 在queue数组的最前面添加一个进程锁，就实在之前清除的  
             if (type === "fx") {
                 queue.unshift("inprogress");
             }
 
             // clear up the last queue stop function
             delete hooks.stop;
+
+            //执行动画回调
             fn.call(elem, next, hooks);
         }
 
@@ -103,7 +108,10 @@ jQuery.fn.extend({
                 // ensure a hooks for this queue
                 jQuery._queueHooks(this, type);
 
+                //直接执行动画队列
+                //防止在执行函数的时候, 这里又进行dequeue操作, 这样会同时执行2个函数, 队列就不受控制了.  
                 if (type === "fx" && queue[0] !== "inprogress") {
+                    //如果队列没有被锁住, 即此时没有在执行dequeue. 移出队列里第一个函数并执行它.  
                     jQuery.dequeue(this, type);
                 }
             });
