@@ -24,8 +24,8 @@ $(function() {
 
 
         div.show(1000);
-        div.hide(1000);
-        div.show(1000);
+        div.hide(2000);
+        div.show(3000);
         // div.slideToggle("fast");
 
         return

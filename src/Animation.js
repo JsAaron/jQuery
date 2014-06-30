@@ -503,6 +503,7 @@ jQuery.fn.extend({
                 }
             };
         doAnimation.finish = doAnimation;
+        doAnimation.Aaron = speed
         return empty || optall.queue === false ?
             this.each(doAnimation) :
             this.queue(optall.queue, doAnimation);
