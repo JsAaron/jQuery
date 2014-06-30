@@ -8,6 +8,7 @@
 jQuery.extend({
 
     //加入动画队列
+    //将data按照某种类型存储到elem对应的队列中，并等待执行。同时返回目前队列中的所有数据
     queue: function(elem, type, data) {
         var queue;
         if (elem) {
@@ -17,6 +18,7 @@ jQuery.extend({
             queue = data_priv.get(elem, type);
             // Speed up dequeue by getting out quickly if this is just a lookup
             if (data) {
+                //如果elem还没有在cache中存储过名为type的数据，或者需要存储的数据时数组
                 if (!queue || jQuery.isArray(data)) {
                     queue = data_priv.access(elem, type, jQuery.makeArray(data));
                 } else {
@@ -28,18 +30,26 @@ jQuery.extend({
     },  
 
     //执行动画队列
+    //出列操作，如果想要执行队列中的所有方法，则有多少个方法就需要执行多少次dequeue方法
     dequeue: function(elem, type) {
+
+        //如果指定类型就按照指定类型查找，否则默认是“fx”
         type = type || "fx";
 
         var queue = jQuery.queue(elem, type),
             startLength = queue.length,
+            //取出队列（数组）中的第一个值（先进先出），
+            //第一个数据是上一次执行dequeue时添加到队列中的“inprogress”占位符
             fn = queue.shift(),
             hooks = jQuery._queueHooks(elem, type),
+            //预先准备好下一个队列操作
             next = function() {
                 jQuery.dequeue(elem, type);
             };
 
         // If the fx queue is dequeued, always remove the progress sentinel
+        // 当进行出栈操作时，总是删除名为“inprogress”的数据，并继续取下一条。
+        // 队列中也存在占位符，用于动画处理
         if (fn === "inprogress") {
             fn = queue.shift();
             startLength--;
@@ -66,6 +76,7 @@ jQuery.extend({
     },
 
     // not intended for public consumption - generates a queueHooks object, or returns the current one
+    // 从elem相应类型对应的队列中下一条数据并执行这条数据
     _queueHooks: function(elem, type) {
         var key = type + "queueHooks";
         return data_priv.get(elem, key) || data_priv.access(elem, key, {
