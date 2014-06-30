@@ -18,14 +18,14 @@ $(function() {
 // $.dequeue(body, 'aa')  
 
 
-
     var div = $("div");
 
     function runIt() {
 
 
         div.show(1000);
-        div.slideToggle(1000);
+        div.hide(1000);
+        div.show(1000);
         // div.slideToggle("fast");
 
         return

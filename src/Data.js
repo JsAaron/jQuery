@@ -89,13 +89,15 @@
                 // There may be an unlock assigned to this node,
                 // if there is no entry for this "owner", create one inline
                 // and set the unlock as though an owner entry had always existed
+                // 可能是一个解锁后分配给这个节点
+                // 统一创建
                 unlock = this.key(owner),
                 cache = this.cache[unlock];
 
+            // 根据传递的参数类型,保存到cache上
             // Handle: [ owner, key, value ] args
             if (typeof data === "string") {
                 cache[data] = value;
-
                 // Handle: [ owner, { properties } ] args
             } else {
                 // Fresh assignments by object are shallow copied
@@ -103,6 +105,7 @@
                     jQuery.extend(this.cache[unlock], data);
                     // Otherwise, copy the properties one-by-one to the cache object
                 } else {
+                    //分解对象
                     for (prop in data) {
                         cache[prop] = data[prop];
                     }
@@ -115,11 +118,18 @@
             // New caches will be created and the unlock returned,
             // allowing direct access to the newly created
             // empty data object. A valid owner object must be provided.
+            // 取出所有的缓存
             var cache = this.cache[this.key(owner)];
 
+            //根据key找到对应的数据
             return key === undefined ?
                 cache : cache[key];
         },
+
+        /**
+         * 存储器
+         * 可以set 与 get处理
+         */
         access: function(owner, key, value) {
             var stored;
             // In cases where either:

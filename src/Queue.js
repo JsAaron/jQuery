@@ -108,6 +108,13 @@ jQuery.fn.extend({
             return jQuery.queue(this[0], type);
         }
 
+        //生成的动画数据
+        //动画队列
+        //动画钩子
+        //  cache[uuid] = {
+        //     fxqueue: Array[1],
+        //     fxqueueHooks: Object
+        // }
         return data === undefined ?
             this :
             this.each(function() {
@@ -117,10 +124,12 @@ jQuery.fn.extend({
                 var queue = jQuery.queue(this, type, data);
 
                 // ensure a hooks for this queue
+                // 确保是一个队列钩子
                 jQuery._queueHooks(this, type);
 
                 //直接执行动画队列
-                //防止在执行函数的时候, 这里又进行dequeue操作, 这样会同时执行2个函数, 队列就不受控制了.  
+                //防止在执行函数的时候, 这里又进行dequeue操作, 这样会同时执行2个函数, 队列就不受控制了.
+                //其实就是通过inprogress这个参数。判断从什么时候开始真正执行动画
                 if (type === "fx" && queue[0] !== "inprogress") {
                     //如果队列没有被锁住, 即此时没有在执行dequeue. 移出队列里第一个函数并执行它.  
                     jQuery.dequeue(this, type);
