@@ -81,6 +81,9 @@
 		whitespace = "[\\x20\\t\\r\\n\\f]",
 
 		// 类选择器与标签选择器的正则 http://www.w3.org/TR/css3-syntax/#characters
+		// 
+		// 	/^#((?:\\.|[\w-] | [^\x00-\xa0] ) +)/
+		// 
 		characterEncoding = "(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",
 
 		//ID选择器与标签选择器的正则，HTML5将ID的规则放宽，允许ID可以是纯数字

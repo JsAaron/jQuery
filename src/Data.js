@@ -9,6 +9,7 @@
     4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
     5. Avoid exposing implementation details on user objects (eg. expando properties)
     6. Provide a clear path for implementation upgrade to WeakMap in 2014
+
 */
     var data_user, data_priv,
         rbrace = /(?:\{[\s\S]*\}|\[[\s\S]*\])$/,
@@ -31,6 +32,14 @@
     //每次自增变量
     Data.uid = 1;
 
+    /**
+     * 只能接受
+     * 元素节点
+     * 文档节点
+     * 任何对象
+     * @param  {[type]} owner [description]
+     * @return {[type]}       [description]
+     */
     Data.accepts = function(owner) {
         // Accepts only:
         //  - Node
@@ -48,6 +57,9 @@
             // but we should not, see #8335.
             // Always return the key for a frozen object.
             // 只能保证是DOM节点才可以
+            //  
+            //  以前的版本用的 逆天的 valueOf重写保存变量，但是太吃内存了
+            //  
             if (!Data.accepts(owner)) {
                 return 0;
             }
@@ -225,8 +237,14 @@
 
 
     jQuery.extend({
+
         acceptData: Data.accepts,
 
+        /**
+         * 是否有数据
+         * @param  {[type]} elem [description]
+         * @return {[type]}      [description]
+         */
         hasData: function(elem) {
             return data_user.hasData(elem) || data_priv.hasData(elem);
         },
@@ -348,7 +366,16 @@
             });
         }
     });
+    
 
+    /**
+     * 处理HTML5的data-*属性
+     * 逻辑结构更为清晰
+     * @param  {[type]} elem [description]
+     * @param  {[type]} key  [description]
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
     function dataAttr(elem, key, data) {
         var name;
 

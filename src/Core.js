@@ -351,6 +351,8 @@
 
     jQuery.extend({
         // Unique for each copy of jQuery on the page
+        // 版本号+随机数
+        // 因为可能一个页面引入多个版本的jQueryx
         expando: "jQuery" + (core_version + Math.random()).replace(/\D/g, ""),
 
         noConflict: function(deep) {
