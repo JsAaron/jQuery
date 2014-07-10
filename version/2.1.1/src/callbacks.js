@@ -95,6 +95,7 @@ jQuery.Callbacks = function( options ) {
 				if ( list ) {
 					// First, we save the current length
 					var start = list.length;
+
 					(function add( args ) {
 						jQuery.each( args, function( _, arg ) {
 							var type = jQuery.type( arg );
@@ -108,6 +109,7 @@ jQuery.Callbacks = function( options ) {
 							}
 						});
 					})( arguments );
+					
 					// Do we need to add the callbacks to the
 					// current firing batch?
 					if ( firing ) {
