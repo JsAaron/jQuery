@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>多重选择器</title>
+
+	 <!-- // <script src="jquery-1.11.1.js"></script> -->
+	 <script src="../src/core.js"></script>
+	 <script src="../src/sizzle.js"></script>
+	 <script src="../src/other.js"></script>
+	<style type="text/css">
+		  div, span, p {
+		    width: 126px;
+		    height: 60px;
+		    float: left;
+		    padding: 3px;
+		    margin: 2px;
+		    background-color: #eee;
+		    font-size: 14px;
+		  }
+	</style>
+</head>
+<body>
+
+<div>div</div>
+<p class="myClass">p class="myClass"</p>
+<p class="notMyClass">p class="notMyClass"</p>
+<span>span</span>
+
+
+<input name="man-news">
+<input name="milkman">
+<input name="letterman2">
+<input name="newmilk">
+
+
+<table>
+  <tr><td>Row 1</td></tr>
+  <tr><td>Row 2</td></tr>
+  <tr><td>Row 3</td></tr>
+</table>
+
+<script type="text/javascript">
+
+		//多重选择器
+		console.log(
+				//$( "div, span, p.myClass" ).css( "border", "3px solid red" )
+				//$( "ul" ).css( "border", "3px double red" )
+				// $( "input[name*='man']" ).val( "has man in it!" )
+				$( "tr:first" ).css( "font-style", "italic" )
+			)
+
+		//选择类为topnav的ul元素下的 第一级的li元素
+		//$("ul.topnav > li").css("border", "3px double red")
+
+
+
+
+</script>
+
+</body>
+</html>
