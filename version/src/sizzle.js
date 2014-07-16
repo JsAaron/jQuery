@@ -213,7 +213,7 @@ function Sizzle( selector, context, results, seed ) {
 	}
 
 
-	return select( selector.replace( rtrim, "$1" ), context, results, seed );
+	// return select( selector.replace( rtrim, "$1" ), context, results, seed );
 
 
 	if ( documentIsHTML && !seed ) {

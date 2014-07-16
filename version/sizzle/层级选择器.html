@@ -16,25 +16,70 @@
 </head>
 <body>
 
-<ul class="topnav">
-  <li>Item 1</li>
-  <li>Item 2
-    <ul><li class="aaron">Nested item 1</li><li>Nested item 2</li><li>Nested item 3</li></ul>
-  </li>
-  <li>Item 3</li>
-</ul>
 
+
+
+<div class= "aaron">
+     <p><span>内容</span></p>
+     <div class="text">452</div>
+</div>
+
+
+
+<span id="foo:bar"></span>
+<span id="foo[bar]"></span>
+<span id="foo.bar"></span>
+
+
+<div id = "test">
+	<select msallowclip=''><option selected=''></option></select>
+</div>
 
 <script type="text/javascript">
 
-		//多重选择器
-		console.log(
+	var test = $("#test");
+	console.log(
 
-			$(".topnav","li").css("border", "3px double red")
-			)
+		test.find("[msallowclip^='']")
+		)
+
+	// var aaElement   = document.querySelector('.aaron');
+	// var element     = aaElement.querySelectorAll('.aaron span');
+
+	// console.log(element);  // <span>Test</span>
+
+	    
+ // //     
+		// var  aa = $(".aaron")
+	 //    console.log(aa.find("div[class='text']"))
+
+		// var span, selector = 'div span',
+		// 	context = document.querySelector('#Aaron');
+
+		// var oldContext = context,
+		// 	oldId = context.getAttribute('id'),
+		// 	newId = oldId || '__sizzle__';
+		// try {
+		// 	span = context.querySelectorAll('#' + newId + ' ' + selector);
+		// } catch (e) {
+
+		// } finally {
+		// 	if (!oldId) {
+		// 		console.log(oldContext)
+		// 		//oldContext.removeAttribute('id');
+		// 	}
+		// }
+
+		// console.log('#' + newId + ' ' + selector)
+
+	// var d1 = document.querySelector('#Aaron')
+	// 	console.log(
+	// 		d1,
+	// 		d1.querySelectorAll("div span")
+	// 	)
 
 		//选择类为topnav的ul元素下的 第一级的li元素
-		//$("ul.topnav > li").css("border", "3px double red")
+	//	$("div span")
 
 
 
