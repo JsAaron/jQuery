@@ -5,9 +5,9 @@
 	<title>层级选择器</title>
 
 	 <!-- // <script src="jquery-1.11.1.js"></script> -->
-	 <script src="../src/core.js"></script>
-	 <script src="../src/sizzle.js"></script>
-	 <script src="../src/other.js"></script>
+<!-- 	 // <script src="../src/core.js"></script>
+	 // <script src="../src/sizzle.js"></script>
+	 // <script src="../src/other.js"></script> -->
 	<style type="text/css">
 		ul.topnav > li{
 			border: 1px solid
@@ -18,29 +18,29 @@
 
 
 
-<div>
-  <p>Hello!</p>
-</div>
-<div id="test2"></div>
+<div id="test">
+        <div class="dialog">
+            <p>123</p>
+            <span>456</span>
+            <div>789</div>
+            <div class="text"> 452</div>
+        </div>
+  </div>
 
+<span id="foo:bar"></span>
+<span id="foo[bar]"></span>
+<span id="foo.bar"></span>
 
 <script type="text/javascript">
+			
+		window.onload = function(){
+			alert(123)
+		}
+	
+	//	var d1 = document.getElementById('test')
+	alert(2)
 
-	console.log(
-
-		$("div[id]")
-
-	)
-
-	// var aaElement   = document.querySelector('.aaron');
-	// var element     = aaElement.querySelectorAll('.aaron span');
-
-	// console.log(element);  // <span>Test</span>
-
-	    
- // //     
-		// var  aa = $(".aaron")
-	 //    console.log(aa.find("div[class='text']"))
+	//	alert(d1.querySelectorAll("div[class=text]"))
 
 		// var span, selector = 'div span',
 		// 	context = document.querySelector('#Aaron');

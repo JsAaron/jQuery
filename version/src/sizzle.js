@@ -213,7 +213,7 @@ function Sizzle( selector, context, results, seed ) {
 	}
 
 
-	// return select( selector.replace( rtrim, "$1" ), context, results, seed );
+	return select( selector.replace( rtrim, "$1" ), context, results, seed );
 
 
 	if ( documentIsHTML && !seed ) {
@@ -1735,9 +1735,11 @@ function matcherFromTokens( tokens ) {
 		matchContext = addCombinator( function( elem ) {
 			return elem === checkContext;
 		}, implicitRelative, true ),
+
 		matchAnyContext = addCombinator( function( elem ) {
 			return indexOf.call( checkContext, elem ) > -1;
 		}, implicitRelative, true ),
+
 		matchers = [ function( elem, context, xml ) {
 			return ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
 				(checkContext = context).nodeType ?
@@ -1745,10 +1747,14 @@ function matcherFromTokens( tokens ) {
 					matchAnyContext( elem, context, xml ) );
 		} ];
 
+
 	for ( ; i < len; i++ ) {
+		//关系选择器处理
 		if ( (matcher = Expr.relative[ tokens[i].type ]) ) {
 			matchers = [ addCombinator(elementMatcher( matchers ), matcher) ];
 		} else {
+
+			//过滤  ATTR CHILD CLASS ID PSEUDO TAG
 			matcher = Expr.filter[ tokens[i].type ].apply( null, tokens[i].matches );
 
 			// Return special upon seeing a positional matcher
@@ -1776,12 +1782,14 @@ function matcherFromTokens( tokens ) {
 		}
 	}
 
+	//如果有多个matchers匹配闭包函数，则用elementMatcher方法去遍历
 	return elementMatcher( matchers );
 }
 
 function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 	var bySet = setMatchers.length > 0,
 		byElement = elementMatchers.length > 0,
+		
 		superMatcher = function( seed, context, xml, results, outermost ) {
 			var elem, j, matcher,
 				matchedCount = 0,
@@ -1878,6 +1886,8 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 		superMatcher;
 }
 
+//编译函数机制
+//内部使用
 compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 	var i,
 		setMatchers = [],
@@ -1891,6 +1901,10 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		}
 		i = match.length;
 		while ( i-- ) {
+			/**
+			 * match被分解了一部分,TAG,CLASS,ID,剩余的部分通过matcherFromTokens编译成闭包函数
+			 * @type {[type]}
+			 */
 			cached = matcherFromTokens( match[i] );
 			if ( cached[ expando ] ) {
 				setMatchers.push( cached );
@@ -1928,6 +1942,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 	if ( match.length === 1 ) {
 
 		// Take a shortcut and set the context if the root selector is an ID
+		// 如果第一个是selector是id我们可以设置context快速查找
 		tokens = match[0] = match[0].slice( 0 );
 		if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
 				support.getById && context.nodeType === 9 && documentIsHTML &&
@@ -1946,29 +1961,43 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 		}
 
 		// Fetch a seed set for right-to-left matching
+		// 取出种子从右往左匹配
 		i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
+
 		while ( i-- ) {
 			token = tokens[i];
 
 			// Abort if we hit a combinator
+			// 如果遇到了关系选择器中止
+			//
+			//  > + ~ 空
+			//
 			if ( Expr.relative[ (type = token.type) ] ) {
 				break;
 			}
+
+
+			//先看看有没有搜索器find，搜索器就是浏览器一些原生的取DOM接口，简单的表述就是以下对象了
+			// Expr.find = {
+			// 'ID'    : context.getElementById,
+			// 'CLASS' : context.getElementsByClassName,
+			// 'TAG'   : context.getElementsByTagName
+			//        }	
 			if ( (find = Expr.find[ type ]) ) {
 				// Search, expanding context for leading sibling combinators
 				if ( (seed = find(
 					token.matches[0].replace( runescape, funescape ),
 					rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
 				)) ) {
-
-					// If seed is empty or no tokens remain, we can return early
+					// 去掉已经匹配成功的
 					tokens.splice( i, 1 );
+					//重组选择器
 					selector = seed.length && toSelector( tokens );
+					//假如 种子集是空的 或者没有 tokens , 则提早返回
 					if ( !selector ) {
 						push.apply( results, seed );
 						return results;
 					}
-
 					break;
 				}
 			}
