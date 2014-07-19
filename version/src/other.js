@@ -4427,7 +4427,12 @@ boolHook = {
 		return name;
 	}
 };
+
+//"^(?:checked|selected|async|autofocus|autoplay|controls
+//|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped)$"
 jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) {
+
+	//保留之前的
 	var getter = attrHandle[ name ] || jQuery.find.attr;
 
 	attrHandle[ name ] = function( elem, name, isXML ) {
@@ -4435,7 +4440,7 @@ jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) 
 		if ( !isXML ) {
 			// Avoid an infinite loop by temporarily removing this function from the getter
 			handle = attrHandle[ name ];
-			attrHandle[ name ] = ret;
+			attrHandle[ name ] = ret; //去重判断,这种直接走getAttribute逻辑
 			ret = getter( elem, name, isXML ) != null ?
 				name.toLowerCase() :
 				null;

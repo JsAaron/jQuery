@@ -18,17 +18,18 @@
 
 
 
-<div>
-  <p>Hello!</p>
-</div>
-<div id="test2"></div>
+<form action="form_action.asp" method="get">
+  <p>First name: <input type="text" name="fname" /></p>
+  <p>Last name: <input type="text" name="lname" disabled="disabled" /></p>
+  <input type="submit" value="Submit" />
+</form>
 
 
 <script type="text/javascript">
-
+	
 	console.log(
 
-		$("div[id]")
+		$("input[disabled]")
 
 	)
 

@@ -1789,7 +1789,7 @@ function matcherFromTokens( tokens ) {
 function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 	var bySet = setMatchers.length > 0,
 		byElement = elementMatchers.length > 0,
-		
+
 		superMatcher = function( seed, context, xml, results, outermost ) {
 			var elem, j, matcher,
 				matchedCount = 0,
@@ -1914,6 +1914,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		}
 
 		// Cache the compiled function
+		// 是通过matcherFromGroupMatchers这个函数来生成最终的匹配器
 		cached = compilerCache( selector, matcherFromGroupMatchers( elementMatchers, setMatchers ) );
 
 		// Save selector and tokenization
@@ -2006,12 +2007,16 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 
 	// Compile and execute a filtering function if one is not provided
 	// Provide `match` to avoid retokenization if we modified the selector above
-	( compiled || compile( selector, match ) )(
+	var compileFunc = compiled || compile( selector, match );
+
+	var outermost = rsibling.test( selector ) && testContext( context.parentNode ) || context;
+
+	compileFunc(
 		seed,
 		context,
 		!documentIsHTML,
 		results,
-		rsibling.test( selector ) && testContext( context.parentNode ) || context
+		outermost
 	);
 	return results;
 };
