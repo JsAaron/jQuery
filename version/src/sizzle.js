@@ -1484,6 +1484,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 		matched = false;
 
 		// Combinators
+		// >, +, 空格, ~ 层级关系符
 		if ( (match = rcombinators.exec( soFar )) ) {
 			matched = match.shift();
 			tokens.push({
@@ -1541,6 +1542,7 @@ function addCombinator( matcher, combinator, base ) {
 
 	return combinator.first ?
 		// Check against closest ancestor/preceding element
+		// 检查最近的祖先/前元素  first
 		function( elem, context, xml ) {
 			while ( (elem = elem[ dir ]) ) {
 				if ( elem.nodeType === 1 || checkNonElements ) {
@@ -1550,6 +1552,7 @@ function addCombinator( matcher, combinator, base ) {
 		} :
 
 		// Check against all ancestor/preceding elements
+		//前检查所有祖先/元素
 		function( elem, context, xml ) {
 			var oldCache, outerCache,
 				newCache = [ dirruns, doneName ];
@@ -1748,8 +1751,11 @@ function matcherFromTokens( tokens ) {
 		} ];
 
 
+	//拿出挑出种子集的数据的tokens，在继续分解，从左往右
 	for ( ; i < len; i++ ) {
-		//关系选择器处理
+		//遇到关系选择器处理
+		//把之前的分解关系先用elementMatcher生成遍历分解matchers闭包
+		//然后用addCombinator制作一个调用闭包
 		if ( (matcher = Expr.relative[ tokens[i].type ]) ) {
 			matchers = [ addCombinator(elementMatcher( matchers ), matcher) ];
 		} else {
@@ -1900,6 +1906,8 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 			match = tokenize( selector );
 		}
 		i = match.length;
+
+		//分组处理
 		while ( i-- ) {
 			/**
 			 * match被分解了一部分,TAG,CLASS,ID,剩余的部分通过matcherFromTokens编译成闭包函数
@@ -1963,6 +1971,9 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 
 		// Fetch a seed set for right-to-left matching
 		// 取出种子从右往左匹配
+		// 去掉层级关系选择器的长度
+		// needsContext
+		// "form input" => lenght = 2
 		i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
 
 		while ( i-- ) {
@@ -1986,6 +1997,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 			//        }	
 			if ( (find = Expr.find[ type ]) ) {
 				// Search, expanding context for leading sibling combinators
+				// 刷选出第一次能找到的种子合集
 				if ( (seed = find(
 					token.matches[0].replace( runescape, funescape ),
 					rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
