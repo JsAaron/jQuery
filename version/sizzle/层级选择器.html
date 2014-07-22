@@ -17,16 +17,20 @@
 <body>
 
 
-<form>
+<form class="aaron">
   <label>Name:</label>
   <input name="name" />
   <fieldset>
       <label>Newsletter:</label>
       <div name="newsletter" /><p>1<p</div>
-      <div name="letter" /><p name='aaron'>2<p></div>
+      <div name="letter" />
+      		<p name='aaron'>2<p>
+      </div>
       <div name="tter" /><p>3<p</div>
  </fieldset>
 </form>
+
+<form></form>
 
 <input name="none" />
 
@@ -34,26 +38,18 @@
 <script type="text/javascript">
 	
 
-	// cached =>  {
-	// 	[name=aaron]：ATTR处理器
-	// }
-
-	// cached  = > {
-	// 	matchers:[
-	// 		elementMatcher：关系符 '>' => 'addCombinator' => [
-	// 				关系符 '空' => 'addCombinator' => [
-
-	// 						[form]：TAG处理器		
-	// 				],
-	// 				[div]：TAG处理器
-	// 		],	
-	// 		[name=aaron]：处理器
-	// 	]
-	// }
-
 	console.log(
-		$("form div > p[name=aaron]")
+		$("form.aaron div > p[name=aaron]")
 	)
+
+	//1 定位到p元算 seed合集
+	//2 name=aaron
+	//3 关系符 > addCombinator分解.因为是子选择器，所以就只要找父级元素
+	//	p.parentNode
+	//4 匹到div
+	//5 关系选择器 空，就是后代，那么父级的处理 就需要递归了
+	//
+
 
 	// var aaElement   = document.querySelector('.aaron');
 	// var element     = aaElement.querySelectorAll('.aaron span');

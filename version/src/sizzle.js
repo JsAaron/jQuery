@@ -541,6 +541,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Check if getElementById returns elements by name
 	// The broken getElementById methods don't pick up programatically-set names,
 	// so use a roundabout getElementsByName test
+	// IE的getElementById不分区表单元素的ID与Name，IE8以下
 	support.getById = assert(function( div ) {
 		docElem.appendChild( div ).id = expando;
 		return !doc.getElementsByName || !doc.getElementsByName( expando ).length;
@@ -982,6 +983,11 @@ Expr = Sizzle.selectors = {
 
 	find: {},
 
+	/**
+	 * 层级选择器
+	 * 用于从右往边通过层级找到父元素或者兄弟祖辈元素
+	 * @type {Object}
+	 */
 	relative: {
 		">": { dir: "parentNode", first: true },
 		" ": { dir: "parentNode" },
@@ -1035,6 +1041,7 @@ Expr = Sizzle.selectors = {
 			return match;
 		},
 
+		//分解伪选择器
 		"PSEUDO": function( match ) {
 			var excess,
 				unquoted = !match[6] && match[2];
@@ -1567,6 +1574,8 @@ function addCombinator( matcher, combinator, base ) {
 					}
 				}
 			} else {
+				//递归当前元素的父元素
+				//这个层级选择器是 "空"或者"~"
 				while ( (elem = elem[ dir ]) ) {
 					if ( elem.nodeType === 1 || checkNonElements ) {
 						outerCache = elem[ expando ] || (elem[ expando ] = {});
