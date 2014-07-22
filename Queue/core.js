@@ -17,6 +17,18 @@ $(function() {
 
 // $.dequeue(body, 'aa')  
 
+
+$('#clickme').click(function() {
+  $('#book').animate({
+    opacity: 0.25,
+    left: '+=50',
+    height: 'toggle'
+  }, 5000, function() {
+    // Animation complete.
+  });
+});
+
+
    console.log( $("#aaron"))
 
     var div = $("div");
@@ -27,7 +39,6 @@ $(function() {
         div.show(1000);
         div.hide(2000);
         div.show(3000);
-        // div.slideToggle("fast");
 
         return
 
