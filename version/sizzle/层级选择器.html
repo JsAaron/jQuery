@@ -37,11 +37,28 @@
 
 <script type="text/javascript">
 		
-	$("form.aaron div > p[name=aaron]")
 
-	console.log(
-		$("form.aaron div > p[name=aaron]")
-	)
+
+var PubSub = {
+	//订阅
+	subscribe: function(name, callback) {
+		this.list = {}
+		this.list[name] = callback;
+	},
+	//发布
+	publish: function(name, data) {
+		this.list[name](data)
+	}
+};
+
+PubSub.subscribe('event', function() {
+	alert('触发成功!!!');
+})
+
+PubSub.publish('event','发送一个数据')
+
+
+
 
 
 	//1 定位到p元算 seed合集
