@@ -16,29 +16,28 @@
 </head>
 <body>
 
-<ul class="topnav">
-  <li>Item 1</li>
-  <li>Item 2
-    <ul><li class="aaron">Nested item 1</li><li>Nested item 2</li><li>Nested item 3</li></ul>
-  </li>
-  <li>Item 3</li>
-</ul>
+<div id="clickme">
+  Click here
+</div>
+<img id="book" src="http://mat1.gtimg.com/www/images/qq2012/qqlogo_1x.png" alt="" width="100" height="123"
+  style="position: relative; left: 10px;" />
+
 
 
 <script type="text/javascript">
 
-		//多重选择器
-		//$(".topnav",".aaron").css("border", "3px double red")
-		console.log(
 
-			$( "ul.topnav > li" ).css( "border", "3px double red" )
-			
-		)
-
-		//选择类为topnav的ul元素下的 第一级的li元素
-		//$("ul.topnav > li").css("border", "3px double red")
-
-
+	$('#clickme').click(function() {
+		var book = $('#book')
+		book.animate({
+			opacity : 0.25,
+			left    : '+=50',
+			height  : 'toggle'
+		}, 5000, function() {
+			console.log(11)
+			// Animation complete.
+		});
+	});
 
 
 </script>

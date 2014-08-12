@@ -4093,7 +4093,7 @@ jQuery.fn.extend({
 				if ( empty || data_priv.get( this, "finish" ) ) {
 					anim.stop( true );
 				}
-			};
+			};		
 			doAnimation.finish = doAnimation;
 
 		return empty || optall.queue === false ?
