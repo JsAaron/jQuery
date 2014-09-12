@@ -3475,7 +3475,7 @@ function completed() {
 		detach();
 		jQuery.ready();
 	}
-}
+} 
 
 jQuery.ready.promise = function( obj ) {
 	if ( !readyList ) {

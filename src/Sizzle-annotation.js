@@ -163,7 +163,7 @@
 			// Supplemental Plane codepoint (surrogate pair)
 			String.fromCharCode(high >> 10 | 0xD800, high & 0x3FF | 0xDC00);
 		};
-	console.log(rcomma)
+
 	// Optimize for push.apply( _, NodeList )
 	try {
 		push.apply(

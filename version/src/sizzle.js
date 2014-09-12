@@ -1752,7 +1752,7 @@ function matcherFromTokens( tokens ) {
 			return indexOf.call( checkContext, elem ) > -1;
 		}, implicitRelative, true ),
 
-		matchers = [ function( elem, context, xml ) {
+		matchers = [ function( elem, context, xml /*last*/) {
 			return ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
 				(checkContext = context).nodeType ?
 					matchContext( elem, context, xml ) :

@@ -3043,7 +3043,7 @@ jQuery.Callbacks = function( options ) {
 	options = typeof options === "string" ?
 		( optionsCache[ options ] || createOptions( options ) ) :
 		jQuery.extend( {}, options );
-
+console.log(111,options)
 	var // Last fire value (for non-forgettable lists)
 		memory,
 		// Flag to know if list was already fired

@@ -16,23 +16,30 @@
 </head>
 <body>
 
-	<ul class="topnav">
-	  <li>Item 1</li>
-	  <li>Item 2
-	    <ul><li>Nested item 1</li><li>Nested item 2</li><li>Nested item 3</li></ul>
-	  </li>
-	  <li>Item 3</li>
-	</ul>
+<div id="text">
+  <p>
+     <input type="text" />
+  </p>
+  <div class="Aaron">
+     <input type="checkbox" name="readme" />
+     <input type="checkbox" name="ttt" />
+     <input type="checkbox" name="aaa" />
+     <p>Sizzle</p>
+  </div>
+</div>
 
-	<ul class="topnav">
-	  <li>11111</li>
-	</ul>
-
-
+<div class='a'></div>
 
 	<script type="text/javascript">
 
-	console.log(jQuery.support)
+
+
+
+
+	//tokenize("div > div.Aaron input[name=ttt]");
+
+	console.log( $('div > div.Aaron input[name=ttt]') )
+
 	// console.log($("ul.topnav > li"))
 
 		// dfd.done(function(aa) {

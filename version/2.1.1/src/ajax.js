@@ -780,11 +780,10 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 	jQuery[ method ] = function( url, data, callback, type ) {
 		// Shift arguments if data argument was omitted
 		if ( jQuery.isFunction( data ) ) {
-			type = type || callback;
+			type     = type || callback;
 			callback = data;
-			data = undefined;
+			data     = undefined;
 		}
-
 		return jQuery.ajax({
 			url: url,
 			type: method,

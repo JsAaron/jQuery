@@ -701,7 +701,7 @@ jQuery.fx.tick = function() {
             timers.splice(i--, 1);
         }
     }
-
+2
     if (!timers.length) {
         jQuery.fx.stop();
     }
