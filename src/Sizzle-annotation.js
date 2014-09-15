@@ -1122,7 +1122,7 @@
 					(pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) &&
 					classCache(className, function(elem) {
 						return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== strundefined && elem.getAttribute("class") || "");
-					});
+					});	
 			},
 
 
