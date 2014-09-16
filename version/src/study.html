@@ -38,106 +38,30 @@
 
 
 <script type="text/javascript">
-	
-function parent(elem) {
-	var parent = elem.parentNode;
-	return parent && parent.nodeType !== 11 ? parent : null;
+
+function fn1() {
+	var defer = $.Deferred();
+	setTimeout(function(){
+		defer.resolve('fn1');
+	},500)
+	return defer;
 }
 
-function parents(elem){
-	var matched = [];
-	while ( (elem = elem[ 'parentNode' ]) && elem.nodeType !== 9 ) {
-		if ( elem.nodeType === 1 ) {
-			matched.push( elem );
-		}
-	}
-	return matched;
+function fn2(){
+	var defer = $.Deferred();
+	setTimeout(function(){
+		defer.resolve('fn2');
+	},1000)
+	return defer;
 }
 
-function parentsUntil(elem, filter) {
-	var matched = [],
-		until,
-		truncate = filter !== undefined;
-	while ((elem = elem['parentNode']) && elem.nodeType !== 9) {
-		if (elem.nodeType === 1) {
-			if (truncate) {
-				if(elem.nodeName.toLowerCase() ==filter){
-					break;
-				}
-			}
-			matched.push(elem);
-		}
-	}
-	return matched;
-}
-
-
-function dir(elem, dir, until) {
-	var matched = [],
-		truncate = until !== undefined;
-	while ((elem = elem[dir]) && elem.nodeType !== 9) {
-		if (elem.nodeType === 1) {
-			if (truncate) {
-				if (elem.nodeName.toLowerCase() == until || elem.className == until) {
-					break;
-				}
-			}
-			matched.push(elem);
-		}
-	}
-	return matched;
-}
-
-function nextAll(elem) {
-	return dir(elem, "nextSibling");
-}
-
-function prevAll(elem) {
-	return dir(elem, "previousSibling");
-}
-
-function nextUntil(elem, until) {
-	return dir(elem, "nextSibling", until);
-}
-
-function prevUntil(elem, until) {
-	return dir(elem, "previousSibling", until);
-}
-
-function sibling( cur, dir ) {
-	while ( (cur = cur[dir]) && cur.nodeType !== 1 ) {}
-	return cur;
-}
-
-function next(elem) {
-	return sibling(elem, "nextSibling");
-}
-
-function prev(elem) {
-	return sibling(elem, "previousSibling");
-}
-
-	// var $item = $(".item-1")
-
-	// console.log( $item.parentsUntil('body') )
-
-	var a = $('li.third-item');
-
-console.log(
-
-	a.siblings()
-	)
-
-定时器setTimeout
-与底层代码通信，调用插件cordova.exec
-postmessage与iframe通信
-CSS3 动画
-Ajax
-HTML5的本地数据
-等等…
-
+$.when(fn1(), fn2()).done(function() {
+	console.log(arguments)
+}).then(function(){
+	console.log(1)
+});
 
 </script>
 
 </body>
-</html>q
+</html>
