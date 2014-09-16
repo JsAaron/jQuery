@@ -3,124 +3,134 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<title>参考对照学习</title>
-	</style>
+	 <script src="core.js"></script>
+	 <script src="sizzle.js"></script>
+	 <script src="other.js"></script>
 </head>
 <body>
 
-<div id="text">
-  <div class="Aaron">
-     <input type="checkbox" name="readme" />
-     <input type="checkbox" name="ttt" />
-     <input type="checkbox" name="aaa" />
-     <p>Sizzle</p>
-  </div>
-</div>
+<ul class="level-1">
+  <li class="item-i">I</li>
+  <li class="item-ii">II
+    <ul class="level-2">
+      <li class="item-a">A</li>
+      <li class="item-b">B
+        <ul class="level-3">
+          <li class="item-1">1</li>
+          <li class="item-2">2</li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-c">C</li>
+    </ul>
+  </li>
+  <li class="item-iii">III</li>
+</ul>
 
 
-	<script type="text/javascript">
+<ul>
+   <li class="first">list item 1</li>
+   <li>list item 2</li>
+   <li class="third-item">list item 3</li>
+   <li>list item 4</li>
+   <li class="end">list item 5</li>
+</ul>
 
 
-var filter = {
-	ATTR: function(name, operator,check) {
-		return function(elem) {
-			var attr = elem.getAttribute(name)
-			if (operator === "=") {
-				if(attr === check){
-					return true
+<script type="text/javascript">
+	
+function parent(elem) {
+	var parent = elem.parentNode;
+	return parent && parent.nodeType !== 11 ? parent : null;
+}
+
+function parents(elem){
+	var matched = [];
+	while ( (elem = elem[ 'parentNode' ]) && elem.nodeType !== 9 ) {
+		if ( elem.nodeType === 1 ) {
+			matched.push( elem );
+		}
+	}
+	return matched;
+}
+
+function parentsUntil(elem, filter) {
+	var matched = [],
+		until,
+		truncate = filter !== undefined;
+	while ((elem = elem['parentNode']) && elem.nodeType !== 9) {
+		if (elem.nodeType === 1) {
+			if (truncate) {
+				if(elem.nodeName.toLowerCase() ==filter){
+					break;
 				}
 			}
-			return false;
+			matched.push(elem);
 		}
-	},
-	TAG: function(nodeNameSelector) {
-		return function(elem) {
-			return elem.nodeName && elem.nodeName.toLowerCase() === nodeNameSelector;
-		};
 	}
+	return matched;
 }
 
-function addCombinator(matcher) {
-	return function(elem, context, xml) {
-		while ((elem = elem['parentNode'])) {
-			if (elem.nodeType === 1) {
-				//找到第一个亲密的节点，立马就用终极匹配器判断这个节点是否符合前面的规则
-				return matcher(elem);
+
+function dir(elem, dir, until) {
+	var matched = [],
+		truncate = until !== undefined;
+	while ((elem = elem[dir]) && elem.nodeType !== 9) {
+		if (elem.nodeType === 1) {
+			if (truncate) {
+				if (elem.nodeName.toLowerCase() == until || elem.className == until) {
+					break;
+				}
 			}
+			matched.push(elem);
 		}
 	}
+	return matched;
 }
 
-
-function elementMatcher(matchers) {
-	return matchers.length > 1 ?
-	function(elem, context, xml) {
-		var i = matchers.length;
-		while (i--) {
-			if (!matchers[i](elem, context, xml)) {
-				return false;
-			}
-		}
-		return true;
-	} :
-	//单个匹配器的话就返回自己即可
-	matchers[0];
+function nextAll(elem) {
+	return dir(elem, "nextSibling");
 }
 
-
-
-function matcherFromTokens(tokens){
-	var len = tokens.length;
-	var matcher, matchers = [];
-	for (i = 0; i < len; i++) {
-		if (tokens[i].type === " ") {
-			matchers = [addCombinator(elementMatcher(matchers), matcher)];
-		} else {
-			matcher = filter[tokens[i].type].apply(null, tokens[i].matches);
-			matchers.push(matcher);
-		}
-	}
-	return elementMatcher(matchers);
+function prevAll(elem) {
+	return dir(elem, "previousSibling");
 }
 
-
-function compile() {
-	//种子合集
-	var seed = document.querySelectorAll('input')
-	//选择器
-	var selector = "Aaron [name=ttt]";
-	var elementMatchers = [];
-	var results = []
-	var match = [{
-		matches: ["div"],
-		type: "TAG",
-		value: "Aaron"
-	}, {
-		type: " ",
-		value: " "
-	}, {
-		matches: ["name", "=", "ttt"],
-		type: "ATTR",
-		value: "[name=ttt]"
-	}]
-	elementMatchers.push(matcherFromTokens(match));
-	var matcher, elem;
-	for (var i = 0; i < seed.length; i++) {
-		matcher = elementMatchers[0];
-		var elem = seed[i];
-		if (matcher(elem)) {
-			results.push(elem);
-			break;
-		}
-	}
-	return results;
+function nextUntil(elem, until) {
+	return dir(elem, "nextSibling", until);
 }
 
+function prevUntil(elem, until) {
+	return dir(elem, "previousSibling", until);
+}
 
-var elements = compile();
+function sibling( cur, dir ) {
+	while ( (cur = cur[dir]) && cur.nodeType !== 1 ) {}
+	return cur;
+}
 
-elements[0].checked = 'checked';
+function next(elem) {
+	return sibling(elem, "nextSibling");
+}
 
-	</script>
+function prev(elem) {
+	return sibling(elem, "previousSibling");
+}
+
+	// var $item = $(".item-1")
+
+	// console.log( $item.parentsUntil('body') )
+
+	var a = $('li.third-item');
+
+console.log(
+
+	a.siblings()
+	)
+
+
+
+</script>
 
 </body>
-</html>
+</html>q
