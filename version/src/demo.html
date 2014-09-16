@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+var  Deferred =  function(func) {
+  var tuples = [
+    // action, add listener, listener list, final state
+    ["resolve", "done", jQuery.Callbacks("once memory"), "resolved"],
+    ["reject", "fail", jQuery.Callbacks("once memory"), "rejected"],
+    ["notify", "progress", jQuery.Callbacks("memory")]
+  ],
+    state = "pending",
+    promise = {
+      state: function() {},
+      always: function() {},
+      then: function( /* fnDone, fnFail, fnProgress */ ) {},
+      // Get a promise for this deferred
+      // If obj is provided, the promise aspect is added to the object
+      promise: function(obj) {}
+    },
+    deferred = {};
+  jQuery.each(tuples, function(i, tuple) {
+    deferred[tuple[0] + "With"] = list.fireWith;
+  });
+  promise.promise(deferred);
+  // All done!
+  return deferred;
+}
+
+/**
+jQuery. Deferred主要处理：
+
+    显而易见Deferred是个工厂类，返回的是内部构建的deferred对象
+    tuples 创建三个$.Callbacks对象，分别表示成功，失败，处理中三种状态
+    创建了一个promise对象，具有state、always、then、primise方法
+    扩展primise对象生成最终的Deferred对象，返回该对象
+**/
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
