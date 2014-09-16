@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+	<!-- <script type="text/javascript" src="jquery-2.1.1.js"></script> -->
+	<title>类数组结构</title>
+</head>
+<body>
+
+<div id="book">book</div>
+
+<script type="text/javascript">
+
+	var aQuery = function(selector) {
+		//强制为对象
+		if (!(this instanceof aQuery)) {
+			return new aQuery(selector);
+		}
+		var elem = document.getElementById(/[^#].*/.exec(selector)[0]);
+		this.length = 1;
+		this[0] = elem;
+		this.context = document;
+		this.selector = selector;
+		this.get = function(num) {
+			return this[num];
+		}
+		return this;
+	}
+
+	console.log(
+		$('#book')[0],	$('#book').get(0)
+	)
+
+	console.log(
+		aQuery("#book")[0],  aQuery("#book").get(0)
+	)
+
+	console.log(
+	//	aQuery.get == aQuery.get
+		aQuery().get == aQuery().get
+		)
+
+</script>
+</body>
+</html>

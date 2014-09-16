@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>参考对照学习</title>
+	 <script src="core.js"></script>
+	 <script src="sizzle.js"></script>
+	 <script src="other.js"></script>
+</head>
+<body>
+
+<ul class="level-1">
+  <li class="item-i">I</li>
+  <li class="item-ii">II
+    <ul class="level-2">
+      <li class="item-a">A</li>
+      <li class="item-b">B
+        <ul class="level-3">
+          <li class="item-1">1</li>
+          <li class="item-2">2</li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-c">C</li>
+    </ul>
+  </li>
+  <li class="item-iii">III</li>
+</ul>
+
+
+<ul>
+   <li class="first">list item 1</li>
+   <li>list item 2</li>
+   <li class="third-item">list item 3</li>
+   <li>list item 4</li>
+   <li class="end">list item 5</li>
+</ul>
+
+
+<script type="text/javascript">
+	
+function parent(elem) {
+	var parent = elem.parentNode;
+	return parent && parent.nodeType !== 11 ? parent : null;
+}
+
+function parents(elem){
+	var matched = [];
+	while ( (elem = elem[ 'parentNode' ]) && elem.nodeType !== 9 ) {
+		if ( elem.nodeType === 1 ) {
+			matched.push( elem );
+		}
+	}
+	return matched;
+}
+
+function parentsUntil(elem, filter) {
+	var matched = [],
+		until,
+		truncate = filter !== undefined;
+	while ((elem = elem['parentNode']) && elem.nodeType !== 9) {
+		if (elem.nodeType === 1) {
+			if (truncate) {
+				if(elem.nodeName.toLowerCase() ==filter){
+					break;
+				}
+			}
+			matched.push(elem);
+		}
+	}
+	return matched;
+}
+
+
+function dir(elem, dir, until) {
+	var matched = [],
+		truncate = until !== undefined;
+	while ((elem = elem[dir]) && elem.nodeType !== 9) {
+		if (elem.nodeType === 1) {
+			if (truncate) {
+				if (elem.nodeName.toLowerCase() == until || elem.className == until) {
+					break;
+				}
+			}
+			matched.push(elem);
+		}
+	}
+	return matched;
+}
+
+function nextAll(elem) {
+	return dir(elem, "nextSibling");
+}
+
+function prevAll(elem) {
+	return dir(elem, "previousSibling");
+}
+
+function nextUntil(elem, until) {
+	return dir(elem, "nextSibling", until);
+}
+
+function prevUntil(elem, until) {
+	return dir(elem, "previousSibling", until);
+}
+
+function sibling( cur, dir ) {
+	while ( (cur = cur[dir]) && cur.nodeType !== 1 ) {}
+	return cur;
+}
+
+function next(elem) {
+	return sibling(elem, "nextSibling");
+}
+
+function prev(elem) {
+	return sibling(elem, "previousSibling");
+}
+
+	// var $item = $(".item-1")
+
+	// console.log( $item.parentsUntil('body') )
+
+	var a = $('li.third-item');
+
+console.log(
+
+	a.siblings()
+	)
+
+
+
+</script>
+
+</body>
+</html>q

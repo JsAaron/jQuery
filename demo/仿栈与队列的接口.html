@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script> -->
+	<script type="text/javascript" src="jquery-2.1.1.js"></script>
+	<title>仿栈与队列的接口</title>
+</head>
+<body>
+
+<ul>
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li>list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+  </ul>
+  <p>a paragraph</p>
+
+<script type="text/javascript">
+	
+	var li =  $('li')
+
+
+	console.log(  li.add('p') )
+
+	//$('li').eq(2).css('background-color', 'red');
+
+function each(obj, callback, context, arg) {
+	var i = 0;
+	var value;
+	var length = obj.length;
+	for (; i < length; i++) {
+		value = callback.call(context || null, obj[i], arg);
+		if (value === false) {
+			break;
+		}
+	}
+}
+
+var arr = ['a', 'b', 'c'];
+
+each(arr, function(name, arg) {
+	console.log(name, arg);
+}, this, 'aaa')
+
+</script>
+</body>
+</html>

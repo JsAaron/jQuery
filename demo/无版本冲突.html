@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+  
+
+<script type="text/javascript">
+
+
+
+function show(data) {
+  if (!data) {
+    return $("body").append('</br>')
+  }
+  if (typeof data === 'object') {
+    for (var key in data) {
+      $("body").append('<li>key->' + key + '; value->'+ data[key] +'</li>')
+    }
+  } else {
+    $("body").append('<li>' + data + '</li>')
+  }
+}
+
+
+var obj = {};
+$.data(obj, 'name', 'aaron');
+show($.data(obj, 'name') ) //aaron
+
+show()
+
+var obj = {};
+$.data(obj, {
+  name1: 'aaron1',
+  name2: 'aaron1'
+});
+show($.data(obj)) //Object {name1: "aaron1", name2: "aaron1"}
+
+
+看jQuery.data(element,[key],[value])，每一个element都会有自己的一个{key:value}对象保存着数据，所以新建的对象就算有key相同它也不会覆盖原来存在的对象key所对应的value，因为新对象保存是是在另一个{key:value}对象中
+$("div").data("a","aaaa") 它是把数据绑定每一个匹配div节点的元素上
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
