@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>参考对照学习</title>
+	 <script src="core.js"></script>
+	 <script src="sizzle.js"></script>
+	 <script src="other.js"></script>
+</head>
+<body>
+
+<ul class="level-1">
+  <li class="item-i">I</li>
+  <li class="item-ii">II
+    <ul class="level-2">
+      <li class="item-a">A</li>
+      <li class="item-b">B
+        <ul class="level-3">
+          <li class="item-1">1</li>
+          <li class="item-2">2</li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-c">C</li>
+    </ul>
+  </li>
+  <li class="item-iii">III</li>
+</ul>
+
+
+<ul>
+   <li class="first">list item 1</li>
+   <li>list item 2</li>
+   <li class="third-item">list item 3</li>
+   <li>list item 4</li>
+   <li class="end">list item 5</li>
+</ul>
+
+
+<script type="text/javascript">
+
+  console.log( document.querySelectorAll('.first') )
+
+</script>
+
+</body>
+</html>
