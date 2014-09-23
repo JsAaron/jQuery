@@ -33,13 +33,18 @@
    <li>list item 2</li>
    <li class="third-item">list item 3</li>
    <li>list item 4</li>
-   <li class="end">list item 5</li>
+   <li class="end">list item 5</li>q
 </ul>
 
 
 <script type="text/javascript">
 
-  console.log( document.querySelectorAll('.first') )
+  console.log(document)
+
+  console.log( document.querySelectorAll('.first')[0] )
+
+
+ console.log(   document.body.appendChild( document.querySelectorAll('.first')[0]) )
 
 </script>
 
