@@ -9,6 +9,7 @@
 </head>
 <body>
 
+
 <ul class="level-1">
   <li class="item-i">I</li>
   <li class="item-ii">II
@@ -27,24 +28,27 @@
   <li class="item-iii">III</li>
 </ul>
 
-
-<ul>
-   <li class="first">list item 1</li>
-   <li>list item 2</li>
-   <li class="third-item">list item 3</li>
-   <li>list item 4</li>
-   <li class="end">list item 5</li>q
-</ul>
-
-
 <script type="text/javascript">
 
-  console.log(document)
+var li = $('.item-ii');
 
-  console.log( document.querySelectorAll('.first')[0] )
+console.log( li.find('li')  )
 
 
- console.log(   document.body.appendChild( document.querySelectorAll('.first')[0]) )
+
+function sibling(n, elem) {
+  var matched = [];
+  for (; n; n = n.nextSibling) { //如果存在下一个兄弟节点
+    if (n.nodeType === 1 && n !== elem) { //是元素节点，且不是当前选择器元素
+      matched.push(n);
+    }
+  }
+  return matched;
+}
+
+var ul = document.querySelectorAll('.level-2')[0];
+
+
 
 </script>
 
