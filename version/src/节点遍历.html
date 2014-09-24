@@ -32,7 +32,15 @@
 
 var li = $('.item-ii');
 
-console.log( li.find('li')  )
+
+function find(elem, selector) {
+  return elem.querySelectorAll(selector);
+}
+
+
+
+console.log(find(li[0] ,'li'))
+//console.log( li.find('li')  )
 
 
 
