@@ -9,37 +9,24 @@
 </head>
 <body>
 
-
-<ul class="level-1">
-  <li class="item-i">I</li>
-  <li class="item-ii">II
-    <ul class="level-2">
-      <li class="item-a">A</li>
-      <li class="item-b">B
-        <ul class="level-3">
-          <li class="item-1">1</li>
-          <li class="item-2">2</li>
-          <li class="item-3">3</li>
-        </ul>
-      </li>
-      <li class="item-c">C</li>
-    </ul>
-  </li>
-  <li class="item-iii">III</li>
+<ul>
+<li>list item 1</li>
+<li>list item 2</li>
+<li>list item 3</li>
+<li>list item 4</li>
+<li>list item 5</li>
+<li>list item 6</li>
 </ul>
 
 <script type="text/javascript">
 
-var li = $('.item-ii');
-
-
-function find(elem, selector) {
-  return elem.querySelectorAll(selector);
-}
+var li = $('ii');
 
 
 
-console.log(find(li[0] ,'li'))
+
+
+console.log(   .filter(':even') )
 //console.log( li.find('li')  )
 
 

@@ -1,67 +1,54 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<title>参考对照学习</title>
-	 <script src="core.js"></script>
-	 <script src="sizzle.js"></script>
-	 <script src="other.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<title></title>
 </head>
 <body>
+    
+<div id="end">点击end处理</div>
+<div id="addBack">点击addBack处理</div>
 
-<ul class="level-1">
-  <li class="item-i">I</li>
-  <li class="item-ii">II
-    <ul class="level-2">
-      <li class="item-a">A</li>
-      <li class="item-b">B
-        <ul class="level-3">
-          <li class="item-1">1</li>
-          <li class="item-2">2</li>
-          <li class="item-3">3</li>
-        </ul>
-      </li>
-      <li class="item-c">C</li>
-    </ul>
-  </li>
-  <li class="item-iii">III</li>
-</ul>
-
-
-<ul>
-   <li class="first">list item 1</li>
+<ul class="first">
+   <li class="foo">list item 1</li>
    <li>list item 2</li>
-   <li class="third-item">list item 3</li>
-   <li>list item 4</li>
-   <li class="end">list item 5</li>
+   <li class="bar">list item 3</li>
 </ul>
-
+<ul class="second">
+   <li class="foo">list item 1</li>
+   <li>list item 2</li>
+   <li class="bar">list item 3</li>
+</ul>
 
 <script type="text/javascript">
 
-function fn1() {
-	var defer = $.Deferred();
-	setTimeout(function(){
-		defer.resolve('fn1');
-	},500)
-	return defer;
-}
+//.end()jQuery对象维护一个堆栈内部来跟踪匹配的元素集合的变化。
+//当一个DOM遍历方法被调用时，新的元素集合推入到堆栈中。 
+//如果还需要包含先前的元素集合，.addBack()
 
-function fn2(){
-	var defer = $.Deferred();
-	setTimeout(function(){
-		defer.resolve('fn2');
-	},1000)
-	return defer;
-}
+$("#end").click(function(){
+  $('ul.first').find('.foo').css('background-color', 'red')
+    .end().find('.bar').css('background-color', 'green');  
+})
 
-$.when(fn1(), fn2()).done(function() {
-	console.log(arguments)
-}).then(function(){
-	console.log(1)
-});
+//addBack 包含了自身的选择器
+$("#addBack").click(function(){
+  $('.foo').nextAll().addBack()
+    .css('background-color', 'red');
+})
+
 
 </script>
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
