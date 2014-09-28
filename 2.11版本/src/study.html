@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+    
+<div id="end">点击end处理</div>
+<div id="addBack">点击addBack处理</div>
+
+<ul class="first">
+   <li class="foo">list item 1</li>
+   <li>list item 2</li>
+   <li class="bar">list item 3</li>
+</ul>
+<ul class="second">
+   <li class="foo">list item 1</li>
+   <li>list item 2</li>
+   <li class="bar">list item 3</li>
+</ul>
+
+<script type="text/javascript">
+
+//.end()jQuery对象维护一个堆栈内部来跟踪匹配的元素集合的变化。
+//当一个DOM遍历方法被调用时，新的元素集合推入到堆栈中。 
+//如果还需要包含先前的元素集合，.addBack()
+
+$("#end").click(function(){
+  $('ul.first').find('.foo').css('background-color', 'red')
+    .end().find('.bar').css('background-color', 'green');  
+})
+
+//addBack 包含了自身的选择器
+$("#addBack").click(function(){
+  $('.foo').nextAll().addBack()
+    .css('background-color', 'red');
+})
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
