@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+	<!-- <script type="text/javascript" src="jquery-2.1.1.js"></script> -->
+	<title>jQuery对象的构建</title>
+</head>
+<body>
+
+<div id="book">book</div>
+
+<script type="text/javascript">
+
+// function ajQuery() {
+// 	this.name = 'jQuery'
+// }
+// ajQuery.prototype = {
+// 	sayName: function() {
+// 		return this.name
+// 	}
+// }
+
+// var a = new ajQuery()
+// console.log(a)
+
+var $$ = ajQuery = function(selector) {
+	return new ajQuery.fn.init(selector);
+}
+
+ajQuery.fn = ajQuery.prototype = {
+	name: 'aaron',
+	init: function(selector) {
+		this.selector = selector;
+		return this;
+	},
+	constructor: ajQuery
+}
+
+ajQuery.fn.init.prototype = ajQuery.fn
+
+console.log(
+	$$('aaa')
+)
+
+
+
+
+// var $$ = ajQuery = function(selector) {
+// 	if(!(this instanceof ajQuery)){
+// 		return new ajQuery(selector);
+// 	}
+// 	this.selector = selector;
+// 	return this
+// }
+
+// ajQuery.fn = ajQuery.prototype = {
+// 	selectorName:function(){
+// 		return this.selector;
+// 	},
+// 	constructor: ajQuery
+// }
+
+// var a = $$('aaa'); 
+
+// console.log(a)
+
+
+
+
+
+</script>
+</body>
+</html>

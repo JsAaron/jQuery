@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+
+<title></title>
+</head>
+<body>
+    
+
+<script type="text/javascript">
+
+
+var Observable = {
+  callbacks: [],
+  add: function(fn) {
+    this.callbacks.push(fn);
+  },
+  fire: function(data) {
+    this.callbacks.forEach(function(fn) {
+      fn(data);
+    })
+  }
+}
+
+
+function ajax(arg){
+  setTimeout(function(){
+    arg.successful(arg.data+ ',返回获取到后台的数据')
+  },1000)
+}
+
+//使用add开始订阅：
+Observable.add(function(data) {
+  show('执行动作一 ' + data)
+})
+Observable.add(function(data) {
+  show('执行动作二')
+})
+
+
+//一段ajax请求，成功后处理
+ajax({
+  data:'请求数据',
+  successful:function(data){
+    Observable.fire(data); //触发动作
+  }
+})
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
