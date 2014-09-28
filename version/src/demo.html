@@ -10,68 +10,36 @@
 </head>
 <body>
 
+<div>123</div>
+
 <script type="text/javascript">
+  
+  var ele = document.createElement('div')
 
-function fn1() {
-  var defer = $.Deferred();
-  setTimeout(function(){
-    defer.resolve('fn1');
-  },500)
-  return defer;
-}
+  ele.className = "message"
 
-function fn2(){
-  var defer = $.Deferred();
-  setTimeout(function(){
-    defer.resolve('fn2');
-  },1000)
-  return defer;
-}
+  var testNode = document.createTextNode('hello world');
 
-// $.when(fn1(), fn2()).then(function() {
-//   console.log('成功',arguments)
-// },function(){
-//   console.log('失败',arguments)
-// })
+  ele.appendChild(testNode);
+
+  var testNode1 = document.createTextNode('aaron');
+
+  ele.appendChild(testNode1);
+
+  document.body.appendChild(ele)
 
 
-function when() {
+  ele.normalize();
 
-    var resolveContexts, resolveValues,
-      resolveValues = [].slice.call(arguments),
-      remaining = resolveValues.length;
+  console.log(ele)
 
-    //内部deferred对象
-    var deferred = $.Deferred();
+  
 
-    function collector(i, contexts, values) {
-      return function(value) {
-        contexts[i] = this;
-        values[i] = arguments.length > 1 ? [].slice.call(arguments)(arguments) : value;
-        if (remaining === 1) {
-          deferred.resolveWith(contexts, values);
-        } else {
-          --remaining;
-        }
-      };
-    };
+  // var div = document.querySelectorAll('div')[0];
 
-    var resolveContexts,resolveValues;
-    for (var i = 0; i < remaining; i++) {
-        progressValues = new Array( resolveValues.length );
-        resolveContexts = new Array( resolveValues.length );
-        resolveValues[i].promise()
-          .done(collector(i, resolveContexts, resolveValues))
-          .fail(deferred.reject)
-    }
+  // div.firstChild.nodeValue = 'chenwen <li> daaa </li> sdf';
 
-    return deferred;
-}
-
-
-when(fn1(), fn2()).done(function() {
-  console.log(arguments)
-})
+  // console.log(div)
 
 </script>
 
