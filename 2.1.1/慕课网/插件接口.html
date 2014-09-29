@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+	<!-- <script type="text/javascript" src="jquery-2.1.1.js"></script> -->
+	<title>插件接口</title>
+</head>
+<body>
+
+<div id="book">book</div>
+
+<script type="text/javascript">
+
+
+var $$ = ajQuery = function(selector) {
+	return new ajQuery.fn.init(selector);
+}
+
+ajQuery.fn = ajQuery.prototype = {
+	name: 'aaron',
+	init: function(selector) {
+		this.selector = selector;
+		return this;
+	},
+	constructor: ajQuery
+}
+
+
+ajQuery.extend = ajQuery.fn.extend = function() {
+	var options, name, src, copy, copyIsArray, clone,
+		target = arguments[0] || {},
+		i = 1,
+		length = arguments.length,
+		deep = false;
+
+	if ( typeof target === "boolean" ) {
+		deep = target;
+		target = arguments[ i ] || {};
+		i++;
+	}
+
+	if (i === length) {
+		target = this;
+		i--;
+	}
+
+
+	for (; i < length; i++) {
+		// Only deal with non-null/undefined values
+		if ((options = arguments[i]) != null) {
+
+		}
+	}
+	return target;
+};
+
+
+
+ajQuery.fn.init.prototype = ajQuery.fn
+
+
+ajQuery.extend({
+	aaa: function() {}
+})
+
+var a = $$('aaa');
+
+console.log(a)
+
+
+// var $$ = ajQuery = function(selector) {
+// 	if(!(this instanceof ajQuery)){
+// 		return new ajQuery(selector);
+// 	}
+// 	this.selector = selector;
+// 	return this
+// }
+
+// ajQuery.fn = ajQuery.prototype = {
+// 	selectorName:function(){
+// 		return this.selector;
+// 	},
+// 	constructor: ajQuery
+// }
+
+// var a = $$('aaa'); 
+
+// console.log(a)
+
+
+
+
+
+</script>
+</body>
+</html>

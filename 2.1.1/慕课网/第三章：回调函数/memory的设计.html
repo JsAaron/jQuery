@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+function Callbacks(options) {
+  var list = [];
+  var self;
+  var firingStart;
+  var memory;
+
+  function _fire(data) {
+    memory = options === 'memory' && data;
+    firingIndex = firingStart || 0;
+    firingStart = 0;
+    firingLength = list.length;
+    for (; list && firingIndex < firingLength; firingIndex++) {
+      list[firingIndex](data)
+    }
+  }
+
+  self = {
+    add: function(fn) {
+      var start = list.length;
+      list.push(fn)
+      if (memory) {
+        firingStart = start; //获取最后一值
+        _fire(memory);
+      }
+    },
+    fire: function(args) {
+      if (list) {
+        _fire(args)
+      }
+    }
+  }
+  return self;
+}
+
+
+function fn1(val) {
+  show('fn1 says ' + val);
+}
+
+function fn2(val) {
+  show('fn2 says ' + val);
+}
+
+function fn3(val) {
+  show('fn3 says ' + val);
+}
+
+var cbs = Callbacks('memory');
+cbs.add(fn1);
+cbs.fire('foo');
+
+
+
+cbs.add(fn2);
+cbs.fire('bar');
+
+
+cbs.add(fn3);
+cbs.fire('aaron')
+
+
+
+</script>
+
+</body>
+</html>

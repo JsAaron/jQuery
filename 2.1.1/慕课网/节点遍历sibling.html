@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>参考对照学习</title>
+	 <script src="core.js"></script>
+	 <script src="sizzle.js"></script>
+	 <script src="other.js"></script>
+</head>
+<body>
+
+
+<ul>
+  <li>list item 1</li>
+  <li>list item 2</li>
+  <li class="third-item">list item 3</li>
+  <li>list item 4</li>
+  <li>list item 5</li>
+</ul>
+
+<script type="text/javascript">
+
+
+  function sibling(n, elem) {
+    var matched = [];
+    for (; n; n = n.nextSibling) {
+      if (n.nodeType === 1 && n !== elem) {
+        matched.push(n);
+      }
+    }
+    return matched;
+  }
+
+ var thirdItem = document.querySelectorAll('third-item')[0]
+
+ var results = sibling(thirdItem.parentNode.firstChild, thirdItem)
+
+ console.
+
+// console.log(   document.body.appendChild( document.querySelectorAll('.first')[0]) )
+
+</script>
+
+</body>
+</html>
