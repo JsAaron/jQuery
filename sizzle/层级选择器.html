@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>层级选择器</title>
+
+	 <!-- // <script src="jquery-1.11.1.js"></script> -->
+	 <script src="../src/core.js"></script>
+	 <script src="../src/sizzle.js"></script>
+	 <script src="../src/other.js"></script>
+	<style type="text/css">
+		ul.topnav > li{
+			border: 1px solid
+		}
+	</style>
+</head>
+<body>
+
+
+<form class="aaron">
+  <label>Name:</label>
+  <input name="name" />
+  <fieldset>
+      <label>Newsletter:</label>
+      <div name="newsletter" /><p>1<p</div>
+      <div name="letter" />
+      		<p name='aaron'>2<p>
+      </div>
+      <div name="tter" /><p>3<p</div>
+ </fieldset>
+</form>
+
+<form></form>
+
+<input name="none" />
+
+
+<script type="text/javascript">
+		
+
+
+var PubSub = {
+	//订阅
+	subscribe: function(name, callback) {
+		this.list = {}
+		this.list[name] = callback;
+	},
+	//发布
+	publish: function(name, data) {
+		this.list[name](data)
+	}
+};
+
+PubSub.subscribe('event', function() {
+	alert('触发成功!!!');
+})
+
+PubSub.publish('event','发送一个数据')
+
+
+
+
+
+	//1 定位到p元算 seed合集
+	//2 name=aaron
+	//3 关系符 > addCombinator分解.因为是子选择器，所以就只要找父级元素
+	//	p.parentNode
+	//4 匹到div
+	//5 关系选择器 空，就是后代，那么父级的处理 就需要递归了
+	//
+
+
+	// var aaElement   = document.querySelector('.aaron');
+	// var element     = aaElement.querySelectorAll('.aaron span');
+
+	// console.log(element);  // <span>Test</span>
+
+	    
+ // //     
+		// var  aa = $(".aaron")
+	 //    console.log(aa.find("div[class='text']"))
+
+		// var span, selector = 'div span',
+		// 	context = document.querySelector('#Aaron');
+
+		// var oldContext = context,
+		// 	oldId = context.getAttribute('id'),
+		// 	newId = oldId || '__sizzle__';
+		// try {
+		// 	span = context.querySelectorAll('#' + newId + ' ' + selector);
+		// } catch (e) {
+
+		// } finally {
+		// 	if (!oldId) {
+		// 		console.log(oldContext)
+		// 		//oldContext.removeAttribute('id');
+		// 	}
+		// }
+
+		// console.log('#' + newId + ' ' + selector)
+
+	// var d1 = document.querySelector('#Aaron')
+	// 	console.log(
+	// 		d1,
+	// 		d1.querySelectorAll("div span")
+	// 	)
+
+		//选择类为topnav的ul元素下的 第一级的li元素
+	//	$("div span")
+
+
+
+
+</script>
+
+</body>
+</html>

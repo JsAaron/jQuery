@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>发布订阅</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+		
+	var PubSub = {
+		//订阅
+		subscribe: function(name, callback) {
+			this.list = {}
+			this.list[name] = callback;
+		},
+		//发布
+		publish: function(name, data) {
+			this.list[name](data)
+		}
+	};
+
+	PubSub.subscribe('event', function(data) {
+		alert(data);
+	})
+
+	PubSub.publish('event','发送一个数据')
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>层级选择器</title>
+
+	 <!-- // <script src="jquery-1.11.1.js"></script> -->
+	 <script src="core.js"></script>
+	 <script src="sizzle.js"></script>
+	 <script src="other.js"></script>
+	<style type="text/css">
+		ul.topnav > li{
+			border: 1px solid
+		}
+	</style>
+</head>
+<body>
+
+	<ul class="topnav">
+	  <li>Item 1</li>
+	  <li>Item 2
+	    <ul><li>Nested item 1</li><li>Nested item 2</li><li>Nested item 3</li></ul>
+	  </li>
+	  <li>Item 3</li>
+	</ul>
+
+	<ul class="topnav">
+	  <li>11111</li>
+	</ul>
+
+
+
+	<script type="text/javascript">
+
+
+	// console.log($("ul.topnav > li"))
+
+		// dfd.done(function(aa) {
+		// 	console.log(aa)
+		// 	return aa * 2
+		// })
+
+		// dfd.then(function(aa) {
+		// 	console.log(aa)
+		// 	return aa * 2
+		// }).then(function(aa) {
+		// 	console.log(aa)
+		// 	return aa * 2
+		// })
+
+
+		// dfd.resolve(2)
+
+		// setTimeout(function() {
+		// 	dfd.done(function(aa) {
+		// 		console.log(aa)
+		// 		return aa * 2
+		// 	})
+		// }, 1000)
+
+
+		// function fn1(value) {
+		// 	console.log("fn1 says: " + value);
+		// 	return false;
+		// }
+
+		// function fn2(value) {
+		// 	console.log("fn2 says: " + value);
+		// 	return false;
+		// }
+
+		// var callbacks = $.Callbacks('memory');
+
+		// callbacks.add(fn1);  //1
+		// callbacks.fire("foo");
+		// callbacks.add(fn2);  //2
+		// callbacks.fire("baz");
+		// callbacks.remove(fn2);
+
+
+		// var body = $("body");
+		// //设置值		
+		// body.data("foo", 52);
+
+		// //带key对象
+		// body.data("bar", {
+		// 	myType : "test",
+		// 	count  : 40
+		// });
+
+		// //直接对象
+		// body.data({
+		// 	baz: [1, 2, 3]
+		// });
+		 
+		// //取值
+		// console.log( body.data("bar") )
+
+	</script>
+
+</body>
+</html>

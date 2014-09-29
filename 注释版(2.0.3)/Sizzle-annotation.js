@@ -163,7 +163,7 @@
 			// Supplemental Plane codepoint (surrogate pair)
 			String.fromCharCode(high >> 10 | 0xD800, high & 0x3FF | 0xDC00);
 		};
-
+	console.log(rcomma)
 	// Optimize for push.apply( _, NodeList )
 	try {
 		push.apply(
@@ -1122,7 +1122,7 @@
 					(pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) &&
 					classCache(className, function(elem) {
 						return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== strundefined && elem.getAttribute("class") || "");
-					});	
+					});
 			},
 
 
