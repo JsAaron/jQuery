@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>数据缓存</title>
+	<script data-main="../aAron" src="../basis/require.js"></script>
+<!-- 	// <script src="../basis/jQuery2.1.1.js"></script> -->
+	<script type="text/javascript">
+
+			require(['data'], function(aAron) {
+			
+				var aaron = aAron('#aaron')
+						
+				//设置值		
+				aaron.data("foo", 52);
+
+				//带key对象
+				aaron.data("bar", {
+					myType: "test",
+					count: 40
+				});
+
+				//直接对象
+				aaron.data({
+					baz: [1, 2, 3]
+				});
+				 
+				//取值
+				console.log( aaron.data() )
+
+
+			});
+
+	</script>
+</head>
+<body>
+	<form>
+		<input type="text" id="nodeName"/>
+	</form>
+	<div id="aaron"></div>
+</body>
+</html>

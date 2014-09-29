@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>回调函数</title>
+	<script data-main="../aAron" src="../basis/require.js"></script>
+<!-- 	// <script src="../basis/jQuery2.1.1.js"></script> -->
+	<script type="text/javascript">
+
+			require(['callbacks'], function(aAron) {
+
+				function fn1(value) {
+					console.log(value);
+					return false;
+				}
+
+				function fn2(value) {
+					fn1("fn2 says: " + value);
+					return false;
+				}
+
+				var callbacks = aAron.Callbacks("once memory");
+				
+				callbacks.add(fn1);  //1
+				callbacks.fire("foo");
+				callbacks.add(fn2);  //2
+				callbacks.fire("baz");
+
+			});
+
+	</script>
+</head>
+<body>
+	<form>
+		<input type="text" id="nodeName"/>
+	</form>
+	<div id="aaron"></div>
+</body>
+</html>

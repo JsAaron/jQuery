@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>sizzle选择器引擎</title>
+	<script data-main="../aAron" src="../basis/require.js"></script>
+<!-- 	// <script src="../basis/jQuery2.1.1.js"></script> -->
+</head>
+<body>
+	<ul class="topnav">
+	  <li>Item 1</li>
+	  <li>Item 2
+	    <ul><li>Nested item 1</li><li>Nested item 2</li><li>Nested item 3</li></ul>
+	  </li>
+	  <li>Item 3</li>
+	</ul>
+
+	<ul class="topnav">
+	  <li>11111</li>
+	</ul>
+
+
+	<script type="text/javascript">
+		
+			require(['./sizzle'], function(aAron) {
+
+					var whitespace = "[\\x20\\t\\r\\n\\f]";
+					var rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" )
+							
+					///^#((?:\\.|[\w-] | [^\x00-\xa0] ) +)/
+					var characterEncoding = "(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+";
+					var ID = new RegExp("^#(" + characterEncoding + ")")
+
+					///^((?:\\.|[\w*-]|[^\x00-\xa0])+)/
+					var TAG =  new RegExp( "^(" + characterEncoding.replace( "w", "w*" ) + ")" );
+								
+					var Class = new RegExp( "^\\.(" + characterEncoding + ")" );
+
+					var identifier = characterEncoding.replace( "w", "w#" );
+					var attributes = "\\[" + whitespace + "*(" + characterEncoding + ")(?:" + whitespace +
+						// Operator (capture 2)
+						"*([*^$|!~]?=)" + whitespace +
+						// "Attribute values must be CSS identifiers [capture 5] or strings [capture 3 or capture 4]"
+						"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace +
+						"*\\]";
+
+					var ATTR = new RegExp( "^" + attributes );
+
+					console.log(ATTR.exec("[name*='man']")) 
+
+
+
+
+
+
+
+			});
+
+	</script>
+
+</body>
+</html>
