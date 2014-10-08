@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+   <script src="core.js"></script>
+   <script src="sizzle.js"></script>
+   <script src="other.js"></script>
+<title></title>
+</head>
+<body>
+
+<ul>
+  <li>list item 1</li>
+  <li>list item 2</li>
+  <li>list item 3</li>
+  <li>list item 4</li>
+  <li>list item 5</li>
+  <li>list item 6</li>
+</ul>
+
+<script type="text/javascript">
+  
+  var $li = $('li');
+
+function filter(elems, fn) {
+  //如果是函数参数,类似each的功能
+  if (typeof fn === "function") {
+    var i = 0,length = elems.length;
+    for (; i < length; i++) {
+      fn(elems[i], i)
+    }
+    return;
+  }
+}
+
+  filter($li,function(){
+    console.log(arguments)    
+  })
+
+    console.log(
+
+      $li.filter(':even')
+
+    )
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
