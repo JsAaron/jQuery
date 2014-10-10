@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+
+<div id="clickme">点击我，会无限循环</div>
+
+<script type="text/javascript">
+
+//循环引用
+function a() {
+  setTimeout(function() {
+    show('a函数执行完毕,没有销毁定时器引用,无线循环内存溢出')
+    a();
+  }, 500)
+}
+
+$("#clickme").click(function() {
+  a();
+})
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
