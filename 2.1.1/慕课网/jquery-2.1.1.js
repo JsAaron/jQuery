@@ -3720,9 +3720,9 @@
 			}
 		}
 	};
-	var data_priv = new Data();
+var data_priv = new Data();
 
-	var data_user = new Data();
+var data_user = new Data();
 
 
 
