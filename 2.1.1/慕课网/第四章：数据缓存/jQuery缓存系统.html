@@ -1,56 +1,48 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
-<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
-<title></title>
+  <style>
+div { margin:5px; background:yellow; }
+button { margin:5px; font-size:14px; }
+p { margin:5px; color:blue; }
+span { color:red; }
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
-
-<div id="aaron">慕课网,数据缓存接口测试</div></br>
-
-<script type="text/javascript">
-
-
-var aa1 = $("#aaron");
-var aa2 = $("#aaron");
-
-aa1.data('a',1111);
-aa2.data('a',2222);
-
-show('第一组')
-show(aa1.data('a'))
-show(aa1.data('a'))
-
-
-show()
-//=======第二组=========
-show('第二组')
-$.data(aa1,"b","1111")
-$.data(aa2,"b","2222")
-
-show($.data(aa1,"b"))
-show($.data(aa2,"b") )
-
-
-
+  <div>A div</div>
+<button>Get "blah" from the div</button>
+<button>Set "blah" to "hello"</button>
+ 
+<button>Set "blah" to 86</button>
+<button>Remove "blah" from the div</button>
+<p>The "blah" value of this div is <span>?</span></p>
+<script>
+$("button").click(function(e) {
+  var value, div = $("div")[0];
+ 
+  switch ($("button").index(this)) {
+    case 0 :
+      value = jQuery.data(div, "blah");
+      break;
+    case 1 :
+      jQuery.data(div, "blah", "hello");
+      value = "Stored!";
+      break;
+    case 2 :
+      jQuery.data(div, "blah", 86);
+      value = "Stored!";
+      break;
+    case 3 :
+      jQuery.removeData(div, "blah");
+      value = "Removed!";
+      break;
+  }
+ 
+  $("span").text("" + value);
+});
+ 
 </script>
-
+ 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

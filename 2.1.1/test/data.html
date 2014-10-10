@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script src="core.js"></script>
+   <script src="sizzle.js"></script>
+   <script src="other.js"></script>
+<title></title>
+</head>
+<body>
+
+<div id="aaron">缓存接口测试</div></br>
+
+<script type="text/javascript">
+
+function show(a){
+	console.log(a)
+}
+
+var aa1 = $("#aaron");
+var aa2 = $("#aaron");
+
+aa1.data('a',1111);
+aa2.data('a',2222);
+
+show('第一组,通过$.data的方式,只取到最后一个a值,之前的被覆盖')
+show(aa1.data('a'))
+show(aa1.data('a'))
+
+
+
+//=======第二组=========
+show('第二组,通过$().data的方式,取到2组b值，未覆盖')
+$.data(aa1,"b","1111")
+$.data(aa2,"b","2222")
+
+show($.data(aa1,"b"))
+show($.data(aa2,"b") )
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
