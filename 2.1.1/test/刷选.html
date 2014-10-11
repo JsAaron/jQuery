@@ -10,39 +10,19 @@
 </head>
 <body>
 
-<ul>
-  <li>list item 1</li>
-  <li>list item 2</li>
-  <li>list item 3</li>
-  <li>list item 4</li>
-  <li>list item 5</li>
-  <li>list item 6</li>
-</ul>
-
 <script type="text/javascript">
-  
-  var $li = $('li');
+   
 
-function filter(elems, fn) {
-  //如果是函数参数,类似each的功能
-  if (typeof fn === "function") {
-    var i = 0,length = elems.length;
-    for (; i < length; i++) {
-      fn(elems[i], i)
-    }
-    return;
-  }
-}
+var body1 = $("body")
+var body2 = $("body")
 
-  filter($li,function(){
-    console.log(arguments)    
-  })
 
-    console.log(
+$.data(body1, "bar", '慕课网一');
+$.data(body2, "bar", '慕课网二');
 
-      $li.filter(':even')
+console.log(  $.data(body1, "bar") )
+console.log(  $.data(body2, "bar") )
 
-    )
 
 </script>
 
