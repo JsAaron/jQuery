@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<title></title>
+</head>
+<body>
+
+<button>测试Deferred</button>
+
+<script type="text/javascript">
+
+
+  var dfd = $.Deferred()
+  dfd.then(function(preVale) {
+    return 2 * preVale //4
+  }).then(function(preVale) {
+    return 3 * preVale //12
+  })
+  dfd.resolve(2)
+
+  console.log(dfd)
+
+
+  //then源码
+  var then = function( /* fnDone, fnFail, fnProgress */ ) {
+    var fns = arguments;
+    return jQuery.Deferred(function(newDefer) {
+      jQuery.each(tuples, function(i, tuple) {
+        var fn = jQuery.isFunction(fns[i]) && fns[i];
+        // deferred[ done | fail | progress ] for forwarding actions to newDefer
+        deferred[tuple[1]](function() {
+          var returned = fn && fn.apply(this, arguments);
+          //如果返回值还是一个函数
+          if (returned && jQuery.isFunction(returned.promise)) {
+            returned.promise()
+              .done(newDefer.resolve)
+              .fail(newDefer.reject)
+              .progress(newDefer.notify);
+          } else {
+            newDefer[tuple[0] + "With"](this === promise ? newDefer.promise() : this, fn ? [returned] : arguments);
+          }
+        });
+      });
+      fns = null;
+    }).promise();
+  }
+
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
