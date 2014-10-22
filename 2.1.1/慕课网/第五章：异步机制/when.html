@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<title></title>
+</head>
+<body>
+
+
+<button>模拟的代码测试</button>
+
+<script type="text/javascript">
+
+var d1 = new $.Deferred();
+var d2 = new $.Deferred();
+$.when(d1, d2).done(function(v1, v2) {
+  console.log(v1); // "Fish"
+  console.log(v2); // "Pizza"
+});
+d1.resolve("Fish");
+d2.resolve("Pizza");
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
