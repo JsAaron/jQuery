@@ -8,45 +8,56 @@
 </head>
 <body>
 
-<button>测试Deferred</button>
+
+<button>模拟的代码测试</button>
 
 <script type="text/javascript">
-
-
+  
+  //使用$.Deferred
   var dfd = $.Deferred()
   dfd.then(function(preVale) {
-    return 2 * preVale //4
+    return 2 * preVale; 
   }).then(function(preVale) {
-    return 3 * preVale //12
+    return 3 * preVale 
+  }).then(function(preVale) {
+    $('body').append('<li>使用$.Deferred代码结果:'+ preVale +'</li>')
   })
+
   dfd.resolve(2)
 
-  console.log(dfd)
 
-
-  //then源码
-  var then = function( /* fnDone, fnFail, fnProgress */ ) {
-    var fns = arguments;
-    return jQuery.Deferred(function(newDefer) {
-      jQuery.each(tuples, function(i, tuple) {
-        var fn = jQuery.isFunction(fns[i]) && fns[i];
-        // deferred[ done | fail | progress ] for forwarding actions to newDefer
-        deferred[tuple[1]](function() {
-          var returned = fn && fn.apply(this, arguments);
-          //如果返回值还是一个函数
-          if (returned && jQuery.isFunction(returned.promise)) {
-            returned.promise()
-              .done(newDefer.resolve)
-              .fail(newDefer.reject)
-              .progress(newDefer.notify);
-          } else {
-            newDefer[tuple[0] + "With"](this === promise ? newDefer.promise() : this, fn ? [returned] : arguments);
-          }
-        });
-      });
-      fns = null;
-    }).promise();
+  //简单模拟
+  function aDeferred() {
+    var arr = [];
+    return {
+      then: function(fn) {
+        arr.push(fn)
+        return this;
+      },
+      resolve: function(args) {
+        var returned;
+        arr.forEach(function(fn, i) {
+          var o = returned || args;
+          returned = fn(o)
+        })
+      }
+    }
   }
+
+
+$("button").on("click", function() {
+  var d = aDeferred();
+  d.then(function(preVale) {
+    return 2 * preVale //4
+  }).then(function(preVale) {
+    return 3 * preVale //4
+  }).then(function(preVale) {
+    $('body').append('<li>模拟代码结果:'+ preVale +'</li>')
+  });
+  d.resolve(2)
+});
+
+
 
 
 

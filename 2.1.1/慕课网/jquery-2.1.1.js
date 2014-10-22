@@ -3262,10 +3262,15 @@
 					},
 					then: function( /* fnDone, fnFail, fnProgress */ ) {
 						var fns = arguments;
+						//通过fn构建一个新的deferred对象
 						return jQuery.Deferred(function(newDefer) {
 							jQuery.each(tuples, function(i, tuple) {
+								//取出参数
 								var fn = jQuery.isFunction(fns[i]) && fns[i];
+
 								// deferred[ done | fail | progress ] for forwarding actions to newDefer
+								// 添加done fail progress的处理方法
+								// 针对延时对象直接做了处理
 								deferred[tuple[1]](function() {
 									var returned = fn && fn.apply(this, arguments);
 									if (returned && jQuery.isFunction(returned.promise)) {
