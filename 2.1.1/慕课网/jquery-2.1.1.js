@@ -3299,13 +3299,14 @@
 
 			// Add list-specific methods
 			jQuery.each(tuples, function(i, tuple) {
-				var list = tuple[2],
+				var list = tuple[2], //取出callback回调函数
 					stateString = tuple[3];
 
 				// promise[ done | fail | progress ] = list.add
 				promise[tuple[1]] = list.add;
 
 				// Handle state
+				// 增加状态修改3个函数
 				if (stateString) {
 					list.add(function() {
 						// state = [ resolved | rejected ]
