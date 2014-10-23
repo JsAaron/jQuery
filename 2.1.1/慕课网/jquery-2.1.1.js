@@ -3369,7 +3369,9 @@
 				progressContexts = new Array(length);
 				resolveContexts = new Array(length);
 				for (; i < length; i++) {
+					//如果是promise对象
 					if (resolveValues[i] && jQuery.isFunction(resolveValues[i].promise)) {
+						//转成受限对象,绑定回调处理方法
 						resolveValues[i].promise()
 							.done(updateFunc(i, resolveContexts, resolveValues))
 							.fail(deferred.reject)
