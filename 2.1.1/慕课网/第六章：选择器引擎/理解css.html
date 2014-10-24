@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<style>
+  div,span,p {
+    width: 50px;
+    height: 30px;
+    float:left;
+    padding: 3px;
+    margin: 2px;
+    background-color: #EEEEEE;
+    font-size:10px;
+  }
+
+</style>
+<title></title>
+</head>
+<body>
+
+<div>
+  div
+  <li>222</li>
+</div>
+<p class="notMyClass">p class="notMyClass"</p>
+<span>span</span>
+<div>John Resig</div>
+<input name="milkman" />
+<input name="email" disabled="disabled" />
+</br>
+<button id="selector1">分组选择器</button>
+<button id="selector2">层级选择器</button>
+<button id="selector3">属性选择器</button>
+<button id="selector4">内容选择器</button>
+<button id="selector5">表单选择器</button>
+<button id="selector6">子元素选择器</button>
+<script type="text/javascript">
+
+  $("#selector1").click(function() {
+    $("div,span,p.myClass").css("border", "3px solid red")
+  })
+
+  $("#selector2").click(function() {
+      $("div > li").css("border", "3px double red")
+  })
+
+  $("#selector3").click(function() {
+      $('input[name*="man"]').val('has man in it!')
+  })
+
+  $("#selector4").click(function() {
+      $("div:contains('John')").css("text-decoration", "underline")
+  })
+
+  $("#selector5").click(function() {
+      $("input:disabled").val("this is it")
+  })
+
+  $("#selector6").click(function() {
+    $("div:first-child")
+      .css("text-decoration", "underline")
+  })
+
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
