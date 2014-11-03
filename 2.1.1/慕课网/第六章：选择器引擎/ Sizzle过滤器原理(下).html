@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+
+<button id="test1">过滤器原理</button>
+
+<div id="text">
+  <p>
+     <input type="text" />
+  </p>
+  <div class="Aaron">
+     <input type="checkbox" name="readme" />
+     <input type="checkbox" name="ttt" />
+     <input type="checkbox" name="aaa" />
+     <p>Sizzle</p>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+  
+//种子合集
+var seed = document.querySelectorAll('input')
+
+//选择器
+var selector = "div > div.Aaron [name=ttt]";
+
+
+var relative =  {
+  ">": {
+    dir: "parentNode",
+    first: true
+  },
+  " ": {
+    dir: "parentNode"
+  },
+  "+": {
+    dir: "previousSibling",
+    first: true
+  },
+  "~": {
+    dir: "previousSibling"
+  }
+}
+
+
+function addCombinator(elems) {
+  var elem;
+  while ((elem = elems['parentNode'])) {
+    if (elem.nodeType === 1) {
+      return elem
+    }
+  }
+};
+
+
+$('#test1').click(function() {
+  for (var i = 0; i < seed.length; i++) {
+    var ele = seed[i];
+    var name = ele.getAttribute('name');
+    if (name === 'ttt') {
+      ele = addCombinator(ele);
+      if (ele.getAttribute('class') === 'Aaron') {
+        $('body').append('正确选择到了.Aaron[name=ttt]')
+      }
+    }
+  }
+})
+
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
