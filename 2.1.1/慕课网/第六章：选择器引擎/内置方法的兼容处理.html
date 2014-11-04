@@ -9,7 +9,11 @@
 </head>
 <body>
 
-<button>基本接口测试</button>
+<button id="test1">attributes获取class</button>
+<button id="test2">attributes检测className</button>
+<button id="test3">getElementById检测</button>
+<button id="test4">getElementsByTagName检测</button>
+<button id="test5">getElementsByClassName检测</button>
 
 <script type="text/javascript">
 
@@ -29,29 +33,47 @@
       }
     }
 
-  $('button').click(function(){
-      //attributes检测
+  $('#test1').click(function(){
+      assert(function(div) {
+        div.className = "i";
+        alert(div.getAttribute("class"))
+      });
+  })
+
+
+  $('#test2').click(function(){
       assert(function(div) {
         div.className = "i";
         alert(div.getAttribute("className"))
-        //return !div.getAttribute("className");
       });
+  })
 
 
+  $('#test3').click(function(){
       //getElementById
       assert(function(div) {
         document.body.appendChild(div).id = 'Aaron';
         alert(!document.getElementsByName('Aaron').length) //IE6 false
       });
+  })
 
-
+  $('#test4').click(function(){
       //getElementsByTagName
       assert(function(div) {
         div.appendChild(document.createComment(""));
         alert(div.getElementsByTagName("*").length) //ie
-      })    
+      }) 
   })
 
+
+  $('#test5').click(function() {
+    assert(function(div) {
+      div.innerHTML = "<div class='a'></div><div class='a i'></div>";
+      div.firstChild.className = "i";
+      alert(div.getElementsByClassName("i").length === 2)
+    });
+  })
+  
 
   //tag为*的情况，我们需要做一个兼容的处理
   function byTagName(tag, context) {
