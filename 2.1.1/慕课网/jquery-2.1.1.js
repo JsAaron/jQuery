@@ -756,6 +756,8 @@
 				return [];
 			}
 
+			return select(selector.replace(rtrim, "$1"), context, results, seed);
+
 			if (documentIsHTML && !seed) {
 
 				// Shortcuts
