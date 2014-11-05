@@ -810,6 +810,7 @@
 					if (nodeType === 1 && context.nodeName.toLowerCase() !== "object") {
 						groups = tokenize(selector);
 
+						//
 						if ((old = context.getAttribute("id"))) {
 							nid = old.replace(rescape, "\\$&");
 						} else {
