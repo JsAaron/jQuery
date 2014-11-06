@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+<button>sizzle的词法分析</button>
+
+<div id="text">
+  <div class="aaron">
+     <input type="checkbox" name="readme" />
+     <input type="checkbox" name="ttt" />
+     <input type="checkbox" name="aaa" />
+     <p>慕课网</p>
+  </div>
+</div>
+
+<div>
+   <input type="checkbox" name="readme" />
+   <input type="checkbox" name="ttt" />
+   <input type="checkbox" name="aaa" />
+   <p>Aaron</p>
+</div>
+
+
+<script type="text/javascript">
+  
+  //最简单的选择器
+  var selector = 'div.aaron,div > p';
+
+  var filter = {
+    CLASS: function(className) {},
+    TAG: function(nodeNameSelector) {}
+  }
+
+  var matchExpr = {
+    CLASS: /^\.((?:\\.|[\w-]|[^\x00-\xa0])+)/,
+    TAG: /^((?:\\.|[\w*-]|[^\x00-\xa0])+)/    
+  }
+
+  //层级选择器
+  var rcombinators = /^[\x20\t\r\n\f]*([>+~]|[\x20\t\r\n\f])[\x20\t\r\n\f]*/;
+
+  var rtrim = /^[\x20\t\r\n\f]+|((?:^|[^\\])(?:\\.)*)[\x20\t\r\n\f]+$/g;
+
+  //sizzle的分组方式
+  //分组
+  var rcomma = /^[\x20\t\r\n\f]*,[\x20\t\r\n\f]*/;
+  //TAG
+  var TAG = /^((?:\\.|[\w*-]|[^\x00-\xa0])+)/;
+
+
+  $('button').click(function(){
+     var type;
+     var soFar = selector;
+     var match;
+     var matched;
+     var tokens;
+     var groups = [];
+
+        while (soFar) {
+
+          //第一大块，分组关系
+          //查找最左边的选择是不是逗号开头
+          //matched用于处理第一进入
+          //因为div input,div p 开始分解，第一个不是特殊符号
+          if (!matched || (match = rcomma.exec(soFar))) {
+            if (match) {
+              // Don't consume trailing commas as valid
+              soFar = soFar.slice(match[0].length) || soFar;
+            }
+            groups.push((tokens = []));
+          }
+
+          //退出处理
+          matched = false;
+
+          //第二大块，层级关系
+          if ((match = rcombinators.exec(soFar))) {
+            matched = match.shift();
+            tokens.push({
+              value: matched,
+              type: match[0].replace(rtrim, " ")
+            });
+            soFar = soFar.slice(matched.length);
+          }
+
+          //第三大块，选择器
+          for (type in filter) {
+            if ((match = matchExpr[type].exec(soFar))) {
+              matched = match.shift();
+              tokens.push({
+                value: matched,
+                type: type,
+                matches: match
+              });
+              soFar = soFar.slice(matched.length);
+            }
+          }
+
+          if (!matched) {
+            break;
+          }
+        }
+
+       alert(groups)
+  })
+
+
+
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
