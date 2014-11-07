@@ -2,14 +2,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
-<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<!-- <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
 <title></title>
 </head>
 <body>
 
 
-<button id="test1">过滤器原理</button>
+<button id="test1">div > div.Aaron [name=ttt] 过滤后的结果</button>
 
 <div id="text">
   <p>
@@ -32,8 +32,9 @@
 var seed = document.querySelectorAll('input')
 
 //选择器
-var selector = "div > div.Aaron [name=ttt]";
+var selector = "div > div.Aaron input[name=ttt]";
 
+$(selector)
 
 function addCombinator(elems) {
   var elem;
