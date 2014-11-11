@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+
+<button>模拟的代码测试</button>
+
+<script type="text/javascript">
+
+
+var filterResolve = function() {
+
+  var defer = $.Deferred();
+
+  //先执行成功
+  defer.resolve(5);
+
+  //后添加
+  defer.done(function(value) {
+    $('body').append("<li>defer.done的值是：" + value + "</li>");
+  })
+
+  //实现一个管道方法
+  var filtered = defer.then(function(value) {
+    return value * 2;
+  });
+
+  //接受上一个值，叠加处理
+  filtered.done(function(value) {
+    $('body').append("<li>filtered.done ( 2*5 = ) 10: " + "</li>");
+  });
+
+};
+
+$("button").on("click", filterResolve);
+  
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+<button id="aaron1">例一:基本用法</button>
+<button id="aaron2">例二:过滤器</button>
+<button id="aaron3">例三:promise方法</button>
+<script type="text/javascript">
+
+//例一
+$("#aaron1").on("click", function() {
+  // 构建一个deferred对象
+  var dtd = $.Deferred();
+  // 给deferred注册一个成功后的回调通知
+  dtd.done(function() {
+    show('成功')
+  })
+  // 开始执行一段代码
+  setTimeout(function() {
+    dtd.resolve(); // 改变deferred对象的执行状态
+  }, 2000);
+})
+
+
+//例二：过滤器
+var filterResolve = function() {
+  var defer = $.Deferred(),
+    filtered = defer.then(function(value) {
+      return value * 2;
+    });
+  defer.resolve(5);
+  filtered.done(function(value) {
+    show("Value is ( 2*5 = ) 10: " + value);
+  });
+};
+$("#aaron2").on("click", filterResolve)
+
+
+//例三：实现promise方法
+$("#aaron3").on("click", function() {
+  var obj = {
+    hello: function(name) {
+      show("你好 " + name);
+    }
+  },
+    defer = $.Deferred();
+  // 设置一个promise
+  defer.promise(obj);
+  //解决一个deferred
+  defer.resolve("慕课网");
+  obj.done(function(name) {
+    obj.hello(name);
+  }).hello("Aaron");
+})
+
+
+function show(data) {
+  $("body").append('<li>' + data + '</li>')
+}
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

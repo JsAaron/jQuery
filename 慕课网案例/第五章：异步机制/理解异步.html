@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+
+<button id="go">&raquo; Run</button>
+<div id="block">慕课网，你好!</div>
+
+<script type="text/javascript">
+
+//定时器改变流程
+show(1)
+setTimeout(function() {
+	show(2)
+}, 0)
+show(3)
+
+
+//执行异步动画
+//动画还在执行中
+//因为代码的执行是按照从上至下
+//但是由于加入了动画，动画形成了异步，所以实际的改变值必须等动画完成才能得到
+$("#go").click(function() {
+	var block = $("#block");
+	show('1.动画流程代码开始,对象长度'+ block.css('width'))
+	block.animate({
+		width       : "70%",
+		opacity     : 0.4,
+		marginLeft  : "0.6in",
+		fontSize    : "3em",
+		borderWidth : "10px",
+	}, 1000, function() {
+		show('2.动画执行结束束,对象长度'+ block.css('width'))
+	});
+	show('3.动画流程代码结束,对象长度'+ block.css('width'))
+});
+
+
+function show(data) {
+	$("body").append('<li>' + data + '</li>')
+}
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

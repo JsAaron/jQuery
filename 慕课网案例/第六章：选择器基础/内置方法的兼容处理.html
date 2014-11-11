@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+<button id="test1">attributes获取class</button>
+<button id="test2">attributes检测className</button>
+<button id="test3">getElementById检测</button>
+<button id="test4">getElementsByTagName检测</button>
+<button id="test5">getElementsByClassName检测</button>
+
+<script type="text/javascript">
+
+    function assert(fn) {
+      var div = document.createElement("div");
+      try {
+        return !!fn(div);
+      } catch (e) {
+        return false;
+      } finally {
+        // Remove from its parent by default
+        if (div.parentNode) {
+          div.parentNode.removeChild(div);
+        }
+        // release memory in IE
+        div = null;
+      }
+    }
+
+  $('#test1').click(function(){
+      assert(function(div) {
+        div.className = "i";
+        alert(div.getAttribute("class"))
+      });
+  })
+
+
+  $('#test2').click(function(){
+      assert(function(div) {
+        div.className = "i";
+        alert(div.getAttribute("className"))
+      });
+  })
+
+
+  $('#test3').click(function(){
+      //getElementById
+      assert(function(div) {
+        document.body.appendChild(div).id = 'Aaron';
+        alert(!document.getElementsByName('Aaron').length) //IE6 false
+      });
+  })
+
+  $('#test4').click(function(){
+      //getElementsByTagName
+      assert(function(div) {
+        div.appendChild(document.createComment(""));
+        alert(div.getElementsByTagName("*").length) //ie
+      }) 
+  })
+
+
+  $('#test5').click(function() {
+    assert(function(div) {
+      div.innerHTML = "<div class='a'></div><div class='a i'></div>";
+      div.firstChild.className = "i";
+      alert(div.getElementsByClassName("i").length === 2)
+    });
+  })
+  
+
+  //tag为*的情况，我们需要做一个兼容的处理
+  function byTagName(tag, context) {
+    var elem,
+      tmp = [],
+      i = 0,
+      results = context.getElementsByTagName(tag);
+    if (tag === "*") {
+      while ((elem = results[i++])) {
+        if (elem.nodeType === 1) {
+          tmp.push(elem);
+        }
+      }
+      return tmp;
+    }
+    return results;
+  };
+
+
+  //getElementsByClassName
+  function getClassNames(tagName, classStr) {
+    var nodes = document.getElementsByTagName(tagName),
+      ret = [];
+    for (i = 0; i < nodes.length; i++) {
+      if (hasClass(nodes[i], classStr)) {
+        ret.push(nodes[i])
+      }
+    }
+    return ret;
+  }
+
+  function hasClass(tagStr, classStr) {
+    var arr = tagStr.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含  
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] == classStr) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+
+</script> 
+
+</body>
+</html>

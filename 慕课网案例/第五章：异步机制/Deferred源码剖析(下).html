@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<title></title>
+</head>
+<body>
+
+
+<button>模拟的代码测试</button>
+
+<script type="text/javascript">
+  
+  //使用$.Deferred
+  var dfd = $.Deferred()
+  dfd.then(function(preVale) {
+    return 2 * preVale; 
+  }).then(function(preVale) {
+    return 3 * preVale 
+  }).then(function(preVale) {
+    $('body').append('<li>使用$.Deferred代码结果:'+ preVale +'</li>')
+  })
+
+  dfd.resolve(2)
+
+
+  //简单模拟
+  function aDeferred() {
+    var arr = [];
+    return {
+      then: function(fn) {
+        arr.push(fn)
+        return this;
+      },
+      resolve: function(args) {
+        var returned;
+        arr.forEach(function(fn, i) {
+          var o = returned || args;
+          returned = fn(o)
+        })
+      }
+    }
+  }
+
+
+$("button").on("click", function() {
+  var d = aDeferred();
+  d.then(function(preVale) {
+    return 2 * preVale //4
+  }).then(function(preVale) {
+    return 3 * preVale //4
+  }).then(function(preVale) {
+    $('body').append('<li>模拟代码结果:'+ preVale +'</li>')
+  });
+  d.resolve(2)
+});
+
+
+
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

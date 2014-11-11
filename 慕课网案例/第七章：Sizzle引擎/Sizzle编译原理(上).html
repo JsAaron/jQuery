@@ -1,0 +1,147 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+
+<button id="test1">模拟编译原理,点击选中checked</button>
+
+<div id="text">
+  <div class="Aaron">
+     <input type="checkbox" name="readme" />
+     <input type="checkbox" name="ttt" />
+     <input type="checkbox" name="aaa" />
+     <p>Sizzle</p>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+ var filter = {
+	ATTR: function(name, operator,check) {
+		return function(elem) {
+			var attr = elem.getAttribute(name)
+			if (operator === "=") {
+				if(attr === check){
+					return true
+				}
+			}
+			return false;
+		}
+	},
+	TAG: function(nodeNameSelector) {
+		return function(elem) {
+			return elem.nodeName && elem.nodeName.toLowerCase() === nodeNameSelector;
+		};
+	}
+}
+
+
+function addCombinator(matcher) {
+	return function(elem, context, xml) {
+		while ((elem = elem['parentNode'])) {
+			if (elem.nodeType === 1) {
+				//找到第一个亲密的节点，立马就用终极匹配器判断这个节点是否符合前面的规则
+				return matcher(elem);
+			}
+		}
+	}
+}
+
+
+function elementMatcher(matchers) {
+	return matchers.length > 1 ?
+	function(elem, context, xml) {
+		var i = matchers.length;
+		while (i--) {
+			if (!matchers[i](elem, context, xml)) {
+				return false;
+			}
+		}
+		return true;
+	} :
+	//单个匹配器的话就返回自己即可
+	matchers[0];
+}
+
+
+
+function matcherFromTokens(tokens){
+	var len = tokens.length;
+	var matcher, matchers = [];
+	for (i = 0; i < len; i++) {
+		if (tokens[i].type === " ") {
+			matchers = [addCombinator(elementMatcher(matchers), matcher)];
+		} else {
+			matcher = filter[tokens[i].type].apply(null, tokens[i].matches);
+			matchers.push(matcher);
+		}
+	}
+	return elementMatcher(matchers);
+}
+
+
+function compile() {
+	//种子合集
+	var seed = document.querySelectorAll('input')
+	//选择器
+	var selector = "Aaron [name=ttt]";
+	var elementMatchers = [];
+	var results = []
+	var match = [{
+		matches: ["div"],
+		type: "TAG",
+		value: "Aaron"
+	}, {
+		type: " ",
+		value: " "
+	}, {
+		matches: ["name", "=", "ttt"],
+		type: "ATTR",
+		value: "[name=ttt]"
+	}]
+	elementMatchers.push(matcherFromTokens(match));
+	var matcher, elem;
+	for (var i = 0; i < seed.length; i++) {
+		matcher = elementMatchers[0];
+		var elem = seed[i];
+		if (matcher(elem)) {
+			results.push(elem);
+			break;
+		}
+	}
+
+
+	results[0].checked = 'checked'
+}
+
+
+  $('#test1').click(function() {
+  	compile();
+  })
+
+
+
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

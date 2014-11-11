@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+<button id="test1">querySelector通过指定上下文(查找的范围包含了自己)</button>
+<button id="test2">querySelector通过指定上下文(查找的范围包含了自己的子元素)</button>
+<button id="test3">querySelector上下文为document</button>
+
+
+<div class= "aaron"   id= "aaronId" >
+     <p><span>慕课网</span></p>
+     <div class="text">Aaron</div>
+</div>
+
+<script type="text/javascript">
+
+
+  $('#test1').click(function() {
+    var aaRoot = document.getElementById('aaronId');
+    var element = aaRoot.querySelector('.aaron');
+    alert(element); // <span>Test</span>
+  })
+
+  //通过一个上下文查找
+  $('#test2').click(function() {
+    var aaRoot = document.getElementById('aaronId');
+    var element = aaRoot.querySelector('.aaron span');
+    alert(element); // <span>Test</span>
+  })
+
+  //直接查找
+  $('#test3').click(function() {
+    var elementList = document.querySelectorAll('.aaron span');
+    alert(elementList); //   
+  })
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+  <div>
+  <div class="Aaron">
+        <p><span>s1</span></p>
+        <p><span>s2</span></p>
+        <p><span>s3</span></p>
+        <p><span class='red'>s4</span></p>
+     </div>
+  </div>
+
+
+<script type="text/javascript">
+有童鞋留言到，为什么要传递undefined？
+
+Javascript 中的 undefined 并不是作为关键字，因此可以允许用户对其赋值。
+
+
+我们看一个
+
+var undefined = '慕课网'
+;(function(window) {
+ alert(undefined);//IE8 '慕课网'
+
+})(window)
+IE8存在这个问题，当然，大部分浏览器都是不能被修改的
+
+
+//如果函数调用不传递，参数默认就是undefined
+;(function(window,undefined) {
+    //undefined
+})(window)
+  
+/*  
+  CSS
+  div > div.Aaron p span.red{
+     color:red;
+  }
+*/
+$('div > div.Aaron p span.red').css('color','red')
+  
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

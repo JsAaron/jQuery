@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/54484ca200018e0300000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+
+<div>缓存支持的参数</div>
+<script type="text/javascript">
+
+//1
+var obj1 = {};
+$.data(obj1, 'name', 'aaron');
+show('实例1取出结果:' + $.data(obj1, 'name'))
+
+//2
+var obj2 = {};
+$.data(obj2, {
+  name1: 'aaron1'
+});
+show('实例2取出结果:', $.data(obj2))
+
+//3
+var $body = $("body")
+$body.data("foo", 52);
+show('实例3取出结果:' + $body.data('foo'))
+
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+<title></title>
+</head>
+<body>
+
+<div id="aaron">缓存接口测试</div></br>
+
+<script type="text/javascript">
+
+
+var ele1 = $("#aaron");
+var ele2 = $("#aaron");
+
+ele1.data('a',1111);
+ele2.data('a',2222);
+
+show('第一组,通过$().data()的方式,只取到最后一个a值,之前的被覆盖')
+show(ele1.data('a'))
+show(ele2.data('a'))
+
+
+show()
+//=======第二组=========
+show('第二组,通过$.data的方式,取到2组b值，未覆盖')
+$.data(ele1,"b","1111")
+$.data(ele2,"b","2222")
+
+show($.data(ele1,"b"))
+show($.data(ele2,"b") )
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

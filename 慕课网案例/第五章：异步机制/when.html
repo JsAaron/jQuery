@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+<button>$.when代码测试</button>
+<button>when模拟的代码测试</button>
+
+<script type="text/javascript">
+
+$('button').eq(0).click(function() {
+  var d1 = new $.Deferred();
+  var d2 = new $.Deferred();
+
+  setTimeout(function(){
+    d1.resolve("$.when代码测试Fish");
+  },500)
+
+  setTimeout(function(){
+    d2.resolve("$.when代码测试Pizza");
+  },1000)
+
+$.when(d1, d2).done(function(v1, v2) {
+  show(v1); // "Fish"
+  show(v2); // "Pizza"
+});  
+})
+
+
+
+$('button').eq(1).click(function() {
+
+  var d1 = new $.Deferred();
+  var d2 = new $.Deferred();
+
+  setTimeout(function() {
+    d1.resolve("when模拟:Fish");
+  }, 500)
+
+  setTimeout(function() {
+    d2.resolve("when模拟:Pizza");
+  }, 1000)
+
+  function when(d1, d2) {
+    var i = 0,
+      resolveValues = [].slice.call(arguments),
+      length = resolveValues.length;
+    var len = length;
+    //收集resolve值
+    var values = [];
+    var deferred = jQuery.Deferred();
+
+    function updateFunc(value) {
+      values.push(value);
+      if (len === 1) {
+        deferred.resolveWith('contexts', values);
+      }
+      len--
+    }
+    for (; i < length; i++) {
+      resolveValues[i].done(updateFunc)
+    }
+    return deferred;
+  }
+
+  when(d1, d2).done(function(v1, v2) {
+    show(v1); // "Fish"
+    show(v2); // "Pizza"
+  });
+
+})
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<title></title>
+</head>
+<body>
+
+<button>sizzle获取到种子集合</button>
+
+<div id="text">
+  <div class="aaron">
+     <input type="checkbox" name="readme" />
+     <input type="checkbox" name="ttt" />
+     <input type="checkbox" name="aaa" />
+     <p>慕课网</p>
+  </div>
+</div>
+
+<div>
+   <input type="checkbox" name="readme" />
+   <input type="checkbox" name="ttt" />
+   <input type="checkbox" name="aaa" />
+   <p>Aaron</p>
+</div>
+
+
+<script type="text/javascript">
+  
+  var selector = 'div.aaron input[name=ttt]';
+
+  var Expr = {
+     relative : {
+      ">": { dir: "parentNode", first: true },
+      " ": { dir: "parentNode" },
+      "+": { dir: "previousSibling", first: true },
+      "~": { dir: "previousSibling" }
+    },
+    find: {
+      CLASS: function(className, context) {},
+      ID: function(id, context) {},
+      TAG: function(tag, context) {
+        return document.getElementsByTagName(tag);
+      },
+      ATTR:function(){}
+    }
+  }
+
+    var match = [{
+      matches: ["div"],
+      type: "TAG",
+      value: "div"
+    }, {
+      matches: ["aaron"],
+      type: "CLASS",
+      value: ".aaron"
+    }, {
+      type: " ",
+      value: " "
+    }, {
+      matches: ["input"],
+      type: "TAG",
+      value: "input"
+    }, {
+      matches: ["name"],
+      type: "ATTR",
+      value: "[name=ttt]"
+    }];
+
+
+    function toSelector(tokens) {
+      var i = 0,
+        len = tokens.length,
+        selector = "";
+      for (; i < len; i++) {
+        selector += tokens[i].value;
+      }
+      return selector;
+    }
+
+
+    $('button').click(function(){
+
+      var results = [];
+      var i = match.length
+
+      while (i--) {
+        token = match[i];
+        if (Expr.relative[(type = token.type)]) {
+          break;
+        }
+        if ((find = Expr.find[type])) {
+          if ((seed = find(token.matches[0]))) {
+            match.splice(i, 1);
+            selector = seed.length && toSelector(match);
+              results.push(seed);
+            break;
+          }
+        }
+      }
+
+      alert('选择器 '+selector)
+      alert('seed种子合集 '+results[0])
+    })
+
+
+
+
+
+
+
+
+
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
