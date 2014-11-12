@@ -5145,15 +5145,18 @@ var data_user = new Data();
 						jQuery.merge(nodes, elem.nodeType ? [elem] : elem);
 
 						// Convert non-html into a text node
+						// 没有html结构，是一个文本节点
 					} else if (!rhtml.test(elem)) {
 						nodes.push(context.createTextNode(elem));
 
 						// Convert html into DOM nodes
 					} else {
+						//创一个元素div做为容器
 						tmp = tmp || fragment.appendChild(context.createElement("div"));
 
 						// Deserialize a standard representation
 						tag = (rtagName.exec(elem) || ["", ""])[1].toLowerCase();
+						//ie对字符串进行trimLeft操作，其余是用户输入处理
 						wrap = wrapMap[tag] || wrapMap._default;
 						tmp.innerHTML = wrap[1] + elem.replace(rxhtmlTag, "<$1></$2>") + wrap[2];
 
