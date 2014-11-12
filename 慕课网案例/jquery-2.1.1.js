@@ -4959,7 +4959,7 @@ var data_user = new Data();
 		rscriptType = /^$|\/(?:java|ecma)script/i,
 		rscriptTypeMasked = /^true\/(.*)/,
 		rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g,
-
+		
 		// We have to close these tags to support XHTML (#13200)
 		wrapMap = {
 
@@ -5157,6 +5157,8 @@ var data_user = new Data();
 						// Deserialize a standard representation
 						tag = (rtagName.exec(elem) || ["", ""])[1].toLowerCase();
 						//ie对字符串进行trimLeft操作，其余是用户输入处理
+						//很多标签不能单独作为DIV的子元素
+						//td,th,tr,tfoot,tbody等等,需要加头尾
 						wrap = wrapMap[tag] || wrapMap._default;
 						tmp.innerHTML = wrap[1] + elem.replace(rxhtmlTag, "<$1></$2>") + wrap[2];
 
