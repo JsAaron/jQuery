@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+文档遍历处理
+<button id="test1">文档筛选eq</button>
+<button id="test2">文档筛选filter</button>
+<button id="test3">文档筛选not</button>
+<button id="test4">树遍历children</button>
+<button id="test5">树遍历closest</button>
+<button id="test6">树遍历find</button>
+
+<ul class="level-1">
+  <li class="item-i">I</li>
+  <li class="item-ii">II
+    <ul class="level-2">
+      <li class="item-a">A</li>
+      <li class="item-b">B
+        <ul class="level-3">
+          <li class="item-1">1</li>
+          <li class="item-2">2</li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-c">C</li>
+    </ul>
+  </li>
+  <li class="item-iii">III</li>
+</ul>
+
+
+<script type="text/javascript">
+
+$("#test1").click(function(event) {
+	$('li').eq(2).css('background-color', 'red');
+})
+$("#test2").click(function(event) {
+	$('li').filter(':even').css('background-color', 'blue');
+})
+$("#test3").click(function(event) {
+	$('li').not(':even').css('background-color', 'red');
+})
+$("#test4").click(function(event) {
+	$('ul.level-2').children().css('background-color', 'yellow');
+})
+$("#test5").click(function(event) {
+	$('li.item-a').closest('ul')
+		.css('background-color', 'red');
+})
+$("#test6").click(function(event) {
+	$('li.item-ii').find('li').css('background-color', 'blue');
+})
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
