@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+<button id="test1">jQuery遍历祖先</button>
+<button id="test2">模拟遍历祖先</button>
+
+<ul class="level-1">
+  <li class="item-i">I</li>
+  <li class="item-ii">II
+    <ul class="level-2">
+      <li class="item-a">A</li>
+      <li class="item-b">B
+        <ul class="level-3">
+          <li class="item-1">1</li>
+          <li class="item-2">2</li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-c">C</li>
+    </ul>
+  </li>
+  <li class="item-iii">III</li>
+</ul>
+
+
+<script type="text/javascript">
+
+
+function parent(elem) {
+  var parent = elem.parentNode;
+  return parent && parent.nodeType !== 11 ? parent : null;
+}
+
+
+function parents(elem){
+  var matched = [];
+  while ( (elem = elem[ 'parentNode' ]) && elem.nodeType !== 9 ) {
+    if ( elem.nodeType === 1 ) {
+      matched.push( elem );
+    }
+  }
+  return matched;
+}
+
+function parentsUntil(elem, filter) {
+  var matched = [],
+    until,
+    truncate = filter !== undefined;
+  while ((elem = elem['parentNode']) && elem.nodeType !== 9) {
+    if (elem.nodeType === 1) {
+      if (truncate) {
+        if(elem.nodeName.toLowerCase() ==filter){
+          break;
+        }
+      }
+      matched.push(elem);
+    }
+  }
+  return matched;
+}
+
+
+$("#test1").click(function(){
+  var item = $('.item-1');
+  alert(item.parent()[0])
+  alert( item.parents().length)
+  alert( item.parentsUntil('body').length)
+})
+
+$("#test2").click(function(){
+  var item = document.querySelectorAll('.item-1')[0]
+  alert(parent(item))
+  alert(parents(item).length)
+  alert(parentsUntil(item, 'body').length)
+})
+
+
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

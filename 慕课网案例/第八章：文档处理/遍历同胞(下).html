@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+<button id="test2">模拟遍历同胞</button>
+
+<ul>
+  <li>list item 1</li>
+  <li>list item 2</li>
+  <li class="third-item">list item 3</li>
+  <li>list item 4</li>
+  <li>list item 5</li>
+</ul>
+
+
+<script type="text/javascript">
+
+
+function sibling(n, elem) {
+  var matched = [];
+  for (; n; n = n.nextSibling) { //如果存在下一个兄弟节点
+    if (n.nodeType === 1 && n !== elem) { //是元素节点，且不是当前选择器元素
+      matched.push(n);
+    }
+  }
+  return matched;
+}
+
+function next(elem) {
+  return sibling(elem, "nextSibling");
+}
+
+function prev(elem) {
+  return sibling(elem, "previousSibling");
+}
+
+$("#test2").click(function(){
+  var thirdItem = document.querySelectorAll('.third-item')[0]
+  var results = sibling(thirdItem.parentNode.firstChild, thirdItem)
+  alert(results)
+})
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
