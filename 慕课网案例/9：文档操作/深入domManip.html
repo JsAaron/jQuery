@@ -7,19 +7,28 @@
 </head>
 <body>
 
-<div class="container">
 <h2>Greetings</h2>
-<div class="inner">Hello</div>
-<div class="inner">Goodbye</div>
+<div class="container">
+  <div class="inner">
+    Hello
+    <p>Test</p>
+  </div>
+  <div class="inner">
+    Goodbye
+    <p>Test</p>
+  </div>
 </div>
-
 <script type="text/javascript">
 
-	var inner = $('.inner');
+	//var inner = $('.inner');
 
-	inner.after('<p>慕课网</p>');
+	var inner = $('div')
 
-innerHTML = '<tr></tr>'
+	var h2  = $('h2');
+
+	inner.append(h2);
+
+
 
 </script>
 </body>

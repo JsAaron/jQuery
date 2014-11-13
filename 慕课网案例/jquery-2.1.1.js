@@ -634,7 +634,9 @@
 
 			// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
 			attributes = "\\[" + whitespace + "*(" + characterEncoding + ")(?:" + whitespace +
-			// Operator (capture 2)
+			//////////////////////////////
+			// Operator (capture 2)  //
+			//////////////////////////////
 			"*([*^$|!~]?=)" + whitespace +
 			// "Attribute values must be CSS identifiers [capture 5] or strings [capture 3 or capture 4]"
 			"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace +
@@ -4959,7 +4961,7 @@ var data_user = new Data();
 		rscriptType = /^$|\/(?:java|ecma)script/i,
 		rscriptTypeMasked = /^true\/(.*)/,
 		rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g,
-		
+
 		// We have to close these tags to support XHTML (#13200)
 		wrapMap = {
 
@@ -5435,6 +5437,7 @@ var data_user = new Data();
 			}
 
 			if (l) {
+				//首先会根据用户传入的参数，创建一个fragment  
 				fragment = jQuery.buildFragment(args, this[0].ownerDocument, false, this);
 				first = fragment.firstChild;
 
@@ -5443,11 +5446,14 @@ var data_user = new Data();
 				}
 
 				if (first) {
+					//然后下面就是处理script执行问题。  
+                    //用正则式把script标签提取出来  
 					scripts = jQuery.map(getAll(fragment, "script"), disableScript);
 					hasScripts = scripts.length;
 
 					// Use the original fragment for the last item instead of the first because it can end up
 					// being emptied incorrectly in certain situations (#8070).
+					// 如果不是最后一个元素，则总是clone一个之前创建的fragment
 					for (; i < l; i++) {
 						node = fragment;
 
