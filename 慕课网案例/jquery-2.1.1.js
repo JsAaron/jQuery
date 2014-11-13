@@ -5464,6 +5464,8 @@ var data_user = new Data();
 							if (hasScripts) {
 								// Support: QtWebKit
 								// jQuery.merge because push.apply(_, arraylike) throws
+								// 如果有script标签的话，
+								// 这里先把type=‘text/javascript’改成’true/text/javascript’，以阻止script的执行 
 								jQuery.merge(scripts, getAll(node, "script"));
 							}
 						}
@@ -5471,13 +5473,20 @@ var data_user = new Data();
 						callback.call(this[i], node, i);
 					}
 
+					//因为上面说了，script标签中的代码不会被执行，
+					//所以会在下面来通过操作script标签来控制其执行  
 					if (hasScripts) {
 						doc = scripts[scripts.length - 1].ownerDocument;
 
-						// Reenable scripts
+						// Reenable scripts 
+						// 上面为了阻止js的执行，把type=‘text/javascript’改成’true/text/javascript’，，
+						// 这里会改回去，但是这样不会触发js的执行。  
 						jQuery.map(scripts, restoreScript);
 
 						// Evaluate executable scripts on first document insertion
+						// 因为只改动type属性没有导致script执行，所以这里对每一个script标签，
+						// 通过js来执行其中的代码，如果是外链js就用 jQuery._evalUrl来执行，
+						// 如果是内联js就用 jQuery.globalEval来执行。  
 						for (i = 0; i < hasScripts; i++) {
 							node = scripts[i];
 							if (rscriptType.test(node.type || "") && !data_priv.access(node, "globalEval") && jQuery.contains(doc, node)) {
