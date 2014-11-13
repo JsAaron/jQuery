@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!--  <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title>domManip</title>
+</head>
+<body>
+
+<button>模拟append</button>
+
+<div id="test"></div>
+
+<script type="text/javascript">
+
+	/**
+	 *	一个简单的流程
+	 *	用于描述文档处理的设计结构与流程
+	 * * 
+	 */
+	
+	function buildFragment(elems, context) {
+		var fragment = context.createDocumentFragment(),
+			nodes = [],
+			i = 0,
+			elem,
+			l = elems.length;
+
+		for (; i < l; i++) {
+			elem = elems[i];
+			//创一个元素div做为容器
+			tmp = fragment.appendChild(context.createElement("div"));
+			//放到文档碎片中
+			tmp.innerHTML = elem;	
+		}
+		return fragment;
+	}
+
+	function domManip(parentEles, target, callback) {
+		var l = parentEles.length;
+		var iNoClone = l - 1;
+
+		if (l) {
+			var fragment = buildFragment([target], parentEles[0].ownerDocument);
+			first = fragment.firstChild;
+			if (fragment.childNodes.length === 1) {
+				fragment = first;
+			}
+			if (first) {
+				callback.call(parentEles, first);
+			}
+		}
+
+	}
+
+	function append(parentEles, target) {
+		return domManip([parentEles], target, function(elem) {
+			parentEles.appendChild(elem)
+		});
+	}
+
+	$("button").click(function(){
+		append(document.getElementById('test'),'<div>通过append加入慕课网</div>' )
+	})
+
+
+</script>
+</body>
+</html>
