@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+	<title>innerHTML</title>
+</head>
+<body>
+
+<button id="test">innerHTML的兼容处理</button>
+
+<script type="text/javascript">
+
+var $newdiv1 = $('<div id="object1"/>'),
+	newdiv2 = document.createElement('div'),
+	existingdiv1 = document.getElementById('foo');
+
+
+	var rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi;
+	var wrapMap = {
+		// Support: IE 9
+		option: [1, "<select multiple='multiple'>", "</select>"],
+		thead: [1, "<table>", "</table>"],
+		col: [2, "<table><colgroup>", "</colgroup></table>"],
+		tr: [2, "<table><tbody>", "</tbody></table>"],
+		td: [3, "<table><tbody><tr>", "</tr></tbody></table>"],
+		_default: [0, "", ""]
+	};
+	// Support: IE 9
+	wrapMap.optgroup = wrapMap.option;
+	wrapMap.tbody    = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
+	wrapMap.th       = wrapMap.td;
+
+	/**
+	 * 修正innerHTML的缺陷
+	 * @return {[type]} [description]
+	 */
+	function buildFragment(elem) {
+		var nodes = [];
+		var fragment = document.createDocumentFragment();
+		var tmp = tmp || fragment.appendChild(document.createElement("div"));
+		tag = (/<([\w:]+)/.exec(elem) || ["", ""])[1].toLowerCase();
+		wrap = wrapMap[tag] || wrapMap._default;
+		tmp.innerHTML = wrap[1] + elem.replace(rxhtmlTag, "<$1></$2>") + wrap[2];
+		j = wrap[0];
+		while (j--) {
+			tmp = tmp.lastChild;
+		}
+		jQuery.merge(nodes, tmp.childNodes);
+		document.body.appendChild(tmp)
+	}
+
+	$('#test').click(function() {
+		buildFragment('<td>慕课网</td>')
+	})
+
+
+
+</script>
+</body>
+</html>
