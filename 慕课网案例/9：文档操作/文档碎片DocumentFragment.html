@@ -8,61 +8,39 @@
 </head>
 <body>
 
-<button>模拟append</button>
+
+<button id="Button1" type="button" value="button" onclick = "slowAdd()"/>普通方式创建</button>
+<button id="Button2" type="button" value="button"  onclick = "fastAdd()"/>文档碎片创建</button>
+<div id="test"></div>
 
 <div id="test"></div>
 
 <script type="text/javascript">
 
-	/**
-	 *	一个简单的流程
-	 *	用于描述文档处理的设计结构与流程
-	 * * 
-	 */
-	
-	function buildFragment(elems, context) {
-		var fragment = context.createDocumentFragment(),
-			nodes = [],
-			i = 0,
-			elem,
-			l = elems.length;
 
-		for (; i < l; i++) {
-			elem = elems[i];
-			//创一个元素div做为容器
-			tmp = fragment.appendChild(context.createElement("div"));
-			//放到文档碎片中
-			tmp.innerHTML = elem;	
-		}
-		return fragment;
-	}
+    function slowAdd() {
+    	var time1 =( +new Date());
+    	for (var i = 0; i < 5000; i++) {
+    		var op = document.createElement("span");
+    		var oText = document.createTextNode(i);
+    		op.appendChild(oText);
+    		document.body.appendChild(op);
+    	}
+    	document.getElementById('test').innerHTML = '<br><div>普通方式创建耗时'+ ( +new Date() - time1);
+    }
 
-	function domManip(parentEles, target, callback) {
-		var l = parentEles.length;
-		var iNoClone = l - 1;
-
-		if (l) {
-			var fragment = buildFragment([target], parentEles[0].ownerDocument);
-			first = fragment.firstChild;
-			if (fragment.childNodes.length === 1) {
-				fragment = first;
-			}
-			if (first) {
-				callback.call(parentEles, first);
-			}
-		}
-
-	}
-
-	function append(parentEles, target) {
-		return domManip([parentEles], target, function(elem) {
-			parentEles.appendChild(elem)
-		});
-	}
-
-	$("button").click(function(){
-		append(document.getElementById('test'),'<div>通过append加入慕课网</div>' )
-	})
+    function fastAdd() {
+    	var oFragmeng = document.createDocumentFragment(); //创建文档碎片
+    	var time2 =( +new Date());
+    	for (var i = 0; i < 5000; i++) {
+    		var op = document.createElement("span");
+    		var oText = document.createTextNode(i);
+    		op.appendChild(oText);
+    		oFragmeng.appendChild(op);
+    	}
+    	document.body.appendChild(oFragmeng); //最后一次性添加到document中
+    	document.getElementById('test').innerHTML = '<br><div>文档碎片创建耗时'+ ( +new Date() - time2);
+    }
 
 
 </script>
