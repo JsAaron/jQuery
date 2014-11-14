@@ -5135,6 +5135,7 @@ var data_user = new Data();
 				i = 0,
 				l = elems.length;
 
+			//筛选出不同类型的节点
 			for (; i < l; i++) {
 				elem = elems[i];
 
@@ -5144,6 +5145,9 @@ var data_user = new Data();
 					if (jQuery.type(elem) === "object") {
 						// Support: QtWebKit
 						// jQuery.merge because push.apply(_, arraylike) throws
+						// 如果是jQuery对象
+						// 如果是普通元素对象加[elem]
+						// 取出ele放入nodes数组中
 						jQuery.merge(nodes, elem.nodeType ? [elem] : elem);
 
 						// Convert non-html into a text node
@@ -5165,6 +5169,8 @@ var data_user = new Data();
 						tmp.innerHTML = wrap[1] + elem.replace(rxhtmlTag, "<$1></$2>") + wrap[2];
 
 						// Descend through wrappers to the right content
+						// 因为warp被包装过
+						// 需要找到正确的元素父级
 						j = wrap[0];
 						while (j--) {
 							tmp = tmp.lastChild;
@@ -5172,12 +5178,16 @@ var data_user = new Data();
 
 						// Support: QtWebKit
 						// jQuery.merge because push.apply(_, arraylike) throws
+						// 把节点拷贝到nodes数组中去
 						jQuery.merge(nodes, tmp.childNodes);
 
 						// Remember the top-level container
 						tmp = fragment.firstChild;
 
 						// Fixes #12346
+						// http://bugs.jquery.com/ticket/12346
+						// var $e = $('<span>e</span>'), $x = $('<span>x</span>');
+						// $('div').append('&nbsp;', $e, '&nbsp;', $x);​
 						// Support: Webkit, IE
 						tmp.textContent = "";
 					}
