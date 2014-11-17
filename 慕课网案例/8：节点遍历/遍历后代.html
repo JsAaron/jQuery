@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+<button id="test1">jQuery children方法</button>
+<button id="test2">模拟children方法</button>
+  
+<div></div>
+
+<ul class="level-1">
+  <li class="item-i">I</li>
+  <li class="item-ii">II
+    <ul class="level-2">
+      <li class="item-a">A</li>
+      <li class="item-b">B
+        <ul class="level-3">
+          <li class="item-1">1</li>
+          <li class="item-2">2</li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-c">C</li>
+    </ul>
+  </li>
+  <li class="item-iii">III</li>
+</ul>
+
+
+<script type="text/javascript">
+
+
+$("#test1").click(function(){
+    $('.level-2').children().each(function(i,ele){
+      $('div').append('<li>jQuery.children方法,子元素的className为:'+ ele.className + '</li>')
+    })
+})
+
+$("#test2").click(function() {
+  function sibling(n, elem) {
+    var matched = [];
+    for (; n; n = n.nextSibling) { //如果存在下一个兄弟节点
+      if (n.nodeType === 1 && n !== elem) { //是元素节点，且不是当前选择器元素
+        matched.push(n);
+      }
+    }
+    return matched;
+  }
+
+  var ul = document.querySelectorAll('.level-2')[0];
+
+  //遍历所有元素
+  $.each(sibling(ul.firstChild), function(i, ele) {
+    $('div').append('<li>模拟children方法,子元素的className为:' + ele.className + '</li>')
+  })
+})
+
+</script> 
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -31,7 +31,7 @@
 
 <script type="text/javascript">
 
-    var api = {};
+    var ajQuery = {};
 
 function dir(elem, dir, until) {
   var matched = [],
@@ -61,7 +61,7 @@ function dir(elem, dir, until) {
       return dir(elem, "parentNode", until);
     }
   }, function(name, fn) {
-    api[name] = function(until, selector) {
+    ajQuery[name] = function(until, selector) {
       return  fn(until, selector);
     };
   });
@@ -76,9 +76,9 @@ function dir(elem, dir, until) {
 
   $("#test2").click(function() {
     var item = document.querySelectorAll('.item-1')[0]
-    alert(api.parent(item))
-    alert(api.parents(item).length)
-    alert(api.parentsUntil(item, 'body').length)
+    alert(ajQuery.parent(item))
+    alert(ajQuery.parents(item).length)
+    alert(ajQuery.parentsUntil(item, 'body').length)
   })
 
 
