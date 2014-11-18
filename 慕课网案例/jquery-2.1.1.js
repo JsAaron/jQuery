@@ -2643,12 +2643,13 @@
 	var rsingleTag = (/^<(\w+)\s*\/?>(?:<\/\1>|)$/);
 
 
-
 	var risSimple = /^.[^:#\[\.,]*$/;
 
-	// Implement the identical functionality for filter and not
-
+	//Implement the identical functionality for filter and not
+	//为过滤器,而不是实现相同的功能
 	function winnow(elements, qualifier, not) {
+
+		//如果是函数
 		if (jQuery.isFunction(qualifier)) {
 			return jQuery.grep(elements, function(elem, i) {
 				/* jshint -W018 */
@@ -2657,6 +2658,7 @@
 
 		}
 
+		//dom元素
 		if (qualifier.nodeType) {
 			return jQuery.grep(elements, function(elem) {
 				return (elem === qualifier) !== not;
@@ -2664,6 +2666,7 @@
 
 		}
 
+		//字符串
 		if (typeof qualifier === "string") {
 			if (risSimple.test(qualifier)) {
 				return jQuery.filter(qualifier, elements, not);
@@ -2718,7 +2721,8 @@
 			return ret;
 		},
 		filter: function(selector) {
-			return this.pushStack(winnow(this, selector || [], false));
+			var f = winnow(this, selector || [], false)
+			return this.pushStack(f);
 		},
 		not: function(selector) {
 			return this.pushStack(winnow(this, selector || [], true));
@@ -5467,6 +5471,8 @@ var data_user = new Data();
 					for (; i < l; i++) {
 						node = fragment;
 
+						//如果有多个元素
+						//需要克隆每一份文档对象
 						if (i !== iNoClone) {
 							node = jQuery.clone(node, true, true);
 
@@ -5520,11 +5526,11 @@ var data_user = new Data();
 	});
 
 	jQuery.each({
-		appendTo: "append",
-		prependTo: "prepend",
-		insertBefore: "before",
-		insertAfter: "after",
-		replaceAll: "replaceWith"
+		appendTo     : "append",
+		prependTo    : "prepend",
+		insertBefore : "before",
+		insertAfter  : "after",
+		replaceAll   : "replaceWith"
 	}, function(name, original) {
 		jQuery.fn[name] = function(selector) {
 			var elems,
