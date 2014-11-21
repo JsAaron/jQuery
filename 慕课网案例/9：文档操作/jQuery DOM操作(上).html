@@ -1,4 +1,6 @@
+<!-- 1 -->
 <!doctype html>
+<!-- 1 -->
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
@@ -7,12 +9,16 @@
 	<title>innerHTML</title>
 </head>
 <body>
-
 <div>
 	
 </div>
 
-<li></li>
+<li class="aa" id="b">
+	<a>1</a>
+	<a>1</a>
+	<a>1</a>
+	<div>2</div>
+</li>
 
 <script type="text/javascript">
 
@@ -25,15 +31,23 @@ var a = function() {
 // a.call('littledu');
 
 function toArray(o) {
-	return [].slice.call(o);
+	var li = document.getElementById('b')
+
+
+	alert(li.getElementsByTagName('a').length)
 }
 
-var li = $('li')
+$.ready(function(){
+	alert(2)
+})
 
+// toArray()
 
-console.log( document.querySelectorAll('div')[0].insertBefore( $('li')[0]  ) )
 
 
 </script>
 </body>
+<!-- 1 -->
 </html>
+<!-- 1 -->
+<!-- 1 -->
