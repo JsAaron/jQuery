@@ -1,51 +1,36 @@
-<!-- 1 -->
 <!doctype html>
-<!-- 1 -->
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<!-- // <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
-	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
-	<title>innerHTML</title>
+	<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+	<title>DOM操作</title>
 </head>
 <body>
-<div>
-	
+
+<button id="test1">模拟after处理</button>
+
+
+<div class="container">
+  <h2>Greetings</h2>
+  <div class="inner">Hello</div>
+  <div class="inner">Goodbye</div>
 </div>
 
-<li class="aa" id="b">
-	<a>1</a>
-	<a>1</a>
-	<a>1</a>
-	<div>2</div>
-</li>
 
 <script type="text/javascript">
 
-var a = function() {
-	console.log(this); // 'littledu'
-	console.log(typeof this); //  Object
-	console.log(this instanceof String); // true
-}
-
-// a.call('littledu');
-
-function toArray(o) {
-	var li = document.getElementById('b')
-
-
-	alert(li.getElementsByTagName('a').length)
-}
-
-console.log( document.documentMode  )
-
-// toArray()
-
+$('#test1').click(function() {
+	var inner = document.getElementsByClassName('inner')
+	for (var i = 0; i < inner.length; i++) {
+		var elem = inner[i]
+		var div = document.createElement('div')
+		div.innerHTML = 'aaaa'
+		elem.parentNode.insertBefore(div, elem.nextSibling)
+	}
+})
 
 
 </script>
+
 </body>
-<!-- 1 -->
 </html>
-<!-- 1 -->
-<!-- 1 -->

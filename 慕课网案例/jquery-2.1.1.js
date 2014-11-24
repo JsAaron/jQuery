@@ -1275,7 +1275,7 @@
 				function(a, b) {
 					if (b) {
 						while ((b = b.parentNode)) {
-							if (b === a) {
+							if (b === a) { 
 								return true;
 							}
 						}
