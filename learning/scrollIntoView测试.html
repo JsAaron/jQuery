@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ScrollIntoView() example</title>
+
+<script type="text/javascript">
+//滚动到页面可视区位置
+function showIt(elID) {
+    var el = document.getElementById(elID);
+    el.scrollIntoView(true);
+}
+</script>
+
+</head>
+<body>
+  <div style="height: 5em; width: 30em; overflow: scroll;
+              border: 1px solid blue;">
+    <div style="height: 100px"></div>
+    <p id="pToShow">The para to show</p>
+    <div style="height: 100px"></div>
+  </div>
+  <input type="button" value="Show para" 
+   onclick="showIt('pToShow');">
+</body>
+</html>
