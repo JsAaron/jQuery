@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+	 <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title>DOM插入</title>
+</head>
+<body>
+
+<button id="test1">html取值操作</button>
+<button id="test2">html设值操作</button>
+<button id="test3">text取值操作</button>
+<button id="test4">text设值操作</button>
+
+<div class="container">
+  <div class="inner">Hello</div>
+  <div class="inner">Goodbye</div>
+</div>
+
+  <p>
+  	<b>TestP1</b>Paragraph.
+  </p>
+  <p>TestP2</p>
+
+<script type="text/javascript">
+
+
+function html(value) {
+	var elem = this[0] || {},
+		i = 0,
+		l = this.length;
+	if (value === undefined 
+		&& elem.nodeType === 1) {
+		return elem.innerHTML;
+	}
+	for (; i < l; i++) {
+		elem = this[i] || {};
+		if (elem.nodeType === 1) {
+			elem.innerHTML = value;
+		}
+	}
+}
+
+
+function getText(elem) {
+	var node,
+		ret = "",
+		i = 0,
+		nodeType = elem.nodeType;
+	if (!nodeType) {
+		//如果没有节点类型,表示是一个数组
+		while ((node = elem[i++])) {
+			// 不遍历注释节点
+			ret += getText(node);
+		}
+	} else if (nodeType === 1 || nodeType === 9 || nodeType === 11) {
+		if (typeof elem.textContent === "string") {
+			return elem.textContent;
+		} else {
+			for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
+				ret += getText(elem);
+			}
+		}
+	} else if (nodeType === 3 || nodeType === 4) {
+		return elem.nodeValue;
+	}
+	return ret;
+}
+
+
+function empty() {
+	var elem,
+		i = 0;
+	for (;
+		(elem = this[i]) != null; i++) {
+		if (elem.nodeType === 1) {
+			elem.textContent = "";
+		}
+	}
+	return this;
+}
+
+function setText(value) {
+	empty.call(this)
+	if (this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9) {
+		this.textContent = value;
+	}
+}
+
+
+function text(value) {
+	return value === undefined ?
+	//取值
+	getText(this) :
+	//清理
+	setText.call(this, value)
+}
+
+
+
+$('#test1').click(function() {
+	var inner = document.querySelectorAll('.inner')
+	alert(html.call(inner))
+})
+
+$('#test2').click(function() {
+	var inner = document.querySelectorAll('.inner')
+	html.call(inner,'慕课网')
+})
+
+$('#test3').click(function() {
+	var p = document.querySelectorAll("p")[0]
+	alert(text.call(p))
+})
+
+$('#test4').click(function() {
+	var p = document.querySelectorAll("p")[0]
+	text.call(p,'慕课网')
+})
+
+</script>
+
+</body>
+</html>
+
