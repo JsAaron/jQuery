@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+	<title>DOM操作</title>
+</head>
+<body>
+
+<button id="test1">模拟replaceWith处理</button>
+
+
+<div class="container">
+  <div class="inner first">Hello</div>
+  <div class="inner second">And</div>
+  <div class="inner third">Goodbye</div>
+</div>
+
+
+<script type="text/javascript">
+
+  //$('div.second').replaceWith('<h2>New heading</h2>');
+
+$('#test1').click(function() {
+	var elem = document.querySelectorAll('div.second')[0]
+	var div = document.createElement('div')
+	div.innerHTML = 'replaceWith处理'
+	elem.parentNode.replaceChild(div, elem)
+})
+
+
+
+</script>
+
+</body>
+</html>
+
