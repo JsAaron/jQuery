@@ -2,8 +2,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<!-- // <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
-	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+	<!-- // <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
 	<style>
 		div { width:60px; height:60px; margin:5px; float:left; }
     </style>
@@ -12,38 +12,71 @@
 </head>
 <body>
 
-<button id="test1">empty操作</button>
-<button id="test2">remove操作</button>
+<button id="test1">borderRadius驼峰写法</button>
+<button id="test2">border-radius连接写法</button>
 
 
-<span id="result">&nbsp;</span>
-<div style="background-color:blue;"></div>
-<div style="background-color:rgb(15,99,30);"></div>
- 
-<div style="background-color:#123456;"></div>
-<div style="background-color:#f11;"></div>
+
+<div  id="a1" style="background-color:blue;"></div>
+<div  id="a2" style="background-color:rgb(15,99,30);"></div>
 
 
 <script type="text/javascript">
 
-var div = $("div")
-
-console.log( div.css("width") )
-
+//在使供应商特定的CSS属性标准化前，首先要确定浏览器是否支持标准的属性 或 带浏览器供应商前缀的变种。
+//例如，检查支持border-radius 属性，还要检查该属性的任何变种写法是否是临时元素的 style 对象中的成员
+//要定义一个完整的cssHook，首先我们需要测试您当前使用的 jQuery 版本是否支持 cssHooks 方法：
+(function($) {
+  if ( !$.cssHooks ) {
+    throw("jQuery 1.4.3+ is needed for this plugin to work");
+    return;
+  }
+ 
+  function styleSupport( prop ) {
+    var vendorProp, supportedProp,
+        capProp = prop.charAt(0).toUpperCase() + prop.slice(1),
+        prefixes = [ "Moz", "Webkit", "O", "ms" ],
+        div = document.createElement( "div" );
+ 
+    if ( prop in div.style ) {
+      supportedProp = prop;
+    } else {
+      for ( var i = 0; i < prefixes.length; i++ ) {
+        vendorProp = prefixes[i] + capProp;
+        if ( vendorProp in div.style ) {
+          supportedProp = vendorProp;
+          break;
+        }
+      }
+    }
+ 
+    div = null;
+    $.support[ prop ] = supportedProp
+    return supportedProp;
+  }
+ 
+  var borderRadius = styleSupport( "borderRadius" );
+ 
+  if ( borderRadius && borderRadius !== "borderRadius" ) {
+    $.cssHooks.borderRadius = {
+      get: function( elem, computed, extra ) {
+        return $.css( elem, borderRadius );
+      },
+      set: function( elem, value) {
+        elem.style[ borderRadius ] = value;
+      }
+    };
+  }
+})(jQuery);
 
 
 $('#test1').click(function() {
-	var elem = document.querySelectorAll('.empty')
-	empty.call(elem)
+	$("#a1").css("borderRadius", "10px");
 })
 
 $('#test2').click(function() {
-	var elem = document.querySelectorAll('.remove')
-	remove.call(elem)
+	$("#a2").css("border-radius", "20px");
 })
-
-
-
 
 </script>
 
