@@ -5621,6 +5621,8 @@ var data_user = new Data();
 
 	var rnumnonpx = new RegExp("^(" + pnum + ")(?!px)[a-z%]+$", "i");
 
+	//获取最终属性
+	//https://github.com/jquery/jquery/pull/524
 	var getStyles = function(elem) {
 		return elem.ownerDocument.defaultView.getComputedStyle(elem, null);
 	};
