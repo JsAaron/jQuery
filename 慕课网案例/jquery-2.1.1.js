@@ -5626,7 +5626,6 @@ var data_user = new Data();
 	};
 
 
-
 	function curCSS(elem, name, computed) {
 		var width, minWidth, maxWidth, ret,
 			style = elem.style;
@@ -5635,6 +5634,7 @@ var data_user = new Data();
 
 		// Support: IE9
 		// getPropertyValue is only needed for .css('filter') in IE9, see #12537
+		// -ms-filter IE9反回未定义
 		if (computed) {
 			ret = computed.getPropertyValue(name) || computed[name];
 		}
