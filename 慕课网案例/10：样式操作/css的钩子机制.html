@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<style>
+		div { width:60px; height:60px; margin:5px; float:left; }
+    </style>
+
+	<title>样式操作</title>
+</head>
+<body>
+
+<button id="test1">empty操作</button>
+<button id="test2">remove操作</button>
+
+
+<span id="result">&nbsp;</span>
+<div style="background-color:blue;"></div>
+<div style="background-color:rgb(15,99,30);"></div>
+ 
+<div style="background-color:#123456;"></div>
+<div style="background-color:#f11;"></div>
+
+
+<script type="text/javascript">
+
+var div = $("div")
+
+console.log( div.css("width") )
+
+
+
+$('#test1').click(function() {
+	var elem = document.querySelectorAll('.empty')
+	empty.call(elem)
+})
+
+$('#test2').click(function() {
+	var elem = document.querySelectorAll('.remove')
+	remove.call(elem)
+})
+
+
+
+
+</script>
+
+</body>
+</html>
+

@@ -5822,7 +5822,7 @@ var data_user = new Data();
 		cssPrefixes = ["Webkit", "O", "Moz", "ms"];
 
 	// return a css property mapped to a potentially vendor prefixed property
-
+	//返回一个css属性映射到一个浏览器商前缀的属性
 	function vendorPropName(style, name) {
 
 		// shortcut for names that are not vendor prefixed
@@ -6088,9 +6088,13 @@ var data_user = new Data();
 
 		css: function(elem, name, extra, styles) {
 			var val, num, hooks,
+				//转成驼峰写法
+				//background-color -> backgroundColor
 				origName = jQuery.camelCase(name);
 
 			// Make sure that we're working with the right name
+			//如果是特殊属性float转成cssFloat
+			//带有浏览器前缀处理
 			name = jQuery.cssProps[origName] || (jQuery.cssProps[origName] = vendorPropName(elem.style, origName));
 
 			// gets hook for the prefixed version
