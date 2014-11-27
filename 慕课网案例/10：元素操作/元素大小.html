@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+
+	<title>元素操作</title>
+</head>
+<body>
+<div></div>
+<ul>
+	<li>scrollHeight: 获取对象的滚动高度。</li>
+	<li>scrollLeft:设置或获取位于对象左边界和窗口中目前可见内容的最左端之间的距离</li>
+	<li>scrollTop:设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离</li>
+	<li>scrollWidth:获取对象的滚动宽度</li>
+	<li>offsetHeight:获取对象相对于版面或由父坐标 offsetParent 属性指定的父坐标的高度</li>
+	<li>offsetLeft:获取对象相对于版面或由 offsetParent 属性指定的父坐标的计算左侧位置</li>
+	<li>offsetTop:获取对象相对于版面或由 offsetTop 属性指定的父坐标的计算顶端位置</li>
+	<li>document.documentElement.scrollTop 垂直方向滚动的值</li>
+	<li>event.clientX+document.documentElement.scrollTop 相对文档的水平座标+垂直方向滚动的量</li>
+	　
+	<li>以上主要指IE之中，FireFox差异如下：</li>
+	<li>IE6.0、FF1.06+：</li>
+	<li>clientWidth = width + padding</li>
+	<li>clientHeight = height + padding</li>
+	<li>offsetWidth = width + padding + border</li>
+	<li>offsetHeight = height + padding + border</li>
+
+	<li>IE5.0/5.5：</li>
+	<li>clientWidth = width - border</li>
+	<li>clientHeight = height - border</li>
+	<li>offsetWidth = width</li>
+	<li>offsetHeight = height</li>
+</ui>
+
+
+
+<script type="text/javascript">
+
+show('网页可见区域宽clientWidth：' + document.body.clientWidth)
+show('网页可见区域高clientHeight：' + document.body.clientHeight)
+show('网页可见区域宽(包括边线的宽)offsetWidth：' + document.body.offsetWidth )
+show('网页可见区域高(包括边线的宽)offsetHeight：' + document.body.offsetHeight )
+show('网页正文全文宽scrollWidth：' + document.body.scrollWidth)
+show('网页被卷去的高scrollTop：' + document.body.scrollTop)
+show('网页被卷去的左scrollLeft：' + document.body.scrollLeft)
+show('网页正文部分上screenTop：' + window.screenTop)
+show('屏幕分辨率的高height：' + window.screen.height)
+show('屏幕可用工作区高度availHeight：' + window.screen.availHeight)
+show('屏幕可用工作区宽度availWidth：' + window.screen.availWidth)
+
+
+function show(data) {
+  $("div").append('<li>' + data + '</li>')
+}
+
+</script>
+
+</body>
+</html>
+

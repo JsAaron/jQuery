@@ -5894,6 +5894,7 @@ var data_user = new Data();
 		return val;
 	}
 
+	//获取宽高
 	function getWidthOrHeight(elem, name, extra) {
 
 		// Start with offset property, which is equivalent to the border-box value
@@ -5908,7 +5909,7 @@ var data_user = new Data();
 		if (val <= 0 || val == null) {
 			// Fall back to computed then uncomputed css if necessary
 			val = curCSS(elem, name, styles);
-			if (val < 0 || val == null) {
+			if (val < 0 || val == qull) {
 				val = elem.style[name];
 			}
 

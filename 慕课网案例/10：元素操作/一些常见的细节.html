@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+
+	<title>元素操作</title>
+</head>
+<body>
+<div></div>
+<ul style="margin:20px;padding:100px;">
+	<li>scrollHeight: 获取对象的滚动高度。</li>
+	<li>scrollLeft:设置或获取位于对象左边界和窗口中目前可见内容的最左端之间的距离</li>
+	<li>scrollTop:设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离</li>
+	<li>scrollWidth:获取对象的滚动宽度</li>
+	<li>offsetHeight:获取对象相对于版面或由父坐标 offsetParent 属性指定的父坐标的高度</li>
+	<li>offsetLeft:获取对象相对于版面或由 offsetParent 属性指定的父坐标的计算左侧位置</li>
+	<li>offsetTop:获取对象相对于版面或由 offsetTop 属性指定的父坐标的计算顶端位置</li>
+	<li>document.documentElement.scrollTop 垂直方向滚动的值</li>
+	<li>event.clientX+document.documentElement.scrollTop 相对文档的水平座标+垂直方向滚动的量</li>
+	　
+	<li>以上主要指IE之中，FireFox差异如下：</li>
+	<li>IE6.0、FF1.06+：</li>
+	<li>clientWidth = width + padding</li>
+	<li>clientHeight = height + padding</li>
+	<li>offsetWidth = width + padding + border</li>
+	<li>offsetHeight = height + padding + border</li>
+
+	<li>IE5.0/5.5：</li>
+	<li>clientWidth = width - border</li>
+	<li>clientHeight = height - border</li>
+	<li>offsetWidth = width</li>
+	<li>offsetHeight = height</li>
+</ui>
+
+
+
+<script type="text/javascript">
+
+
+console.log(window.innerWidth, window.innerHeight) //可视区域大小
+console.log(document.body.offsetWidth, document.body.offsetHeight)
+console.log(document.body.clientWidth ,document.body.clientHeight)
+console.log(document.body.scrollWidth ,document.body.scrollHeight )
+
+console.log(document.documentElement.offsetWidth,document.body.offsetWidth)
+
+
+function show(data) {
+  $("div").append('<li>' + data + '</li>')
+}
+
+</script>
+
+</body>
+</html>
+
