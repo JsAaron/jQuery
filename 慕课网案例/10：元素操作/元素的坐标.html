@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+p { margin-left:10px; }
+  </style>
+  <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+</head>
+<body>
+  <p>Hello</p><p>2nd Paragraph</p>
+
+<script>
+
+var p = $("p:last");
+
+var offset = p.offset();
+
+p.html( "left: " + offset.left + ", top: " + offset.top );
+
+function offset() {
+	var docElem, win,
+		elem = this[0],
+		//定义返回的值
+		box = {
+			top: 0,
+			left: 0
+		},
+		doc = elem && elem.ownerDocument;
+	docElem = doc.documentElement;
+	if (typeof elem.getBoundingClientRect !== strundefined) {
+		box = elem.getBoundingClientRect();
+	}
+	win = getWindow(doc);
+	return {
+		top: box.top + win.pageYOffset - docElem.clientTop,
+		left: box.left + win.pageXOffset - docElem.clientLeft
+	};
+};
+
+
+</script>
+ 
+
+</body>
+</html>
