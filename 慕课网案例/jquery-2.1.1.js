@@ -5783,6 +5783,8 @@ var data_user = new Data();
 
 
 	// A method for quickly swapping in/out CSS properties to get correct calculations.
+	//交换处理
+	//用来处理display:none下 获取尺寸
 	jQuery.swap = function(elem, options, callback, args) {
 		var ret, name,
 			old = {};
@@ -5872,11 +5874,15 @@ var data_user = new Data();
 
 			if (isBorderBox) {
 				// border-box includes padding, so remove it if we want content
+				//paddingRight
+				//paddingLeft
 				if (extra === "content") {
 					val -= jQuery.css(elem, "padding" + cssExpand[i], true, styles);
 				}
 
 				// at this point, extra isn't border nor margin, so remove border
+				//borderRightWidth
+				//borderLeftWidth
 				if (extra !== "margin") {
 					val -= jQuery.css(elem, "border" + cssExpand[i] + "Width", true, styles);
 				}
