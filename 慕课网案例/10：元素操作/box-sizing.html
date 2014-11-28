@@ -1,0 +1,41 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<style type="text/css">
+		  .imgBox img{
+		     width: 140px;
+		     height: 140px;
+		     padding: 20px;
+		     border: 20px solid orange;
+		     margin: 10px;
+		  }
+		  #contentBox img{
+		     -moz-box-sizing: content-box;
+		     -webkit-box-sizing: content-box;
+		     -o-box-sizing: content-box;
+		     -ms-box-sizing: content-box;
+		     box-sizing: content-box; 
+		  }
+
+		  #borderBox img{
+		     -moz-box-sizing: border-box;
+		     -webkit-box-sizing: border-box;
+		     -o-box-sizing: border-box;
+		     -ms-box-sizing: border-box;
+		     box-sizing: border-box;
+		  }
+			</style>
+	<title>jQuery.width</title>
+</head>
+<body>
+
+   <div class="imgBox" id="contentBox"><img src="/images/header.jpeg" alt="" /></div>
+   <div class="imgBox" id="borderBox"><img src="/images/header.jpeg" alt="" /></div>
+
+
+</script>
+</body>
+</html>
