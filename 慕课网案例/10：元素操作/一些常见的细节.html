@@ -2,38 +2,28 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<!-- // <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
-	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
-
 	<title>元素操作</title>
 </head>
 <body>
 <div></div>
 
-<div id="div" style="width:100px;height:1000px;background:#ccc;position:absolute;"></div>
+<li>scrollWidth、clientWidth、offsetWidth的区别</li>
+<li>当textarea没有输入内容时，scrollWidth和clientWidth值一样；</li>
+<li>当textarea输入值并且出现横向滚动条时，scrollWidth发生改变，clientWidth不变；</li>
+<li>两种情况下offsetWidth的值均未改变，并且大于clientWidth；</li>
+<li>可见，scrollWidth是对象实际内容的宽度，clientWidth是对象可见内容的宽度（不含边线），offsetWidth也是对象可见内容的宽度（含边线）</li>
+ 
+<textarea wrap="off" id="txt"></textarea>
+<button onclick="javascript:compare();">比较</button>
 
 
 <script type="text/javascript">
 
+function compare() {
+ 	var txtarea = document.getElementById("txt");
+ 	alert("scrollWidth:" + txtarea.scrollWidth + "\nclientWidth:" + txtarea.clientWidth + "\noffsetWidth:" + txtarea.offsetWidth);
+ }
 
-window.onscroll = function() {
-	var div = document.getElementById("div");
-	console.log( document.documentElement.scrollTop ,  document.body.scrollTop )
-	div.style.top = document.body.scrollTop + "px";
-}
-
-
-var rootElement = document.documentElement;
-var firstTier = rootElement.childNodes;
-
-// for (var i = 0; i < firstTier.length; i++) {
-// 	show(firstTier[i].toString())
-// }
-
-
-function show(data) {
-  $("div").append('<li>' + data + '</li>')
-}
 
 </script>
 

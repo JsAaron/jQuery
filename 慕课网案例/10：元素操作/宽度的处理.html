@@ -8,22 +8,41 @@
 </head>
 <body>
 
-<div style="width:200px;">
+<div style="width:2000px;height:100px;background:red;border:20px solid #ccc">
 	11
 </div>
 
+
+ <textarea wrap="off" id="txt"></textarea>
+  <button onclick="javascript:compare();">比较</button>
+
 <script type="text/javascript">
+
+ function compare() {
+ 	var txtarea = document.getElementById("txt");
+ 	alert("scrollWidth:" + txtarea.scrollWidth + "\nclientWidth:" + txtarea.clientWidth + "\noffsetWidth:" + txtarea.offsetWidth);
+ }
 
 //为匹配的元素集合中获取第一个元素的当前计算宽度值。
 
 // console.log(  $( window ).width() )
 //window.document.documentElement["clientWidth"]
 
-console.log(  $( document ).width() )
+// console.log(  $( document ).width() )
 
-var div = $('div')
+var div = $('div')[0]
 
-div.width();
+// div.width();
+
+console.log(
+		div.style.width,
+		div.offsetWidth,
+		div.clientWidth,
+		div.scrollWidth
+
+
+	)
+
 
 window.document.documentElement["clientWidth"]
 

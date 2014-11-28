@@ -1,0 +1,39 @@
+ <!DOCTYPE html>
+ <html lang="zh">
+ <head>
+ <meta charset=utf-8>
+ <title>元素大小相关（offsetTop/clientHeight/scrollTop~）</title>
+ </head> 
+  
+  <style>  
+    body{
+     margin:0;
+     padding: 0;
+   }
+   #fullDiv {
+     background-color: red;
+     width: 100px;
+     height: 100px;
+     margin-top: 200px;
+     padding-top: 100px;
+     margin-left: 300px;
+     padding-left: 100px;
+     border-top: 50px;
+     border-left: 150px;
+   }
+ </style>  
+     
+ <body>
+    <div>
+    <div id="fullDiv"></div>
+    </div>
+    
+元素的客户区的大小就是指元素内容及其内边距所占空间的大小（滚动条占用的空间不计算在内）。（clientWidth=width+padding（left、right）；clientHeight=height+padding（top、bottom））
+
+     <script>
+        var div = document.getElementById('fullDiv');
+       console.log('div的clientHeight为：'+div.clientHeight);//chrome/FF/IE10:200px,height+padding;
+       console.log('div的clientWidth为：'+div.clientWidth);//chrome/FF/IE10:200px,width+padding
+       
+    </script>
+ </body> 
