@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js" type="text/javascript"></script>
+  <style>
+    div { width:60px; height:60px; margin:5px; float:left; }
+    </style>
+
+  <title>事件委托</title>
+</head>
+<body>
+
+<h2>Great Web resources</h2>
+
+<ul id="resources">
+  <li><a href="http://opera.com/wsc">Opera Web Standards Curriculum</a></li>
+  <li><a href="http://sitepoint.com">Sitepoint</a></li>
+  <li><a href="http://alistapart.com">A List Apart</a></li>
+  <li><a href="http://yuiblog.com">YUI Blog</a></li>
+  <li><a href="http://blameitonthevoices.com">Blame it on the voices</a></li>
+  <li><a href="http://oddlyspecific.com">Oddly specific</a></li>
+</ul>
+<script type="text/javascript">
+
+//常规写法
+(function() {
+  var resources = document.getElementById('resources');
+  var links = resources.getElementsByTagName('a');
+  var all = links.length;
+  for (var i = 0; i < all; i++) {
+    links[i].addEventListener('click', handler, false);
+
+  };
+  function handler(e) {
+    var x = e.target; // Get the link that was clicked
+    alert('addEventListener绑定: '+ x);
+    e.preventDefault();
+  };
+})();
+
+//事件委托
+(function() {
+  var resources = document.getElementById('resources');
+  resources.addEventListener('click', handler, false);
+  function handler(e) {
+    var x = e.target; // get the link tha
+    if (x.nodeName.toLowerCase() === 'a') {
+      alert('事件委托: ' + x);
+      e.preventDefault();
+    }
+  };
+})();
+
+
+
+
+</script>
+
+</body>
+</html>
+
