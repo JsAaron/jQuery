@@ -4091,7 +4091,7 @@ var data_user = new Data();
 
 
 	var
-	rkeyEvent = /^key/,
+	    rkeyEvent = /^key/,
 		rmouseEvent = /^(?:mouse|pointer|contextmenu)|click/,
 		rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
 		rtypenamespace = /^([^.]*)(?:\.(.+)|)$/;

@@ -9,10 +9,10 @@
 </head>
 <body>
 <div>
-	<div id='p'>
+	<div id='p' style = "width:200px;height;">
 		<ul>
 			<li>
-				<div id='aa'>aa</div>
+				<div id='aa' style="margin-top:800px;">aa</div>
 			</li>
 		</ul>
 
@@ -21,22 +21,25 @@
 
 
 <script type="text/javascript">
+	
 
-	var aa = document.getElementById('aa')
+	$('#p').on('mousedown',function(e){
+		console.log('mousedown',e)
+		console.log(e.client)
+	})
 
-	var p = document.getElementById('p')
-
-	p.addEventListener('click',function(){
-		alert('p')
-	},true)
-
-	aa.addEventListener('click',function(){
-		
-		alert('aa')
+	$('#p').on('click',function(e){
+		console.log('click',e.currentTarget)
+	})
+	
+	document.addEventListener('mousewheel',function(){
+		alert(2)
 	},false)
 
-
 	
+	document.resize = function(){
+		alert(1)
+	}
 
 </script>
 
