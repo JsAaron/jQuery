@@ -21,11 +21,16 @@
   
   var a = $("#aaron")
 
-  a.on('click','p',function(e){
+  a.on('mouseup mousedown','p',function(e){
     console.log(e)
   })
   
-
+  handlers = events[type] = [];
+  handlers.delegateCount = 0;
+  events ={
+    mousedown:[dta]
+    mouseup
+  }
 
 
 </script> 

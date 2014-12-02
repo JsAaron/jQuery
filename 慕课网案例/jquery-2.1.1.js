@@ -4148,6 +4148,11 @@ var data_user = new Data();
 				handler.guid = jQuery.guid++;
 			}
 
+			//给缓存增加事件处理空间
+			//elemData = {
+			//   events:
+			//   handle:	
+			//}
 			// Init the element's event structure and main handler, if this is the first
 			if (!(events = elemData.events)) {
 				events = elemData.events = {};
@@ -4166,8 +4171,10 @@ var data_user = new Data();
 			types = (types || "").match(rnotwhite) || [""];
 			t = types.length;
 			while (t--) {
+				// 如"mouseover.a.b" → ["mouseover.a.b", "mouseover", "a.b"]
 				tmp = rtypenamespace.exec(types[t]) || [];
 				type = origType = tmp[1];
+				//取出事件命名空间，如a.b，并根据"."分隔成数组
 				namespaces = (tmp[2] || "").split(".").sort();
 
 				// There *must* be a type, no attaching namespace-only handlers
