@@ -1,0 +1,36 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js" type="text/javascript"></script>
+<title>理解委托</title>
+</head>
+<body>
+
+<div id='p1' style="width: 500px;height: 500px;background: #ccc">点击d
+    <div id='p2' style="width: 300px;height: 300px;background: #a9ea00">点击c
+        <p id="p3" style="width: 100px;height: 100px;background: red" id = "test">点击b
+            <a id="p4" style="width: 50px;height: 50px;background: cornflowerblue" id = "test">点击a</a>
+        </p>
+    </div>
+</div>
+
+
+<script type="text/javascript"> 
+    var p1 = $('#p1')
+    p1.on('click', function() {
+        alert('灰')
+    })
+    var p2 = $('#p2')
+    p2.on('click', 'a,p', function(e) {
+        alert(e.currentTarget.nodeName)
+    })
+    p2.on('click', function(e) {
+        alert('默认事件1')
+    })
+
+    var p3 = $('#p3')
+    p3.on('click', function() {
+        alert('红')
+    })
+</script>
+
+</body>
+</html>
