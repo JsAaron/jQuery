@@ -4096,13 +4096,13 @@ var data_user = new Data();
 		rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
 		rtypenamespace = /^([^.]*)(?:\.(.+)|)$/;
 
-	function returnTrue() {
-		return true;
-	}
+		function returnTrue() {
+			return true;
+		}
 
-	function returnFalse() {
-		return false;
-	}
+		function returnFalse() {
+			return false;
+		}
 
 	function safeActiveElement() {
 		try {
@@ -4123,6 +4123,7 @@ var data_user = new Data();
 			var handleObjIn, eventHandle, tmp,
 				events, t, handleObj,
 				special, handlers, type, namespaces, origType,
+				//事件缓存
 				elemData = data_priv.get(elem);
 
 			// Don't attach events to noData or text/comment nodes (but allow plain objects)
@@ -4156,6 +4157,7 @@ var data_user = new Data();
 			}
 
 			// Handle multiple events separated by a space
+			// 通过空格分隔的多事件
 			types = (types || "").match(rnotwhite) || [""];
 			t = types.length;
 			while (t--) {
@@ -4164,14 +4166,18 @@ var data_user = new Data();
 				namespaces = (tmp[2] || "").split(".").sort();
 
 				// There *must* be a type, no attaching namespace-only handlers
+				//检测状态，若为空数据、text或comment节点时，阻止绑定事件
 				if (!type) {
 					continue;
 				}
 
 				// If event changes its type, use the special event handlers for the changed type
+				// 事件是否会改变当前状态，如果会则使用特殊事件
+				// click beforeunload blur 
 				special = jQuery.event.special[type] || {};
 
 				// If selector defined, determine special event api type, otherwise given type
+				// 根据是否已定义selector，决定使用哪个特殊事件api，如果没有非特殊事件，则用type
 				type = (selector ? special.delegateType : special.bindType) || type;
 
 				// Update special based on newly reset type
@@ -4195,6 +4201,7 @@ var data_user = new Data();
 					handlers.delegateCount = 0;
 
 					// Only use addEventListener if the special events handler returns false
+					// 如果获取特殊事件监听方法失败，则使用addEventListener进行添加事件
 					if (!special.setup || special.setup.call(elem, data, namespaces, eventHandle) === false) {
 						if (elem.addEventListener) {
 							elem.addEventListener(type, eventHandle, false);
@@ -4426,6 +4433,9 @@ var data_user = new Data();
 			return event.result;
 		},
 
+		/**
+		 * 事件调度器	
+		 */
 		dispatch: function(event) {
 
 			// Make a writable jQuery.Event from the native event object
@@ -4538,6 +4548,7 @@ var data_user = new Data();
 		},
 
 		// Includes some event props shared by KeyEvent and MouseEvent
+		// 键盘与鼠标都公用的一些事件属性
 		props: "altKey bubbles cancelable ctrlKey currentTarget eventPhase metaKey relatedTarget shiftKey target timeStamp view which".split(" "),
 
 		fixHooks: {},
@@ -4581,7 +4592,9 @@ var data_user = new Data();
 			}
 		},
 
+		//事件修正
 		fix: function(event) {
+			//如果存在
 			if (event[jQuery.expando]) {
 				return event;
 			}
@@ -4589,6 +4602,7 @@ var data_user = new Data();
 			// Create a writable copy of the event object and normalize some properties
 			var i, prop, copy,
 				type = event.type,
+				//保留原始的引用
 				originalEvent = event,
 				fixHook = this.fixHooks[type];
 
@@ -4597,10 +4611,13 @@ var data_user = new Data();
 					rmouseEvent.test(type) ? this.mouseHooks :
 					rkeyEvent.test(type) ? this.keyHooks : {};
 			}
+			//复制出事件对象的属性
 			copy = fixHook.props ? this.props.concat(fixHook.props) : this.props;
 
+			//事件对象
 			event = new jQuery.Event(originalEvent);
 
+			//混入事件
 			i = copy.length;
 			while (i--) {
 				prop = copy[i];
@@ -4702,6 +4719,8 @@ var data_user = new Data();
 		}
 	};
 
+	//模拟出事件对象
+	//增加调用判断方法
 	jQuery.Event = function(src, props) {
 		// Allow instantiation without the 'new' keyword
 		if (!(this instanceof jQuery.Event)) {
