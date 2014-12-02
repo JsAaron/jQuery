@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<style>
+	  p {
+	    color: red;
+	  }
+	  span {
+	    color: blue;
+	  }
+	</style>
+
+	<title>on</title>
+</head>
+<body>
+
+<p>Has an attached custom event.</p>
+<button>Trigger custom event</button>
+<span style="display:none;"></span>
+
+
+<script type="text/javascript">
+
+
+var p = $("p");	
+
+p.on('click',function(){
+	alert(1)
+})
+
+
+// $( "button" ).click(function () {
+//   $( "p" ).trigger( "myCustomEvent", [ "John" ] );
+// });
+
+
+// p.on("myCustomEvent", function(event, myName) {
+// 	$(this).text(myName + ", hi there!");
+// 	$("span")
+// 		.stop()
+// 		.css("opacity", 1)
+// 		.text("myName = " + myName)
+// 		.fadeIn(30)
+// 		.fadeOut(1000);
+// });
+</script>
+
+</body>
+</html>
+

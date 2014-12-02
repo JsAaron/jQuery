@@ -4127,11 +4127,14 @@ var data_user = new Data();
 				elemData = data_priv.get(elem);
 
 			// Don't attach events to noData or text/comment nodes (but allow plain objects)
+			// 检测状态，若为空数据、text或comment节点时，阻止绑定事件
 			if (!elemData) {
 				return;
 			}
 
 			// Caller can pass in an object of custom data in lieu of the handler
+            // 一般在第一运行的时候，handler为事件处理函数,后面jQuery对handler做了一些包装
+            // 检测handler是包含handler和selector的对象，包含说明handler是一个事件处理函数包
 			if (handler.handler) {
 				handleObjIn = handler;
 				handler = handleObjIn.handler;
@@ -4139,6 +4142,8 @@ var data_user = new Data();
 			}
 
 			// Make sure that the handler has a unique ID, used to find/remove it later
+            //检测handler是否存在ID （guid），如果没有那么传给他一个ID
+            //添加ID的目的是 用来寻找或者删除handler
 			if (!handler.guid) {
 				handler.guid = jQuery.guid++;
 			}
