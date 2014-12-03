@@ -381,6 +381,7 @@
         dispatch: function(event) {
 
             // Make a writable jQuery.Event from the native event object
+            // 通过原生的事件对象创建一个可写的jQuery.Event对象
             event = jQuery.event.fix(event);
 
             var i, j, ret, matched, handleObj,
