@@ -4318,6 +4318,7 @@ var data_user = new Data();
 		trigger: function(event, data, elem, onlyHandlers) {
 
 			var i, cur, tmp, bubbleType, ontype, handle, special,
+				//触发的路径队列
 				eventPath = [elem || document],
 				type = hasOwn.call(event, "type") ? event.type : event,
 				namespaces = hasOwn.call(event, "namespace") ? event.namespace.split(".") : [];

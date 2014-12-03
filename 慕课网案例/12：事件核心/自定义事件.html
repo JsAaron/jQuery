@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<!-- <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js" type="text/javascript"></script> -->
+<title>模拟事件</title>
+</head>
+<body>
+
+
+<form>
+  <input id="target1" type="text" value="Field 1" />
+  <input id="target2" type=text"" value="Field 2" />
+</form>
+<div id="other">
+  Trigger the handler
+</div>
+
+
+<script type="text/javascript">
+
+var body = $('body');
+
+body.on('custom', function(event, param1, param2) {
+  alert(param1 + "\n" + param2);
+});
+
+body.trigger('custom', ['Custom', 'Event']);
+
+
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
