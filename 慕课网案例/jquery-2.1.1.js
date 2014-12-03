@@ -4230,6 +4230,7 @@ var data_user = new Data();
 				}
 
 				// Add to the element's handler list, delegates in front
+				//有委托元素 ，增加委托标记
 				if (selector) {
 					handlers.splice(handlers.delegateCount++, 0, handleObj);
 				} else {
@@ -4469,6 +4470,8 @@ var data_user = new Data();
 			}
 
 			// Determine handlers
+			// 处理委托关系
+			// 找到可以委托的元素
 			handlerQueue = jQuery.event.handlers.call(this, event, handlers);
 
 			// Run delegates first; they may want to stop propagation beneath us
@@ -4489,6 +4492,7 @@ var data_user = new Data();
 						ret = ((jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler)
 							.apply(matched.elem, args);
 
+						//如果返回了false
 						if (ret !== undefined) {
 							if ((event.result = ret) === false) {
 								event.preventDefault();
@@ -4521,6 +4525,7 @@ var data_user = new Data();
 				for (; cur !== this; cur = cur.parentNode || this) {
 
 					// Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)
+					//不处理元素为disabled元素或者click事件
 					if (cur.disabled !== true || event.type !== "click") {
 						matches = [];
 						for (i = 0; i < delegateCount; i++) {
@@ -4529,11 +4534,14 @@ var data_user = new Data();
 							// Don't conflict with Object.prototype properties (#13203)
 							sel = handleObj.selector + " ";
 
+							//遍历回溯每一个节点
+							//是否在当前的节点中能找到委托的节点
 							if (matches[sel] === undefined) {
 								matches[sel] = handleObj.needsContext ?
 									jQuery(sel, this).index(cur) >= 0 :
 									jQuery.find(sel, this, null, [cur]).length;
 							}
+							//如果找到就收集起来
 							if (matches[sel]) {
 								matches.push(handleObj);
 							}

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<title>事件对象</title>
+</head>
+<body>
+
+
+<div id="aaron">
+   <div id='test'>
+   		<ul>
+   			<p>Click me!</p>
+   		</ul>
+   </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+	// var a = document.getElementById('aaron')
+
+	// a.addEventListener('click',function(e){
+	// 	console.log(this,this == e.currentTarget,e)
+	// },false)
+  
+  var aaron = $("#aaron")
+  aaron.on('mousedown','p',function(e){
+    console.log(e)
+    // e.stopPropagation()
+  })
+
+  var test = $("#test")
+  test.on('mousedown','ul',function(e){
+  	console.log('test',e)
+  	e.stopPropagation()
+  })
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
