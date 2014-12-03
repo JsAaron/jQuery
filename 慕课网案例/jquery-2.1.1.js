@@ -4154,6 +4154,7 @@ var data_user = new Data();
 			//   handle:	
 			//}
 			// Init the element's event structure and main handler, if this is the first
+			//同一个元素，不同事件，不重复绑定
 			if (!(events = elemData.events)) {
 				events = elemData.events = {};
 			}
