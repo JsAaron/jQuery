@@ -5080,15 +5080,18 @@ var data_user = new Data();
 		}
 
 		// 1. Copy private data: events, handlers, etc.
+		// 加入有数据
 		if (data_priv.hasData(src)) {
+			//把事件数据,复制到目标元素上
 			pdataOld = data_priv.access(src);
 			pdataCur = data_priv.set(dest, pdataOld);
 			events = pdataOld.events;
 
+			//如果有事件
 			if (events) {
 				delete pdataCur.handle;
 				pdataCur.events = {};
-
+				//重新给元素绑定事件
 				for (type in events) {
 					for (i = 0, l = events[type].length; i < l; i++) {
 						jQuery.event.add(dest, type, events[type][i]);
@@ -5151,11 +5154,12 @@ var data_user = new Data();
 			}
 
 			// Copy the events from the original to the clone
+			// 复制事件处理程序
 			if (dataAndEvents) {
 				if (deepDataAndEvents) {
+					//遍历子节点,深度复制
 					srcElements = srcElements || getAll(elem);
 					destElements = destElements || getAll(clone);
-
 					for (i = 0, l = srcElements.length; i < l; i++) {
 						cloneCopyEvent(srcElements[i], destElements[i]);
 					}
