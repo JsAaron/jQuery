@@ -4891,7 +4891,8 @@ var data_user = new Data();
 			focus: "focusin",
 			blur: "focusout"
 		}, function(orig, fix) {
-
+			// focus focusin
+	        // blur focusout
 			// Attach a single capturing handler on the document while someone wants focusin/focusout
 			var handler = function(event) {
 				jQuery.event.simulate(fix, event.target, jQuery.event.fix(event), true);
