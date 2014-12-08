@@ -4315,6 +4315,14 @@ var data_user = new Data();
 			}
 		},
 
+
+        /**
+        * 模拟事件触发,为了让事件模型在各浏览器上表现一致 (并不推荐使用)
+        * @param {Object} event 事件对象 (原生Event事件对象将被转化为jQuery.Event对象)
+        * @param {Object} data 自定义传入到事件处理函数的数据
+        * @param {Object} elem HTML Element元素
+        * @param {Boolen} onlyHandlers 是否不冒泡 true 表示不冒泡  false表示冒泡        
+        */
 		trigger: function(event, data, elem, onlyHandlers) {
 
 			var i, cur, tmp, bubbleType, ontype, handle, special,
