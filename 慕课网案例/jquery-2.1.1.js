@@ -4191,6 +4191,8 @@ var data_user = new Data();
 
 				// If selector defined, determine special event api type, otherwise given type
 				// 根据是否已定义selector，决定使用哪个特殊事件api，如果没有非特殊事件，则用type
+				// focus -> delegateType:focusin
+				// blur -> delegateType:focusout
 				type = (selector ? special.delegateType : special.bindType) || type;
 
 				// Update special based on newly reset type
@@ -4904,6 +4906,7 @@ var data_user = new Data();
 						attaches = data_priv.access(doc, fix);
 
 					if (!attaches) {
+						//事件捕获
 						doc.addEventListener(orig, handler, true);
 					}
 					data_priv.access(doc, fix, (attaches || 0) + 1);

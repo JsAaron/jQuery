@@ -10,18 +10,26 @@
 
 
 
-<div id="aaron" style="width:100px;" tabindex="-1">Focus me</div>
+<div id="aaron" style="width:100px;" tabindex="-1">
+	<p>委托</p>
+</div>
 
 
 <script type="text/javascript">
 
-document.body.addEventListener('click',function(e){
-	console.log('target',e);
-},false)
+var aaron = $("#aaron")
 
-document.getElementById('aaron').addEventListener('focus',function(e){
-	console.log('target',e);
-},false)
+aaron.on('focus','p',function(e){
+	console.log(e)
+})
+
+// document.body.addEventListener('click',function(e){
+// 	console.log('target',e);
+// },false)
+
+// document.getElementById('aaron').addEventListener('focus',function(e){
+// 	console.log('target',e);
+// },false)
 
 </script> 
 
