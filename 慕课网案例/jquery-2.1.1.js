@@ -4329,34 +4329,42 @@ var data_user = new Data();
 				//触发的路径队列
 				eventPath = [elem || document],
 				type = hasOwn.call(event, "type") ? event.type : event,
+				// 事件是否有命名空间，有则分割成数组
 				namespaces = hasOwn.call(event, "namespace") ? event.namespace.split(".") : [];
 
 			cur = tmp = elem = elem || document;
 
 			// Don't do events on text and comment nodes
+			//  对于text和comment节点不进行事件处理
 			if (elem.nodeType === 3 || elem.nodeType === 8) {
 				return;
 			}
 
 			// focus/blur morphs to focusin/out; ensure we're not firing them right now
+            // 仅对focus/blur事件变种成focusin/out进行处理
+            // 如果浏览器原生支持focusin/out，则确保当前不触发他们
 			if (rfocusMorph.test(type + jQuery.event.triggered)) {
 				return;
 			}
 
+			// 如果type有命名空间
 			if (type.indexOf(".") >= 0) {
 				// Namespaced trigger; create a regexp to match event type in handle()
 				namespaces = type.split(".");
 				type = namespaces.shift();
 				namespaces.sort();
 			}
+			// 检测是否需要改成ontype形式 即"onclick"
 			ontype = type.indexOf(":") < 0 && "on" + type;
 
 			// Caller can pass in a jQuery.Event object, Object, or just an event type string
+			// jQuery.expando:检测事件对象是否由jQuery.Event生成的实例，否则用jQuery.Event改造
 			event = event[jQuery.expando] ?
 				event :
 				new jQuery.Event(type, typeof event === "object" && event);
 
 			// Trigger bitmask: & 1 for native handlers; & 2 for jQuery (always true)
+			// 对event预处理
 			event.isTrigger = onlyHandlers ? 2 : 3;
 			event.namespace = namespaces.join(".");
 			event.namespace_re = event.namespace ?
@@ -4364,12 +4372,14 @@ var data_user = new Data();
 				null;
 
 			// Clean up the event in case it is being reused
+			// 清除事件返回数据，以重新使用
 			event.result = undefined;
 			if (!event.target) {
 				event.target = elem;
 			}
 
 			// Clone any incoming data and prepend the event, creating the handler arg list
+			// 如果data为空，则传入处理函数的是event，否则由data和event组成
 			data = data == null ?
 				[event] :
 				jQuery.makeArray(data, [event]);
@@ -4382,39 +4392,57 @@ var data_user = new Data();
 
 			// Determine event propagation path in advance, per W3C events spec (#9951)
 			// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
+            // 如果需要冒泡，特殊事件不需要阻止冒泡，且elem不是window对象
+            // onlyHandlers为true 表示不冒泡
 			if (!onlyHandlers && !special.noBubble && !jQuery.isWindow(elem)) {
 
+				// 冒泡时是否需要转成别的事件(用于事件模拟)
 				bubbleType = special.delegateType || type;
+
+			    // 如果不是变形来的foucusin/out事件
 				if (!rfocusMorph.test(bubbleType + type)) {
+					 // 则定义当前元素师父节点
 					cur = cur.parentNode;
 				}
+
+				 // 遍历自身及所有父节点
+				 // 形成这个事件路径
 				for (; cur; cur = cur.parentNode) {
 					eventPath.push(cur);
 					tmp = cur;
 				}
 
 				// Only add window if we got to document (e.g., not plain obj or detached DOM)
+                // 如果循环中最后一个cur是document，那么事件是需要最后触发到window对象上的
+                // 将window对象推入元素队列
 				if (tmp === (elem.ownerDocument || document)) {
 					eventPath.push(tmp.defaultView || tmp.parentWindow || window);
 				}
 			}
 
 			// Fire handlers on the event path
+			// 触发所有该事件对应元素的事件处理器
 			i = 0;
+			// 遍历所有元素，并确保事件不需要阻止冒泡
 			while ((cur = eventPath[i++]) && !event.isPropagationStopped()) {
 
+				// 先确定事件绑定类型是delegateType还是bindType
 				event.type = i > 1 ?
 					bubbleType :
 					special.bindType || type;
 
 				// jQuery handler
+				// 检测缓存中该元素对应事件中包含事件处理器，
+				// 有则取出主处理器(jQuery handle)来控制所有分事件处理器
 				handle = (data_priv.get(cur, "events") || {})[event.type] && data_priv.get(cur, "handle");
 				if (handle) {
 					handle.apply(cur, data);
 				}
 
 				// Native handler
+				// 取出原生事件处理器elem.ontype (比如click事件就是elem.onclick)  
 				handle = ontype && cur[ontype];
+				// 如果原生事件处理器存在，检测需不需要阻止事件在浏览器上的默认动作
 				if (handle && handle.apply && jQuery.acceptData(cur)) {
 					event.result = handle.apply(cur, data);
 					if (event.result === false) {
