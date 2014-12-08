@@ -8,30 +8,20 @@
 </head>
 <body>
 
-<div id="aaron">
-<form>
-  <input id="target" type="text" value="Field 1" />
-  	<a href="#">测试</a>
-  <input type="text" value="Field 2" />
-</form>
-<div id="other">
-  Trigger the handler
-</div>
-</div>
+
+
+<div id="aaron" style="width:100px;" tabindex="-1">Focus me</div>
+
+
 <script type="text/javascript">
 
+document.body.addEventListener('click',function(e){
+	console.log('target',e);
+},false)
 
-var input = $("input")
-input.on('focus', function() {
-	console.log('Handler for .focus() aaron.');
-})
-
-
-var a = $("a")
-a.on('focus', function() {
-	console.log('Handler for .focus() a.');
-})
-
+document.getElementById('aaron').addEventListener('focus',function(e){
+	console.log('target',e);
+},false)
 
 </script> 
 
