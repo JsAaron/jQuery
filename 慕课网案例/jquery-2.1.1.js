@@ -4762,6 +4762,7 @@ var data_user = new Data();
 					originalEvent: {}
 				}
 			);
+			//如果是捕获
 			if (bubble) {
 				jQuery.event.trigger(e, null, elem);
 			} else {
