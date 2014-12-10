@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>innerHeight demo</title>
+  <style>
+  p {
+    margin: 10px;
+    padding: 5px;
+    border: 2px solid #666;
+  }
+  </style>
+  <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+</head>
+<body>
+ 
+<p>Hello</p>
+<p></p>
+ 
+<script>
+var p = $( "p:first" );
+var last = $( "p:last" )
+
+console.log( p.outerWidth(true) )
+
+</script>
+ 
+</body>
+</html>

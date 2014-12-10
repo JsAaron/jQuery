@@ -5943,6 +5943,17 @@ var data_user = new Data();
 			value;
 	}
 
+	/**
+	 * extra 需要额外计算的值 
+	 * innerWidth()函数用于设置或返回当前匹配元素的内宽度。
+	 * 内宽度包括元素的内边距(padding)，但不包括外边距(margin)、边框(border)等部分的高度。
+	 * 
+	 * 因为默认是采用了offsetWidth取值的
+	 * offsetWidth = border-left-width + padding-left + width + padding-right + border-right-width;
+	 * 
+	 * extra = padding
+	 * innerWidth = offsetWidth - margin- border + padding
+	 */
 	function augmentWidthOrHeight(elem, name, extra, isBorderBox, styles) {
 		var i = extra === (isBorderBox ? "border" : "content") ?
 		// If we already have the right measurement, avoid augmentation
@@ -5954,6 +5965,13 @@ var data_user = new Data();
 
 		for (; i < 4; i += 2) {
 			// both box models exclude margin, so add it if we want it
+			// 如果引入了margin
+			// outerWidth(true) 
+			// outerHeigth(true) 
+			// marginRight
+			// marginLeft
+			// marginTop
+			// marginBottom
 			if (extra === "margin") {
 				val += jQuery.css(elem, extra + cssExpand[i], true, styles);
 			}
@@ -5967,8 +5985,11 @@ var data_user = new Data();
 				}
 
 				// at this point, extra isn't border nor margin, so remove border
+				// 减去2边的宽度
 				//borderRightWidth
 				//borderLeftWidth
+				//borderTopHeight 
+				//borderBottomHeight
 				if (extra !== "margin") {
 					val -= jQuery.css(elem, "border" + cssExpand[i] + "Width", true, styles);
 				}
