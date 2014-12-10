@@ -9330,7 +9330,14 @@ var data_user = new Data();
 	});
 
 
-	// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
+
+	// Create 
+	// innerHeight, 
+	// innerWidth, 
+	// height, 
+	// width, 
+	// outerHeight  
+	// outerWidth 
 	jQuery.each({
 		Height: "height",
 		Width: "width"
@@ -9356,10 +9363,13 @@ var data_user = new Data();
 					}
 
 					// Get document width or height
+					// 如果是获取document的宽与高
 					if (elem.nodeType === 9) {
 						doc = elem.documentElement;
 
 						// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
+						// 文档内容的大小是包含了溢出滚动的内容
+						// 所以通过scrollWidth,scrollHeight取值
 						// whichever is greatest
 						return Math.max(
 							elem.body["scroll" + name], doc["scroll" + name],

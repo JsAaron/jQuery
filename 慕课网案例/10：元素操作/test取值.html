@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <style>
+  body { background:yellow; }
+  button { font-size:12px; margin:2px; }
+  p { width:150px; border:1px red solid; }
+  div { color:red; font-weight:bold;  }
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+</head>
+<body>
+  <button id="getp">获取 Paragraph Width</button>
+  <button id="getd">获取 Document Width</button>
+  <button id="getw">获取 Window Width</button>
+ 
+  <div>&nbsp;</div>
+  <p>
+     简单测试宽度
+  </p>
+<script>
+function showWidth(ele, w) {
+  $("div").text("宽度 " + ele +
+                " 是 " + w + "px.");
+}
+$("#getp").click(function () {
+  var p = $("p");
+  showWidth("paragraph", p.width());
+});
+$("#getd").click(function () {
+  showWidth("document", $(document).width());
+});
+$("#getw").click(function () {
+  showWidth("window", $(window).width());
+});
+ 
+</script>
+ 
+</body>
+</html>
