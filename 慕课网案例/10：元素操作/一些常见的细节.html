@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<title>元素操作</title>
+	<title>一些常见的细节</title>
 </head>
 <body>
 <div></div>
@@ -14,15 +14,22 @@
 <li>可见，scrollWidth是对象实际内容的宽度，clientWidth是对象可见内容的宽度（不含边线），offsetWidth也是对象可见内容的宽度（含边线）</li>
  
 <textarea wrap="off" id="txt"></textarea>
-<button onclick="javascript:compare();">比较</button>
-
+<button onclick="javascript:compare();">有边线比较</button>
+<button onclick="javascript:noCompare();">去掉边线比较</button>
 
 <script type="text/javascript">
 
 function compare() {
  	var txtarea = document.getElementById("txt");
+ 	txtarea.style.border = '1px solid gray';
  	alert("scrollWidth:" + txtarea.scrollWidth + "\nclientWidth:" + txtarea.clientWidth + "\noffsetWidth:" + txtarea.offsetWidth);
  }
+
+function noCompare() {
+	var txtarea = document.getElementById("txt");
+	txtarea.style.border = 0;
+	alert("scrollWidth:" + txtarea.scrollWidth + "\nclientWidth:" + txtarea.clientWidth + "\noffsetWidth:" + txtarea.offsetWidth);
+}
 
 
 </script>
