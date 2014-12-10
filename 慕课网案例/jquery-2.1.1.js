@@ -9248,6 +9248,7 @@ var data_user = new Data();
 			}
 			win = getWindow(doc);
 			return {
+				//IE浏览器的<html>文档根元素默认是有2px边框的 
 				top: box.top + win.pageYOffset - docElem.clientTop,
 				left: box.left + win.pageXOffset - docElem.clientLeft
 			};
