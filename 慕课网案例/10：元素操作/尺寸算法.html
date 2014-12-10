@@ -17,10 +17,12 @@
 
 <div id="aaron" style="background:red;border:20px solid #ccc;">尺寸算法</div>
 
-<button id="test1">innerWidth</button>
-<button id="test2">innerHeight</button>
-<button id="test3">outerWidth(true)</button>
-<button id="test4">outerHeight(true)</button>
+<button id="test1">Width</button>
+<button id="test2">Height</button>
+<button id="test3">innerWidth</button>
+<button id="test4">innerHeight</button>
+<button id="test5">outerWidth(true)</button>
+<button id="test6">outerHeight(true)</button>
 
 <script type="text/javascript">
 
@@ -87,26 +89,33 @@ var getStyles = function(elem) {
 
 var elem = document.getElementById('aaron');
 
-
 $('#test1').click(function() {
+	alert( elem.offsetWidth)
+})
+
+$('#test2').click(function() {
+	alert(elem.offsetHeight)
+})
+
+$('#test3').click(function() {
 	var val = elem.offsetWidth;
 	var styles = getStyles(elem)
 	alert(val + augmentWidthOrHeight(elem, 'width', "padding", true, styles))
 })
 
-$('#test2').click(function() {
+$('#test4').click(function() {
 	var val = elem.offsetHeight;
 	var styles = getStyles(elem)
 	alert(val + augmentWidthOrHeight(elem, 'height', "padding", true, styles))
 })
 
-$('#test3').click(function(){
+$('#test5').click(function(){
 	var val = elem.offsetWidth;
 	var styles = getStyles(elem)
 	alert(val + augmentWidthOrHeight(elem, 'width', "border", true, styles))
 })
 
-$('#test4').click(function(){
+$('#test6').click(function(){
 	var val = elem.offsetHeight;
 	var styles = getStyles(elem)
 	alert(val + augmentWidthOrHeight(elem, 'height', "border", true, styles))
