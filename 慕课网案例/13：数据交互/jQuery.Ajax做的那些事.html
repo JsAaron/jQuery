@@ -1,0 +1,52 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title>jQuery.width</title>
+	<style type="text/css">
+		div{
+			width: 150px;
+			height: 50px;
+			border: 5px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+
+<div id="aaron" style="background:red;border:20px solid #ccc;">点击触发Ajax请求</div>
+
+
+<script type="text/javascript">
+
+
+//全局事件触发
+$(document).ajaxStart(function() {
+	console.log(arguments)
+}).ajaxComplete(function() {
+	$(".log").text("Triggered ajaxComplete handler.");
+});
+
+
+$("#aaron").click(function() {
+	//执行一个异步的HTTP（Ajax）的请求。
+	$.ajax({
+		url: "http://fiddle.jshell.net/favicon.png",
+		beforeSend: function(xhr) {
+			xhr.overrideMimeType("text/plain; charset=x-user-defined");
+		},
+		context: document.body,
+		complete: function() {
+			console.log(1)
+		}
+	}).done(function() {
+		console.log(2)
+	});
+});
+
+
+</script>
+</body>
+</html>

@@ -8217,6 +8217,7 @@ var data_user = new Data();
 					},
 
 					// Caches the header
+					// 缓存这个请求头
 					setRequestHeader: function(name, value) {
 						var lname = name.toLowerCase();
 						if (!state) {
@@ -8291,6 +8292,8 @@ var data_user = new Data();
 			}
 
 			// Convert data if not already a string
+            // 数据序列化
+            // 如果数据不是字符串，则需要转化
 			if (s.data && s.processData && typeof s.data !== "string") {
 				s.data = jQuery.param(s.data, s.traditional);
 			}
