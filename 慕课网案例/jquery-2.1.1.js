@@ -9213,6 +9213,11 @@ var data_user = new Data();
 	};
 
 	jQuery.fn.extend({
+		/**
+		 * 相对文档定位
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		offset: function(options) {
 			if (arguments.length) {
 				return options === undefined ?
@@ -9254,6 +9259,10 @@ var data_user = new Data();
 			};
 		},
 
+		/**
+		 * 相对父元素定位
+		 * @return {[type]} [description]
+		 */
 		position: function() {
 			if (!this[0]) {
 				return;
@@ -9267,15 +9276,19 @@ var data_user = new Data();
 				};
 
 			// Fixed elements are offset from window (parentOffset = {top:0, left: 0}, because it is its only offset parent
+			// 如果元素是fixed定位，那么就只有一个父元素就是window
+			// parentOffset = {top:0, left: 0}
 			if (jQuery.css(elem, "position") === "fixed") {
 				// We assume that getBoundingClientRect is available when computed position is fixed
 				offset = elem.getBoundingClientRect();
 
 			} else {
 				// Get *real* offsetParent
+				// 获取到父元素
 				offsetParent = this.offsetParent();
 
 				// Get correct offsets
+				// 得到页面坐标
 				offset = this.offset();
 				if (!jQuery.nodeName(offsetParent[0], "html")) {
 					parentOffset = offsetParent.offset();
@@ -9295,6 +9308,7 @@ var data_user = new Data();
 
 		offsetParent: function() {
 			return this.map(function() {
+				//取定位最近的元素
 				var offsetParent = this.offsetParent || docElem;
 
 				while (offsetParent && (!jQuery.nodeName(offsetParent, "html") && jQuery.css(offsetParent, "position") === "static")) {

@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <style type="text/css">
+      div { padding: 15px;}
+      p { margin:50px;}
+  </style>
+	<script type="text/javascript" src="../../jquery-2.1.1.js"></script>
+	<title>position</title>
+</head>
+<body>
+
+<div style="position:relative;left:50px;top:50px;border:1px solid #ccc">
+  <p id="aaron" style="position:fixed;left:30px;top:110px;border:25px solid red">Hello</p>
+</div>
+
+
+<script type="text/javascript">
+
+var p = $("#aaron");
+var position = p.position();
+
+console.log(position)
+
+
+
+</script>
+
+</body>
+</html>
+
