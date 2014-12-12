@@ -7817,7 +7817,12 @@ var data_user = new Data();
 	ajaxLocParts = rurl.exec(ajaxLocation.toLowerCase()) || [];
 
 	// Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
-
+	/**
+	 * 返回一个函数，为prefilters或者transport添加属性,
+	 * 该属性值是一个数组，里面存放的是函数func，
+	 * 可以给dataTypeExpression字符串添加标识，表示是添加到数组头部还是尾部
+	 * @param {[type]} structure [description]
+	 */
 	function addToPrefiltersOrTransports(structure) {
 
 		// dataTypeExpression is optional and defaults to "*"
@@ -7850,7 +7855,12 @@ var data_user = new Data();
 	}
 
 	// Base inspection function for prefilters and transports
-
+	// 遍历structure[dataType]数组，并执行回调，
+	// prefilterOrFactory为函数数组元素，
+	// 执行该函数如果返回的结果dataTypeOrTransport是字符串且时prefilters且没有被inspected过，
+	// 就给options.dataTypes数组头部添加该字符串，
+	// 继续递归dataTypeOrTransport(当我们使用json/jsonp的时候会返回“script”，于是会执行“script”相关的回调)。
+	// 如果是transport就返回dataTypeOrTransport的假结果
 	function inspectPrefiltersOrTransports(structure, options, originalOptions, jqXHR) {
 
 		var inspected = {},
@@ -7875,10 +7885,16 @@ var data_user = new Data();
 		return inspect(options.dataTypes[0]) || !inspected["*"] && inspect("*");
 	}
 
-	// A special extend for ajax options
-	// that takes "flat" options (not to be deep extended)
-	// Fixes #9887
-
+// A special extend for ajax options
+// that takes "flat" options (not to be deep extended)
+// Fixes #9887
+// 对ajax配置项进行扩展
+// 如果jQuery.ajaxSettings.flatOptions存在src对应的key值，
+// 就直接给target添加（覆盖）相应key/value，
+// flatOptions对象里的属性是不需要被深度拷贝的
+// 否则创建一个deep对象，将src的key/value添加给deep，
+// 然后深度克隆deep对象到target.
+// 最后都返回target
 	function ajaxExtend(target, src) {
 		var key, deep,
 			flatOptions = jQuery.ajaxSettings.flatOptions || {};
