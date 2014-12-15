@@ -1,0 +1,47 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>设计ajax库需要考虑的问题</title>
+    <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+    //执行一个异步的HTTP（Ajax）的请求。
+    var ajax = $.ajax({
+        url: 'http://code.jquery.com/jquery-latest.js',
+        dataType: 'script',
+        //这个对象用于设置Ajax相关回调函数的上下文
+        context: document.body,
+        //请求发送前的回调函数，用来修改请求发送前jqXHR
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+            console.log('局部事件beforeSend')
+        },
+        //请求完成后回调函数 (请求success 和 error之后均调用)
+        complete: function() {
+            console.log('局部事件complete')
+        },
+        error: function() {
+            console.log('局部事件error请求失败时调用此函数')
+        },
+        success: function() {
+            console.log('局部事件success')
+        }
+    })
+
+    ajax.done(function() {
+        console.log('done')
+    }).fail(function() {
+        console.log('fail')
+    }).always(function() {
+        console.log('always')
+    })
+
+</script>
+</body>
+</html>

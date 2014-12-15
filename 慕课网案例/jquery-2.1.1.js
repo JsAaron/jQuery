@@ -8190,15 +8190,22 @@ var data_user = new Data();
 				i,
 				// Create the final options object
 				s = jQuery.ajaxSetup({}, options),
+
 				// Callbacks context
+				// 回调的上下文
 				callbackContext = s.context || s,
+
 				// Context for global events is callbackContext if it is a DOM node or jQuery collection
+				// 全局事件的上下文
 				globalEventContext = s.context && (callbackContext.nodeType || callbackContext.jquery) ?
 					jQuery(callbackContext) :
 					jQuery.event,
+
 				// Deferreds
+				// 异步机制
 				deferred = jQuery.Deferred(),
 				completeDeferred = jQuery.Callbacks("once memory"),
+
 				// Status-dependent callbacks
 				statusCode = s.statusCode || {},
 				// Headers (they are sent all at once)
@@ -8292,7 +8299,9 @@ var data_user = new Data();
 				};
 
 			// Attach deferreds
+			// 把jqXHR对象转化promise对象，幷加入complete、success、error方法
 			deferred.promise(jqXHR).complete = completeDeferred.add;
+			//别名
 			jqXHR.success = jqXHR.done;
 			jqXHR.error = jqXHR.fail;
 
