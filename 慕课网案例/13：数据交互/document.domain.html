@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JK</title>
+    <script>
+        document.domain='wagang.net';
+    </script>
+</head>
+<body >
+  IE678下，有时获取location.href时有异常：<input type=button value='alert(location.href);' onclick="alert(window.location.href);"> 参见：http://bugs.jquery.com/ticket/8138 jquery ticket#8138 <hr>
+  jQuery中相应的代码：
+  <pre>
+// #8138, IE may throw an exception when accessing
+// a field from window.location if document.domain has been set
+try {
+    ajaxLocation = location.href;
+} catch( e ) {
+    // Use the href attribute of an A element
+    // since IE will modify it given document.location
+    ajaxLocation = document.createElement( "a" );
+    ajaxLocation.href = "";
+    ajaxLocation = ajaxLocation.href;
+}
+  </pre><hr>
+    也可以用：document.URL来获取：<input type=button value='alert(document.URL);' onclick="alert(document.URL);">
+
+</body>
+</html>

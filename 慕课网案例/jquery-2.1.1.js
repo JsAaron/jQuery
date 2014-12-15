@@ -7803,6 +7803,7 @@ var data_user = new Data();
 
 	// #8138, IE may throw an exception when accessing
 	// a field from window.location if document.domain has been set
+	// 通过设置document.domain跨域，则在某些机器上的IE678里，获取location.href有权限异常
 	try {
 		ajaxLocation = location.href;
 	} catch (e) {
@@ -7885,16 +7886,16 @@ var data_user = new Data();
 		return inspect(options.dataTypes[0]) || !inspected["*"] && inspect("*");
 	}
 
-// A special extend for ajax options
-// that takes "flat" options (not to be deep extended)
-// Fixes #9887
-// 对ajax配置项进行扩展
-// 如果jQuery.ajaxSettings.flatOptions存在src对应的key值，
-// 就直接给target添加（覆盖）相应key/value，
-// flatOptions对象里的属性是不需要被深度拷贝的
-// 否则创建一个deep对象，将src的key/value添加给deep，
-// 然后深度克隆deep对象到target.
-// 最后都返回target
+	// A special extend for ajax options
+	// that takes "flat" options (not to be deep extended)
+	// Fixes #9887
+	// 对ajax配置项进行扩展
+	// 如果jQuery.ajaxSettings.flatOptions存在src对应的key值，
+	// 就直接给target添加（覆盖）相应key/value，
+	// flatOptions对象里的属性是不需要被深度拷贝的
+	// 否则创建一个deep对象，将src的key/value添加给deep，
+	// 然后深度克隆deep对象到target.
+	// 最后都返回target
 	function ajaxExtend(target, src) {
 		var key, deep,
 			flatOptions = jQuery.ajaxSettings.flatOptions || {};
@@ -7972,7 +7973,6 @@ var data_user = new Data();
 	/* Chain conversions given the request and the original response
 	 * Also sets the responseXXX fields on the jqXHR instance
 	 */
-
 	function ajaxConvert(s, response, jqXHR, isSuccess) {
 		var conv2, current, conv, tmp, prev,
 			converters = {},
@@ -8244,6 +8244,10 @@ var data_user = new Data();
 					},
 
 					// Overrides response content-type header
+					// 修改响应的Content-Type信息头
+					// beforeSend: function ( xhr ) {
+					// 	xhr.overrideMimeType("text/plain; charset=x-user-defined");
+					// }
 					overrideMimeType: function(type) {
 						if (!state) {
 							s.mimeType = type;
@@ -8252,6 +8256,14 @@ var data_user = new Data();
 					},
 
 					// Status-dependent callbacks
+					// 触发状态码回调
+					// $.ajax({
+					//   statusCode: {
+					//     404: function() {
+					//       alert("page not found");
+					//     }
+					//   }
+					// });
 					statusCode: function(map) {
 						var code;
 						if (map) {
@@ -8443,7 +8455,6 @@ var data_user = new Data();
 			}
 
 			// Callback for when everything is done
-
 			function done(status, nativeStatusText, responses, headers) {
 				var isSuccess, success, error, response, modified,
 					statusText = nativeStatusText;

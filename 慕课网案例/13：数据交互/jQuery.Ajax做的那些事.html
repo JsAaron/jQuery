@@ -3,9 +3,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
-	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
-	<title>jQuery.width</title>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title>ajax</title>
 	<style type="text/css">
 		div{
 			width: 150px;
@@ -16,36 +15,74 @@
 </head>
 <body>
 
-<div id="aaron" style="background:red;border:20px solid #ccc;">点击触发Ajax请求</div>
-
+<div id="aaron1" style="background:yellow;border:20px solid #ccc;">触发Ajax成功请求</div>
+<div id="aaron2" style="background:red;border:20px solid #ccc;">触发Ajax失败请求</div>
+</br>
+回调触发的循序
+<ul></ul>
 
 <script type="text/javascript">
 
+var $ul = $('ul')
+
+function show(data){
+	$ul.append('<li>'+ data +'</li>');
+}
 
 //全局事件触发
-$(document).ajaxStart(function() {
-	console.log(arguments)
+$(document).ajaxSend(function() {
+	show('全局事件ajaxSend ')
+}).ajaxSuccess(function() {
+	show("全局事件ajaxSuccess");
+}).ajaxError(function() {
+	show("全局事件ajaxError");
 }).ajaxComplete(function() {
-	$(".log").text("Triggered ajaxComplete handler.");
-});
+	show('全局事件ajaxComplete')
+})
 
-
-$("#aaron").click(function() {
+function ajax(url) {
 	//执行一个异步的HTTP（Ajax）的请求。
-	$.ajax({
-		url: "http://fiddle.jshell.net/favicon.png",
+	var ajax = $.ajax({
+		url: url,
+		dataType: 'script',
+		//这个对象用于设置Ajax相关回调函数的上下文
+		context: document.body,
+		//请求发送前的回调函数，用来修改请求发送前jqXHR
 		beforeSend: function(xhr) {
 			xhr.overrideMimeType("text/plain; charset=x-user-defined");
+			show('局部事件beforeSend')
 		},
-		context: document.body,
+		//请求完成后回调函数 (请求success 和 error之后均调用)
 		complete: function() {
-			console.log(1)
+			show('局部事件complete')
+		},
+		error: function() {
+			show('局部事件error请求失败时调用此函数')
+		},
+		success: function() {
+			show('局部事件success')
 		}
-	}).done(function() {
-		console.log(2)
-	});
+	})
+
+	ajax.done(function() {
+		show('done')
+	}).fail(function() {
+		show('fail')
+	}).always(function() {
+		show('always')
+	})
+}
+
+$("#aaron1").click(function() {
+	$ul.empty();
+	ajax("http://code.jquery.com/jquery-latest.js")
 });
 
+
+$("#aaron2").click(function() {
+	$ul.empty();
+	ajax("#")
+});
 
 </script>
 </body>
