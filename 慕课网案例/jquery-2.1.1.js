@@ -8080,25 +8080,82 @@ var data_user = new Data();
 		etag: {},
 
 		ajaxSettings: {
+			//用来包含发送请求的URL字符串。
 			url: ajaxLocation,
-			type: "GET",
-			isLocal: rlocalProtocol.test(ajaxLocParts[1]),
-			global: true,
-			processData: true,
-			async: true,
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-			/*
-		timeout: 0,
-		data: null,
-		dataType: null,
-		username: null,
-		password: null,
-		cache: null,
-		throws: false,
-		traditional: false,
-		headers: {},
-		*/
 
+
+	        /**
+	         * (默认: "GET") 请求方式 ("POST" 或 "GET")，
+	         * 默认为 "GET"。注意：其它 HTTP 请求方法，如 PUT 和 DELETE 也可以使用，但仅部分浏览器支持
+	         * @type {String}
+	         */
+			type: "GET",
+
+	        /**
+	         * 是否为本地
+	         * 默认: 取决于当前的位置协议
+	         * 允许当前环境被认定为“本地”，（如文件系统），即使jQuery默认情况下不会承认它。
+	         * 以下协议目前公认为本地：file, *-extension, and widget。
+	         * 如果isLocal设置需要修改，建议在$.ajaxSetup()方法中这样做一次。
+	         * @type {Boolean}
+	         */
+			isLocal: rlocalProtocol.test(ajaxLocParts[1]),
+
+	        /**
+	         * (默认: true) 是否触发全局 AJAX 事件。
+	         * 设置为 false 将不会触发全局 AJAX 事件，如 ajaxStart 或 ajaxStop 可用于控制不同的 Ajax 事件。
+	         * @type {Boolean}
+	         */
+			global: true,
+
+	        /**
+	         * 默认: true  默认情况下，通过data选项传递进来的数据，
+	         * 如果是一个对象(技术上讲只要不是字符串)，都会处理转化成一个查询字符串，
+	         * 以配合默认内容类型 "application/x-www-form-urlencoded"。
+	         * 如果要发送 DOM 树信息或其它不希望转换的信息，请设置为 false。
+	         * @type {Boolean}
+	         */
+			processData: true,
+
+	        /**
+	         * (默认: true) 默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。
+	         * 注意，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行。
+	         * @type {Boolean}
+	         */
+			async: true,
+
+			/**
+			 * (默认: "application/x-www-form-urlencoded") 发送信息至服务器时内容编码类型。
+			 * 默认值适合大多数情况。如果你明确地传递了一个content-type给 $.ajax()
+			 * 那么他必定会发送给服务器（即使没有数据要发送）
+			 * @type {String}
+			 */
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+
+       		 /*
+               //设置请求超时时间（毫秒）。此设置将覆盖全局设置。
+               timeout: 0,
+               data: null,
+               dataType: null,
+               // 用于响应HTTP访问认证请求的用户名
+               username: null,
+               // 用于响应HTTP访问认证请求的密码
+               password: null,
+               // (默认: true,dataType为script和jsonp时默认为false)，设置为 false 将不缓存此页面。
+               cache: null,
+               throws: false,
+               // 如果你想要用传统的方式来序列化数据，那么就设置为true
+               traditional: false,
+               // 个额外的"{键:值}"对映射到请求一起发送。此设置被设置之前beforeSend函数被调用;因此，消息头中的值设置可以在覆盖beforeSend函数范围内的任何设置。
+               headers: {},
+           */
+
+	        /**
+	         * 接受的数据的type类型
+	         * 内容类型发送请求头，告诉服务器什么样的响应会接受返回。
+	         * 如果accepts设置需要修改，推荐在$.ajaxSetup()方法中做一次。
+	         * @type {Object}
+	         */
 			accepts: {
 				"*": allTypes,
 				text: "text/plain",
@@ -8107,6 +8164,10 @@ var data_user = new Data();
 				json: "application/json, text/javascript"
 			},
 
+	        /**
+	         * 一个以"{字符串:正则表达式}"配对的对象，用来确定jQuery将如何解析响应，给定其内容类型。
+	         * @type {Object}
+	         */
 			contents: {
 				xml: /xml/,
 				html: /html/,
@@ -8119,22 +8180,32 @@ var data_user = new Data();
 				json: "responseJSON"
 			},
 
-			// Data converters
-			// Keys separate source (or catchall "*") and destination types with a single space
-			converters: {
+	        // Data converters
+	        // Keys separate source (or catchall "*") and destination types with a single space
+	        /**
+	         * 数据转换器
+	         * 一个数据类型对数据类型转换器的对象。每个转换器的值是一个函数，返回响应的转化值
+	         * @type {Object}
+	         */
+	        converters: {
 
-				// Convert anything to text
-				"* text": String,
+	            // Convert anything to text
+	            // 任意内容转换为字符串
+	            // window.String 将会在min文件中被压缩为 a.String
+	            "* text": String,
 
-				// Text to html (true = no transformation)
-				"text html": true,
+	            // Text to html (true = no transformation)
+	            // 文本转换为HTML（true表示不需要转换，直接返回）
+	            "text html": true,
 
-				// Evaluate text as a json expression
-				"text json": jQuery.parseJSON,
+	            // Evaluate text as a json expression
+	            // 文本转换为JSON
+	            "text json": jQuery.parseJSON,
 
-				// Parse text as xml
-				"text xml": jQuery.parseXML
-			},
+	            // Parse text as xml
+	            // 文本转换为XML
+	            "text xml": jQuery.parseXML
+	        },
 
 			// For options that shouldn't be deep extended:
 			// you can add your own custom options here if
@@ -8309,6 +8380,10 @@ var data_user = new Data();
 			// Add protocol if not provided (prefilters might expect it)
 			// Handle falsy url in the settings object (#10093: consistency with old signature)
 			// We also use the url parameter if available
+	        // Remove 将url的hash去掉 
+	        // rhash=/#.*$/ 
+	        // rprotocol = /^\/\//  
+	        // ajaxLocParts[1]="http:"
 			s.url = ((url || s.url || ajaxLocation) + "").replace(rhash, "")
 				.replace(rprotocol, ajaxLocParts[1] + "//");
 
