@@ -8394,6 +8394,8 @@ var data_user = new Data();
 			s.dataTypes = jQuery.trim(s.dataType || "*").toLowerCase().match(rnotwhite) || [""];
 
 			// A cross-domain request is in order when we have a protocol:host:port mismatch
+	        // 如果你想在同一域中强制跨域请求（如JSONP形式），
+	        // 例如，想服务器端重定向到另一个域，那么需要将crossDomain设置为 true 
 			if (s.crossDomain == null) {
 				parts = rurl.exec(s.url.toLowerCase());
 				s.crossDomain = !! (parts &&
