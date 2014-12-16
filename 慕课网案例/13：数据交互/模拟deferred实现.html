@@ -3,54 +3,152 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<title>æ¨¡æ‹Ÿdeferred</title>
-    <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title>Ä£ÄâajaxµÄ scriptÇëÇó</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
 
+<button id="test">Ä£ÄâjQuery.ajaxµÄscriptÇëÇó</button>
 
 <script type="text/javascript">
-
-    
+ 
+    /**
+     * Ä£ÄâajaxµÄ scriptÇëÇó
+     * @param  {[type]} options [description]
+     * @return {[type]}         [description]
+     */
     function createAjax(options) {
 
+        if (typeof url === "object") {
+            options = url;
+            url = undefined;
+        }
+
+        options = options || {};
+
         /**
-         * å‚æ•°
-         * jQuery.ajaxSetup æ˜¯é»˜è®¤å‚æ•°
+         * ²ÎÊı
+         * jQuery.ajaxSetup ÊÇÄ¬ÈÏ²ÎÊı
          * @type {[type]}
          */
         var s = jQuery.ajaxSetup({}, options);
 
         // Deferreds
-        // å¼‚æ­¥æœºåˆ¶
+        // Òì²½»úÖÆ
         var deferred = jQuery.Deferred();
         var completeDeferred = jQuery.Callbacks("once memory");
 
         /**
-         * å®é™…è¿”å›çš„ajaxå¯¹è±¡
+         * Êµ¼Ê·µ»ØµÄajax¶ÔÏó
          * @type {Object}
          */
-        var jqXHR = {
+        var jqXHR = {}
 
-        }
-
-        // æŠŠjqXHRå¯¹è±¡è½¬åŒ–promiseå¯¹è±¡ï¼Œå¹·åŠ å…¥completeã€successã€erroræ–¹æ³•
+        // °ÑjqXHR¶ÔÏó×ª»¯promise¶ÔÏó£¬Õ¼ÓÈëcomplete¡¢success¡¢error·½·¨
         deferred.promise(jqXHR).complete = completeDeferred.add;
-        //åˆ«å
+        //±ğÃû
         jqXHR.success = jqXHR.done;
         jqXHR.error = jqXHR.fail;
 
-        
+        // Ôö¼Ó»Øµ÷¶ÓÁĞ
+        // complete: function() {
+        //     console.log('¾Ö²¿ÊÂ¼şcomplete')
+        // },
+        // error: function() {
+        //     console.log('¾Ö²¿ÊÂ¼şerrorÇëÇóÊ§°ÜÊ±µ÷ÓÃ´Ëº¯Êı')
+        // },
+        // success: function() {
+        //     console.log('¾Ö²¿ÊÂ¼şsuccess')
+        // }
+        for (i in {
+            success: 1,
+            error: 1,
+            complete: 1
+        }) {
+            jqXHR[i](s[i]);
+        }
 
+        function send(_, complete) {
+            var script = jQuery("<script>").prop({
+                async: true,
+                charset: s.scriptCharset,
+                src: s.url
+            }).on(
+                "load error",
+                callback = function(evt) {
+                    script.remove();
+                    callback = null;
+                    if (evt) {
+                        complete(evt.type === "error" ? 404 : 200, evt.type);
+                    }
+                }
+            );
+            document.head.appendChild(script[0]);
+        }
 
-        return jqXHR;        
+// Ôö¼Ó»Øµ÷¶ÓÁĞ
+for (i in {
+    success  : 1,
+    error    : 1,
+    complete : 1
+}) {
+    /**
+     * °Ñ²ÎÊıµÄ»Øµ÷º¯Êı×¢²áµ½ÄÚ²¿jqXHR¶ÔÏóÉÏ,ÊµÏÖÍ³Ò»µ÷ÓÃ
+     * ¸øajax¶ÔÏó×¢²á »Øµ÷º¯Êıadd
+     * deferred·µ»Øcomplete,errorÍâ²¿²¶»ñ
+     */
+    jqXHR[i](s[i]);
+}
+        function done(status, nativeStatusText, responses, headers) {
+            var isSuccess = status >= 200 && status < 300 || status === 304;
+            var success = jqXHR.success;
+            var error = jqXHR.error;
+            if (isSuccess) {
+                deferred.resolveWith(document, [success, jqXHR]);
+            } else {
+                deferred.rejectWith(document, [jqXHR, error]);
+            }
+        }
+
+        //·¢ËÍÇëÇó
+        send({
+            Accept: "text/javascript, application/javascript, application/ecmascri"
+        }, done);
+
+        return jqXHR;
     }
 
+    function show(data){
+        $('body').append('<li>'+ data +'</li>');
+    }
 
-    var ajax = createAjax();
+    $("#test").click(function(){
+        //Ö´ĞĞÒ»¸öÒì²½µÄHTTP£¨Ajax£©µÄÇëÇó¡£
+        var ajax = createAjax({
+            url: 'http://code.jquery.com/jquery-latest.js',
+            dataType: 'script',
+            //ÇëÇóÍê³Éºó»Øµ÷º¯Êı (ÇëÇósuccess ºÍ errorÖ®ºó¾ùµ÷ÓÃ)
+            complete: function() {
+                show('¾Ö²¿ÊÂ¼şcomplete')
+            },
+            error: function() {
+                show('¾Ö²¿ÊÂ¼şerrorÇëÇóÊ§°ÜÊ±µ÷ÓÃ´Ëº¯Êı')
+            },
+            success: function() {
+                show('¾Ö²¿ÊÂ¼şsuccess')
+            }
+        })
 
+        ajax.done(function() {
+           show('deferred done')
+        }).fail(function() {
+            show('deferred fail')
+        }).always(function() {
+            show('deferred lways')
+        })
 
-    console.log(ajax)
+    })
+
 
 </script>
 </body>

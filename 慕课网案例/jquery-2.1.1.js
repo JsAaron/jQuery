@@ -8498,11 +8498,18 @@ var data_user = new Data();
 			);
 
 			// Check for headers option
+			// 一个额外的"{键:值}"对映射到请求一起发送。
+			// 此设置会在beforeSend 函数调用之前被设置 ;
+			// 因此，请求头中的设置值，会被beforeSend 函数内的设置覆盖 。
 			for (i in s.headers) {
 				jqXHR.setRequestHeader(i, s.headers[i]);
 			}
 
 			// Allow custom headers/mimetypes and early abort
+	        // 请求发送前的回调函数，用来修改请求发送前jqXHR（在jQuery 1.4.x的中，XMLHttpRequest）对象，
+	        // 此功能用来设置自定义 HTTP 头信息，等等。该jqXHR和设置对象作为参数传递。
+	        // 这是一个Ajax事件 。在beforeSend函数中返回false将取消这个请求。
+	        // 从jQuery 1.5开始， beforeSend选项将被访问，不管请求的类型
 			if (s.beforeSend && (s.beforeSend.call(callbackContext, jqXHR, s) === false || state === 2)) {
 				// Abort if not done already and return
 				return jqXHR.abort();
@@ -8512,15 +8519,22 @@ var data_user = new Data();
 			strAbort = "abort";
 
 			// Install callbacks on deferreds
+			// 增加回调队列
 			for (i in {
 				success: 1,
 				error: 1,
 				complete: 1
 			}) {
+	            /**
+	             * 把参数的回调函数注册到内部jqXHR对象上,实现统一调用
+	             * 给ajax对象注册 回调函数add
+	             * deferred返回complete,error外部捕获
+	             */
 				jqXHR[i](s[i]);
 			}
 
 			// Get transport
+			// 得到请求发送器
 			transport = inspectPrefiltersOrTransports(transports, s, options, jqXHR);
 
 			// If no transport, we auto-abort
