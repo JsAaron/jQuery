@@ -1,0 +1,50 @@
+
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>	
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+	
+	//////////////
+	//JSONP的客户端具体实现：
+	//jsonp的原理 //
+	//所以总结其实json的一个核心点：
+	//允许用户传递一个callback参数给服务端，
+	//然后服务端返回数据时会将这个callback参数作为函数名来包裹住JSON数据，
+	//这样客户端就可以随意定制自己的函数来自动处理返回数据了。
+	//////////////
+    var remoteLoad = function(data) {
+
+    };
+    var url = "http://code.jquery.com/jquery-1.11.1.min.js?code=1111&callback=remoteLoad";
+    var script = document.createElement('script');
+    script.setAttribute('src', url);
+    document.getElementsByTagName('head')[0].appendChild(script);
+
+
+
+    ///////////////////////////////////
+    // 基本原理OK了，我们看看jQuery的实现，其实也大同小异 //
+    // jQuery的区别最大的不同的就自动帮你生成回调函数并把数据取出来供success属性方法来调用,不是传递的一个回调句柄
+    ///////////////////////////////////
+    $.ajax({
+    	url: "remoteLoad.js",
+    	dataType: "jsonp",
+    	jsonp: "callback", //传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+    	jsonpCallback: "Handler", //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+    	success: function(data) {
+    		console.log(arguments)
+    	}
+    });
+
+</script>
+</body>
+</html>
+
+
