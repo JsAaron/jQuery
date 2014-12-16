@@ -2,18 +2,18 @@
 <!doctype html>
 <html>
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-	<title>Ä£ÄâajaxµÄ scriptÇëÇó</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>æ¨¡æ‹Ÿajaxçš„ scriptè¯·æ±‚</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
 
-<button id="test">Ä£ÄâjQuery.ajaxµÄscriptÇëÇó</button>
+<button id="test">æ¨¡æ‹ŸjQuery.ajaxçš„scriptè¯·æ±‚</button>
 
 <script type="text/javascript">
  
     /**
-     * Ä£ÄâajaxµÄ scriptÇëÇó
+     * æ¨¡æ‹Ÿajaxçš„ scriptè¯·æ±‚
      * @param  {[type]} options [description]
      * @return {[type]}         [description]
      */
@@ -27,38 +27,38 @@
         options = options || {};
 
         /**
-         * ²ÎÊı
-         * jQuery.ajaxSetup ÊÇÄ¬ÈÏ²ÎÊı
+         * å‚æ•°
+         * jQuery.ajaxSetup æ˜¯é»˜è®¤å‚æ•°
          * @type {[type]}
          */
         var s = jQuery.ajaxSetup({}, options);
 
         // Deferreds
-        // Òì²½»úÖÆ
+        // å¼‚æ­¥æœºåˆ¶
         var deferred = jQuery.Deferred();
         var completeDeferred = jQuery.Callbacks("once memory");
 
         /**
-         * Êµ¼Ê·µ»ØµÄajax¶ÔÏó
+         * å®é™…è¿”å›çš„ajaxå¯¹è±¡
          * @type {Object}
          */
         var jqXHR = {}
 
-        // °ÑjqXHR¶ÔÏó×ª»¯promise¶ÔÏó£¬Õ¼ÓÈëcomplete¡¢success¡¢error·½·¨
+        // æŠŠjqXHRå¯¹è±¡è½¬åŒ–promiseå¯¹è±¡ï¼Œå¹·åŠ å…¥completeã€successã€erroræ–¹æ³•
         deferred.promise(jqXHR).complete = completeDeferred.add;
-        //±ğÃû
+        //åˆ«å
         jqXHR.success = jqXHR.done;
         jqXHR.error = jqXHR.fail;
 
-        // Ôö¼Ó»Øµ÷¶ÓÁĞ
+        // å¢åŠ å›è°ƒé˜Ÿåˆ—
         // complete: function() {
-        //     console.log('¾Ö²¿ÊÂ¼şcomplete')
+        //     console.log('å±€éƒ¨äº‹ä»¶complete')
         // },
         // error: function() {
-        //     console.log('¾Ö²¿ÊÂ¼şerrorÇëÇóÊ§°ÜÊ±µ÷ÓÃ´Ëº¯Êı')
+        //     console.log('å±€éƒ¨äº‹ä»¶errorè¯·æ±‚å¤±è´¥æ—¶è°ƒç”¨æ­¤å‡½æ•°')
         // },
         // success: function() {
-        //     console.log('¾Ö²¿ÊÂ¼şsuccess')
+        //     console.log('å±€éƒ¨äº‹ä»¶success')
         // }
         for (i in {
             success: 1,
@@ -86,19 +86,7 @@
             document.head.appendChild(script[0]);
         }
 
-// Ôö¼Ó»Øµ÷¶ÓÁĞ
-for (i in {
-    success  : 1,
-    error    : 1,
-    complete : 1
-}) {
-    /**
-     * °Ñ²ÎÊıµÄ»Øµ÷º¯Êı×¢²áµ½ÄÚ²¿jqXHR¶ÔÏóÉÏ,ÊµÏÖÍ³Ò»µ÷ÓÃ
-     * ¸øajax¶ÔÏó×¢²á »Øµ÷º¯Êıadd
-     * deferred·µ»Øcomplete,errorÍâ²¿²¶»ñ
-     */
-    jqXHR[i](s[i]);
-}
+
         function done(status, nativeStatusText, responses, headers) {
             var isSuccess = status >= 200 && status < 300 || status === 304;
             var success = jqXHR.success;
@@ -110,7 +98,7 @@ for (i in {
             }
         }
 
-        //·¢ËÍÇëÇó
+        //å‘é€è¯·æ±‚
         send({
             Accept: "text/javascript, application/javascript, application/ecmascri"
         }, done);
@@ -123,19 +111,19 @@ for (i in {
     }
 
     $("#test").click(function(){
-        //Ö´ĞĞÒ»¸öÒì²½µÄHTTP£¨Ajax£©µÄÇëÇó¡£
+        //æ‰§è¡Œä¸€ä¸ªå¼‚æ­¥çš„HTTPï¼ˆAjaxï¼‰çš„è¯·æ±‚ã€‚
         var ajax = createAjax({
             url: 'http://code.jquery.com/jquery-latest.js',
             dataType: 'script',
-            //ÇëÇóÍê³Éºó»Øµ÷º¯Êı (ÇëÇósuccess ºÍ errorÖ®ºó¾ùµ÷ÓÃ)
+            //è¯·æ±‚å®Œæˆåå›è°ƒå‡½æ•° (è¯·æ±‚success å’Œ errorä¹‹åå‡è°ƒç”¨)
             complete: function() {
-                show('¾Ö²¿ÊÂ¼şcomplete')
+                show('å±€éƒ¨äº‹ä»¶complete')
             },
             error: function() {
-                show('¾Ö²¿ÊÂ¼şerrorÇëÇóÊ§°ÜÊ±µ÷ÓÃ´Ëº¯Êı')
+                show('å±€éƒ¨äº‹ä»¶errorè¯·æ±‚å¤±è´¥æ—¶è°ƒç”¨æ­¤å‡½æ•°')
             },
             success: function() {
-                show('¾Ö²¿ÊÂ¼şsuccess')
+                show('å±€éƒ¨äº‹ä»¶success')
             }
         })
 
