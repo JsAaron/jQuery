@@ -8391,9 +8391,14 @@ var data_user = new Data();
 			s.type = options.method || options.type || s.method || s.type;
 
 			// Extract dataTypes list
+			// xml, json, script, or html
+			// 预期服务器返回的数据类型。
+			// 如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断，
+			// 比如XML MIME类型就被识别为XML
 			s.dataTypes = jQuery.trim(s.dataType || "*").toLowerCase().match(rnotwhite) || [""];
 
 			// A cross-domain request is in order when we have a protocol:host:port mismatch
+			// 同域请求为false， 跨域请求为true
 	        // 如果你想在同一域中强制跨域请求（如JSONP形式），
 	        // 例如，想服务器端重定向到另一个域，那么需要将crossDomain设置为 true 
 			if (s.crossDomain == null) {
@@ -8432,6 +8437,8 @@ var data_user = new Data();
 			s.type = s.type.toUpperCase();
 
 			// Determine if request has content
+	        // 请求是否有内容
+	        // 通过类型判断当前是GET还是POST 从而只知道请求是否有内容
 			s.hasContent = !rnoContent.test(s.type);
 
 			// Save the URL in case we're toying with the If-Modified-Since
@@ -8439,6 +8446,7 @@ var data_user = new Data();
 			cacheURL = s.url;
 
 			// More options handling for requests with no content
+			// 如果是GET请求肯定是有内容
 			if (!s.hasContent) {
 
 				// If data is available, append data to url
@@ -8449,6 +8457,7 @@ var data_user = new Data();
 				}
 
 				// Add anti-cache in url if needed
+				// 如果不要缓存，就需要添加一个尾部随机数字
 				if (s.cache === false) {
 					s.url = rts.test(cacheURL) ?
 
@@ -8456,11 +8465,14 @@ var data_user = new Data();
 					cacheURL.replace(rts, "$1_=" + nonce++) :
 
 					// Otherwise add one to the end
+					// "http://code.jquery.com/jquery-latest.js?_=1418692061455"
 					cacheURL + (rquery.test(cacheURL) ? "&" : "?") + "_=" + nonce++;
 				}
 			}
 
 			// Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
+			// 只有上次请求响应改变时，才允许请求成功。
+			// 使用 HTTP 包 Last-Modified 头信息判断。默认值是false，忽略HTTP头信息。
 			if (s.ifModified) {
 				if (jQuery.lastModified[cacheURL]) {
 					jqXHR.setRequestHeader("If-Modified-Since", jQuery.lastModified[cacheURL]);
@@ -8476,6 +8488,8 @@ var data_user = new Data();
 			}
 
 			// Set the Accepts header for the server, depending on the dataType
+			// 自定义头部信息
+			// 为服务器设置接收头,根据不同的数据类型
 			jqXHR.setRequestHeader(
 				"Accept",
 				s.dataTypes[0] && s.accepts[s.dataTypes[0]] ?

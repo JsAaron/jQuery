@@ -1,0 +1,57 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>模拟deferred</title>
+    <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+    
+    function createAjax(options) {
+
+        /**
+         * 参数
+         * jQuery.ajaxSetup 是默认参数
+         * @type {[type]}
+         */
+        var s = jQuery.ajaxSetup({}, options);
+
+        // Deferreds
+        // 异步机制
+        var deferred = jQuery.Deferred();
+        var completeDeferred = jQuery.Callbacks("once memory");
+
+        /**
+         * 实际返回的ajax对象
+         * @type {Object}
+         */
+        var jqXHR = {
+
+        }
+
+        // 把jqXHR对象转化promise对象，幷加入complete、success、error方法
+        deferred.promise(jqXHR).complete = completeDeferred.add;
+        //别名
+        jqXHR.success = jqXHR.done;
+        jqXHR.error = jqXHR.fail;
+
+        
+
+
+        return jqXHR;        
+    }
+
+
+    var ajax = createAjax();
+
+
+    console.log(ajax)
+
+</script>
+</body>
+</html>
