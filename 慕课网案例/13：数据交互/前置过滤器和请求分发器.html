@@ -1,0 +1,56 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>
+	 <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title>前置过滤器和请求分发器</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+		
+/////////////////////////////////
+//代码一
+//前置过滤器和请求分发器
+//addToPrefiltersOrTransports方法
+/////////////////////////////////
+var prefilters = 2;
+var addToPrefiltersOrTransports = function(prefilters) {
+	return function(b) {
+		return prefilters + b;
+	}
+}
+var ajaxPrefilter = addToPrefiltersOrTransports(prefilters)
+ajaxPrefilter(1) //3
+
+
+/////////////////////
+// 代码二
+// 填充prefilters过滤器 //
+/////////////////////
+var prefilters = {};
+var addToPrefiltersOrTransports = function(structure) {
+	return function(func) {
+		structure['*'] = func;
+	}
+}
+var ajaxPrefilter = addToPrefiltersOrTransports(prefilters)
+ajaxPrefilter(function(options) {
+	return {
+		send: function() {
+
+		},
+		callback: function() {
+
+		}
+	}
+})
+
+
+
+</script>
+</body>
+</html>
