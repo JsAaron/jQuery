@@ -7788,6 +7788,7 @@ var data_user = new Data();
 		 * 3) key is the dataType
 		 * 4) the catchall symbol "*" can be used
 		 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
+		 * 在每个请求之前被发送和$.ajax()处理它们前处理，设置自定义Ajax选项或修改现有选项。
 		 */
 		prefilters = {},
 
@@ -8413,6 +8414,9 @@ var data_user = new Data();
 			// Convert data if not already a string
             // 数据序列化
             // 如果数据不是字符串，则需要转化
+	        // data: {
+	        //     foo: ["bar1", "bar2"]
+	        // }
 			if (s.data && s.processData && typeof s.data !== "string") {
 				s.data = jQuery.param(s.data, s.traditional);
 			}
@@ -8849,6 +8853,9 @@ var data_user = new Data();
 
 	// Serialize an array of form elements or a set of
 	// key/values into a query string
+	// 创建一个数组或对象序列化的的字符串，
+	// 适用于一个URL 地址查询字符串或Ajax请求。
+	// traditional :一个布尔值，指示是否执行了传统的“shallow”的序列化。
 	jQuery.param = function(a, traditional) {
 		var prefix,
 			s = [],
@@ -9123,6 +9130,8 @@ var data_user = new Data();
 		}
 	});
 
+	// 向前置过滤器对象中添加特定类型的过滤器
+	// 添加的过滤器将格式化参数，并且为jsonp请求增加callbacks			
 	// Detect, normalize options and install callbacks for jsonp requests
 	jQuery.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR) {
 
