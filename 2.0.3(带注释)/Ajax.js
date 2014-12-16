@@ -579,6 +579,7 @@ jQuery.extend({
             .replace(rprotocol, ajaxLocParts[1] + "//");
 
         // Alias method option to type as per ticket #12004
+        // 请求类型 (比如 "POST", "GET", "PUT");， 默认为 "GET"
         s.type = options.method || options.type || s.method || s.type;
 
         // Extract dataTypes list
@@ -715,6 +716,15 @@ jQuery.extend({
 
         // Install callbacks on deferreds
         // 增加回调队列
+        // complete: function() {
+        //     console.log('局部事件complete')
+        // },
+        // error: function() {
+        //     console.log('局部事件error请求失败时调用此函数')
+        // },
+        // success: function() {
+        //     console.log('局部事件success')
+        }
         for (i in {
             success  : 1,
             error    : 1,
