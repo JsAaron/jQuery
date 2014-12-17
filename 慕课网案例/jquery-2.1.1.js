@@ -7885,11 +7885,11 @@ var data_user = new Data();
 					 *	1: "json"
 					 */
 					options.dataTypes.unshift(dataTypeOrTransport);
-					//递归一下script用于继续处理脚本的问题
-					// script的预处理
-					//	  默认不缓存，也就是增加尾部uuid
-					//	  如果crossDomain是跨域，那么就需要强制为get的请求了
-					//就需要再次递归inspect,做script的预处理
+							//递归一下script用于继续处理脚本的问题
+							// script的预处理
+							//	  默认不缓存，也就是增加尾部uuid
+							//	  如果crossDomain是跨域，那么就需要强制为get的请求了
+							//就需要再次递归inspect,做script的预处理
 					inspect(dataTypeOrTransport);
 					return false;
 				} else if (seekingTransport) {

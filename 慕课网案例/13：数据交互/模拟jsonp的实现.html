@@ -1,0 +1,187 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>模拟jsonp的实现</title>
+     <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+
+<button id="test">测试模拟jsonp的实现</button>
+
+<script type="text/javascript">
+        
+    function prescript(s) {
+        if (s.cache === undefined) {
+            s.cache = false;
+        }
+        if (s.crossDomain) {
+            s.type = "GET";
+        }
+    }
+
+
+    function prejsonp(s, originalSettings, jqXHR) {
+        // 给回调函数命名
+        var callbackName = s.jsonpCallback
+        s.url += (/(?:)/.test(s.url) ? "&" : "?") + s.jsonp + "=" + callbackName;
+        // 脚本执行后使用数据转换器来检索json
+        // 提供给代码获取服务器的是据
+        s.getData = function() {
+            if (!responseContainer) {
+                jQuery.error(callbackName + " was not called");
+            }
+            return responseContainer[0];
+        };
+        //修改处理机制
+        s.dataTypes[0] = "json";
+        // 创建一个全局函数
+        overwritten = window[callbackName];
+        //用来收集服务器给的数据
+        window[callbackName] = function() {
+            responseContainer = arguments;
+        };
+
+        return "script";
+    }
+
+    /**
+     * jsonp的预先处理
+     */
+    function inspectPrefiltersOrTransportsA(options, originalOptions, jqXHR) {
+        //预处理jsonp
+        var dataTypeOrTransport =  prejsonp(options, originalOptions, jqXHR)
+        //扩充dataTypes
+        options.dataTypes.unshift(dataTypeOrTransport);
+        //预处理script类型
+        prescript(options)
+    }
+
+
+    /**
+     * 分发器
+     * @return {[type]} [description]
+     */
+    function inspectPrefiltersOrTransportsB(s, originalOptions, jqXHR) {
+        return {
+            send: function(_, complete) {
+                var script = jQuery("<script>").prop({
+                    async: true,
+                    charset: s.scriptCharset,
+                    src: s.url
+                }).on(
+                    "load error",
+                    callback = function(evt) {
+                        script.remove();
+                        callback = null;
+                        if (evt) {
+                            complete()
+                        }
+                    }
+                );
+                //<script async="" src="http://192.168.1.113:8080/github/jQuery/jsonp.php
+                document.head.appendChild(script[0]);
+            }
+        }
+    }
+
+    /**
+     * 模拟ajax的 jsonp请求
+     * @param  {[type]} options [description]
+     * @return {[type]}         [description]
+     */
+    function createAjax(options) {
+
+        if (typeof url === "object") {
+            options = url;
+            url = undefined;
+        }
+
+        options = options || {};
+
+        /**
+         * 参数
+         * jQuery.ajaxSetup 是默认参数
+         * @type {[type]}
+         */
+        var s = jQuery.ajaxSetup({}, options);
+
+        // Deferreds
+        // 异步机制
+        var deferred = jQuery.Deferred();
+        var completeDeferred = jQuery.Callbacks("once memory");
+
+        /**
+         * 实际返回的ajax对象
+         * @type {Object}
+         */
+        var jqXHR = {}
+
+        // 把jqXHR对象转化promise对象，幷加入complete、success、error方法
+        deferred.promise(jqXHR).complete = completeDeferred.add;
+        //别名
+        jqXHR.success = jqXHR.done;
+        jqXHR.error = jqXHR.fail;
+
+        s.dataTypes = jQuery.trim(s.dataType || "*").toLowerCase().match(/(?:)/) || [""];
+
+        //预处理
+        inspectPrefiltersOrTransportsA(s, options, jqXHR);
+
+        for (i in {
+            success: 1,
+            error: 1,
+            complete: 1
+        }) {
+            jqXHR[i](s[i]);
+        }
+
+        /**
+         * 分发器
+         */
+        transport = inspectPrefiltersOrTransportsB(s, options, jqXHR);
+
+        function done(status, nativeStatusText, responses, headers) {
+            console.log(s,s.getData())
+        }
+
+        //发送请求
+        transport.send(s, done);
+
+        return jqXHR;
+    }
+
+
+    function show(data){
+        $('body').append('<li>'+ data +'</li>');
+    }
+
+    /**
+     * 数据回调接收
+     * @return {[type]} [description]
+     */
+    function flightHandler(){
+
+    }
+
+    $("#test").click(function(){
+        //执行一个异步的HTTP（Ajax）的请求。
+        var ajax = createAjax({
+            url: 'http://192.168.1.113:8080/github/jQuery/jsonp.php',
+            data: {
+                'action': 'aaron'
+            }, // 预传参的数组
+            dataType: 'jsonp', // 数据类型
+            jsonp: 'callback', // 指定回调函数名，与服务器端接收的一致，并回传回来
+            jsonpCallback:flightHandler,
+            success: function() {
+                show('局部事件success')
+            }
+        })
+    })
+
+
+</script>
+</body>
+</html>
