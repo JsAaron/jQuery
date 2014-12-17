@@ -7871,18 +7871,25 @@ var data_user = new Data();
 		function inspect(dataType) {
 			var selected;
 			inspected[dataType] = true;
+			//json,jsonp,script
 			jQuery.each(structure[dataType] || [], function(_, prefilterOrFactory) {
 				var dataTypeOrTransport = prefilterOrFactory(options, originalOptions, jqXHR);
 				/**
 				 * dataType是jsonp的时候，内部会转化成script处理
 				 * 如果dataTypeOrTransport返回的是script的话
-				 * script的预处理
-				 * 	  默认不缓存，也就是增加尾部uuid
-				 * 	  如果crossDomain是跨域，那么就需要强制为get的请求了
-				 * 就需要再次递归inspect,做script的预处理
 				 */
 				if (typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[dataTypeOrTransport]) {
+				    /**
+					 * jsonp->
+					 *  0: "script"
+					 *	1: "json"
+					 */
 					options.dataTypes.unshift(dataTypeOrTransport);
+					//递归一下script用于继续处理脚本的问题
+					// script的预处理
+					//	  默认不缓存，也就是增加尾部uuid
+					//	  如果crossDomain是跨域，那么就需要强制为get的请求了
+					//就需要再次递归inspect,做script的预处理
 					inspect(dataTypeOrTransport);
 					return false;
 				} else if (seekingTransport) {
@@ -9161,6 +9168,7 @@ var data_user = new Data();
 
 			// Get callback name, remembering preexisting value associated with it
 			// 给回调函数命名
+			// 如果jsonpCallback是字符串，创建这样的函数
 			callbackName = s.jsonpCallback = jQuery.isFunction(s.jsonpCallback) ?
 				s.jsonpCallback() :
 				s.jsonpCallback;
@@ -9171,6 +9179,8 @@ var data_user = new Data();
 			} else if (s.jsonp !== false) {
 				// "http://192.168.1.113:8080/github/jQuery/jsonp.php?
 				// 			backfunc=jQuery21109292206738609821_1418781016032"
+				// 			
+				// "http://192.168.1.113:8080/github/jQuery/jsonp.php?callback=flightHandler"
 				s.url += (rquery.test(s.url) ? "&" : "?") + s.jsonp + "=" + callbackName;
 			}
 
@@ -9187,6 +9197,7 @@ var data_user = new Data();
 			s.dataTypes[0] = "json";
 
 			// Install callback
+			// 创建一个全局函数
 			overwritten = window[callbackName];
 			window[callbackName] = function() {
 				responseContainer = arguments;

@@ -12,6 +12,39 @@
 
 <script type="text/javascript">
 	
+// //预处理针对jsonp的处理
+// var dataTypeOrTransport = prefilterOrFactory(options, originalOptions, jqXHR);
+// /**
+//  * 针对jonsp处理
+//  */
+// if (typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[dataTypeOrTransport]) {
+// 	//增加cache设置标记
+// 	//不需要缓存
+// 	//dataTypes: Array[2]
+// 	// 0: "script"
+// 	// 1: "json"
+// 	options.dataTypes.unshift(dataTypeOrTransport);
+// 	inspect(dataTypeOrTransport);
+// 	return false;
+// } else if (seekingTransport) {
+// 	return !(selected = dataTypeOrTransport);
+// }
+
+
+	$.ajax({
+		crossDomain :true,
+		url: 'http://192.168.1.113:8080/github/jQuery/jsonp.php', //不同的域
+		type: 'GET', // jsonp模式只有GET是合法的
+		data: {
+			'action': 'aaron'
+		}, // 预传参的数组
+		dataType: 'jsonp', // 数据类型
+		jsonp: 'callback', // 指定回调函数名，与服务器端接收的一致，并回传回来
+		jsonpCallback:'flightHandler',
+		success: function(json) {
+			console.log(json);
+		}
+	})
 
 
 </script>
