@@ -7873,6 +7873,14 @@ var data_user = new Data();
 			inspected[dataType] = true;
 			jQuery.each(structure[dataType] || [], function(_, prefilterOrFactory) {
 				var dataTypeOrTransport = prefilterOrFactory(options, originalOptions, jqXHR);
+				/**
+				 * dataType是jsonp的时候，内部会转化成script处理
+				 * 如果dataTypeOrTransport返回的是script的话
+				 * script的预处理
+				 * 	  默认不缓存，也就是增加尾部uuid
+				 * 	  如果crossDomain是跨域，那么就需要强制为get的请求了
+				 * 就需要再次递归inspect,做script的预处理
+				 */
 				if (typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[dataTypeOrTransport]) {
 					options.dataTypes.unshift(dataTypeOrTransport);
 					inspect(dataTypeOrTransport);
@@ -8399,6 +8407,7 @@ var data_user = new Data();
 			s.dataTypes = jQuery.trim(s.dataType || "*").toLowerCase().match(rnotwhite) || [""];
 
 			// A cross-domain request is in order when we have a protocol:host:port mismatch
+			// 自动判断请求是否是跨域
 			// 同域请求为false， 跨域请求为true
 	        // 如果你想在同一域中强制跨域请求（如JSONP形式），
 	        // 例如，想服务器端重定向到另一个域，那么需要将crossDomain设置为 true 
@@ -9121,8 +9130,12 @@ var data_user = new Data();
 		rjsonp = /(=)\?(?=&|$)|\?\?/;
 
 	// Default jsonp settings
+	// 默认jsonp的设置
 	jQuery.ajaxSetup({
 		jsonp: "callback",
+		// 为jsonp请求指定一个回调函数名。这个值将用来取代jQuery自动生成的随机函数名。
+		// 这主要用来让jQuery生成一个独特的函数名，这样管理请求更容易，也能方便地提供回调函数和错误处理。
+		// 你也可以在想让浏览器缓存GET请求的时候，指定这个回调函数名
 		jsonpCallback: function() {
 			var callback = oldCallbacks.pop() || (jQuery.expando + "_" + (nonce++));
 			this[callback] = true;
@@ -9145,6 +9158,7 @@ var data_user = new Data();
 		if (jsonProp || s.dataTypes[0] === "jsonp") {
 
 			// Get callback name, remembering preexisting value associated with it
+			// 给回调函数命名
 			callbackName = s.jsonpCallback = jQuery.isFunction(s.jsonpCallback) ?
 				s.jsonpCallback() :
 				s.jsonpCallback;
@@ -9153,10 +9167,13 @@ var data_user = new Data();
 			if (jsonProp) {
 				s[jsonProp] = s[jsonProp].replace(rjsonp, "$1" + callbackName);
 			} else if (s.jsonp !== false) {
+				// "http://192.168.1.113:8080/github/jQuery/jsonp.php?
+				// 			backfunc=jQuery21109292206738609821_1418781016032"
 				s.url += (rquery.test(s.url) ? "&" : "?") + s.jsonp + "=" + callbackName;
 			}
 
 			// Use data converter to retrieve json after script execution
+			// 脚本执行后使用数据转换器来检索json
 			s.converters["script json"] = function() {
 				if (!responseContainer) {
 					jQuery.error(callbackName + " was not called");
@@ -9174,6 +9191,7 @@ var data_user = new Data();
 			};
 
 			// Clean-up function (fires after converters)
+			// 清理函数
 			jqXHR.always(function() {
 				// Restore preexisting value
 				window[callbackName] = overwritten;
