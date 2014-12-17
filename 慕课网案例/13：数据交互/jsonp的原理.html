@@ -1,0 +1,71 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+		
+
+	//////////////////////////////////
+	// jQuery的调用
+	//////////////////////////////////
+	$.ajax({
+		crossDomain :true,
+		url: 'http://192.168.1.113:8080/github/jQuery/jsonp.php', //不同的域
+		type: 'GET', // jsonp模式只有GET是合法的
+		data: {
+			'action': 'aaron'
+		}, // 预传参的数组
+		dataType: 'jsonp', // 数据类型
+		jsonp: 'callback', // 指定回调函数名，与服务器端接收的一致，并回传回来
+		jsonpCallback:"flightHandler",
+		success: function(json) {
+			console.log(json);
+		}
+	})
+
+
+	//////////////////////////////////
+	// jsonp的原理
+	//////////////////////////////////
+	//服务器调用的全局函数，用来接受数据
+	function flightHandler(data){
+		console.log(data)
+	}
+
+	function createJsonp(url, complete) {
+		var script = jQuery("<script>").prop({
+			async: true,
+			src: "http://192.168.1.113:8080/github/jQuery/jsonp.php?callback=flightHandler&amp;action=aaron&amp;_=1418782732584"
+		}).on(
+			"load error",
+			callback = function(evt) {
+				script.remove();
+				callback = null;
+			}
+		);
+		document.head.appendChild(script[0]);
+	}
+	
+	createJsonp()
+
+
+
+	//////////////////////////////////
+	// PHP端代码
+	//////////////////////////////////
+	// <?php
+	//    header('Content-Type:text/json;charset=utf-8');
+	// 	  echo trim( $_GET['callback']).'('. json_encode(array('status'=>1,'info'=>'OK')) .')';  
+	// ?>
+
+</script>
+</body>
+</html>
+
