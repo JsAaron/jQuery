@@ -8016,7 +8016,8 @@ var data_user = new Data();
 
 		// Convert to each sequential dataType
 		while (current) {
-
+			// 模拟数据模式
+			// 把对应的数据放到对应的指定方法映射中
 			// json: "responseJSON"
 			// text: "responseText"
 			// xml: "responseXML"
@@ -8045,6 +8046,12 @@ var data_user = new Data();
 				} else if (prev !== "*" && prev !== current) {
 
 					// Seek a direct converter
+					// 找到全局的这个转化器
+				    //	s.converters["script json"] = function() {
+					//		if (!responseContainer) {
+				    //		jQuery.error(callbackName + " was not called");
+					//	}
+					//};
 					conv = converters[prev + " " + current] || converters["* " + current];
 
 					// If none found, seek a pair
