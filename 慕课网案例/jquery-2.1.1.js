@@ -8652,17 +8652,14 @@ var data_user = new Data();
 				// If successful, handle type chaining
 				if (isSuccess) {
 
-					// Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
-					if (s.ifModified) {
-						modified = jqXHR.getResponseHeader("Last-Modified");
-						if (modified) {
-							jQuery.lastModified[cacheURL] = modified;
-						}
-						modified = jqXHR.getResponseHeader("etag");
-						if (modified) {
-							jQuery.etag[cacheURL] = modified;
-						}
-					}
+                    // Set the If-Modified-Since and/or If-None-Match header,
+if in ifModified mode.                     if (s.ifModified) {
+modified = jqXHR.getResponseHeader("Last-Modified");
+if (modified) {                             jQuery.lastModified[cacheURL] =
+modified;                         }                         modified =
+jqXHR.getResponseHeader("etag");                         if (modified) {
+jQuery.etag[cacheURL] = modified;                         }
+}
 
 					// if no content
 					if (status === 204 || s.type === "HEAD") {
