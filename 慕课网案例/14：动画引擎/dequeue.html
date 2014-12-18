@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  div { margin:3px; width:50px; position:absolute;
+  height:50px; left:10px; top:30px;
+  background-color:yellow; }
+  div.red { background-color:red; }
+</style>
+    <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+</head>
+<body>
+  <button>Start</button>
+<div></div>
+<script>
+$("button").click(function () {
+
+    $("div").animate({
+      left: '+=200px'
+    }, 2000);
+
+    $("div").animate({
+      top: '0px'
+    }, 600);
+
+    $("div").queue(function () {
+      $(this).toggleClass("red");
+      $(this).dequeue();
+    });
+
+    $("div").animate({
+      left: '10px',
+      top: '30px'
+    }, 700);
+});
+</script>
+ 
+</body>
+</html

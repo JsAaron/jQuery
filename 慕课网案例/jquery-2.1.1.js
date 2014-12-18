@@ -3933,6 +3933,10 @@ var data_user = new Data();
 			}
 		},
 
+		/**
+		 * 当.dequeue()被调用的时候，列队中的下一个函数将从这个列队中被移除，然后再执行。
+		 * 这个函数应当在内部直接或间接调用 jQuery.dequeue()，以便队列得以继续执行下去。
+		 */
 		dequeue: function(elem, type) {
 			type = type || "fx";
 
@@ -4004,6 +4008,7 @@ var data_user = new Data();
 
 					//如果是动画，并且不是在执行中
 					if (type === "fx" && queue[0] !== "inprogress") {
+						//开始执行下一个队列动画
 						jQuery.dequeue(this, type);
 					}
 				});

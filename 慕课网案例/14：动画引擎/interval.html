@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+div { width:50px; height:30px; margin:5px; float:left;
+      background:green; }
+</style>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+  <p><input type="button" value="Run"/></p>
+<div></div>
+<script>
+jQuery.fx.interval = 1;
+ 
+$("input").click(function(){
+  $("div").toggle( 3000 );
+});
+  </script>
+ 
+</body>
+</html>
