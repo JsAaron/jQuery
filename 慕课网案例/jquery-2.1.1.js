@@ -7988,6 +7988,9 @@ var data_user = new Data();
 
 	/* Chain conversions given the request and the original response
 	 * Also sets the responseXXX fields on the jqXHR instance
+	 *
+	 * dataType => dataTypas = ['script','json']
+	 * 
 	 */
 	function ajaxConvert(s, response, jqXHR, isSuccess) {
 		var conv2, current, conv, tmp, prev,
@@ -7996,6 +7999,7 @@ var data_user = new Data();
 			dataTypes = s.dataTypes.slice();
 
 		// Create converters map with lowercased keys
+		// 复制转换函数
 		if (dataTypes[1]) {
 			for (conv in s.converters) {
 				converters[conv.toLowerCase()] = s.converters[conv];
@@ -8007,7 +8011,12 @@ var data_user = new Data();
 		// Convert to each sequential dataType
 		while (current) {
 
+			// json: "responseJSON"
+			// text: "responseText"
+			// xml: "responseXML"
 			if (s.responseFields[current]) {
+				//如果current = jsonp
+				//jqXHR.responseJSON = response
 				jqXHR[s.responseFields[current]] = response;
 			}
 
@@ -9169,6 +9178,7 @@ var data_user = new Data();
 			// Get callback name, remembering preexisting value associated with it
 			// 给回调函数命名
 			// 如果jsonpCallback是字符串，创建这样的函数
+			// 如果没有给定jsonpCallback。则内部创建
 			callbackName = s.jsonpCallback = jQuery.isFunction(s.jsonpCallback) ?
 				s.jsonpCallback() :
 				s.jsonpCallback;
@@ -9177,9 +9187,11 @@ var data_user = new Data();
 			if (jsonProp) {
 				s[jsonProp] = s[jsonProp].replace(rjsonp, "$1" + callbackName);
 			} else if (s.jsonp !== false) {
+				//内部创建backfunc=jQuery21109292206738609821_1418781016032
 				// "http://192.168.1.113:8080/github/jQuery/jsonp.php?
 				// 			backfunc=jQuery21109292206738609821_1418781016032"
-				// 			
+				// 
+				// 开发者定义的callback=flightHandler			
 				// "http://192.168.1.113:8080/github/jQuery/jsonp.php?callback=flightHandler"
 				s.url += (rquery.test(s.url) ? "&" : "?") + s.jsonp + "=" + callbackName;
 			}
