@@ -3996,11 +3996,13 @@ var data_user = new Data();
 			return data === undefined ?
 				this :
 				this.each(function() {
+					//将队列加入缓存
 					var queue = jQuery.queue(this, type, data);
 
 					// ensure a hooks for this queue
 					jQuery._queueHooks(this, type);
 
+					//如果是动画，并且不是在执行中
 					if (type === "fx" && queue[0] !== "inprogress") {
 						jQuery.dequeue(this, type);
 					}
@@ -6926,6 +6928,8 @@ var data_user = new Data();
 		},
 		animate: function(prop, speed, easing, callback) {
 			var empty = jQuery.isEmptyObject(prop),
+				//赋值一些默认参数
+				//重写完成方法
 				optall = jQuery.speed(speed, easing, callback),
 				doAnimation = function() {
 					// Operate on a copy of prop so per-property easing won't be lost
@@ -6940,6 +6944,7 @@ var data_user = new Data();
 
 			return empty || optall.queue === false ?
 				this.each(doAnimation) :
+				//加入动画队列
 				this.queue(optall.queue, doAnimation);
 		},
 		stop: function(type, clearQueue, gotoEnd) {
@@ -8652,14 +8657,17 @@ var data_user = new Data();
 				// If successful, handle type chaining
 				if (isSuccess) {
 
-                    // Set the If-Modified-Since and/or If-None-Match header,
-if in ifModified mode.                     if (s.ifModified) {
-modified = jqXHR.getResponseHeader("Last-Modified");
-if (modified) {                             jQuery.lastModified[cacheURL] =
-modified;                         }                         modified =
-jqXHR.getResponseHeader("etag");                         if (modified) {
-jQuery.etag[cacheURL] = modified;                         }
-}
+					// Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
+					if (s.ifModified) {
+						modified = jqXHR.getResponseHeader("Last-Modified");
+						if (modified) {
+							jQuery.lastModified[cacheURL] = modified;
+						}
+						modified = jqXHR.getResponseHeader("etag");
+						if (modified) {
+							jQuery.etag[cacheURL] = modified;
+						}
+					}
 
 					// if no content
 					if (status === 204 || s.type === "HEAD") {
