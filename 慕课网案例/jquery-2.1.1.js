@@ -7883,13 +7883,19 @@ var data_user = new Data();
 					 * jsonp->
 					 *  0: "script"
 					 *	1: "json"
+					 *
+					 *  jsonp * text ->
+					 *      0: "script"
+					 *		1: "json"
+					 * 		2: "*"
+					 *		3: "text"
 					 */
 					options.dataTypes.unshift(dataTypeOrTransport);
-							//递归一下script用于继续处理脚本的问题
-							// script的预处理
-							//	  默认不缓存，也就是增加尾部uuid
-							//	  如果crossDomain是跨域，那么就需要强制为get的请求了
-							//就需要再次递归inspect,做script的预处理
+					//递归一下script用于继续处理脚本的问题
+					// script的预处理
+					//	  默认不缓存，也就是增加尾部uuid
+					//	  如果crossDomain是跨域，那么就需要强制为get的请求了
+					//就需要再次递归inspect,做script的预处理
 					inspect(dataTypeOrTransport);
 					return false;
 				} else if (seekingTransport) {
@@ -9206,10 +9212,14 @@ var data_user = new Data();
 			};
 
 			// force json dataType
+			// jsonp -> 
+			// 	    json 
+			//    	其余类型
 			s.dataTypes[0] = "json";
 
 			// Install callback
 			// 创建一个全局函数
+			// 用来收集jsonp 服务器返回的数据
 			overwritten = window[callbackName];
 			window[callbackName] = function() {
 				responseContainer = arguments;
