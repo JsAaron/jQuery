@@ -3914,14 +3914,21 @@ var data_user = new Data();
 
 
 	jQuery.extend({
+
+		/**
+		 * 显示或操作匹配的元素上已经执行的函数列队。
+		 */
 		queue: function(elem, type, data) {
 			var queue;
 
 			if (elem) {
 				type = (type || "fx") + "queue";
+
+				//获取队列数据
 				queue = data_priv.get(elem, type);
 
 				// Speed up dequeue by getting out quickly if this is just a lookup
+				// 如果传递了数据，这存在缓存中
 				if (data) {
 					if (!queue || jQuery.isArray(data)) {
 						queue = data_priv.access(elem, type, jQuery.makeArray(data));
@@ -3940,8 +3947,10 @@ var data_user = new Data();
 		dequeue: function(elem, type) {
 			type = type || "fx";
 
+			//取出队列
 			var queue = jQuery.queue(elem, type),
 				startLength = queue.length,
+				//取出第一个队列
 				fn = queue.shift(),
 				hooks = jQuery._queueHooks(elem, type),
 				next = function() {
@@ -6936,6 +6945,10 @@ var data_user = new Data();
 				//赋值一些默认参数
 				//重写完成方法
 				optall = jQuery.speed(speed, easing, callback),
+				/**
+				 * 执行真正的动画方法
+				 * @return {[type]} [description]
+				 */
 				doAnimation = function() {
 					// Operate on a copy of prop so per-property easing won't be lost
 					var anim = Animation(this, jQuery.extend({}, prop), optall);
@@ -6945,6 +6958,7 @@ var data_user = new Data();
 						anim.stop(true);
 					}
 				};
+
 			doAnimation.finish = doAnimation;
 
 			return empty || optall.queue === false ?
