@@ -6838,6 +6838,7 @@ var data_user = new Data();
 			}),
 			props = animation.props;
 
+		//属性过滤
 		propFilter(props, animation.opts.specialEasing);
 
 		for (; index < length; index++) {
