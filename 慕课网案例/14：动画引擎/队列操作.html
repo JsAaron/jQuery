@@ -1,0 +1,50 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+     <style>div { margin:3px; width:40px; height:40px;
+        position:absolute; left:0px; top:30px;
+        background:green; display:none; }
+ 		div.newcolor { background:blue; }
+  		span { color:red; }
+  	 </style>
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title></title>
+</head>
+<body>
+
+  <span></span>
+  <div></div>
+
+<script type="text/javascript">
+	
+	var div = $("div");
+
+	function runIt() {
+		div.show("slow");
+		div.animate({
+			left: '+=200'
+		}, 1000);
+		div.slideToggle(500);
+		div.slideToggle("fast");
+		div.animate({
+			left: '-=200'
+		}, 1000);
+		div.hide("slow");
+		div.show(500);	
+		div.slideUp("normal", runIt);
+	}
+
+	function showIt() {
+		var n = div.queue("fx");
+		$("span").text('通过queue取出正在运行队列的数量：'+n.length);
+		setTimeout(showIt, 100);
+	}
+
+	runIt();
+	showIt();
+
+</script>
+</body>
+</html>
