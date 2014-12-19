@@ -3967,6 +3967,9 @@ var data_user = new Data();
 
 				// Add a progress sentinel to prevent the fx queue from being
 				// automatically dequeued
+				// 如果开始执行，就需要加一个进程锁
+				// 如果是dequeue操作, 去掉锁, 执行队列里的函数, 同时给队列加上锁. 
+				// 如果是queue操作, 要看锁的状态, 如果被锁上了, 就只执行队列的添加操作. 不再调用dequeue. 
 				if (type === "fx") {
 					queue.unshift("inprogress");
 				}
@@ -6771,6 +6774,10 @@ var data_user = new Data();
 				// don't match elem in the :animated selector
 				delete tick.elem;
 			}),
+			/**
+			 * 运行动画
+			 * @return {[type]} [description]
+			 */
 			tick = function() {
 				if (stopped) {
 					return false;
@@ -6783,6 +6790,7 @@ var data_user = new Data();
 					index = 0,
 					length = animation.tweens.length;
 
+				//执行动画改变
 				for (; index < length; index++) {
 					animation.tweens[index].run(percent);
 				}
@@ -6854,6 +6862,10 @@ var data_user = new Data();
 			animation.opts.start.call(elem, animation);
 		}
 
+		/**
+		 * 调用动画执行
+		 * @type {[type]}
+		 */
 		jQuery.fx.timer(
 			jQuery.extend(tick, {
 				elem: elem,

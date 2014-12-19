@@ -39,6 +39,23 @@
 			complete:function(){
 				console.log('动画完成')
 			}
+		}).animate({
+			opacity: 1,
+			left: '-=50',
+			height: 'toggle'
+		}, {
+			duration :1000,
+			step: function(now, fx) {
+				var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
+				console.log(data)
+				// $('body').append('<div>' + data + '</div>');
+			},
+			progress:function(){
+				console.log('progress')
+			},
+			complete:function(){
+				console.log('动画完成')
+			}
 		})
 	// });
 
