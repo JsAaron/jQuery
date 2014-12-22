@@ -12,7 +12,7 @@
      margin: 10px;
    }
   </style>
-	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="../../jquery-2.1.1.js"></script>
 	<title>偏移量ui</title>
 </head>
 <body>
@@ -23,13 +23,20 @@
 <script type="text/javascript">
 
     var elem = document.getElementById('myDiv');
-    //border-left-width + padding-left + width + padding-rigth + border-right-widht
-    var elemWidth = elem.offsetWidth;
-    //border-top-width + padding-top + height + padding-bottom + border-bottom-width
-    var elemHeigth = elem.offsetHeight;
 
+    // //border-left-width + padding-left + width + padding-rigth + border-right-widht
+    // var elemWidth = elem.offsetWidth;
+    // //border-top-width + padding-top + height + padding-bottom + border-bottom-width
+    // var elemHeigth = elem.offsetHeight;
 
+    var $elem = $('#myDiv')
 
+    //,elem.innerWidth() ,elem.outerWidth() 
+    console.log(  $elem.width() )
+
+    var style = document.defaultView.getComputedStyle(elem,null)
+
+    console.log(  style )
 
 
 </script>

@@ -3953,6 +3953,7 @@ var data_user = new Data();
 				//取出第一个队列
 				fn = queue.shift(),
 				hooks = jQuery._queueHooks(elem, type),
+				//生成调用下个函数代码
 				next = function() {
 					jQuery.dequeue(elem, type);
 				};
@@ -5972,6 +5973,15 @@ var data_user = new Data();
 	 * 
 	 * extra = padding
 	 * innerWidth = offsetWidth - margin- border + padding
+	 *
+	 * cssExpand = 
+	 *  [
+	 *      0: "Top"
+	 *	    1: "Right"
+	 *   	2: "Bottom"
+	 *    	3: "Left"
+	 *	]
+	 * 
 	 */
 	function augmentWidthOrHeight(elem, name, extra, isBorderBox, styles) {
 		var i = extra === (isBorderBox ? "border" : "content") ?
@@ -6031,6 +6041,11 @@ var data_user = new Data();
 
 		// Start with offset property, which is equivalent to the border-box value
 		var valueIsBorderBox = true,
+			//通过offsetWidtd获取的样式是
+			//width+border+padding的
+			//$.width , $.innerWidht , $.outerWidht获取的宽度取值是不一样的
+			//所以需要减去对应的盒子模型的属性
+			//而且还要判断是否采用了css3的boderbox属性
 			val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
 			styles = getStyles(elem),
 			isBorderBox = jQuery.css(elem, "boxSizing", false, styles) === "border-box";
@@ -6038,6 +6053,7 @@ var data_user = new Data();
 		// some non-html elements return undefined for offsetWidth, so check for null/undefined
 		// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
 		// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
+		// 获取尺寸出错的情况
 		if (val <= 0 || val == null) {
 			// Fall back to computed then uncomputed css if necessary
 			val = curCSS(elem, name, styles);
@@ -6060,6 +6076,7 @@ var data_user = new Data();
 		}
 
 		// use the active box-sizing model to add/subtract irrelevant styles
+		// 增加删减没有作用的盒子模型的属性
 		return (val +
 			augmentWidthOrHeight(
 				elem,
@@ -6963,8 +6980,11 @@ var data_user = new Data();
 				 * @return {[type]} [description]
 				 */
 				doAnimation = function() {
+
+					var args = jQuery.extend({}, prop);
+
 					// Operate on a copy of prop so per-property easing won't be lost
-					var anim = Animation(this, jQuery.extend({}, prop), optall);
+					var anim = Animation(this, args, optall);
 
 					// Empty animations, or finishing resolves immediately
 					if (empty || data_priv.get(this, "finish")) {
