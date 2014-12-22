@@ -1,0 +1,93 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title></title>
+</head>
+<body>
+
+<div style="background-color:yellow;">慕课网</div>
+
+<button id="test1">jQuery.css获取background-color</button>
+<button id="test2">模拟css获取background-color</button>
+
+<ul></ul>
+
+<script type="text/javascript">
+	
+	//获取最终属性
+	//https://github.com/jquery/jquery/pull/524
+	var getStyles = function(elem) {
+		return elem.ownerDocument.defaultView.getComputedStyle(elem, null);
+	};
+
+
+	//返回一个css属性映射到一个浏览器商前缀的属性
+	function vendorPropName(style, name) {
+		// shortcut for names that are not vendor prefixed
+		if (name in style) {
+			return name;
+		}
+		// check for vendor prefixed names
+		var capName = name[0].toUpperCase() + name.slice(1),
+			origName = name,
+			i = cssPrefixes.length;
+
+		while (i--) {
+			name = cssPrefixes[i] + capName;
+			if (name in style) {
+				return name;
+			}
+		}
+
+		return origName;
+	}
+
+	function curCSS(elem, name, computed) {
+		var width, minWidth, maxWidth, ret,
+			style = elem.style;
+
+		computed = computed || getStyles(elem);
+
+		if (computed) {
+			ret = computed.getPropertyValue(name) || computed[name];
+		}
+
+		return ret;
+	}
+
+	function css(elem, name, extra, styles) {
+		var val, num, hooks,
+			//转成驼峰写法
+			//background-color -> backgroundColor
+			origName = jQuery.camelCase(name);
+		// Make sure that we're working with the right name
+		//如果是特殊属性float转成cssFloat
+		//带有浏览器前缀处理
+		name = jQuery.cssProps[origName] || (jQuery.cssProps[origName] = vendorPropName(elem.style, origName));
+		hooks = jQuery.cssHooks[name] || jQuery.cssHooks[origName];
+		if (hooks && "get" in hooks) {
+			val = hooks.get(elem, true, extra);
+		}
+		//通过computed接口直接获取样式
+		if (val === undefined) {
+			val = curCSS(elem, name, styles);
+		}
+		return val;
+	}
+
+	$("#test1").click(function() {
+		$('ul').append('<li>jQuery.css(background-color):' + $("div").css('background-color') + '</li>')
+	})
+
+	$("#test2").click(function() {
+		var div = document.querySelectorAll('div')[0]
+		$('ul').append('<li>模拟css(background-color):' + css(div,'background-color') + '</li>')
+	})
+
+
+</script>
+</body>
+</html>
