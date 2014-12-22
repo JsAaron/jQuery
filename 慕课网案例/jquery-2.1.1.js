@@ -6238,6 +6238,12 @@ var data_user = new Data();
 			}
 		},
 
+		/**
+         * 计算出elem的name属性
+         * 附加额外的extra属性的值
+         * innerWidth => widht+padding
+		 * @return {[type]}        [description]
+		 */
 		css: function(elem, name, extra, styles) {
 			var val, num, hooks,
 				//转成驼峰写法

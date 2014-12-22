@@ -10,6 +10,7 @@
      border:5px solid #ccc;
      padding:5px;
      margin: 10px;
+     box-sizing: border-box; 
    }
   </style>
 	<script type="text/javascript" src="../../jquery-2.1.1.js"></script>
@@ -32,11 +33,11 @@
     var $elem = $('#myDiv')
 
     //,elem.innerWidth() ,elem.outerWidth() 
-    console.log(  $elem.width() )
+    console.log(  $elem.outerWidth(true) )
 
     var style = document.defaultView.getComputedStyle(elem,null)
 
-    console.log(  style )
+    // console.log(  style )
 
 
 </script>
