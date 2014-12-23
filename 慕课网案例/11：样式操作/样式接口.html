@@ -1,0 +1,61 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	 <style>
+		div { width:60px; height:60px; margin:5px; float:left; }
+ 	 </style>
+	 <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title></title>
+</head>
+<body>
+
+ 
+<span id="result">&nbsp;</span>
+<div style="background-color:blue;"></div>
+<div style="background-color:rgb(15,99,30);"></div>
+ 
+<div style="background-color:#123456;"></div>
+<div style="background-color:#f11;"></div>
+
+<script type="text/javascript">
+	
+	/**
+	 * 转化驼峰
+	 * @param  {[type]} string [description]
+	 * @return {[type]}        [description]
+	 */
+	function camelCase(string) {
+		return string.replace(/^-ms-/, "ms-").replace(/-([\da-z])/gi, function(all, letter) {
+			return letter.toUpperCase();
+		});
+	}
+
+	/**
+	 * 模拟jquery css处理
+	 */
+	function css(elem, name, extra, styles) {
+		var val, num, hooks,
+			//转成驼峰写法
+			//background-color -> backgroundColor
+			origName = camelCase(name);
+
+
+	}
+
+
+
+$("div").click(function () {
+
+	var obj = $(this)
+ 
+ 	obj.css("width");
+ 
+
+
+});
+
+</script>
+</body>
+</html>
