@@ -1,0 +1,111 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	  <style>
+	 	p { margin: 8px; font-size:16px; }
+	 	 .selected { color:blue; }
+	 	 .highlight { background:yellow; }
+	  </style>
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title></title>
+</head>
+<body>
+
+ <p>Hello</p>
+  <p>and</p>
+  <p>Goodbye</p>
+
+<script type="text/javascript">
+		
+    // 为匹配的每个元素增加指定的class(es)
+    function addClass(value) {
+    	var classes, elem, cur, clazz, j,
+    		i = 0,
+    		len = this.length,
+    		proceed = typeof value === "string" && value;
+
+    	//如果传递的是回调函数，递归调用  ⑴
+    	if (jQuery.isFunction(value)) {
+    		return this.each(function(j) {
+    			jQuery(this).addClass(value.call(this, j, this.className));
+    		});
+    	}
+
+    	if (proceed) {
+    		// The disjunction here is for better compressibility (see removeClass)
+    		//分解下样式规则,通过正则/\S+/g 空白分组
+    		// classes [
+    		//    0: "highlight"
+    		// ]                               ⑵
+    		classes = (value || "").match(core_rnotwhite) || [];
+
+    		for (; i < len; i++) {
+    			elem = this[i];
+    			//如果元素本身存在class样式，先取出来     ⑷
+    			cur = elem.nodeType === 1 && (elem.className ?
+    				("" + elem.className + "").replace(rclass, "") :
+    				""
+    			);
+
+    			if (cur) { //组合成新的规则按照空格分开  ⑸
+    				j = 0;
+    				while ((clazz = classes[j++])) {
+    					if (cur.indexOf("" + clazz + "") < 0) {
+    						cur += clazz + "";
+    					}
+    				}
+    				//设置样式  ⑹
+    				elem.className = jQuery.trim(cur);
+
+    			}
+    		}
+    	}
+
+    	return this;
+    }
+
+
+    function removeClass( value ) {
+            var classes, elem, cur, clazz, j,
+                i = 0,
+                len = this.length,
+                proceed = arguments.length === 0 || typeof value === "string" && value;
+
+            if ( jQuery.isFunction( value ) ) {
+                return this.each(function( j ) {
+                    jQuery( this ).removeClass( value.call( this, j, this.className ) );
+                });
+            }
+            if ( proceed ) {
+                classes = ( value || "" ).match( core_rnotwhite ) || [];
+
+                for ( ; i < len; i++ ) {
+                    elem = this[ i ];
+                    // This expression is here for better compressibility (see addClass)
+                    cur = elem.nodeType === 1 && ( elem.className ?
+                        ( "" + elem.className + "" ).replace( rclass, "" ) :
+                        ""
+                        );
+
+                    if ( cur ) {
+                        j = 0;
+                        while ( (clazz = classes[j++]) ) {
+                            // Remove *all* instances
+                            while ( cur.indexOf( "" + clazz + "" ) >= 0 ) {
+                                cur = cur.replace( "" + clazz + "", "" );
+                            }
+                        }
+                        elem.className = value ? jQuery.trim( cur ) : "";
+                    }
+                }
+            }
+
+            return this;
+        }
+
+
+</script>
+</body>
+</html>
