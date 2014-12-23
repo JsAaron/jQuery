@@ -1,0 +1,89 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<style>
+		div { 
+			width:60px; 
+			height:60px; 
+			margin:5px;
+			/*padding: 5px;*/
+		}
+    </style>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title></title>
+</head>
+<body>
+
+<div id="aaron" style="background-color:yellow;">慕课网</div>
+
+<button id="test1">jQuery.css设置padding margin</button>
+<button id="test2">模拟style设置padding margin</button>
+
+<ul></ul>
+
+<script type="text/javascript">
+	
+
+
+	//////////
+	//分解参数 //
+	//////////
+	function access(elems, fn, key, value, chainable, emptyGet, raw) {
+		var i = 0,
+			len = elems.length;
+		//如果是一个对象，for in递归调用自己
+		if (jQuery.type(key) === "object") {
+			chainable = true;
+			for (i in key) {
+				access(elems, fn, i, key[i], true, emptyGet, raw);
+			}
+		} else if (value !== undefined) {
+			if (fn) {
+				fn(elems, key, value);
+			}
+		}
+		return elems
+	};
+
+
+	//////////
+	//设置样式 //
+	//////////
+	function style(elem, name, value, extra) {
+		var origName = jQuery.camelCase(name),
+			style = elem.style;
+		style[name] = value;
+	}
+
+	function css(name, value) {
+		return access(this, function(elem, name, value) {
+			return value !== undefined ?
+				style(elem, name, value) :
+				jQuery.css(elem, name);
+		}, name, value, arguments.length > 1);
+	}
+
+
+	$("#test1").click(function() {
+		$("div").css({
+			'padding': '20px',
+			'margin': '20px'			
+		})
+	})
+
+	$("#test2").click(function() {
+		css.call(document.getElementById('aaron'), {
+			'padding': '40px',
+			'margin': '40px'	
+		})
+	})
+
+
+
+
+
+</script>
+</body>
+</html>

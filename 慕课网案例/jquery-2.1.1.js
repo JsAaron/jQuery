@@ -6178,6 +6178,7 @@ var data_user = new Data();
 		},
 
 		// Get and set the style property on a DOM Node
+		// 设置获取dom节点的属性
 		style: function(elem, name, value, extra) {
 			// Don't set styles on text and comment nodes
 			if (!elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style) {
