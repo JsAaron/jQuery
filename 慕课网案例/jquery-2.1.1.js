@@ -3933,6 +3933,7 @@ var data_user = new Data();
 					if (!queue || jQuery.isArray(data)) {
 						queue = data_priv.access(elem, type, jQuery.makeArray(data));
 					} else {
+						//如果已经开辟了动画缓存，则直接存储
 						queue.push(data);
 					}
 				}
