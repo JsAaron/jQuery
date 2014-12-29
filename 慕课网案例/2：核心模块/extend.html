@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>
+	 <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	
+
+// 为什么extentd时候要判断是isPlainObject？
+// 这里关系到一个extentd第一个参数 是否深度复制的处理
+
+var object1 = {
+  banana: {weight: 52, price: 100},
+};
+var object2 = {
+  banana: {price: 200}
+};
+
+$.extend(object1, object2); //结果object1 = ｛banana: {price: 200}｝
+$.extend(ture,object1, object2); //结果object1 = ｛banana: {price: 200,weight: 52}｝
+
+// 根据这个结果就能清楚的看到jQuery是为了判断克隆是不是一个深层次的对象，用来逐个clone
+
+
+
+
+var object1 = {
+  apple: 0,
+  banana: {weight: 52, price: 100},
+  cherry: 97
+};
+var object2 = {
+  banana: {price: 200},
+  durian: 100,
+  apple:1
+};
+
+
+$.extend(true,object1, object2);
+
+
+console.log(object1,object2)
+
+</script>
+</body>
+</html>
