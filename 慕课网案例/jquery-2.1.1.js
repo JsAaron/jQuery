@@ -6753,12 +6753,18 @@ var data_user = new Data();
 		}
 	}
 
+	/**
+	 * 属性过滤
+	 * 含specialEasing属性，该属性本身是一组CSS属性与相应的缓冲函数
+	 * @return {[type]}               [description]
+	 */
 	function propFilter(props, specialEasing) {
 		var index, name, easing, value, hooks;
 
 		// camelCase, specialEasing and expand cssHook pass
 		for (index in props) {
 			name = jQuery.camelCase(index);
+			//是否存在对应的缓动
 			easing = specialEasing[name];
 			value = props[index];
 			if (jQuery.isArray(value)) {
@@ -6790,11 +6796,21 @@ var data_user = new Data();
 		}
 	}
 
+	/**
+	 * 动画类
+	 * @param {[type]} elem       [description]
+	 * @param {[type]} properties [description]
+	 * @param {[type]} options    [description]
+	 */
 	function Animation(elem, properties, options) {
 		var result,
 			stopped,
 			index = 0,
 			length = animationPrefilters.length,
+			/**
+			 * 创建异步链					
+			 * @return {[type]}   [description]
+			 */
 			deferred = jQuery.Deferred().always(function() {
 				// don't match elem in the :animated selector
 				delete tick.elem;
@@ -6829,17 +6845,21 @@ var data_user = new Data();
 					return false;
 				}
 			},
+			/**
+			 * 合并deferred成animation对象
+			 * @return {[type]}      
+			 */
 			animation = deferred.promise({
-				elem: elem,
-				props: jQuery.extend({}, properties),
-				opts: jQuery.extend(true, {
-					specialEasing: {}
-				}, options),
-				originalProperties: properties,
-				originalOptions: options,
-				startTime: fxNow || createFxNow(),
-				duration: options.duration,
-				tweens: [],
+				elem  : elem,
+				props : jQuery.extend({}, properties),
+				opts  : jQuery.extend(true, {
+							specialEasing: {}
+					    }, options),
+				originalProperties : properties,
+				originalOptions    : options,
+				startTime          : fxNow || createFxNow(),
+				duration           : options.duration,
+				tweens             : [],
 				createTween: function(prop, end) {
 					var tween = jQuery.Tween(elem, animation.opts, prop, end,
 						animation.opts.specialEasing[prop] || animation.opts.easing);
@@ -6872,8 +6892,13 @@ var data_user = new Data();
 			props = animation.props;
 
 		//属性过滤
+		//含specialEasing属性的处理
 		propFilter(props, animation.opts.specialEasing);
 
+		///////////
+		//生成动画 //
+		//animationPrefilters : [defaultPrefilter,add.....]
+		///////////
 		for (; index < length; index++) {
 			result = animationPrefilters[index].call(animation, elem, props, animation.opts);
 			if (result) {
@@ -6936,6 +6961,14 @@ var data_user = new Data();
 		}
 	});
 
+	/**
+	 * 填补动画的参数
+	 * 完成的回调
+	 * @param  {[type]}   speed  [description]
+	 * @param  {[type]}   easing [description]
+	 * @param  {Function} fn     [description]
+	 * @return {[type]}          [description]
+	 */
 	jQuery.speed = function(speed, easing, fn) {
 		var opt = speed && typeof speed === "object" ? jQuery.extend({}, speed) : {
 			complete: fn || !fn && easing || jQuery.isFunction(speed) && speed,

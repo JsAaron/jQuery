@@ -28,6 +28,9 @@
 			height: 'toggle'
 		}, {
 			duration :1000,
+			specialEasing: {
+				height: 'linear'
+			},
 			step: function(now, fx) {
 				var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
 				console.log(data)
@@ -44,7 +47,7 @@
 			left: '-=50',
 			height: 'toggle'
 		}, {
-			duration :1000,
+			duration :2000,
 			step: function(now, fx) {
 				var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
 				console.log(data)
