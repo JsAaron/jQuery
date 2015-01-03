@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>层级选择器</title>
+
+	 <!-- // <script src="jquery-1.11.1.js"></script> -->
+	 <script src="../src/core.js"></script>
+	 <script src="../src/sizzle.js"></script>
+	 <script src="../src/other.js"></script>
+	<style type="text/css">
+		ul.topnav > li{
+			border: 1px solid
+		}
+	</style>
+</head>
+<body>
+
+<ul class="topnav">
+  <li>Item 1</li>
+  <li>Item 2
+    <ul><li class="aaron">Nested item 1</li><li>Nested item 2</li><li>Nested item 3</li></ul>
+  </li>
+  <li>Item 3</li>
+</ul>
+
+
+<script type="text/javascript">
+
+		//多重选择器
+		//$(".topnav",".aaron").css("border", "3px double red")
+		console.log(
+
+			$( "ul.topnav > li" ).css( "border", "3px double red" )
+			
+		)
+
+		//选择类为topnav的ul元素下的 第一级的li元素
+		//$("ul.topnav > li").css("border", "3px double red")
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>层级选择器</title>
+
+	 <!-- // <script src="jquery-1.11.1.js"></script> -->
+<!-- 	 // <script src="../src/core.js"></script>
+	 // <script src="../src/sizzle.js"></script>
+	 // <script src="../src/other.js"></script> -->
+	<style type="text/css">
+		ul.topnav > li{
+			border: 1px solid
+		}
+	</style>
+</head>
+<body>
+
+
+
+<div id="test">
+        <div class="dialog">
+            <p>123</p>
+            <span>456</span>
+            <div>789</div>
+            <div class="text"> 452</div>
+        </div>
+  </div>
+
+<span id="foo:bar"></span>
+<span id="foo[bar]"></span>
+<span id="foo.bar"></span>
+
+<script type="text/javascript">
+			
+		window.onload = function(){
+			alert(123)
+		}
+	
+	//	var d1 = document.getElementById('test')
+	alert(2)
+
+	//	alert(d1.querySelectorAll("div[class=text]"))
+
+		// var span, selector = 'div span',
+		// 	context = document.querySelector('#Aaron');
+
+		// var oldContext = context,
+		// 	oldId = context.getAttribute('id'),
+		// 	newId = oldId || '__sizzle__';
+		// try {
+		// 	span = context.querySelectorAll('#' + newId + ' ' + selector);
+		// } catch (e) {
+
+		// } finally {
+		// 	if (!oldId) {
+		// 		console.log(oldContext)
+		// 		//oldContext.removeAttribute('id');
+		// 	}
+		// }
+
+		// console.log('#' + newId + ' ' + selector)
+
+	// var d1 = document.querySelector('#Aaron')
+	// 	console.log(
+	// 		d1,
+	// 		d1.querySelectorAll("div span")
+	// 	)
+
+		//选择类为topnav的ul元素下的 第一级的li元素
+	//	$("div span")
+
+
+
+
+</script>
+
+</body>
+</html>
