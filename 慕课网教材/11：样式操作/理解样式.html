@@ -15,8 +15,8 @@
 <body>
 
 <div id="a">慕课网</div>
-<button onclick='addCSSRule("#a","color:red;background:yellow;")'>增加背景颜色</button>
-<button onclick='removeCSSRule("#a")'>移除颜色</button>
+<button id="addCSSRule">增加背景颜色</button>
+<button id="removeCSSRule">移除颜色</button>
 
 <script type="text/javascript">
 	
@@ -41,6 +41,15 @@ function removeCSSRule(key) {
 			(css.removeRule(key));
 	}
 }
+
+
+$("#addCSSRule").click(function(){
+	addCSSRule("#a","color:red;background:yellow")
+})
+
+$("#removeCSSRule").click(function(){
+	removeCSSRule("#a")
+})
 
 </script>
 </body>
