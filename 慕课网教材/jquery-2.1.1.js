@@ -3254,12 +3254,12 @@
 	jQuery.extend({
 
 		Deferred: function(func) {
-			var tuples = [
-				// action, add listener, listener list, final state
-				["resolve", "done", jQuery.Callbacks("once memory"), "resolved"],
-				["reject", "fail", jQuery.Callbacks("once memory"), "rejected"],
-				["notify", "progress", jQuery.Callbacks("memory")]
-			],
+				var tuples = [
+					// action, add listener, listener list, final state
+					["resolve", "done", jQuery.Callbacks("once memory"), "resolved"],
+					["reject", "fail", jQuery.Callbacks("once memory"), "rejected"],
+					["notify", "progress", jQuery.Callbacks("memory")]
+				],
 				state = "pending",
 				promise = {
 					state: function() {
@@ -7500,26 +7500,33 @@ var data_user = new Data();
 
 			if (proceed) {
 				// The disjunction here is for better compressibility (see removeClass)
+				// 如果参数是多个样式设置"blue highlight under"按照\/S+\g空格分割
 				classes = (value || "").match(rnotwhite) || [];
 
+				//如果元素合集
 				for (; i < len; i++) {
 					elem = this[i];
+					//如果是元素节点，并且有class属性，拼接成 " blue highlight under "形式，加上前后空格
 					cur = elem.nodeType === 1 && (elem.className ?
 						(" " + elem.className + " ").replace(rclass, " ") :
 						" "
 					);
 
+					//如果存在样式
 					if (cur) {
 						j = 0;
 						while ((clazz = classes[j++])) {
+							//查找下是否不是有重复的，没有就叠加
 							if (cur.indexOf(" " + clazz + " ") < 0) {
 								cur += clazz + " ";
 							}
 						}
 
 						// only assign if different to avoid unneeded rendering.
+						// 去掉前后的空格
 						finalValue = jQuery.trim(cur);
 						if (elem.className !== finalValue) {
+							//赋值
 							elem.className = finalValue;
 						}
 					}

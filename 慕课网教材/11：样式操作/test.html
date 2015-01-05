@@ -1,0 +1,31 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+
+	 <style>
+		  .p { margin: 4px; font-size:16px; font-weight:bolder; }
+		  .blue { color:blue; }
+		  .under { text-decoration:underline; }
+		  .highlight { background:yellow; }
+	 </style>
+	 <!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	 <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title></title>
+</head>
+<body>
+
+<p class="highlight test">Goodbye</p>
+
+<script type="text/javascript">
+	
+	var p = $("p");
+ 
+	p.addClass("blue highlight under")
+
+
+    p.removeClass("blue highlight under")
+</script>
+</body>
+</html>
