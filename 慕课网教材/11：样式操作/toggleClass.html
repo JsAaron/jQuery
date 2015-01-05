@@ -1,0 +1,32 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+
+	  <style>
+		  p { margin: 4px; font-size:16px; font-weight:bolder;
+		      cursor:pointer; }
+		  .blue { color:blue; }
+		  .highlight { background:yellow; }
+	  </style>
+	 <!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	 <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title></title>
+</head>
+<body>
+
+ <p class="blue">Click to toggle</p>
+  <p class="blue highlight">highlight</p>
+  <p class="blue">on these</p>
+  <p class="blue">paragraphs</p>
+
+<script type="text/javascript">
+	
+   $("p").click(function() {
+   	  $(this).toggleClass("highlight");
+   });
+
+</script>
+</body>
+</html>

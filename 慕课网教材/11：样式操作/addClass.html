@@ -37,14 +37,22 @@
     })
 
 
+    $("#addClassCallback").click(function(){
+         removeClass(p, "blue highlight under")
+    })
 
+
+    /////////
+    //增加样式 //
+    /////////
     function addClass(elem,value) {   
 
         var classes, cur, clazz, j, finalValue
         // 如果参数是多个样式设置"blue highlight under"按照\/S+\g空格分割
         classes = (value || "").match(/\S+/g) || [];
 
-        //如果是元素节点，并且有class属性，拼接成 " blue highlight under "形式，加上前后空格
+        //如果是元素节点，并且有class属性
+        //拼接成 " blue highlight under "形式，加上前后空格
         cur = elem.nodeType === 1 && (elem.className ?
             (" " + elem.className + " ").replace(/[\t\r\n\f]/g, " ") :
             " "
@@ -71,6 +79,9 @@
     }
 
 
+
+
+
     /////////
     //移除样式 //
     /////////
@@ -80,7 +91,8 @@
             // 如果参数是多个样式设置"blue highlight under"按照\/S+\g空格分割
         classes = (value || "").match(/\S+/g) || [];
 
-        //如果是元素节点，并且有class属性，拼接成 " blue highlight under "形式，加上前后空格
+        //如果是元素节点，并且有class属性
+        //拼接成 " blue highlight under "形式，加上前后空格
         cur = elem.nodeType === 1 && (elem.className ?
             (" " + elem.className + " ").replace(/[\t\r\n\f]/g, " ") :
             " "
