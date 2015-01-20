@@ -4572,9 +4572,17 @@ var data_user = new Data();
 			return event.result;
 		},
 
+		/**
+		 * [handlers description]
+		 * @param  {[type]} event 事件对象   
+		 * @param  {[type]} 执行事件的句柄，可能存在一个对象上多个委托关系的处理 
+		 */
 		handlers: function(event, handlers) {
 			var i, matches, sel, handleObj,
 				handlerQueue = [],
+				/////////////////////
+				//这个元素上存在委托的次数 //
+				/////////////////////
 				delegateCount = handlers.delegateCount,
 				cur = event.target;
 
@@ -4583,6 +4591,8 @@ var data_user = new Data();
 			// Avoid non-left-click bubbling in Firefox (#3861)
 			if (delegateCount && cur.nodeType && (!event.button || event.type !== "click")) {
 
+				//从出发点开始遍历到父节点
+				//取出对应的委托的节点元素
 				for (; cur !== this; cur = cur.parentNode || this) {
 
 					// Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)

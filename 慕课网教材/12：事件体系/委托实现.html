@@ -10,11 +10,11 @@
 
 
 <div id="aaron">
-   <div id='test'>
-   		<ul>
-   			<p>点击p被委托,ul被阻止了,因为内部重写了事件对象</p>
-   		</ul>
-   </div>
+   <p>
+   	  <ul>
+   		 <li>委托链</li>
+   	  </ul>
+   </p>
 </div>
 
 
@@ -22,16 +22,23 @@
 <script type="text/javascript">
 
 var aaron = $("#aaron")
-//同一个元素上绑定不同的事件委托
-aaron._on('mousedown', 'p', function(e) {
+
+aaron.on('mousedown', 'li', function(e) {
+  console.log('委托到li触发')
+})
+
+aaron.on('mousedown', 'ul', function(e) {
+  console.log('委托到ul触发')
+})
+
+aaron.on('mousedown', 'p', function(e) {
   console.log('委托到p触发')
 })
-aaron._on('mousedown', 'ul', function(e) {
-  console.log('被阻止了')
-})
-aaron._on('mousedown', function(e) {
+
+aaron.on('mousedown', function(e) {
   console.log('mousedown')
 })
+
 
 
 
