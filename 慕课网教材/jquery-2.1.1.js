@@ -4543,6 +4543,8 @@ var data_user = new Data();
 			//遍历所有有事件的
 			//按照组合的顺序触发，但是如果遇到停止冒泡的则阻止
 			while ((matched = handlerQueue[i++]) && !event.isPropagationStopped()) {
+
+				//当前元素
 				event.currentTarget = matched.elem;
 
 				j = 0;
@@ -4555,6 +4557,7 @@ var data_user = new Data();
 						event.handleObj = handleObj;
 						event.data = handleObj.data;
 
+						//触发对应的冒泡事件
 						ret = ((jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler)
 							.apply(matched.elem, args);
 
