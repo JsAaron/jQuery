@@ -4533,10 +4533,15 @@ var data_user = new Data();
 			// Determine handlers
 			// 处理委托关系
 			// 找到可以委托的元素
+			// 把每一个元素对应的事件给组合好
+			// 分成队列排布
+			// 按照循序触发
 			handlerQueue = jQuery.event.handlers.call(this, event, handlers);
 
 			// Run delegates first; they may want to stop propagation beneath us
 			i = 0;
+			//遍历所有有事件的
+			//按照组合的顺序触发，但是如果遇到停止冒泡的则阻止
 			while ((matched = handlerQueue[i++]) && !event.isPropagationStopped()) {
 				event.currentTarget = matched.elem;
 
@@ -4628,6 +4633,7 @@ var data_user = new Data();
 			}
 
 			// Add the remaining (directly-bound) handlers
+			// 如果还有独立绑定的事件，添加到尾部
 			if (delegateCount < handlers.length) {
 				handlerQueue.push({
 					elem: this,

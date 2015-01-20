@@ -10,11 +10,11 @@
 
 
 <div id="aaron">
-   <p>
+   <div>
    	  <ul>
    		 <li>委托链</li>
    	  </ul>
-   </p>
+   </div>
 </div>
 
 
@@ -31,8 +31,8 @@ aaron.on('mousedown', 'ul', function(e) {
   console.log('委托到ul触发')
 })
 
-aaron.on('mousedown', 'p', function(e) {
-  console.log('委托到p触发')
+aaron.on('mousedown', 'div', function(e) {
+  console.log('委托到div触发')
 })
 
 aaron.on('mousedown', function(e) {
