@@ -44,14 +44,14 @@ padding:0;
     var iin = $(".in");
 
 
-    iin[0].addEventListener('mouseover',function(e){
+    iin[0].addEventListener('mousedown',function(e){
       // console.log(e)
       $("p:first", this).text("mouse out");
        $("p:last", this).text(++i);   
        e.stopPropagation();
     },false)
 
-   $(".out")[0].addEventListener('mouseover',function(){
+   $(".out")[0].addEventListener('mousedown',function(){
       $("p:first", this).text("mouse out");
        $("p:last", this).text(++i);   
     },false)
