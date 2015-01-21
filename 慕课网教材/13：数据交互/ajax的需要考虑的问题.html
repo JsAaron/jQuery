@@ -10,11 +10,22 @@
 
 <script type="text/javascript">
 
-////////////////// //链式反馈done与fail // ////////////////// $.ajax({     url:
-"script.php",     type: "POST",     data: {         id: menuId     },
-dataType: "html" }).done(function(msg) {     $("#log").html(msg);
-}).fail(function(jqXHR, textStatus) {     alert("Request failed: " +
-textStatus); });
+//伪代码，仅供参考
+
+////////////////// //链式反馈done与fail // ////////////////// 
+$.ajax({
+	url: "script.php",
+	type: "POST",
+	data: {
+		id: menuId
+	},
+	dataType: "html"
+}).done(function(msg) {
+	$("#log").html(msg);
+}).fail(function(jqXHR, textStatus) {
+	alert("Request failed: " +
+		textStatus);
+});
 
 
 //////////////

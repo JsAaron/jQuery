@@ -4422,7 +4422,7 @@ var data_user = new Data();
 				// 冒泡时是否需要转成别的事件(用于事件模拟)
 				bubbleType = special.delegateType || type;
 
-			    // 如果不是变形来的foucusin/out事件
+				// 如果不是变形来的foucusin/out事件
 				if (!rfocusMorph.test(bubbleType + type)) {
 					 // 则定义当前元素师父节点
 					cur = cur.parentNode;

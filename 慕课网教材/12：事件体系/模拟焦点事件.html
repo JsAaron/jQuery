@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<!-- <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js" type="text/javascript"></script> -->
+<title>模拟焦点事件</title>
+</head>
+<body>
+
+<form>
+  <input id="target" type="text" value="Field 1" />
+  <input type="text" value="Field 2" />
+</form>
+<div id="other">
+  Trigger the handler
+</div>
+
+<div id="foo">
+	<p>test</p>
+</div>
+
+
+<script type="text/javascript">
+
+// var input = $('input');
+
+// input.bind('blur',function(){
+// 	console.log('blur',arguments[0].target.value)
+// })
+
+// input.blur()
+
+
+var foo = $('#foo');
+
+
+foo.on('click','p',function() {
+	console.log(this);
+});
+
+
+foo.on('click', function(event,data) {
+	console.log(data);
+});
+
+
+foo.trigger('click','手动trigger触发');
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
