@@ -4214,6 +4214,7 @@ var data_user = new Data();
 				// 根据是否已定义selector，决定使用哪个特殊事件api，如果没有非特殊事件，则用type
 				// focus -> delegateType:focusin
 				// blur -> delegateType:focusout
+				// "mouseleave" -> mouseout
 				type = (selector ? special.delegateType : special.bindType) || type;
 
 				// Update special based on newly reset type
