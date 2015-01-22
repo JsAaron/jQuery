@@ -43,28 +43,17 @@ padding:0;
     var i = 0;
     var iin = $(".in");
 
-
-    iin[0].addEventListener('mousedown',function(e){
-      // console.log(e)
+    iin.bind('mouseout',function(e){
       $("p:first", this).text("mouse out");
-       $("p:last", this).text(++i);   
-       e.stopPropagation();
-    },false)
+      $("p:last", this).text(++i);  
+      e.stopPropageion() 
+    console.log(e)   
+    })
 
-   $(".out")[0].addEventListener('mousedown',function(){
+    $(".out").bind('mouseout', function() {
       $("p:first", this).text("mouse out");
-       $("p:last", this).text(++i);   
-    },false)
-
-    // iin.bind('mouseout',function(e){
-    //   $("p:first", this).text("mouse out");
-    //   $("p:last", this).text(++i);      
-    // })
-
-    // $(".out").bind('mouseout', function() {
-    //   $("p:first", this).text("mouse out");
-    //   $("p:last", this).text(++i);    
-    // })
+      $("p:last", this).text(++i);    
+    })
 
 
 

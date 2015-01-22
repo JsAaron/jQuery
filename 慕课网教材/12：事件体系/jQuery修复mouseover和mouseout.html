@@ -17,15 +17,28 @@
 
 <script type="text/javascript">
 
+document.body.border = "10px"
+
+console.log(document.body.clientWidth ,  document.documentElement.clientWidth , document.body.borderWidht
+  )
+
     var i = 0;
     var k = 0;
 
     document.querySelectorAll('.out')[0].addEventListener('mouseout',function(e){
-        document.querySelectorAll("#inshow")[0].textContent = (++i)
+      document.querySelectorAll("#inshow")[0].textContent = (++i)
        e.stopPropagation();
+       // console.log(e,e.relatedTarget)
     },false)
 
-   document.querySelectorAll('.in')[0].addEventListener('mouseout',function(){
+   document.querySelectorAll('.in')[0].addEventListener('mouseout',function(e){
+
+      //触发点与本身不
+      if(e.relatedTarget != this){
+
+      }
+
+       console.log(e,e.relatedTarget != this)
        document.querySelectorAll("#outshow")[0].textContent = (++k)
     },false)
 
