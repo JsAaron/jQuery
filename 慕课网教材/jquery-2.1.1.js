@@ -4431,6 +4431,12 @@ var data_user = new Data();
 
 				 // 遍历自身及所有父节点
 				 // 形成这个事件路径
+				 // 
+				 // 0: div#show
+				 // 1: body
+				 // 2: html
+				 // 3: document
+				 // 4: Window
 				for (; cur; cur = cur.parentNode) {
 					eventPath.push(cur);
 					tmp = cur;
