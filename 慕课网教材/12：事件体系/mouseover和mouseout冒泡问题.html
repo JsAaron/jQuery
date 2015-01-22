@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+ 
+<div class="out overout" style="width:40%;height:120px; margin:0 15px;background-color:#D6EDFC;float:left;">
+    <p style="border:1px solid red">外部子元素</p>
+    <div class="in overout" style="width:60%;background-color:#FFCC00;margin:10px auto;">
+      <p style="border:1px solid red">内部子元素</p>
+      <p id="inshow">0</p>
+    </div>
+   <p id="outshow">0</p>
+</div>
+ 
+
+<script type="text/javascript">
+
+    var i = 0;
+    var k = 0;
+
+    document.querySelectorAll('.out')[0].addEventListener('mouseout',function(e){
+        document.querySelectorAll("#inshow")[0].textContent = (++i)
+       e.stopPropagation();
+    },false)
+
+   document.querySelectorAll('.in')[0].addEventListener('mouseout',function(){
+       document.querySelectorAll("#outshow")[0].textContent = (++k)
+    },false)
+
+</script>
+ 
+</body>
+</html>
