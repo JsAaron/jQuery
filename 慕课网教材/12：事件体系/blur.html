@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>span {display:none;}</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+  <script type="text/javascript" src="../jquery-2.1.1.js"></script>
+</head>
+<body>
+  <p><input type="text" /> <span>focus fire</span></p>
+<p><input type="password" /> <span>focus fire</span></p>
+<script>
+
+
+$('body').bind('click',function(){
+	console.log('body')
+})
+
+var input = $("input")
+
+input[0].addEventListener('focus',function(e){
+	e.stopPropagetion()
+},false)
+
+// input.bind('focus', function() {
+// 	$(this).next("span").css('display', 'inline').fadeOut(1000);
+// })
+
+
+</script>
+ 
+</body>
+</html>
