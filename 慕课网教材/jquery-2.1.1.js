@@ -4483,6 +4483,7 @@ var data_user = new Data();
 			event.type = type;
 
 			// If nobody prevented the default action, do it now
+			// 假如没有阻止冒泡，那么就要这样处理
 			if (!onlyHandlers && !event.isDefaultPrevented()) {
 
 				if ((!special._default || special._default.apply(eventPath.pop(), data) === false) &&
@@ -4500,7 +4501,9 @@ var data_user = new Data();
 						}
 
 						// Prevent re-triggering of the same event, since we already bubbled it above
+						// 防止重复触发
 						jQuery.event.triggered = type;
+						//触发浏览器默认行为
 						elem[type]();
 						jQuery.event.triggered = undefined;
 
