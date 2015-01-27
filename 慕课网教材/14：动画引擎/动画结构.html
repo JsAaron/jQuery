@@ -1,0 +1,64 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title>动画结构</title>
+</head>
+<body>
+
+<div id="clickme"></div>
+<img id="book"  alt="" width="100" height="123"
+  style="position: relative; left: 10px;background:red" />
+
+<script type="text/javascript">
+	
+		var book = $('#book');
+
+
+		function animate() {
+			book.animate({
+				opacity: 0.25,
+				left: '+=50',
+				height: 'toggle'
+			}, {
+				duration: 1000,
+				step: function(now, fx) {
+					var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
+					console.log(data)
+						// $('body').append('<div>' + data + '</div>');
+				},
+				progress: function() {
+					console.log('progress')
+				},
+				complete: function() {
+					console.log('动画完成')
+				}
+			}).animate({
+				opacity: 1,
+				left: '-=50',
+				height: 'toggle'
+			}, {
+				duration: 1000,
+				step: function(now, fx) {
+					var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
+					console.log(data)
+						// $('body').append('<div>' + data + '</div>');
+				},
+				progress: function() {
+					console.log('progress')
+				},
+				complete: function() {
+					console.log('动画完成')
+					animate();
+				}
+			})
+		}
+
+		animate();
+
+
+</script>
+</body>
+</html>
