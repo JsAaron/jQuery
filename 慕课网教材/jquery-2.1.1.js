@@ -6684,6 +6684,7 @@ var data_user = new Data();
 		}
 
 		// height/width overflow pass
+		// 如果是有宽高的变化
 		if (elem.nodeType === 1 && ("height" in props || "width" in props)) {
 			// Make sure that nothing sneaks out
 			// Record all 3 overflow attributes because IE9-10 do not
@@ -6699,14 +6700,17 @@ var data_user = new Data();
 			checkDisplay = display === "none" ?
 				data_priv.get(elem, "olddisplay") || defaultDisplay(elem.nodeName) : display;
 
+			//如果没有设置浮动
 			if (checkDisplay === "inline" && jQuery.css(elem, "float") === "none") {
 				style.display = "inline-block";
 			}
 		}
 
+		//设置溢出隐藏
 		if (opts.overflow) {
 			style.overflow = "hidden";
 			anim.always(function() {
+				//完成后恢复溢出
 				style.overflow = opts.overflow[0];
 				style.overflowX = opts.overflow[1];
 				style.overflowY = opts.overflow[2];
@@ -6922,6 +6926,11 @@ var data_user = new Data();
 
 		//属性过滤
 		//含specialEasing属性的处理
+		//参数properties定义的一个或多个CSS属性，
+		//及其相应的缓动函数组成的键值对map。
+		// height: "linear"
+		// left: undefined
+		// opacity: undefined
 		propFilter(props, animation.opts.specialEasing);
 
 		///////////
@@ -6935,6 +6944,7 @@ var data_user = new Data();
 			}
 		}
 
+		//合并数据到animation
 		jQuery.map(props, createTween, animation);
 
 		if (jQuery.isFunction(animation.opts.start)) {
@@ -6954,6 +6964,7 @@ var data_user = new Data();
 		);
 
 		// attach callbacks from options
+		// 支持deferred回调
 		return animation.progress(animation.opts.progress)
 			.done(animation.opts.done, animation.opts.complete)
 			.fail(animation.opts.fail)
