@@ -6486,6 +6486,9 @@ var data_user = new Data();
 
 	Tween.propHooks = {
 		_default: {
+			///////////////////
+			//获取当前动画的属性值得 //
+			///////////////////
 			get: function(tween) {
 				var result;
 
@@ -6502,6 +6505,9 @@ var data_user = new Data();
 				// Empty strings, null, undefined and "auto" are converted to 0.
 				return !result || result === "auto" ? 0 : result;
 			},
+			///////////////
+			//设置动画的属性 //
+			///////////////
 			set: function(tween) {
 				// use step hook for back compat - use cssHook if its there - use .style if its
 				// available and use plain properties where available
@@ -6858,13 +6864,22 @@ var data_user = new Data();
 				if (stopped) {
 					return false;
 				}
+
+				//动画开始时间
 				var currentTime = fxNow || createFxNow(),
+					//运动时间递减
 					remaining = Math.max(0, animation.startTime + animation.duration - currentTime),
 					// archaic crash bug won't allow us to use 1 - ( 0.5 || 0 ) (#12497)
 					temp = remaining / animation.duration || 0,
 					percent = 1 - temp,
 					index = 0,
 					length = animation.tweens.length;
+
+				if(percent >= 0.577){
+
+console.log(percent)
+				}
+
 
 				//执行动画改变
 				for (; index < length; index++) {
@@ -6946,7 +6961,10 @@ var data_user = new Data();
 			}
 		}
 
-		//合并数据到animation
+		/////////////////////
+		//合并数据到animation //
+		//遍历props中的属性，每一个属性对应生成createTween对象
+		/////////////////////
 		jQuery.map(props, createTween, animation);
 
 		if (jQuery.isFunction(animation.opts.start)) {
@@ -7206,7 +7224,9 @@ var data_user = new Data();
 	});
 
 	jQuery.timers = [];
+	var ii = 0
 	jQuery.fx.tick = function() {
+		// console.log( ++ii )
 		var timer,
 			i = 0,
 			timers = jQuery.timers;
@@ -7217,6 +7237,7 @@ var data_user = new Data();
 			timer = timers[i];
 			// Checks the timer has not already been removed
 			if (!timer() && timers[i] === timer) {
+				//如果完成了就删除这个动画
 				timers.splice(i--, 1);
 			}
 		}
