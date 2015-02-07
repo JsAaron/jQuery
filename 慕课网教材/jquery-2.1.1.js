@@ -6720,6 +6720,8 @@ var data_user = new Data();
 		// show/hide pass
 		for (prop in props) {
 			value = props[prop];
+			//如果属性中带有
+			//show /hide /toggle
 			if (rfxtypes.exec(value)) {
 				delete props[prop];
 				toggle = toggle || value === "toggle";

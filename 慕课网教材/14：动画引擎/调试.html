@@ -12,7 +12,7 @@
   Click here
 </div>
 <img id="book"  alt="" width="100" height="123"
-  style="position: relative; left: 10px;" />
+  style="background:red;opacity:1;position: relative; left: 500px;" />
 
 <script type="text/javascript">
 	
@@ -22,44 +22,64 @@
 		var book = $('#book');
 
 
-		book.animate({
-			opacity: 0.25,
-			left: '+=50'
-			// height: 'toggle'
-		}, {
-			duration :1000,
-			specialEasing: {
-				height: 'linear'
-			},
-			step: function(now, fx) {
-				var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
-				console.log(data)
-				// $('body').append('<div>' + data + '</div>');
-			},
-			progress:function(){
-				console.log('progress')
-			},
-			complete:function(){
-				console.log('动画完成')
-			}
-		}).animate({
-			opacity: 1,
-			left: '-=50'
-			// height: 'toggle'
-		}, {
-			duration :2000,
-			step: function(now, fx) {
-				var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
-				console.log(data)
-				// $('body').append('<div>' + data + '</div>');
-			},
-			progress:function(){
-				console.log('progress')
-			},
-			complete:function(){
-				console.log('动画完成')
-			}
-		})
+book.animate({
+	opacity: 0.25,
+	left: '50',
+	height: 'toggle'
+}, {
+	duration :1000,
+	specialEasing: {
+		height: 'linear'
+	},
+	step: function(now, fx) {
+		console.log('step')
+	},
+	progress:function(){
+		console.log('progress')
+	},
+	complete:function(){
+		console.log('动画完成')
+	}
+})
+
+		// book.animate({
+		// 	opacity: 0.25,
+		// 	left: '+=50'
+		// 	// height: 'toggle'
+		// }, {
+		// 	duration :1000,
+		// 	specialEasing: {
+		// 		height: 'linear'
+		// 	},
+		// 	step: function(now, fx) {
+		// 		var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
+		// 		console.log(data)
+		// 		// $('body').append('<div>' + data + '</div>');
+		// 	},
+		// 	progress:function(){
+		// 		console.log('progress')
+		// 	},
+		// 	complete:function(){
+		// 		console.log('动画完成')
+		// 	}
+		// }).animate({
+		// 	opacity: 1,
+		// 	left: '-=50'
+		// 	// height: 'toggle'
+		// }, {
+		// 	duration :2000,
+		// 	step: function(now, fx) {
+		// 		var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
+		// 		console.log(data)
+		// 		// $('body').append('<div>' + data + '</div>');
+		// 	},
+		// 	progress:function(){
+		// 		console.log('progress')
+		// 	},
+		// 	complete:function(){
+		// 		console.log('动画完成')
+		// 	}
+		// })
 	// });
 
 </script>
