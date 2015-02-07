@@ -6486,6 +6486,9 @@ var data_user = new Data();
 
 	Tween.propHooks = {
 		_default: {
+			///////////////////
+			//获取当前动画的属性值得 //
+			///////////////////
 			get: function(tween) {
 				var result;
 
@@ -6502,6 +6505,9 @@ var data_user = new Data();
 				// Empty strings, null, undefined and "auto" are converted to 0.
 				return !result || result === "auto" ? 0 : result;
 			},
+			///////////////
+			//设置动画的属性 //
+			///////////////
 			set: function(tween) {
 				// use step hook for back compat - use cssHook if its there - use .style if its
 				// available and use plain properties where available
@@ -6946,7 +6952,10 @@ var data_user = new Data();
 			}
 		}
 
-		//合并数据到animation
+		/////////////////////
+		//合并数据到animation //
+		//遍历props中的属性，每一个属性对应生成createTween对象
+		/////////////////////
 		jQuery.map(props, createTween, animation);
 
 		if (jQuery.isFunction(animation.opts.start)) {
