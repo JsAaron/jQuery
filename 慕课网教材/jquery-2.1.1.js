@@ -6955,6 +6955,7 @@ var data_user = new Data();
 
 		/**
 		 * 调用动画执行
+		 * 将动画加入到调用队列中
 		 * @type {[type]}
 		 */
 		jQuery.fx.timer(
@@ -7226,6 +7227,7 @@ var data_user = new Data();
 		fxNow = undefined;
 	};
 
+	//开始执行动画
 	jQuery.fx.timer = function(timer) {
 		jQuery.timers.push(timer);
 		if (timer()) {
@@ -7235,8 +7237,15 @@ var data_user = new Data();
 		}
 	};
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	// 这个属性可以设置动画每秒运行帧数。默认是13毫秒。该属性值越小，在速度较快的浏览器中（例如，Chrome），
+	// 动画执行的越流畅，但是会影响程序的性能并且占用更多的 CPU 资源。 //
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	jQuery.fx.interval = 13;
 
+	///////////
+	//开递归调用 //
+	///////////
 	jQuery.fx.start = function() {
 		if (!timerId) {
 			timerId = setInterval(jQuery.fx.tick, jQuery.fx.interval);
