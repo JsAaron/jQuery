@@ -6763,9 +6763,12 @@ var data_user = new Data();
 			if (toggle) {
 				dataShow.hidden = !hidden;
 			}
+
+			//目标是显示
 			if (hidden) {
 				jQuery(elem).show();
 			} else {
+				//目标是隐藏
 				anim.done(function() {
 					jQuery(elem).hide();
 				});
