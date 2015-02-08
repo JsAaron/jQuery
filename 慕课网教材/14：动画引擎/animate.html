@@ -62,31 +62,6 @@ function animate(elem, options){
 }
 
 
-var createTime = function(){
-	return  (+new Date)
-}
-//元素初始化位置
-var startLeft = 500;
-//元素终点位置
-var endLeft = 50;
-//动画运行时间
-var duration = 2000; 
-//动画开始时间
-var startTime = createTime();
-
-function tick(){	
-	//每次变化的时间
-	var remaining = Math.max(0, startTime + duration - createTime())
-	var temp = remaining / duration || 0;
-	var percent = 1 - temp;
-	//最终每次移动的left距离
-	var leftPos  = (endLeft- startLeft) * percent +startLeft;
-}
-
-//开始执行动画
-setInterval(tick, 13);
-
-
 //获取样式属性年
 function getStyleVlaue(elem,name) {
 	var computed=  elem.ownerDocument.defaultView.getComputedStyle(elem, null);

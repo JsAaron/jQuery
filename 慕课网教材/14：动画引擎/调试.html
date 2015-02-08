@@ -11,8 +11,9 @@
 <div id="clickme">
   Click here
 </div>
-<img id="book"  alt="" width="100" height="123"
-  style="background:red;opacity:1;position: relative; left: 500px;" />
+<ul id="book"  alt="" style="background:red;opacity:1;position: relative; left: 500px;width:200px;height:100px;display:inline;">
+
+</ul>
 
 <script type="text/javascript">
 	
@@ -21,10 +22,16 @@
 
 		var book = $('#book');
 
+		var i = 10
+		while(i){
+			book.append("<li>11</li>")
+			i--;
+		}
 
 book.animate({
 	// opacity: 0.25,
-	left: '50'
+	left: '50',
+	height:'hide'
 	// height: 'toggle'
 }, {
 	duration :2000,

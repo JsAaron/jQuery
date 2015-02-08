@@ -6706,7 +6706,7 @@ var data_user = new Data();
 			checkDisplay = display === "none" ?
 				data_priv.get(elem, "olddisplay") || defaultDisplay(elem.nodeName) : display;
 
-			//如果没有设置浮动
+			//如果设置了内联并且没有设置浮动
 			if (checkDisplay === "inline" && jQuery.css(elem, "float") === "none") {
 				style.display = "inline-block";
 			}
@@ -6740,6 +6740,7 @@ var data_user = new Data();
 						continue;
 					}
 				}
+				//获取元素的属性值
 				orig[prop] = dataShow && dataShow[prop] || jQuery.style(elem, prop);
 
 				// Any non-fx value stops us from restoring the original display value
@@ -6748,6 +6749,7 @@ var data_user = new Data();
 			}
 		}
 
+		//如果有对应的快捷方式的设置
 		if (!jQuery.isEmptyObject(orig)) {
 			if (dataShow) {
 				if ("hidden" in dataShow) {
@@ -6951,7 +6953,8 @@ console.log(percent)
 		propFilter(props, animation.opts.specialEasing);
 
 		///////////
-		//生成动画 //
+		//动画预处理 
+		//宽高、内联预处理
 		//animationPrefilters : [defaultPrefilter,add.....]
 		///////////
 		for (; index < length; index++) {
