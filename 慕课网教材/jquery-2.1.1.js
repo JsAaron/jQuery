@@ -6773,6 +6773,10 @@ var data_user = new Data();
 					jQuery(elem).hide();
 				});
 			}
+
+			////////////////
+			//动画结束后的操作 //
+			////////////////
 			anim.done(function() {
 				var prop;
 
@@ -6782,6 +6786,9 @@ var data_user = new Data();
 				}
 			});
 			for (prop in orig) {
+
+				//生成对应的动画算法
+				//因为是hide跟show 没有给指定的数字
 				tween = createTween(hidden ? dataShow[prop] : 0, prop, anim);
 
 				if (!(prop in dataShow)) {
@@ -6915,9 +6922,13 @@ console.log(percent)
 				startTime          : fxNow || createFxNow(),
 				duration           : options.duration,
 				tweens             : [],
+				//////////////////
+				//生成对应的缓动动画 //
+				//////////////////
 				createTween: function(prop, end) {
 					var tween = jQuery.Tween(elem, animation.opts, prop, end,
 						animation.opts.specialEasing[prop] || animation.opts.easing);
+					//加入到缓动队列
 					animation.tweens.push(tween);
 					return tween;
 				},
@@ -6970,6 +6981,7 @@ console.log(percent)
 		/////////////////////
 		//合并数据到animation //
 		//遍历props中的属性，每一个属性对应生成createTween对象
+		//props 在animationPrefilters已经过滤了 show/hide/toggle
 		/////////////////////
 		jQuery.map(props, createTween, animation);
 
