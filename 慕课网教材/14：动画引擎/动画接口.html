@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title></title>
+</head>
+<body>
+
+<div id="clickme">
+  Click here
+</div>
+<div id="book"  alt="" style="background:red;position: relative; left: 50px;width:200px;height:100px;"></div>
+<ul></ul>
+
+<script type="text/javascript">
+	
+	var $ul = $('ul')
+
+	function show(data) {
+		$ul.append('<li>' + data + '</li>');
+	}
+
+	$('#clickme').click(function() {
+
+		var book = $("#book")
+
+		book.animate({
+			opacity: 0.25,
+			left: '+=50',
+			height: 'toggle'
+		}, {
+			duration :200,
+			specialEasing: {
+				height: 'linear'
+			},
+			step: function(now, fx) {
+				show('step')
+			},
+			progress:function(){
+				show('progress')
+			},
+			complete:function(){
+				show('动画完成')
+			}
+		})
+	});
+
+</script>
+</body>
+</html>
