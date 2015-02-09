@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<title></title>
+</head>
+<body>
+
+<div id="one">算法一执行动画</div>
+<div id="two">算法二执行动画</div>
+
+<div id="book"  alt="" width="100" height="123" style="background:red;opacity:1;position:absolute; width:200px;height:100px;;left: 300px;" /></div>
+
+<script type="text/javascript">
+	
+var book = document.getElementById('book')
+
+var timerId;
+
+////////
+//算法一 //
+////////
+$("#one").click(function(){
+
+	clearInterval(timerId);
+
+	animate(book, {
+		left: 50,
+		time: 2000
+	})
+
+	function animate(elem, options){
+		//动画初始值
+		var start = 300
+		//动画结束值
+		var end = options.left
+		var createTime = function(){
+			return  (+new Date)
+		}
+		var startTime = createTime();
+		//需要执行动画的长度
+		var anminLength = start - end;
+		//每13毫秒要跑的位置
+		var pos = anminLength/options.time * 13
+		var pre = start;
+		var newValue;
+		function tick(){		
+			if(createTime() - startTime < options.time){
+				newValue = pre - pos
+				//动画执行
+				elem.style['left'] = newValue + 'px';
+				pre = newValue
+			}else{
+				//停止动画
+				clearInterval(timerId);
+				timerId = null;
+			}
+		}
+		//开始执行动画
+	    timerId = setInterval(tick, 13);
+	}
+})
+
+////////
+//算法二 //
+////////
+$("#two").click(function(){
+	clearInterval(timerId);
+
+	animate(book, {
+		left: 50,
+		duration: 2000
+	})
+
+	function animate(elem, options){
+		//动画初始值
+		var start = 300
+		//动画结束值
+		var end = options.left
+
+		var createTime = function(){
+			return  (+new Date)
+		}
+		//动画开始时间
+		var startTime = createTime();
+
+		function tick(){	
+			//每次变化的时间
+			var remaining = Math.max(0, startTime + options.duration - createTime())
+			var temp = remaining / options.duration || 0;
+			var percent = 1 - temp;
+			var stop = function(){
+				//停止动画
+				clearInterval(timerId);
+				timerId = null;			
+			}
+			var setStyle = function(value){
+				elem.style['left'] = value + 'px'
+			}
+			//移动的距离
+			var now = (end - start) * percent + start;
+			if(percent === 1){
+				setStyle(now)
+				stop();
+			}else{
+				setStyle(now)
+			}
+		}
+
+		//开始执行动画
+		timerId = setInterval(tick, 13);
+	}
+
+})
+
+
+</script>
+
+</body>
+</html>
