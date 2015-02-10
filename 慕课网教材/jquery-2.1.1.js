@@ -6448,10 +6448,16 @@ var data_user = new Data();
 			this.prop = prop;
 			this.easing = easing || "swing";
 			this.options = options;
+			//获取初始值
 			this.start = this.now = this.cur();
 			this.end = end;
+			//单位
 			this.unit = unit || (jQuery.cssNumber[prop] ? "" : "px");
 		},
+
+		//////////////////
+		//获取当前初始化属性值 //
+		//////////////////
 		cur: function() {
 			var hooks = Tween.propHooks[this.prop];
 
@@ -6459,10 +6465,12 @@ var data_user = new Data();
 				hooks.get(this) :
 				Tween.propHooks._default.get(this);
 		},
+
 		run: function(percent) {
 			var eased,
 				hooks = Tween.propHooks[this.prop];
 
+			//如果启动了时间
 			if (this.options.duration) {
 				this.pos = eased = jQuery.easing[this.easing](
 					percent, this.options.duration * percent, 0, 1, this.options.duration
@@ -6470,6 +6478,7 @@ var data_user = new Data();
 			} else {
 				this.pos = eased = percent;
 			}
+			
 			this.now = (this.end - this.start) * eased + this.start;
 
 			if (this.options.step) {
@@ -6527,7 +6536,7 @@ var data_user = new Data();
 
 	// Support: IE9
 	// Panic based approach to setting things on disconnected nodes
-
+	// 一些非样式的属性，如scrollTop 和 scrollLeft，以及自定义属性，也可应用于动画
 	Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
 		set: function(tween) {
 			if (tween.elem.nodeType && tween.elem.parentNode) {
@@ -6561,7 +6570,9 @@ var data_user = new Data();
 		tweeners = {
 			"*": [
 				function(prop, value) {
+					//创建动画算法对象
 					var tween = this.createTween(prop, value),
+						//获取元素目标值
 						target = tween.cur(),
 						parts = rfxnum.exec(value),
 						unit = parts && parts[3] || (jQuery.cssNumber[prop] ? "" : "px"),
@@ -6597,6 +6608,9 @@ var data_user = new Data();
 					}
 
 					// Update tween properties
+					// 动画的开始位置
+					// 动画的单位
+					// 动画的结束位置
 					if (parts) {
 						start = tween.start = +start || +target || 0;
 						tween.unit = unit;
@@ -6643,8 +6657,14 @@ var data_user = new Data();
 		return attrs;
 	}
 
+	////////////
+	//创建动画数据 //
+	////////////
 	function createTween(value, prop, animation) {
 		var tween,
+			/////////////////////////////
+			//针对不同的属性可以扩展tweeners算法 //
+			/////////////////////////////
 			collection = (tweeners[prop] || []).concat(tweeners["*"]),
 			index = 0,
 			length = collection.length;
@@ -6890,9 +6910,10 @@ var data_user = new Data();
 					index = 0,
 					length = animation.tweens.length;
 
-				if(percent >= 0.577){
 
-console.log(percent)
+				if(percent >= 0.735 ){
+
+					console.log(percent)
 				}
 
 
