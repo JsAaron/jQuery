@@ -9,8 +9,8 @@
 
 <img id="book"  alt="" width="100" height="123"
   style="background:red;opacity:1;position: relative; left: 500px;" />
-<div id="several"></div>
 
+<div id="several"></div>
 
 <script type="text/javascript">
 
@@ -27,28 +27,33 @@ function animate(elem, options){
 	var start = 500
 	//动画结束值
 	var end = options.left
-	//动画id
-	var timerId;
+
 	var createTime = function(){
 		return  (+new Date)
 	}
 	//动画开始时间
 	var startTime = createTime();
 
+	var timerId;
+
+	//开始动画
+	var startAnim = function() {
+		timerId = requestAnimationFrame(tick,15);
+	}
+	//停止动画
+	var stopAnim = function() {
+		cancelAnimationFrame(timerId)
+	}
+
 	var i = 0;
 
 	function tick(){	
 		i++;
-		several.innerHTML = 'setInterval调用次数:' + i;
+		several.innerHTML = 'requestAnimationFrame调用次数:' + i;
 		//每次变化的时间
 		var remaining = Math.max(0, startTime + options.duration - createTime())
 		var temp = remaining / options.duration || 0;
 		var percent = 1 - temp;
-		var stop = function(){
-			//停止动画
-			clearInterval(timerId);
-			timerId = null;			
-		}
 		var setStyle = function(value){
 			elem.style['left'] = value + 'px'
 		}
@@ -56,14 +61,15 @@ function animate(elem, options){
 		var now = (end - start) * percent + start;
 		if(percent === 1){
 			setStyle(now)
-			stop();
+			stopAnim() ;
 		}else{
 			setStyle(now)
+			startAnim(tick);
 		}
 	}
 
 	//开始执行动画
-	var timerId = setInterval(tick, 13);
+	startAnim(tick);
 }
 </script>
 </body>

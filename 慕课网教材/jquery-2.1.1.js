@@ -6433,6 +6433,9 @@ var data_user = new Data();
 	});
 
 
+	//////////
+	//缓动算法 //
+	//////////
 	function Tween(elem, options, prop, end, easing) {
 		return new Tween.prototype.init(elem, options, prop, end, easing);
 	}
