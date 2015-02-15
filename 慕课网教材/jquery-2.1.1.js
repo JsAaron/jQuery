@@ -6677,7 +6677,7 @@ var data_user = new Data();
 		}
 	}
 
-	function defaultPrefilter(elem, props, opts) {
+	function 	(elem, props, opts) {
 		/* jshint validthis: true */
 		var prop, value, toggle, tween, hooks, oldfire, display, checkDisplay,
 			anim = this,
