@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>制作简单动画效果</title> 
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+<script type="text/javascript"> 
+ 	
+$(function() {
+	//.animate( properties [, duration ] [, easing ] [, complete ] )
+	$('#clickme').click(function() {
+		$('#book').animate({
+			width  :'100px',
+			height :'150px'
+		}, 2000, function() {
+			// Animation complete.
+		});
+	});
+})
+</script>
+</head> 
+<body> 
+
+
+<div id="clickme">点击我</div>
+
+<img id="book" style="background:red;" alt="" width="50" height="100
+  style="position: relative; left: 10px;" />
+
+</body> 
+</html> 
