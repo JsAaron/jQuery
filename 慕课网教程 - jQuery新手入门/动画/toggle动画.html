@@ -6,26 +6,24 @@
 <script src="jquery-2.1.1.js"></script>
 
 <style type="text/css">
-	#book1{
-		width: 100px;
-		height: 150px;
-		position: relative;
-		background: red;
-		left: 50px;
+	#book{
+		width      : 200px;
+		height     : 200px;
+		position   : relative;
+		background : red;
+		left       : 5px;
+		opacity    :1;
 	}
 </style>
 
 <script type="text/javascript"> 
  	
 $(function() {
-	//.animate( properties [, duration ] [, easing ] [, complete ] )
 	$('#clickme').click(function() {
-		$('#book1').animate({
-			left   :'+=100',
-			width  :'150',
-			height :'200px'
-		},2000,'linear',function(){
-			$('body').append('<div>动画执行完毕</div>')
+		$('#book').animate({
+			opacity: 'hide',
+			width: 'hide',
+			height: 'toggle'
 		});
 	});
 })
@@ -33,9 +31,8 @@ $(function() {
 </head> 
 <body> 
 
-<div id="clickme">点击我</div>
-<img id="book1" />
-<img id="book2" />
+<button  type="button" id="clickme">点击我</button>
+<img id="book" />
 
 
 </body> 
