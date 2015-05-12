@@ -6,19 +6,6 @@
 	<!-- // <script type="text/javascript" src="../jquery-2.1.4.js"></script> -->
 	<script type="text/javascript">
 
-		function Person(name,age){ 
-			if(!this.getName){ 
-				return new Person(name,age); 
-			} 
-			this.name = name; 
-			this.age = age; 
-		}
-		Person.prototype={ 
-			getName : function(){return this.name;}
-		} 
-		var p = Person('Aaron',25);
-
-
 		// jQuery构造器
 		var jQuery = function(selector, context) {
 			return new jQuery.fn.init(selector, context);
@@ -32,9 +19,7 @@
 		}
 		init.prototype = jQuery.fn;
 
-		var $div = jQuery()
-
-		console.log($div)
+		
 
 	</script>
 </head>
