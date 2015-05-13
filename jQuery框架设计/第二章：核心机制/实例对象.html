@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript">
+		window.onload = function(){
+			// jQuery构造器
+			var jQuery = function(selector, context) {
+				return new jQuery.fn.init(selector, context);
+			}
+			jQuery.fn = jQuery.prototype = {
+				constructor: jQuery
+			}
+			var init = jQuery.fn.init = function(selector, context) {
+				var elem = document.querySelectorAll(selector)
+				for (var i = 0; i < elem.length; i++) {
+					this[i] = elem[i]
+				}
+				this.length   = elem.length;
+				this.context  = document;
+				this.selector = selector;
+				return this;
+			}
+			init.prototype = jQuery.fn;
+			var $div = jQuery('div')
+
+			console.log($div)
+		}
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+	<p>子元素</p>
+	<p>子元素</p>
+</div>
+</body>
+</html>
