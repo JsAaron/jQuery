@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+
+
+			function Task(List, callback) {
+				for (var i = 0; i < List.length; i++) {
+					//执行所有任务
+					List[i]()
+				}
+				callback();
+			}
+
+			//开始执行任务调用
+			Task([
+				function() {
+					console.log('任务一')
+				},
+				function() {
+					console.log('任务二')
+				},
+				function() {
+					console.log('任务三')
+				}
+			], function() {
+				console.log('所有任务结束')
+			})
+
+			var callbacks = $.Callbacks();
+			callbacks.add(function() {
+			    console.log('任务一')
+			})
+			callbacks.add(function() {
+			   console.log('任务二')
+			})
+			callbacks.add(function() {
+			   console.log('任务三')
+			})
+			callbacks.fire(); 
+
+		}
+
+
+
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+</div>
+</body>
+</html>
