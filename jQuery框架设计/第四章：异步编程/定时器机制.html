@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			var startTime = (+new Date)
+			//延时1000毫秒运行
+			setTimeout(function(){
+			   console.log((+new Date) - startTime)  // 4396毫秒
+			}, 1000);
+
+			var i =  Math.pow(9,10); //3486784401
+			while(i){
+				--i
+			} 
+
+		}
+	
+
+
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+</div>
+</body>
+</html>
