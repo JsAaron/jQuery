@@ -18,7 +18,17 @@
 				--i
 			} 
 
+			setTimeout(function(){
+				//每个1秒不断的执行任务
+					setTimeout(arguments.callee, 1000);
+				}, 1000);
+
+			setInterval(function(){
+			  	//每个1秒不断的执行任务
+			}, 1000);
+
 		}
+
 	
 
 
