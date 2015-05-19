@@ -8,24 +8,29 @@
 		window.onload = function(){
 
 			var startTime = (+new Date)
+			setTimeout(function(){
+			   console.log((+new Date) - startTime)  // 4396毫秒.
+			});
+
+
 			//延时1000毫秒运行
-			setTimeout(function(){
-			   console.log((+new Date) - startTime)  // 4396毫秒
-			}, 1000);
+			// setTimeout(function(){
+			//    console.log((+new Date) - startTime)  // 4396毫秒
+			// }, 1000);
 
-			var i =  Math.pow(9,10); //3486784401
-			while(i){
-				--i
-			} 
+			// var i =  Math.pow(9,10); //3486784401
+			// while(i){
+			// 	--i
+			// } 
 
-			setTimeout(function(){
-				//每个1秒不断的执行任务
-					setTimeout(arguments.callee, 1000);
-				}, 1000);
+			// setTimeout(function(){
+			// 	//每个1秒不断的执行任务
+			// 		setTimeout(arguments.callee, 1000);
+			// 	}, 1000);
 
-			setInterval(function(){
-			  	//每个1秒不断的执行任务
-			}, 1000);
+			// setInterval(function(){
+			//   	//每个1秒不断的执行任务
+			// }, 1000);
 
 		}
 
