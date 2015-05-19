@@ -23,31 +23,7 @@
 			}).then(function fn3(val) {
 				alert(val); //返回return val*2  = 400
 			})
-		
-
-			function waitPromise(param) {
-				return new Promise(function(resolve, reject) {
-					setTimeout(function() {
-						resolve(param);
-					}, 2000 + (Math.random() - 0.5) * 1000);
-				});
-			}
-
-			waitPromise('如果你愿意').then(function(response) {
-					console.log(response);
-					return waitPromise('一层');
-				}).then(function(response) {
-					console.log(response);
-					return waitPromise('一层');
-				}).then(function(response) {
-					console.log(response);
-					return waitPromise('一层地');
-				}).then(function(response) {
-					console.log(response);
-					return waitPromise('剥开我的心');
-				}).then(console.log.bind(console))
-
-
+	
 		}	
 
 	</script>
