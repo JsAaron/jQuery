@@ -4,8 +4,26 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<script type="text/javascript">
 	
+
+	var Deferred = function (value) {
+	    if (value && typeof value.then === "function")
+	        return value;
+	    return {
+	        then: function (callback) {
+	            return Deferred(callback(value));
+	        }
+	    };
+	};
+
+	Deferred("Aaron")
+		.then(function(value){
+	    	console.log(value); // "Aaron"
+	    	return 100;
+		})
+		.then(function(value){
+	    	console.log(value); // 100
+		});
 		
-	
 	</script>
 </head>
 <body>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript">
+	
+		var Deferred = function () {
+		    var pending = [], value;
+		    return {
+		        resolve: function (_value) {
+		            if (pending) {
+		                value = ref(_value); // values wrapped in a promise
+		                for (var i = 0, ii = pending.length; i < ii; i++) {
+		                    var callback = pending[i];
+		                    value.then(callback); // then called instead
+		                }
+		                pending = undefined;
+		            }
+		        },
+		        promise: {
+		            then: function (_callback) {
+		                var result = Deferred();
+		                var callback = function (value) {
+		                    result.resolve(_callback(value));
+		                };
+		                if (pending) {
+		                    pending.push(callback);
+		                } else {
+		                    value.then(callback);
+		                }
+		                return result.promise;
+		            }
+		        }
+		    };
+		};
+
+		Deferred("step1").promise.then(function(value){
+		    console.log(value); // "step1"
+		    return 15;
+		}).then(function(value){
+		    console.log(value); // 15
+		});
+		
+	</script>
+</head>
+<body>
+
+</body>
+</html>
