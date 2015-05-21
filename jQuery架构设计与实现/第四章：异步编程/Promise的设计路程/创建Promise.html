@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
 	<script type="text/javascript">
 
-		function Task() {
+		function Deferred() {
 			var callbacks = [];
 			return {
 				resolve: function(_value) {
@@ -21,7 +21,7 @@
 			}
 		};
 						
-		var t = Task();
+		var t = Deferred();
 
 		t.then(function(value) {
 			// alert(value) //结果是 1000
