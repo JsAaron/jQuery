@@ -10,18 +10,20 @@
 	        return value;
 	    return {
 	        then: function (callback) {
-	            return Deferred(callback(value));
+	        	var result = callback(value);
+	            return Deferred(result);
 	        }
 	    };
 	};
 
-	Deferred("Aaron")
-		.then(function(value){
-	    	console.log(value); // "Aaron"
-	    	return 100;
-		})
+
+	Deferred("100")
 		.then(function(value){
 	    	console.log(value); // 100
+			return 2 * value;
+		})
+		.then(function(value){
+	    	console.log(value); // 200
 		});
 		
 	</script>

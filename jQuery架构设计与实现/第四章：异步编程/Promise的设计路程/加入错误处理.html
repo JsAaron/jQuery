@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript">
+	
+
+		var ref = function(value) {
+			if (value && typeof value.then === "function")
+				return value;
+			return {
+				then: function(callback) {
+					return ref(callback(value));
+				}
+			};
+		};
+
+		var reject = function(reason) {
+			return {
+				then: function(callback, errback) {
+					return ref(errback(reason));
+				}
+			};
+		};
+
+		var defer = function () {
+		    var pending = [], value;
+		    return {
+		        resolve: function (_value) {
+		            if (pending) {
+		                value = ref(_value);
+		                for (var i = 0, ii = pending.length; i < ii; i++) {
+		                    value.then.apply(value, pending[i]);
+		                }
+		                pending = undefined;
+		            }
+		        },
+		        promise: {
+		            then: function (_callback, _errback) {
+		                var result = defer();
+		                // provide default callbacks and errbacks
+		                _callback = _callback || function (value) {
+		                    // by default, forward fulfillment
+		                    return value;
+		                };
+		                _errback = _errback || function (reason) {
+		                    // by default, forward rejection
+		                    return reject(reason);
+		                };
+		                var callback = function (value) {
+		                    result.resolve(_callback(value));
+		                };
+		                var errback = function (reason) {
+		                    result.resolve(_errback(reason));
+		                };
+		                if (pending) {
+		                    pending.push([callback, errback]);
+		                } else {
+		                    value.then(callback, errback);
+		                }
+		                return result.promise;
+		            }
+		        }
+		    };
+		};
+
+	var defer1 = defer(),
+		promise1 = defer1.promise;
+
+		promise1.then(function(value) {
+			console.log("1: value = ", value);
+			return reject("error happens");
+		}).then(function(value) {
+			console.log("2: value = ", value);
+		}).then(null, function(reason) {
+			console.log("3: reason = ", reason);
+		});
+		defer1.resolve(10);
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
