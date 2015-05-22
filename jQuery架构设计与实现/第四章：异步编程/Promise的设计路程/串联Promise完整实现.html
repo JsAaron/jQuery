@@ -5,31 +5,16 @@
 	<script type="text/javascript">
 	
 
-
 		var Deferred = function () {
 		    var cache = [], value;
-
-			var ref = function (value) {
-			    if (value && typeof value.then === "function")
-			        return value;
-			    return {
-			        then: function (callback) {
-			            return ref(callback(value));
-			        }
-			    };
-			};
-
 		    return {
 		        resolve: function (_value) {
 		            if (cache) {
-		                value = ref(_value);
 		                for (var i = 0, ii = cache.length; i < ii; i++) {
-		                	// var callback = function (value) {
-		                    //       d.resolve(_callback(value));
-		              	    // 	  };
 		                    var callback = cache[i]; //取出的是一个在then中封装的callback
-		                    value.then(callback);
+		                    callback(_value)
 		                }
+							value = _value;
 		                cache = undefined;
 		            }
 		        },
@@ -37,15 +22,15 @@
 		            then: function (_callback) {
 		            	//创建一个新的Deferred对象
 		                var d = Deferred();
-		                var callback = function (value) { //保存了value的值
-		                	var ret = _callback(value);//执行外部的回调，返回结果
+		                var callback = function (value) { 
+		                	var ret = _callback(value);
 		                    d.resolve(ret);
 		                };
 		                //存入pending容器中
 		                if (cache) {
 		                    cache.push(callback);
 		                } else {
-		                    value.then(callback);
+		                	callback(value)
 		                }
 		                //返回新的then接口
 		                return d.promise;
@@ -56,17 +41,22 @@
 
 
 		var d = Deferred();
+		promise = d.promise;
 
-		d.promise.then(function(value){
-		    console.log(value); // "step1"
+		d.resolve(100)
+		
+		promise.then(function(value){
+		    console.log(value); // 100
 		    return 10 * value;
 		}).then(function(value){
-		    console.log(value); // 15
-		});
+		    return 10 * value   // 1000
+		}).then(function(value){
+		    console.log(value); //10000
+		})
 
-		setTimeout(function(){
-			d.resolve(100)
-		},100)
+		// setTimeout(function(){
+		// 	// d.resolve(100)
+		// },100)
 
 
 	</script>

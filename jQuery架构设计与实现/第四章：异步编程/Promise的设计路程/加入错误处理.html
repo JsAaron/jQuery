@@ -5,24 +5,6 @@
 	<script type="text/javascript">
 	
 
-		var ref = function(value) {
-			if (value && typeof value.then === "function")
-				return value;
-			return {
-				then: function(callback) {
-					return ref(callback(value));
-				}
-			};
-		};
-
-		var reject = function(reason) {
-			return {
-				then: function(callback, errback) {
-					return ref(errback(reason));
-				}
-			};
-		};
-
 		var defer = function () {
 		    var pending = [], value;
 		    return {
