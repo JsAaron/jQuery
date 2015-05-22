@@ -78,7 +78,41 @@ jQuery架构设计与实现（2.1.4版本）
         3.7.4 组合模式
 
 
-###  第四章：数据缓存
+###  第四章：异步编程(完成)
+###  
+    4.1 异步编程原理
+    4.2 定时器的困惑
+    4.3 定时器的工作原理
+    4.4 setTimeout和setInterval的区别
+    4.5 万能的setTimeout(0)
+        4.5.1 setTimeout(0)的作用
+        4.5.2 setTimeout(0)原理
+        4.5.3 setTimeout(0)的替代品
+    4.6 浏览器的线程机制
+    4.6 回调金字塔
+        4.7.1 嵌套回调
+        4.7.2 同步回调
+    4.8 Promise 与Promise/A+规范
+        4.8.1 Promise的进化
+        4.8.2 理解Promise
+        4.8.3 有限状态机
+        4.8.4 ECMAScript 6中的Promise
+        4.8.5 PromiseA与Promise A+的主要区别
+        4.8.6 jQuery中Promise？
+    4.9 Promise的设计路程
+        4.9.1 创建Promise
+        4.9.2 引入状态机
+        4.9.3 Promise职责分离
+        4.9.4 串联Promise
+        4.9.5 错误处理
+        4.9.6 融入异步
+    4.10 jQuery的Deferred
+        4.10.1 deferred涉及的接口
+        4.10.2 deferred的设计思路及实现
+        4.10.3 when的设计思路及实现
+
+
+###  第五章：数据缓存
 ###  
     4.1 缓存介绍
     4.2 一个简单数据缓存实现
@@ -101,23 +135,6 @@ jQuery架构设计与实现（2.1.4版本）
         4.9.2 jQuery.removeData
         4.9.3 jQuery.cleanData
 
-
-###  第五章：异步机制
-###  
-    5.1 介绍
-    5.2 理解同步与异步差别
-    5.3 深入定时器
-        5.3.1 setTimeout
-        5.3.2 setInterval
-    5.4 前端的异步接口
-    5.5 实际运用中的处理
-    5.6 一个简单异步模型的实现
-    5.7 原理剖析
-    5.8 什么是deferred对象
-    5.9 deferred与回调的区别
-    5.10 deferred涉及的接口
-    5.11 deferred的设计思路及实现
-    5.12 when的设计思路及实现
 
 
 ###  第六章：队列操作
