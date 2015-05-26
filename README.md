@@ -1,4 +1,4 @@
-
+  
 jQuery架构设计与实现（2.1.4版本）
 -----------------------------------
 ### 
@@ -83,22 +83,23 @@ jQuery架构设计与实现（2.1.4版本）
     4.1 异步编程原理
     4.2 定时器的困惑
     4.3 定时器的工作原理
-    4.4 setTimeout和setInterval的区别
+    4.4 setTimeout和setInterval的本质区别
     4.5 万能的setTimeout(0)
         4.5.1 setTimeout(0)的作用
-        4.5.2 setTimeout(0)原理
+        4.5.2 setTimeout(0)真正意义
         4.5.3 setTimeout(0)的替代品
     4.6 浏览器的线程机制
-    4.6 回调金字塔
-        4.7.1 嵌套回调
-        4.7.2 同步回调
+    4.6 异步回调与Promise
+        4.7.1 嵌套异步
+        4.7.2 Promise异步
     4.8 Promise 与Promise/A+规范
-        4.8.1 Promise的进化
-        4.8.2 理解Promise
-        4.8.3 有限状态机
-        4.8.4 ECMAScript 6中的Promise
-        4.8.5 PromiseA与Promise A+的主要区别
-        4.8.6 jQuery中Promise？
+        4.8.1 Promise的世界
+        4.8.2 生活中的Promise
+        4.8.3 理解Promise的重点
+        4.8.4 有限状态机
+        4.8.5 ECMAScript 6中的Promise
+        4.8.6 PromiseA与Promise A+的主要区别
+        4.8.7 jQuery中Promise？
     4.9 Promise的设计路程
         4.9.1 创建Promise
         4.9.2 引入状态机
@@ -107,9 +108,9 @@ jQuery架构设计与实现（2.1.4版本）
         4.9.5 错误处理
         4.9.6 融入异步
     4.10 jQuery的Deferred
-        4.10.1 deferred涉及的接口
-        4.10.2 deferred的设计思路及实现
-        4.10.3 when的设计思路及实现
+        4.10.1 Deferred设计的初衷
+        4.10.2 Deferred与Promise
+        4.10.3 Deferred.promise
 
 
 ###  第五章：数据缓存
