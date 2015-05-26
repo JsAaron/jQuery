@@ -3248,9 +3248,11 @@ jQuery.extend({
 				then: function( /* fnDone, fnFail, fnProgress */ ) {
 					var fns = arguments;
 					return jQuery.Deferred(function( newDefer ) {
+						//then最多接受3个参数，对应着tuples里面的3个数组
 						jQuery.each( tuples, function( i, tuple ) {
 							var fn = jQuery.isFunction( fns[ i ] ) && fns[ i ];
 							// deferred[ done | fail | progress ] for forwarding actions to newDefer
+							// deferred.done = list.add() //增加新的监控函数
 							deferred[ tuple[1] ](function() {
 								var returned = fn && fn.apply( this, arguments );
 								if ( returned && jQuery.isFunction( returned.promise ) ) {
@@ -3279,19 +3281,24 @@ jQuery.extend({
 
 		// Add list-specific methods
 		jQuery.each( tuples, function( i, tuple ) {
-			var list = tuple[ 2 ],
+			var list = tuple[ 2 ], //
 				stateString = tuple[ 3 ];
 
 			// promise[ done | fail | progress ] = list.add
+			// 注册三个回调方法
 			promise[ tuple[1] ] = list.add;
 
 			// Handle state
+			// 如果有状态控制
 			if ( stateString ) {
+				//增加三个预处理函数
 				list.add(function() {
 					// state = [ resolved | rejected ]
+					// 执行操作时候，修改对应的状态
 					state = stateString;
 
 				// [ reject_list | resolve_list ].disable; progress_list.lock
+				// 增加对应的方法，让操作不可逆
 				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
 			}
 
