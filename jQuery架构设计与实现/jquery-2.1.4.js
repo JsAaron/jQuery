@@ -3258,13 +3258,17 @@ jQuery.extend({
 							// deferred.progress = list.add()
 							// 给当前的deferred对象增加三个方法，用来关联下一个deferred对象
 							deferred[ tuple[1] ](function() {
+								//执行监控的几个方法，拿到返回值
 								var returned = fn && fn.apply( this, arguments );
+								//如果反回的又是一个异步
 								if ( returned && jQuery.isFunction( returned.promise ) ) {
 									returned.promise()
 										.done( newDefer.resolve )
 										.fail( newDefer.reject )
 										.progress( newDefer.notify );
 								} else {
+									//值类型 
+									//触发下一个Deferred的管道设计中的resolve reject notify
 									newDefer[ tuple[ 0 ] + "With" ]( this === promise ? newDefer.promise() : this, fn ? [ returned ] : arguments );
 								}
 							});

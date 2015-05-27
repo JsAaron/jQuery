@@ -7,20 +7,24 @@
 	<script type="text/javascript">
 
 
-	 var defer = $.Deferred();
-	 
-	 //返回一个新的对象
-	 var filtered = defer.then(function(value) {
-	 	return value * 2;
-	 }).then(function(value) {
-	 	return value * 3;
-	 })
+		var defer = $.Deferred();
 
-	 filtered.done(function(value) {
-	 	console.log("Value is ( 2*5 = ) 30: " + value);
-	 });
+		//返回一个新的对象
+		var filtered = defer.then(function(value) {
+			var d = $.Deferred();
+			setTimeout(function(){ //模拟一个异步管道
+				d.resolve(value * 2)
+			},1000)
+			return d;
+		}).then(function(value) {
+			return value * 3;
+		})
 
-	 defer.resolve(5);
+		filtered.done(function(value) {
+			console.log("值是: " + value);
+		});
+
+		defer.resolve(5);
 
 		// var dfd = jQuery.Deferred();
 
