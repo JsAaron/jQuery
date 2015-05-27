@@ -12,10 +12,12 @@
 	 //返回一个新的对象
 	 var filtered = defer.then(function(value) {
 	 	return value * 2;
-	 });
+	 }).then(function(value) {
+	 	return value * 3;
+	 })
 
 	 filtered.done(function(value) {
-	 	console.log("Value is ( 2*5 = ) 10: " + value);
+	 	console.log("Value is ( 2*5 = ) 30: " + value);
 	 });
 
 	 defer.resolve(5);
