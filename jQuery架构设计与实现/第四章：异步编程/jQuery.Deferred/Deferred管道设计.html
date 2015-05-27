@@ -26,6 +26,28 @@
 
 		defer.resolve(5);
 
+		then: function( /* fnDone, fnFail, fnProgress */ ) {
+			var fns       = arguments;
+			var currDefer = this;  //当前的deferred对象
+			var nextDefer = jQuery.Deferred(); //下一个deferred对象
+
+			currDefer.done(function(){   //给当前的deferred对象注册个done回调
+				nextDefer.resolve(arguments) //执行的是下一个deferred对象的resolve方法
+			})
+
+			currDefer.fail(function(){//给当前的deferred对象注册个fail回调
+				nextDefer.resolve(arguments)//执行的是下一个deferred对象的reject方法
+			})
+
+			currDefer.progress(function(){//给当前的deferred对象注册个progress回调
+				nextDefer.resolve(arguments)//执行的是下一个deferred对象的notify方法
+			})
+
+			return nextDefer;
+		}
+
+
+
 		// var dfd = jQuery.Deferred();
 
 		// dfd.then(function(){
