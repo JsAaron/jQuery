@@ -3250,9 +3250,13 @@ jQuery.extend({
 					return jQuery.Deferred(function( newDefer ) {
 						//then最多接受3个参数，对应着tuples里面的3个数组
 						jQuery.each( tuples, function( i, tuple ) {
+							// then方法中支持3个参数fnDone, fnFail, fnProgress
 							var fn = jQuery.isFunction( fns[ i ] ) && fns[ i ];
 							// deferred[ done | fail | progress ] for forwarding actions to newDefer
-							// deferred.done = list.add() //增加新的监控函数
+							// deferred.done = list.add() 
+							// deferred.fail = list.add()
+							// deferred.progress = list.add()
+							// 给当前的deferred对象增加三个方法，用来关联下一个deferred对象
 							deferred[ tuple[1] ](function() {
 								var returned = fn && fn.apply( this, arguments );
 								if ( returned && jQuery.isFunction( returned.promise ) ) {
