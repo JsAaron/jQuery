@@ -7,25 +7,17 @@
 	<script type="text/javascript">
 
 
-		var defer = $.Deferred();
-
-		//返回一个新的对象
-		var filtered = defer.then(function(value) {
-			var d = $.Deferred();
-			setTimeout(function(){ //模拟一个异步管道
-				d.resolve(value * 2)
-			},1000)
-			return d;
-		}).then(function(value) {
-			return value * 3;
-		})
-
-		filtered.done(function(value) {
-			console.log("值是: " + value);
+		var d1 = $.Deferred();
+		var d2 = $.Deferred();
+		 
+		$.when( d1, d2 ).done(function ( v1, v2 ) {
+		    console.log( v1 ); // "Fish"
+		    console.log( v2 ); // "Pizza"
 		});
-
-		defer.resolve(5);
-
+		 
+		//解决
+		d1.resolve( "Fish" );
+		d2.resolve( "Pizza" )
 
 	</script>
 </head>
