@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			var startTime = (+new Date)
+			setTimeout(function(){
+			   console.log((+new Date) - startTime)  // 4396毫秒.
+			});
+
+
+			//延时1000毫秒运行
+			// setTimeout(function(){
+			//    console.log((+new Date) - startTime)  // 4396毫秒
+			// }, 1000);
+
+			// var i =  Math.pow(9,10); //3486784401
+			// while(i){
+			// 	--i
+			// } 
+
+			// setTimeout(function(){
+			// 	//每个1秒不断的执行任务
+			// 		setTimeout(arguments.callee, 1000);
+			// 	}, 1000);
+
+			// setInterval(function(){
+			//   	//每个1秒不断的执行任务
+			// }, 1000);
+
+		}
+
+	
+
+
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+</div>
+</body>
+</html>

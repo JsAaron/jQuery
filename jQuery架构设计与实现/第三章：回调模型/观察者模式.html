@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+			window.onload = function(){
+
+				var Observable = {
+					callbacks: [],
+					add: function(fn) {
+						this.callbacks.push(fn); //加入队列
+					},
+					fire: function() {
+						for (var i = 0; i < this.callbacks.length; i++) {
+							this.callbacks[i]() //执行每一个fn函数
+						}
+					}
+				}
+
+				Observable.add(function() {
+					console.log('任务一')
+				})
+
+				Observable.add(function() {
+					console.log('任务二')
+				})
+
+				Observable.fire();
+
+			}
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+</div>
+</body>
+</html>

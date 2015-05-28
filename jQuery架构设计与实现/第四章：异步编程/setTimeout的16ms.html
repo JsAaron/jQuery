@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+
+
+			function MyPromise(resolver) {
+			    // 简单起见就不做类型检查了，假定 resolver 一定为函数
+
+			    this.status = 0;  // 0: pending, 1: fulfilled, 2: rejected
+			    this.value = null;
+			    this.handlers = [];
+
+			    doResolve.call(this, resolver);
+			}
+
+			MyPromise.proptotype = function(){
+				
+			}
+
+			function doResolve(resolver) {
+			    var called = false;
+			    function resolvePromise(value) {
+			        if (called) {
+			            return;
+			        } else {
+			            called = true;
+			            resolve.call(this, value);
+			        }
+			    }
+
+			    function rejectPromise(reason) {
+			        if (called) {
+			            return;
+			        } else {
+			            called = true;
+			            reject.call(this, reason);
+			        }
+			    }
+
+			    try {
+			        resolver(resolvePromise.bind(this), rejectPromise.bind(this));
+			    } catch(e) {
+			        rejectPromise(e);
+			    }
+			}
+
+
+
+		}
+
+
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+</div>
+</body>
+</html>

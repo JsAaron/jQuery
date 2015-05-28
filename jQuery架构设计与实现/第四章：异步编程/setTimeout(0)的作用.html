@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+
+
+	</script>
+</head>
+<body>
+
+输入：<input type="text"><br>
+结果：<div></div>
+<script type="text/javascript">
+	var input = document.getElementsByTagName('input')[0];
+	var div = document.getElementsByTagName('div')[0];
+
+	input.addEventListener('keydown',function(){
+
+		div.innerHTML = input.value
+		// setTimeout(function(){
+		// 	div.innerHTML = input.value
+		// },0)
+	},false)
+</script>
+
+</body>
+</html>

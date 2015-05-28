@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+
+
+			function createPromise(value) {
+				return new Promise(function(resolve, reject) {
+					setTimeout(function() {
+						resolve(value);
+					}, 1000);
+				});
+			}
+
+			var promise = createPromise(100)
+
+			promise.then(function(results) {
+				return createPromise(results);
+			}).then(function(results) {
+				console.log(results)
+			})
+
+
+		}	
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+</div>
+</body>
+</html>

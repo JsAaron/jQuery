@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>DEMO</title>
+</head>
+<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+    var updateSync = function() {
+        for (var i = 0; i < 50000; i++) {
+            $('#js_output').text(i);
+        }
+    }
+    var updateAsync = function() {
+        var i = 0;
+        function updateLater() {
+            $('#js_output').text(i++);
+            if (i < 50000) {
+                setTimeout(updateLater, 0);
+            }
+        }
+        updateLater();
+    }
+
+
+</script>
+<body>
+<button onclick="updateSync()">同步DEMO</button>
+<button onclick="updateAsync()">异步DEMO</button>
+<div id="js_output"></div>
+</body>
+</html>

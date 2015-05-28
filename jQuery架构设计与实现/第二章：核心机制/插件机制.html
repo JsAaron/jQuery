@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			// jQuery构造器
+			var jQuery = function(selector, context) {
+				return new jQuery.fn.init(selector, context);
+			}
+			jQuery.fn = jQuery.prototype = {
+				constructor: jQuery
+			}
+			var init = jQuery.fn.init = function(selector, context) {
+				var elem = document.querySelectorAll(selector)
+				for (var i = 0; i < elem.length; i++) {
+					this[i] = elem[i]
+				}
+				this.length   = elem.length;
+				this.context  = document;
+				this.selector = selector;
+				return this;
+			}
+
+			init.prototype = jQuery.fn;
+
+			jQuery.extend = jQuery.fn.extend = function() {
+				var options, src, copy,
+					target = arguments[0] || {},
+					i = 1,
+					length = arguments.length;
+				//只有一个参数，就是对jQuery自身的扩展处理
+				//extend,fn.extend
+				if (i === length) {
+					target = this; //调用的上下文对象jQuery/或者实例
+					i--;
+				}
+				for (; i < length; i++) {
+					//从i开始取参数,不为空开始遍历
+					if ((options = arguments[i]) != null) {
+						for (name in options) {
+							copy = options[name];
+							//覆盖拷贝
+							target[name] = copy;
+						}
+					}
+				}
+				return target;
+			}
+
+			jQuery.fn.extend({
+				//给所有元素设置颜色
+				setColor: function(color) {
+					for (var i = 0; i < this.length; i++) {
+						this[i].style.color = color
+					}
+					return this;
+				}
+			})
+
+			var $p = jQuery('p')
+
+			$p.setColor('red')
+		}
+	
+
+
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+	<p>子元素</p>
+	<p>子元素</p>
+</div>
+</body>
+</html>

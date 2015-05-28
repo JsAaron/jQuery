@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+
+		function Deferred() {
+			var callbacks = [];
+			return {
+				resolve: function(_value) {
+					for (var i = 0, ii = callbacks.length; i < ii; i++) {
+						 var callback = callbacks[i];
+						callback(_value);
+					}
+				},
+				then: function(callback) {
+					callbacks.push(callback);
+				}
+			}
+		};
+						
+		var t = Deferred();
+
+		t.then(function(value) {
+			// alert(value) //结果是 1000
+		})
+
+		setTimeout(function(){
+			t.resolve(1000)
+		},1000)
+
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

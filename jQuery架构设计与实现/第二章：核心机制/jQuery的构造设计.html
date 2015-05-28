@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<!-- // <script type="text/javascript" src="../jquery-2.1.4.js"></script> -->
+	<script type="text/javascript">
+
+		function Person(name,age){ 
+			if(!this.getName){ 
+				return new Person(name,age); 
+			} 
+			this.name = name; 
+			this.age = age; 
+		}
+		Person.prototype={ 
+			getName : function(){return this.name;}
+		} 
+		var p = Person('Aaron',25);
+
+
+		// jQuery构造器
+		var jQuery = function(selector, context) {
+			return new jQuery.fn.init(selector, context);
+		}
+		jQuery.fn = jQuery.prototype = {
+			constructor : jQuery,
+			name        : 'aaron'
+		}
+		var init = jQuery.fn.init = function(selector, context) {
+			return this.name
+		}
+		init.prototype = jQuery.fn;
+
+		var $div = jQuery()
+
+		console.log($div)
+
+	</script>
+</head>
+<body>
+	<div></div>
+</body>
+</html>

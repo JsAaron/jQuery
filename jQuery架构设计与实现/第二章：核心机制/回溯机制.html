@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			// jQuery构造器
+			var jQuery = function(selector, context) {
+				return new jQuery.fn.init(selector, context);
+			}
+			jQuery.fn = jQuery.prototype = {
+				constructor: jQuery,
+				pushStack: function( elems ) {
+					var ret = this.constructor();
+					var len = +elems.length,
+						j = 0,
+						i = ret.length;
+					for ( ; j < len; j++ ) {
+						ret[ i++ ] = elems[ j ];
+					}
+					ret.length = i;
+					ret.prevObject = this;
+					ret.context    = this.context;
+					return ret;
+				}
+				slice: function() {
+					return this.pushStack( [].slice.apply( this, arguments ) );
+				}
+			}
+			var init = jQuery.fn.init = function(selector, context) {
+				var elem = document.querySelectorAll(selector)
+				for (var i = 0; i < elem.length; i++) {
+					this[i] = elem[i]
+				}
+				this.length   = elem.length;
+				this.context  = document;
+				this.selector = selector;
+				return this;
+			}
+			init.prototype = jQuery.fn;
+
+			var $p = jQuery('p')
+
+			
+
+			console.log($p.slice())
+
+		}
+	
+
+
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+	<p>子元素</p>
+	<p>子元素</p>
+</div>
+</body>
+</html>

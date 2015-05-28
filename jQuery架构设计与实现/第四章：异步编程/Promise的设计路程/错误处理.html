@@ -1,0 +1,145 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<script type="text/javascript">
+
+
+		var defer = function () {
+
+		    var pending = [], value;
+
+		    return {
+		        resolve: function (_value) {
+		            if (pending) {
+		                // value = ref(_value);
+		                for (var i = 0, ii = pending.length; i < ii; i++) {
+		                	console.log(pending[i])
+		                    // apply the pending arguments to "then"
+		                    // value.then.apply(value, pending[i]);
+		                }
+		                pending = undefined;
+		            }
+		        },
+		        promise: {
+		            then: function (_callback, _errback) {
+		                var result = defer();
+		                var callback = function (value) {
+		                    result.resolve(_callback(value));
+		                };
+		                var errback = function (reason) {
+		                    result.resolve(_errback(reason));
+		                };
+		                if (pending) {
+		                    pending.push([callback, errback]);
+		                } else {
+		                    // value.then(callback, errback);
+		                }
+		                return result.promise;
+		            }
+		        }
+		    };
+
+		};
+
+		var maybeOneOneSecondLater = function (callback, errback) {
+		    var result = defer();
+		    setTimeout(function () {
+		        if (Math.random() < .5) {
+		            result.resolve(1);
+		        } else {
+		            result.resolve(reject("Can't provide one."));
+		        }
+		    }, 1000);
+		    return result.promise;
+		};
+		
+		console.log(maybeOneOneSecondLater)
+
+		// 	var Deferred = function () {
+		// 	    var cache = [], value;
+		// 	    return {
+		// 	        resolve: function (_value) {
+		// 	            if (cache) {
+		// 	                for (var i = 0, ii = cache.length; i < ii; i++) {
+		// 	                    var callback = cache[i]; //取出的是一个在then中封装的callback
+		// 	                    callback(_value)
+		// 	                }
+		// 					value = _value;
+		// 	                cache = undefined;
+		// 	            }
+		// 	        },
+
+		// 	        reject:function(){
+			        	
+		// 	        },
+
+		// 	        promise: {
+		// 	            then: function (_success, _errback) {
+		// 					//创建一个新的Deferred对象
+		// 					var d = Deferred();
+		// 					_success = _success || function(value) {
+		// 						return value;
+		// 					};
+		// 					_errback = _errback || function(reason) {
+		// 						return reject(reason);
+		// 					};
+
+		// 					var success = function (value) { 
+		// 						var ret = _success(value); 
+		// 					    d.resolve(ret); 
+		// 					};
+
+		// 					var errback = function(reason) {
+		// 						var ret = _errback(reason)
+		// 						result.resolve(_errback(reason));
+		// 					};
+
+		// 	                //存入pending容器中
+		// 	                if (cache) {
+		// 	                    cache.push([success, errback]);
+		// 	                } else {
+		// 	                	success(success, errback)
+		// 	                }
+		// 	                //返回新的then接口
+		// 	                return d.promise;
+		// 	            }
+		// 	        }
+		// 	    }
+		// 	}
+
+		// var d = Deferred(),
+		// 	promise1 = d.promise;
+
+		// 	var ref = function (value) {
+		// 	    if (value && typeof value.then === "function")
+		// 	        return value;
+		// 	    return {
+		// 	        then: function (callback) {
+		// 	            return ref(callback(value));
+		// 	        }
+		// 	    };
+		// 	};
+
+		// 	var reject = function(reason) {
+		// 		return {
+		// 			then: function(callback, errback) {
+		// 				return ref(errback(reason));
+		// 			}
+		// 		};
+		// 	};
+
+		// 	promise1.then(function(value) {
+		// 		console.log("1: value = ", value);
+		// 		return reject("error happens");
+		// 	}).then(function(value) {
+		// 		console.log("2: value = ", value);
+		// 	}).then(null, function(reason) {
+		// 		console.log("3: reason = ", reason);
+		// 	});
+		// 	d.resolve(10);
+
+
+		</script></head>
+	<body></body>
+	</html>

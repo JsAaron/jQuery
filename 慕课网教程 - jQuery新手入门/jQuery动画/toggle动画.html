@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>制作简单动画效果</title> 
+<script src="jquery-2.1.1.js"></script>
+
+<style type="text/css">
+	#book{
+		width      : 200px;
+		height     : 200px;
+		position   : relative;
+		background : red;
+		left       : 5px;
+		opacity    :1;
+	}
+</style>
+
+<script type="text/javascript"> 
+ 	
+$(function() {
+	$('#clickme').click(function() {
+		$('#book').animate({
+			opacity: 'hide',
+			width: 'hide',
+			height: 'toggle'
+		});
+	});
+})
+</script>
+</head> 
+<body> 
+
+<button  type="button" id="clickme">点击我</button>
+<img id="book" />
+
+
+</body> 
+</html> 

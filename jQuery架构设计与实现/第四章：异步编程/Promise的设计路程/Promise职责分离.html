@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript">
+	
+		function Deferred() {
+			var callbacks = [],
+				pending = 'unfulfilled',
+				_value;
+			return {
+				resolve: function(value) {
+					if(pending == 'unfulfilled'){
+						for (var i = 0, ii = callbacks.length; i < ii; i++) {
+							var callback = callbacks[i];
+							callback(value);
+						}
+						_value = value
+						pending = 'fulfilled' 
+						callbacks = undefined;						
+					}
+				},
+				promise:{
+					then: function(callback) {
+			            if (pending == 'unfulfilled') {
+			                callbacks.push(callback);
+			            } else {
+			                callback(_value);
+			            }
+					}					
+				}
+			}
+		};
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
