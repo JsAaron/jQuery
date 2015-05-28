@@ -112,8 +112,9 @@ jQuery架构设计与实现（2.1.4版本）
         4.10.2 Deferred与Promise
         4.10.3 Deferred.promise
         4.10.4 Deferred的接口设计
-        4.10.5 Deferred的执行流程
+        4.10.5 Deferred的执行原理
         4.10.6 Deferred的管道设计
+        4.10.7 Deferred的并归设计
 
 
 ###  第五章：数据缓存
