@@ -3333,10 +3333,12 @@ jQuery.extend({
 	// Deferred helper
 	when: function( subordinate /* , ..., subordinateN */ ) {
 		var i = 0,
+			//任务数量
 			resolveValues = slice.call( arguments ),
 			length = resolveValues.length,
 
 			// the count of uncompleted subordinates
+			// 没有完成任务的deferred对象
 			remaining = length !== 1 || ( subordinate && jQuery.isFunction( subordinate.promise ) ) ? length : 0,
 
 			// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
