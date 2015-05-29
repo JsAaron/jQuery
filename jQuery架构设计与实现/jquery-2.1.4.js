@@ -3304,9 +3304,13 @@ jQuery.extend({
 					// state = [ resolved | rejected ]
 					// 执行操作时候，修改对应的状态
 					state = stateString;
-
 				// [ reject_list | resolve_list ].disable; progress_list.lock
-				// 增加对应的方法，让操作不可逆
+				//增加对应的方法，让操作不可逆
+		        //禁用对立的那条队列
+		        //注意 0^1 = 1   1^1 = 0
+		        //即是成功的时候，把失败那条队列禁用
+		        //即是成功的时候，把成功那条队列禁用
+		        // [ reject_list | resolve_list ].disabl
 				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
 			}
 
@@ -3318,10 +3322,21 @@ jQuery.extend({
 			deferred[ tuple[0] + "With" ] = list.fireWith;
 		});
 
-		// Make the deferred a promise
+	 	//这一步之前promise和deferred绑定了以下方法
+		// deferred[ resolve | reject | notify ]
+		// deferred[ resolveWith | rejectWith | notifyWith ]
+		// promise[ done | fail | progress | then | always | state | promise ]
+	 
+		//调用内部辅助的promise的promise方法（jQ坑爹，起同样名字）
+		//扩展deferred的then | done | fail | progress等方法
 		promise.promise( deferred );
 
+		//这里为什么要分成promise跟deferred两个对象呢
+		//其实就是因为不想把[resolve | reject | notify]这几个函数暴露出去
+		//
 		// Call given func if any
+		//$.Deferred(func)格式，则自动执行任务func
+		//并且把当前任务的上下文跟参数设置成当前生成的deferred实例
 		if ( func ) {
 			func.call( deferred, deferred );
 		}
@@ -3330,7 +3345,12 @@ jQuery.extend({
 		return deferred;
 	},
 
+
 	// Deferred helper
+	//注意到$.when是多任务的
+	//当一个任务失败的时候，代表整个都失败了。
+	//任务是Deferred实例，我成为异步任务
+	//任务是普通function时，我成为同步任务
 	when: function( subordinate /* , ..., subordinateN */ ) {
 		var i = 0,
 			//任务数量
