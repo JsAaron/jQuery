@@ -62,6 +62,7 @@ puzzleGame.prototype = {
 
     //布局
     imgSplit: function() {
+        
         this.imgOrigArr = []; //清空正确排序的数组
 
         //必须清空图片区域的碎片代码，否则每一次拆分图片是与之前拆分的累积
@@ -80,12 +81,12 @@ puzzleGame.prototype = {
                 cell.className = "imgCell";
 
                 $(cell).css({
-                    'width': (this.cellWidth - 2) + 'px',
-                    'height': (this.cellHeight - 2) + 'px',
-                    'left': j * this.cellWidth + 'px',
-                    'top': i * this.cellHeight + 'px',
-                    "background": "url('" + this.img + "')",
-                    'backgroundPosition': (-j) * this.cellWidth + 'px ' + (-i) * this.cellHeight + 'px'
+                    'width'              : (this.cellWidth - 2) + 'px',
+                    'height'             : (this.cellHeight - 2) + 'px',
+                    'left'               : j * this.cellWidth + 'px',
+                    'top'                : i * this.cellHeight + 'px',
+                    "background"         : "url('" + this.img + "')",
+                    'backgroundPosition' : (-j) * this.cellWidth + 'px ' + (-i) * this.cellHeight + 'px'
                 });
 
                 this.imgArea.append(cell);

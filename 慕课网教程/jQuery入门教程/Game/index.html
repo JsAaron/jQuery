@@ -10,14 +10,8 @@
     <script type="text/javascript">
     $(function() {
 
-        //配置文件
-        var config = {
-            'img': 'images/man.jpg', //图片
-            'width': 509, //图拼宽度
-            'height': 509 //图片高度
-        }
-
-        var pg = new puzzleGame('imgArea', config)
+ 
+        var pg = new puzzleGame('#imgArea', 'images/man.jpg')
 
 
         $("#start").click(function() {
