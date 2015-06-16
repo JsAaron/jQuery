@@ -10,9 +10,10 @@
     <script type="text/javascript">
     $(function() {
 
- 
-        var pg = new puzzleGame('#imgArea', 'images/man.jpg')
-
+        var pg = new puzzleGame(
+            '#imgArea',
+            'images/man.jpg'
+        )
 
         $("#start").click(function() {
             pg.startGame()
@@ -21,8 +22,8 @@
         $('.target').change(function(evt) {
             var $val = $.parseJSON($(this).val())
             //设置困难度
-            pg.setDifficulty($val.x, $val.y)
-        });
+            pg.setLevel($val.x, $val.y)
+        })
 
     });
     </script>
