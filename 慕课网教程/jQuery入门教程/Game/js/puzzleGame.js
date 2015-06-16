@@ -21,8 +21,8 @@ function puzzleGame(contentArea, imageSrc, level) {
 
     //定义级别难度
     var level = this.level = {
-        x: 3,
-        y: 3
+        x:3,
+        y:3
     }
 
     //碎片合集
@@ -117,21 +117,24 @@ puzzleGame.prototype = {
             'cursor': 'move'
         })
 
-        this.targetElement = $(event.target);
+        this.element = $(event.target);
 
         //提供移动层级
-		this.targetElement.css({
+		this.element.css({
 			'z-index': '40'
 		})
 
-		this.orgLeft = parseInt(this.targetElement.css('left'))
-		this.orgTop  = parseInt(this.targetElement.css('top'))
+		this.orgLeft = parseInt(this.element.css('left'))
+		this.orgTop  = parseInt(this.element.css('top'))
 
         this.start = {
 			pageX : event.pageX,
 			pageY : event.pageY,
 			time  : (+new Date())
         }
+
+        //得到点击的索引位
+        this.startDebrisIndex = this.calculateExchangeElement(event.pageX, event.pageY)
     },
 
     mousemove: function(event) {
@@ -139,9 +142,9 @@ puzzleGame.prototype = {
 		var deltaX = event.pageX - this.start.pageX;
 		var deltaY = event.pageY - this.start.pageY;
 		//元素移动的距离
-        this.targetElement.css({
-			'left' : deltaX + this.orgLeft + 'px',
-			'top'  : deltaY +  this.orgTop + 'px'
+        this.element.css({
+            'left' : deltaX + this.orgLeft + 'px',
+            'top'  : deltaY +  this.orgTop + 'px'
         })
     },
 
@@ -153,25 +156,46 @@ puzzleGame.prototype = {
             'cursor': 'pointer'
         })
 
-		var currPox   = this.targetElement.index();
-		var tragetPox = this.calculateExchangeElement(currPox, event.pageX, event.pageY)
+        //拖动结束的索引位
+        var endDebrisIndex = this.calculateExchangeElement(event.pageX, event.pageY)
 
+        //反弹,还原
+        if(this.startDebrisIndex === endDebrisIndex){
+            this.restorePosition(endDebrisIndex);
+        }else{
+            //切换碎片图
+        }
+      
     },
 
+    //反弹，还原位置
+    restorePosition: function(debrisIndex) {
+        this.element.animate({
+            'top'  : this.orgTop + 'px',
+            'left' : this.orgLeft + 'px'
+        }, this.moveTime, function() {
+            //动画结束后,恢复层级关系
+            $(this).css('z-index', '10');
+        });
+    },
+
+
     //计算交换元素
-	calculateExchangeElement: function(pox, pageX, pageY) {
-		
+	calculateExchangeElement: function(pageX, pageY) {
+
+        //根据当前移动的位置，与屏幕的每个碎片图比一下，得到当前的位置比
         var col = Math.floor((pageY - this.contentTop) / this.debrisWidth),
             row = Math.floor((pageX - this.contentLeft) / this.debrisHeight);
 
-		console.log(col,row)
-        //     location = row * this.level.y + col;
-        // var i = 0,
-        //     len = this.randomOrder.length;
-        // while ((i < len) && (this.randomOrder[i] != location)) {
-        //     i++;
-        // }
-        // return i;
+        //从整数1开始算起
+        col = col + 1; //列
+        row = row + 1; //行
+
+        //索引位置
+        //（上一列数 * 指定行）+ 当前行数
+        var index = ( (col - 1) * this.level.y) + row
+
+        return this.randomOrder[index - 1]; //按照0开始索引
 	},
 
     //绑定事件
