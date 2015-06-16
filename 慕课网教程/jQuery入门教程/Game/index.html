@@ -19,7 +19,7 @@
             pg.startGame()
         })
 
-        $('.target').change(function(evt) {
+        $('.target').change(function(evt) { 
             var $val = $.parseJSON($(this).val())
             //设置困难度
             pg.setLevel($val.x, $val.y)

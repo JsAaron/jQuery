@@ -105,19 +105,6 @@ body {
     top:40px;
 }
 
-#wrap #content #imgArea div.imgCell {
-    float: left;
-    width: 73px;
-    height: 73px;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    position: absolute;
-    z-index: 10;
-    box-shadow: 0px 0px 8px #fff;
-    transition-property: background-position;
-    transition-duration: 300ms;
-    transition-timing-function: ease-in-out;
-}
 
 #wrap #content #imgArea div.hover {
     filter: alpha(opacity=80);

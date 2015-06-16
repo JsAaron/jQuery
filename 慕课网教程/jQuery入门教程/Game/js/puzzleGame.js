@@ -11,8 +11,13 @@ function puzzleGame(contentArea, imageSrc, level) {
     this.imageSrc = imageSrc;
 
     //显示区域的尺寸
-    this.contentWidth = parseInt(this.$contentArea.css('width'))
+    this.contentWidth  = parseInt(this.$contentArea.css('width'))
     this.contentHeight = parseInt(this.$contentArea.css('Height'))
+
+    var offset = this.$contentArea.offset()
+    this.contentLeft   = offset.left;
+    this.contentTop    = offset.top
+
 
     //定义级别难度
     var level = this.level = {
@@ -131,27 +136,43 @@ puzzleGame.prototype = {
 
     mousemove: function(event) {
     	if(!this.isClick) return
-
 		var deltaX = event.pageX - this.start.pageX;
 		var deltaY = event.pageY - this.start.pageY;
-
 		//元素移动的距离
         this.targetElement.css({
-            'left'    : deltaX + this.orgLeft + 'px',
-            'top'     : deltaY +  this.orgTop + 'px'
-        });
-
-
+			'left' : deltaX + this.orgLeft + 'px',
+			'top'  : deltaY +  this.orgTop + 'px'
+        })
     },
 
-    mouseup: function() {
+    //松手
+    mouseup: function(event) {
+    	if(!this.isClick) return
     	this.isClick = false
         this.$contentArea.css({
             'cursor': 'pointer'
         })
+
+		var currPox   = this.targetElement.index();
+		var tragetPox = this.calculateExchangeElement(currPox, event.pageX, event.pageY)
+
     },
 
+    //计算交换元素
+	calculateExchangeElement: function(pox, pageX, pageY) {
+		
+        var col = Math.floor((pageY - this.contentTop) / this.debrisWidth),
+            row = Math.floor((pageX - this.contentLeft) / this.debrisHeight);
 
+		console.log(col,row)
+        //     location = row * this.level.y + col;
+        // var i = 0,
+        //     len = this.randomOrder.length;
+        // while ((i < len) && (this.randomOrder[i] != location)) {
+        //     i++;
+        // }
+        // return i;
+	},
 
     //绑定事件
     creatEvent: function() {
