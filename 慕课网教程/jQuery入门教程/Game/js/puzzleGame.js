@@ -164,9 +164,16 @@ puzzleGame.prototype = {
             this.restorePosition(endDebrisIndex);
         }else{
             //切换碎片图
+            this.debrisExchange(this.startDebrisIndex,endDebrisIndex)
         }
       
     },
+
+    //切换碎片图
+    debrisExchange: function(from, to) {
+
+    },
+    
 
     //反弹，还原位置
     restorePosition: function(debrisIndex) {

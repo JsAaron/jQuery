@@ -62,6 +62,7 @@ puzzleGame.prototype = {
 
     //布局
     imgSplit: function() {
+
         this.imgOrigArr = []; //清空正确排序的数组
 
         //必须清空图片区域的碎片代码，否则每一次拆分图片是与之前拆分的累积
@@ -176,7 +177,6 @@ puzzleGame.prototype = {
                             'top'     : (e2.pageY - cell_mouse_y - self.imgArea.offset().top) + 'px'
                         });
                     }).bind('mouseup', function(e3) {
-
                         //被交换的碎片下标
                         var cellIndex_2 = self.cellChangeIndex((e3.pageX - self.imgArea.offset().left), (e3.pageY - self.imgArea.offset().top), cellIndex_1);
 
@@ -238,7 +238,7 @@ puzzleGame.prototype = {
      * @return     [无]
      */
     cellOrder: function(arr) {
-        for (var i = 0, len = arr.length; i < len; i++) {   
+        for (var i = 0, len = arr.length; i < len; i++) {  
             this.imgCells.eq(i).animate({
                 'left': arr[i] % this.levelArr[this.levelNow][1] * this.cellWidth + 'px',
                 'top': Math.floor(arr[i] / this.levelArr[this.levelNow][0]) * this.cellHeight + 'px'
@@ -262,11 +262,14 @@ puzzleGame.prototype = {
         var row = Math.floor(y / this.cellHeight),
             col = Math.floor(x / this.cellWidth),
             location = row * this.levelArr[this.levelNow][1] + col;
+
         var i = 0,
             len = this.imgRandArr.length;
+
         while ((i < len) && (this.imgRandArr[i] != location)) {
             i++;
         }
+        console.log(i,this.imgRandArr)
         return i;
     },
 
