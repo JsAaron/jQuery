@@ -20,8 +20,8 @@ function puzzleGame(contentArea, imageSrc, level) {
 
     //定义级别难度
     this.level = {
-        x: 3,
-        y: 3
+        row: 3, //横行 x
+        col: 3  //column 竖行 y
     }
 
     //碎片快速索引
@@ -29,8 +29,8 @@ function puzzleGame(contentArea, imageSrc, level) {
     this.aminTime   = 350; //记录animate动画的运动时间，默认400毫秒
 
     //计算每一个碎片图片的应该有的尺寸
-    this.debrisWidth = this.contentWidth / this.level.x;
-    this.debrisHeight = this.contentHeight / this.level.y;
+    this.debrisWidth = this.contentWidth / this.level.row;
+    this.debrisHeight = this.contentHeight / this.level.col;
 
 
     this.init();
@@ -45,7 +45,7 @@ puzzleGame.prototype = {
     //初始化
     init: function() {
         //初始化布局3*3
-        this.layer(this.level.x, this.level.y);
+        this.layer(this.level.row, this.level.col);
     },
 
 
@@ -58,8 +58,8 @@ puzzleGame.prototype = {
         //临时文档碎片
         var fragment  = document.createElement('createDocumentFragment');
         var $fragment = $(fragment);
-        //布局的正确排序
-        this.correctOrder = [];
+        //布局的原始排序
+        this.originalOrder = [];
 
         for (var i = 0; i < xlen; i++) {
             for (var j = 0; j < ylen; j++) {
@@ -85,7 +85,7 @@ puzzleGame.prototype = {
 
                 //用来对比随机后正确的顺序
                 var index = i * ylen + j;
-                this.correctOrder.push(index);
+                this.originalOrder.push(index);
                 //保存碎片节点合集
                 this.$debrisMap[index] = debris
             }
@@ -106,6 +106,12 @@ puzzleGame.prototype = {
 
         //绑定事件处理
         this.creatEvent();
+    },
+
+
+    //设置游戏的困难度
+    setLevel: function(row, col) {
+
     },
 
     //==================事件处理================
@@ -133,7 +139,7 @@ puzzleGame.prototype = {
         }
 
         //得到点击的索引位
-        this.startDebrisIndex = this.calculateExchangeElement(event.pageX, event.pageY)
+        this.startDebrisIndex = this.calculateOverlap(event.pageX, event.pageY)
     },
 
     mousemove: function(event) {
@@ -156,12 +162,12 @@ puzzleGame.prototype = {
         })
 
         //拖动结束的索引位
-        var endDebrisIndex = this.calculateExchangeElement(event.pageX, event.pageY)
+        var endDebrisIndex = this.calculateOverlap(event.pageX, event.pageY)
 
         //如果还在原区域
         if(this.startDebrisIndex === endDebrisIndex){
             //反弹,还原
-            this.restorePosition(endDebrisIndex);
+            this.restorePosition(this.element);
         }else{
             //切换碎片图
             this.debrisExchange(this.startDebrisIndex,endDebrisIndex)
@@ -170,14 +176,75 @@ puzzleGame.prototype = {
     },
 
     //切换碎片图
-    debrisExchange: function(from, to) {
-        console.log(from,to,this.randomOrder,this.$debrisMap)
+    debrisExchange: function(fromIndex, toIndex) {
+
+        var levelCol = this.level.col;
+
+        //判断正整数  
+        function checkRate(value) {
+            var re = /^[1-9]+[0-9]*]*$/;
+            if (!re.test(value)) {
+                return false;
+            }
+            return true
+        }
+
+        //计算行列
+        function calculateCR(index) {
+            var newLow,newRow;
+            var colValue = index / levelCol;
+            var integer  = checkRate(colValue)
+            if (integer) {
+                newRow = colValue - 1 //正好整除的情况
+            } else {
+                newRow = Math.floor(colValue)
+            }
+            //列数
+            newLow = Math.floor(index - (newRow * levelCol)) - 1;
+            return {
+                row: newRow,
+                low: newLow
+            }
+        }
+
+        // form的处理
+        //列数
+        var crFrom = calculateCR(toIndex)
+        var newRowFrom = crFrom.row;
+        var newLowFrom = crFrom.low;
+
+        // to的处理
+        var crFrom = calculateCR(fromIndex)
+        var newRowTo = crFrom.row;
+        var newLowTo = crFrom.low;
+
+
+        //找到对应的元素
+        var $fromElment = this.$debrisMap[fromIndex-1];
+        var $toElement  = this.$debrisMap[toIndex-1]
+
+        // 开始切换碎片图
+        $fromElment.animate({
+            'top'  : newRowFrom * this.debrisHeight + 'px',
+            'left' : newLowFrom * this.debrisWidth + 'px'
+        }, this.moveTime, function() {
+            $(this).css('z-index', '10');
+        });
+
+        $toElement.animate({
+            'top'  : newRowTo * this.debrisHeight + 'px',
+            'left' : newLowTo * this.debrisWidth + 'px'
+        }, this.moveTime, function() {
+            $(this).css('z-index', '10');
+        });
+
+     
     },
     
 
     //反弹，还原位置
-    restorePosition: function(debrisIndex) {
-        this.element.animate({
+    restorePosition: function(element) {
+        element.animate({
             'top'  : this.orgTop + 'px',
             'left' : this.orgLeft + 'px'
         }, this.moveTime, function() {
@@ -188,7 +255,9 @@ puzzleGame.prototype = {
 
 
     //计算交换元素
-	calculateExchangeElement: function(pageX, pageY) {
+    //计算重叠区域
+    //通过坐标判断
+	calculateOverlap: function(pageX, pageY) {
 
         //根据当前移动的位置，与屏幕的每个碎片图比一下，得到当前的位置比
         var col = Math.floor((pageY - this.contentTop) / this.debrisWidth),
@@ -200,9 +269,9 @@ puzzleGame.prototype = {
 
         //索引位置
         //（上一列数 * 指定行）+ 当前行数
-        var index = ( (col - 1) * this.level.y) + row
+        var index = ( (col - 1) * this.level.col) + row
 
-        return this.randomOrder[index - 1]; //按照0开始索引
+        return index;
 	},
 
     //绑定事件
@@ -228,7 +297,7 @@ puzzleGame.prototype = {
         var calculate = function(len) {
             return Math.floor(Math.random() * len);
         }
-        for (var i = 0, len = this.correctOrder.length; i < len; i++) {
+        for (var i = 0, len = this.originalOrder.length; i < len; i++) {
             var order = calculate(len);
             if (this.randomOrder.length > 0) {
                 while (jQuery.inArray(order, this.randomOrder) > -1) {
@@ -241,17 +310,16 @@ puzzleGame.prototype = {
 
     //随机布局
     layerOrder: function(randomOrder) {
-        for (var i = 0, len = randomOrder.length; i < len; i++) {
+        var _$debrisMap = {};
+        for (var i = 0, len = randomOrder.length; i < len; i++){ 
             //变换新的位置
             this.$debrisMap[i].animate({
-                'left' : randomOrder[i] % this.level.y * this.debrisWidth + 'px',
-                'top'  : Math.floor(randomOrder[i] / this.level.x) * this.debrisHeight + 'px'
-            }, this.aminTime)
+                'left' : randomOrder[i] % this.level.col * this.debrisWidth + 'px',
+                'top'  : Math.floor(randomOrder[i] / this.level.row) * this.debrisHeight + 'px'
+            }, this.aminTime);
+            _$debrisMap[randomOrder[i]] = this.$debrisMap[i]
         }
-    },
-
-    //设置游戏的困难度
-    setLevel: function(x, y) {
-
+        //更新快速索引
+        this.$debrisMap = _$debrisMap;
     }
 }
