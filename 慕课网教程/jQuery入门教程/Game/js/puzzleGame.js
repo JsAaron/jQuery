@@ -18,20 +18,19 @@ function puzzleGame(contentArea, imageSrc, level) {
     this.contentLeft   = offset.left;
     this.contentTop    = offset.top
 
-
     //定义级别难度
-    var level = this.level = {
-        x:3,
-        y:3
+    this.level = {
+        x: 3,
+        y: 3
     }
 
-    //碎片合集
-    this.$debris = '';
-    this.aminTime = 350; //记录animate动画的运动时间，默认400毫秒
+    //碎片快速索引
+    this.$debrisMap = {};
+    this.aminTime   = 350; //记录animate动画的运动时间，默认400毫秒
 
     //计算每一个碎片图片的应该有的尺寸
-    this.debrisWidth = this.contentWidth / level.x;
-    this.debrisHeight = this.contentHeight / level.y;
+    this.debrisWidth = this.contentWidth / this.level.x;
+    this.debrisHeight = this.contentHeight / this.level.y;
 
 
     this.init();
@@ -54,42 +53,43 @@ puzzleGame.prototype = {
     //3 * 3 默认
     layer: function(xlen, ylen) {
         var debris; //每一个碎片图片节点
-        var debrisWidth = this.debrisWidth;
+        var debrisWidth  = this.debrisWidth;
         var debrisHeight = this.debrisHeight;
         //临时文档碎片
-        var fragment = document.createElement('createDocumentFragment');
+        var fragment  = document.createElement('createDocumentFragment');
         var $fragment = $(fragment);
         //布局的正确排序
         this.correctOrder = [];
 
         for (var i = 0; i < xlen; i++) {
             for (var j = 0; j < ylen; j++) {
-                //用来对比随机后正确的顺序
-                this.correctOrder.push(i * ylen + j);
                 debris = document.createElement("div");
                 debris = $(debris).css({
-                    'float': 'left',
-                    'border': '1px solid red',
-                    'border-radius': '5px',
-                    'position': 'absolute',
-                    'z-index': 5,
-                    'box-shadow': '0px 0px 15px #fff',
-                    'transition-property': 'background-position',
-                    'transition-duration': '300ms', //动画参数
-                    'transition-timing-function': 'ease-in-out',
-                    'width': (debrisWidth - 2) + 'px',
-                    'height': (debrisHeight - 2) + 'px',
-                    'left': j * debrisWidth + 'px',
-                    'top': i * debrisHeight + 'px',
-                    "background": "url('" + this.imageSrc + "')",
-                    'backgroundPosition': (-j) * debrisWidth + 'px ' + (-i) * debrisHeight + 'px'
+                    'float'                      : 'left',
+                    'border'                     : '1px solid red',
+                    'border-radius'              : '5px',
+                    'position'                   : 'absolute',
+                    'z-index'                    : 5,
+                    'box-shadow'                 : '0px 0px 15px #fff',
+                    'transition-property'        : 'background-position',
+                    'transition-duration'        : '300ms', //动画参数
+                    'transition-timing-function' : 'ease-in-out',
+                    'width'                      : (debrisWidth - 2) + 'px',
+                    'height'                     : (debrisHeight - 2) + 'px',
+                    'left'                       : j * debrisWidth + 'px',
+                    'top'                        : i * debrisHeight + 'px',
+                    "background"                 : "url('" + this.imageSrc + "')",
+                    'backgroundPosition'         : (-j) * debrisWidth + 'px ' + (-i) * debrisHeight + 'px'
                 });
                 $fragment.append(debris)
+
+                //用来对比随机后正确的顺序
+                var index = i * ylen + j;
+                this.correctOrder.push(index);
+                //保存碎片节点合集
+                this.$debrisMap[index] = debris
             }
         }
-
-        //保存碎片节点合集
-        this.$debris = $(fragment.childNodes)
         this.$contentArea.append(fragment.childNodes);
     },
 
@@ -106,7 +106,6 @@ puzzleGame.prototype = {
 
         //绑定事件处理
         this.creatEvent();
-
     },
 
     //==================事件处理================
@@ -159,8 +158,9 @@ puzzleGame.prototype = {
         //拖动结束的索引位
         var endDebrisIndex = this.calculateExchangeElement(event.pageX, event.pageY)
 
-        //反弹,还原
+        //如果还在原区域
         if(this.startDebrisIndex === endDebrisIndex){
+            //反弹,还原
             this.restorePosition(endDebrisIndex);
         }else{
             //切换碎片图
@@ -171,7 +171,7 @@ puzzleGame.prototype = {
 
     //切换碎片图
     debrisExchange: function(from, to) {
-
+        console.log(from,to,this.randomOrder,this.$debrisMap)
     },
     
 
@@ -243,9 +243,9 @@ puzzleGame.prototype = {
     layerOrder: function(randomOrder) {
         for (var i = 0, len = randomOrder.length; i < len; i++) {
             //变换新的位置
-            this.$debris.eq(i).animate({
-                'left': randomOrder[i] % this.level.y * this.debrisWidth + 'px',
-                'top': Math.floor(randomOrder[i] / this.level.x) * this.debrisHeight + 'px'
+            this.$debrisMap[i].animate({
+                'left' : randomOrder[i] % this.level.y * this.debrisWidth + 'px',
+                'top'  : Math.floor(randomOrder[i] / this.level.x) * this.debrisHeight + 'px'
             }, this.aminTime)
         }
     },
