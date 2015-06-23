@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    div {
+        width: 100px;
+        height: 90px;
+        float: left;
+        padding: 5px;
+        margin: 5px;
+        background-color: #EEEEEE;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    $(function() {
+        //通过原生方法处理
+        var divs = document.getElementsByClassName('aaron');
+        for (var i = 0; i < divs.length; i++) {
+            divs[i].style.border = "3px solid blue"
+        }
+
+    	 //通过jQuery直接传入id
+    	 //id的唯一，只选择到了第一个匹配的id为imooc的div节点
+        $(".imooc").css("border", "3px solid red")
+    })
+    </script>
+</head>
+
+<body>   
+	 <div class="aaron">
+    	<p>class="aaron"</p>
+    	<p>选中</p>
+    </div>   
+     <div class="aaron">
+        <p>class="aaron"</p>
+        <p>选中</p>
+    </div>
+
+    <div class="imooc">
+        <p>class="imooc"</p>
+        <p>jQuery选中</p>
+    </div>
+    <div class="imooc">
+        <p>class="imooc"</p>
+        <p>jQuery选中</p>
+    </div>
+
+</body>
+
+</html>
