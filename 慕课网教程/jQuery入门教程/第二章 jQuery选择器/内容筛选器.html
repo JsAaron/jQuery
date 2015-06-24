@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style>
+    .left {
+        width: auto;
+        height: 120px;
+    }
+    
+    .left div {
+        width: 70px;
+        height: 70px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    
+    .bottom {
+        width: 800px;
+    }
+    
+    .bottom div,
+    .bottom span {
+        display: block;
+        width: 80px;
+        height: 80px;
+        margin: 5px;
+        background: #bbffaa;
+        float: left;
+        font-size: 14px;
+    }
+    
+    .bottom .small {
+        width: 60px;
+        height: 25px;
+        font-size: 12px;
+        background: #fab;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>内容筛选器</h2>
+    <h3>:contains/:has</h3>
+    <div class="left">
+        <div class="div">
+            <p>:contains</p>
+        </div>
+        <div class="div">
+            <p>:contains</p>
+        </div>
+        <div class="div">
+            <p>
+                <span>:has</span>
+            </p>
+        </div>
+        <div class="div">
+            <p>:contains</p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        //查找所有class='div'中DOM元素中包含"contains"的元素节点,并且设置颜色
+        $(".div:contains(':contains')").css("color", "#CD00CD");
+
+        //查找所有class='div'中DOM元素中包含"span"的元素节点,并且设置颜色
+        $(".div:has(span)").css("color", "blue");
+
+    </script>
+
+
+    <h3>:parent/:empty</h3>
+    <div class="left">
+        <div class="aaron">
+            <a>:parent</a>
+        </div>
+        <div class="aaron">
+            <a>:parent</a>
+        </div>
+        <div class="aaron">
+            <a>:parent</a>
+        </div>
+        <div class="aaron">
+            <a></a>
+        </div>
+    </div>
+    <script type="text/javascript">
+       //选择所有a元素，找到对应的父元素，增加一个蓝色的边框
+       // $("a:parent").css("border", "3px groove blue");
+
+       //找到a元素下面的所有空节点(没有子元素),增加一段文本与边框
+      // $("a:empty").text(":empty").css("border", "3px groove red"); 
+
+    </script>
+
+</body>
+
+</html>
