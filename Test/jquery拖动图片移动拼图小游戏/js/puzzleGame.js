@@ -269,7 +269,7 @@ puzzleGame.prototype = {
         while ((i < len) && (this.imgRandArr[i] != location)) {
             i++;
         }
-        console.log(i,this.imgRandArr)
+
         return i;
     },
 
