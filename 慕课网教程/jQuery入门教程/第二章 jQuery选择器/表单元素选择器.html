@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style> 
+        input{
+            display: block;
+            margin: 10px;
+            padding:10px;
+        }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>子元素筛选选择器</h2>
+    <h3>input、text、password、radio、checkbox</h3>
+    <h3>submit、image、reset、button、file</h3>
+    <div class="left first-div">
+        <form>
+            <input type="text" value="text类型"/>
+            <input type="password" value="password"/>
+            <input type="radio"/> 
+            <input type="checkbox"/>
+            <input type="submit" />
+            <input type="image" />
+            <input type="reset" />
+            <input type="button" value="Button" />
+            <input type="file" />
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        //查找所有 input, textarea, select 和 button 元素
+        //:input 选择器基本上选择所有表单控件
+        $(':input').css("border", "1px groove red"); 
+    </script>
+
+    <script type="text/javascript">
+        //匹配所有input元素中类型为text的input元素
+        $('input:text').css("background", "#A2CD5A");
+    </script>
+
+    <script type="text/javascript">
+        //匹配所有input元素中类型为password的input元素
+        $('input:password').css("background", "yellow");
+    </script>
+
+    <script type="text/javascript">
+        //匹配所有input元素中的单选按钮,并选中
+        $('input:radio').attr('checked','true')
+    </script>
+
+    <script type="text/javascript">
+        //匹配所有input元素中的复选按钮,并选中
+        $('input:checkbox').attr('checked','true')    
+    </script>
+
+    <script type="text/javascript">
+        //匹配所有input元素中的提交的按钮,修改背景颜色
+        $('input:submit').css("background", "#C6E2FF");
+    </script>
+
+    <script type="text/javascript">
+        //匹配所有input元素中的图像类型的元素,修改背景颜色
+        $('input:image').css("background", "#F4A460");
+    </script>
+
+    <script type="text/javascript">
+        //匹配所有input元素中类型为按钮的元素
+        $('input:button').css("background", "red");
+    </script>
+
+    <script type="text/javascript">
+        //匹配所有input元素中类型为file的元素
+        $('input:file').css("background", "#CD1076");
+    </script>
+
+
+</body>
+
+</html>
