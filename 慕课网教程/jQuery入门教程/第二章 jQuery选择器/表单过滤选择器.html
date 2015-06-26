@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style>
+    input {
+        display: block;
+        margin: 10px;
+        padding: 10px;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>子元素筛选选择器</h2>
+    <h3>enabled、disabled</h3>
+    <form>
+        <input type="text" value="未设置disabled" />
+        <input type="text" value="设置disabled" disabled="disabled" />
+        <input type="text" value="未设置disabled" />
+    </form>
+
+    <script type="text/javascript">
+         //查找所有input所有可用的（未被禁用的元素）input元素。
+        $('input:enabled').css("border", "2px groove red");
+    </script>
+
+    <script type="text/javascript">
+      //查找所有input所有不可用的（被禁用的元素）input元素。
+        $('input:disabled').css("border", "2px groove blue");
+    </script>
+
+    <h3>checked、selected</h3>
+    <form>
+        <input type="checkbox" checked="checked">
+        <input type="checkbox">
+        <input type="radio" checked>       
+        <input type="radio">
+        
+        <select name="garden" multiple="multiple">
+            <option>imooc</option>
+            <option selected="selected">慕课网</option>
+            <option>aaron</option>
+            <option selected="selected">博客园</option>
+          </select
+
+    </form>
+
+    <script type="text/javascript">
+         //查找所有input所有勾选的元素(单选框,复选框)
+         //删除这个勾选的元素
+        $('input:checked').removeAttr('checked')
+    </script>
+
+    <script type="text/javascript">
+         //查找所有option元素中,有selected属性被选中的选项
+         //删除这个选中的元素
+        $('option:selected').removeAttr('selected')
+    </script>
+    </script>
+
+
+</body>
+
+</html>
