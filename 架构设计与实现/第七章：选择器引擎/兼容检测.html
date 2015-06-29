@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery标签切换效果</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    body {
+        font-size: 12px;
+    }
+    
+    #menu {
+        width: 360px;
+        overflow: hidden;
+        margin: 100px auto;
+        border: 1px solid #BF9660;
+    }
+    
+    #menu #nav {
+        display: block;
+        width: 100%;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+    
+    #menu #nav li {
+        float: left;
+        width: 120px;
+    }
+    
+    #menu #nav li a {
+        display: block;
+        line-height: 27px;
+        text-decoration: none;
+        padding: 0 0 0 5px;
+        text-align: center;
+        color: #333;
+    }
+    
+    #menu_con {
+        width: 358px;
+        height: 135px;
+        border-top: none
+    }
+    
+    .tag {
+        padding: 10px;
+        overflow: hidden;
+    }
+    
+    .selected {
+        background: #C5A069;
+        color: #fff;
+    }
+    </style>
+   <script type="text/javascript" src="../jquery-2.1.4.js"></script>
+</head>
+
+<body>
+    <!--代码部分begin-->
+    <div id="menu">
+        <!--tag标题-->
+        <ul id="nav">
+            <li class="selected"><a href="#">男装</a></li>
+            <li><a href="#">女装</a></li>
+            <li><a href="#">配饰</a></li> </ul>
+        <!--二级菜单-->
+        <div id="menu_con">
+            <div class="tag" style="display:block">
+                <dl>
+                    <dd>
+                        <a>衬衫</a>
+                        <a>T恤</a>
+                        <a>牛仔裤</a>
+                        <a>休闲裤</a>
+                        <a>短裤</a>
+                        <a>针织衫</a>
+                        <a>西服</a>
+                        <a>西裤</a>
+                        <a>西服套装</a>
+                        <a>马甲/背心</a>
+                        <a>羽绒服</a>
+                        <a>棉服</a>
+                        <a>夹克</a>
+                        <a>POLO衫</a>
+                        <a>卫衣</a>
+                        <a>卫裤/运动裤</a>
+                        <a>真皮皮衣</a>
+                        <a>仿皮皮衣</a>
+                        <a>风衣</a>
+                        <a>羊毛衫</a>
+                        <a>羊绒衫</a>
+                        <a>毛呢大衣</a>
+                        <a>中老年男装</a>
+                        <a>大码男装</a>
+                        <a>工装</a>
+                        <a>加绒裤</a>
+                        <a>唐装/中山装</a>
+                        <a>设计师/潮牌</a>
+                    </dd>
+                    <dd><a href="">显示更多</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <script>
+    //==============给tag设置一些样式与功能=========================
+
+    //=====================	
+    //	第一个tag处理
+    //=====================
+
+    console.log(
+
+    	 $("#menu_con > div:first dd:eq(0) > a:lt(20)")
+
+    )
+
+
+
+    //把a元素从顺序1-15给隐藏起来
+    // $("#menu_con > div:first dd:eq(0) > a:lt(20)").hide();
+
+    // //绑定事件
+    // //找到显示更多,绑定一个点击事件，点击后展示更多的内容
+    // $("#menu_con > div:first dd:last").click(function(event) {
+
+
+    //     //把a元素从顺序1-15给显示起来
+    //     $("#menu_con > div:first dd:eq(0) > a:lt(20)").show()
+
+    //     //用class选择器找到第一个a元素中包含"衣"的关键字，改变颜色
+    //     $(".tag:first a:contains('衣')").css('color','red')
+
+    //     $(this).remove() //删除 "显示更多"
+
+    //     return false //去掉a元素的默认跳转行为
+    // })
+
+	</script>
+
+
+
+</body>
+
+</html>
