@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>JQuery拼图小游戏</title>
+    <link rel="stylesheet" href="css/puzzleGame.css" />
+    <script src="js/jQuery.js"></script>
+    <script src="js/puzzleGame.js"></script>
+    <script type="text/javascript">
+    $(function() {
+
+        var pg = new puzzleGame(
+            '#imgArea',
+            'images/man.jpg'
+        )
+
+        //检测游戏状态
+        function checkGameStart(noGame, hasGame) {
+            if (pg.getGameStatus()) {
+                //游戏复位
+                if (confirm('已经在游戏中，确定要重新开始？')) {
+                    hasGame()
+                }
+            } else {
+                noGame()
+            }
+        }
+
+        $("#start").click(function() {
+            var $button = $(this).find('button')
+            checkGameStart(function() {
+                pg.startGame(function(){
+                    alert('真棒，这都没难倒你，恭喜成功完成本次游戏！！！')
+                })
+                $button.text('游戏中')
+            }, function() {
+                pg.resetGame()
+                $button.text('游戏开始')
+            })
+        })
+
+        $('.target').change(function(evt) {
+            var $button = $("#start").find('button')
+            var $val = $.parseJSON($(this).val())
+            checkGameStart(function() {
+                pg.setGameLevel($val.row, $val.col)
+            }, function() {
+                pg.resetGame($val.row, $val.col)
+                $button.text('游戏开始')
+            })
+        })
+
+    });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="character">
+            <ul>
+                <li id="gameRule"> 游戏介绍：
+                    <p>1、点击游戏难度以更改</p>
+                    <p>2、点击开始游戏，打乱图片</p>
+                    <p>3、交换图片位置，复原图片</p>
+                </li>
+            </ul>
+            <ul class="orgimage">
+                <img src="images/man.jpg">
+            </ul>
+        </div>
+        <div id="content">
+            <ul>
+                <li id="start"> <span><button class="button">开始游戏</button></span> </li>
+                <li id="level">
+                    <span><button class="button">难度选择:</button>
+                        <select class="target">
+                            <option value='{"row":3,"col":3}' selected="selected">3 * 3</option>
+                            <option value='{"row":6,"col":6}'>6 * 6</option>
+                            <option value='{"row":9,"col":9}'>9 * 9</option>
+                        </select>
+                    </span>
+                </li>
+            </ul>
+            <div id="imgArea"></div>
+        </div>
+    </div>
+</body>
+
+</html>
