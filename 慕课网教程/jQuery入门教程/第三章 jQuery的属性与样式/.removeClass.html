@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left,
+    .right {
+        width: 300px;
+        height: 120px;
+    }
+    
+    .left div,
+    .right div {
+        width: 100px;
+        height: 90px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+        
+    .newClass{
+        background: #bbffaa;
+    }
+
+    .imoocClass{
+        background: red;
+    }
+
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>.removeClass()方法</h2>
+    <div class="left">
+        <div class="aaron newClass">
+            <p>newClass</p>
+        </div>
+        <div class="aaron newClass">
+            <p>newClass</p>
+        </div>
+    </div>
+    <div class="right">
+        <div class="aa bb imoocClass">
+            <article>
+                <p>imoocClass</p>
+            </article>
+        </div>
+        <div>
+            <article>
+                <p>imoocClass</p>
+            </article>
+        </div>
+    </div>
+
+    <script type="text/javascript"> 
+        //class=left下div元素删除newClass样式
+        $('.left div').removeClass('newClass')
+    </script>
+
+
+    <script type="text/javascript"> 
+        //.removeClass() 方法允许我们指定一个函数作为参数，返回将要被删除的样式
+        $('.right > div:first').removeClass(function(index,className){
+            
+            //className = aa bb imoocClass
+            //把div的className赋给下一个兄弟元素div上作为它的class
+            $(this).next().addClass(className)
+
+            //删除自己本身的imoocClass
+            return 'imoocClass'
+        })
+
+
+
+    
+
+    </script>
+
+
+
+</body>
+
+</html>
