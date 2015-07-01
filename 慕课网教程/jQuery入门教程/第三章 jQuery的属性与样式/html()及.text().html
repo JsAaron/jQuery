@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style> 
+    .left {
+        width: auto;
+        height: 120px;
+    }
+    
+    .left div {
+        width: 150px;
+        height: 70px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    a,p{
+        display: block;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h3>.html()</h3>
+    <div class="left first-div">
+        <div class="div">
+            <a>:first-child</a>
+            <a>第二个元素</a>
+            <a>:last-child</a>
+        </div>  
+        <div class="div">
+            <a>:first-child</a>
+            <a>第二个元素</a>
+            <a>:last-child</a>
+        </div>
+    </div>
+    
+    <h4>显示通过html方法获取到的内容</h4>
+    <p></p>
+
+    <h4>显示通过text方法获取到的内容</h4>
+    <p></p>
+
+
+    <script type="text/javascript">
+        //显示出html方法获取到的内容
+        //.html()是整个html文档结构
+        $('p:first').text( $(".first-div").html() ) 
+    </script>
+
+
+    <script type="text/javascript">
+        //显示出text方法获取到的内容
+        //.text()是文本内容的合集
+        $('p:last').text( $(".first-div").text() ) 
+    </script>
+
+
+    <script type="text/javascript">
+        //通过.text()方法替换文本内容
+        $(".left a:first").text('替换第一个a元素的内容')
+    </script>
+
+
+    <script type="text/javascript">
+        //通过.html()方法替换html结构
+        $(".left div:first").html('整个div的子节点都被替换了')
+    </script>
+
+
+    <script type="text/javascript">
+        //通过.text()的回调，获取原本的内容，修改，在重新赋值
+        $(".left a:first").text(function(idnex,text){
+            return '增加新的文本内容' + text
+        })
+    </script>
+
+
+
+</body>
+
+</html>
