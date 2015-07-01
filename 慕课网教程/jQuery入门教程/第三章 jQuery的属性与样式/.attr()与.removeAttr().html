@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style>
+    input {
+		display    : block;
+		margin     : 10px;
+		padding    : 10px;
+		background : #bbffaa;
+		border     : 1px solid #ccc;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>.attr()与.removeAttr()</h2>
+    <h3>.attr</h3>
+    <form>
+        <input type="text" value="" />
+        <input type="text" value="获取value"/>
+        <input type="text" value="第三个input" />
+        <input type="text" value="删除value属性" />
+    </form>
+
+    <script type="text/javascript">
+    	//找到第一个input，通过attr设置属性value的值
+    	$("input:first").attr('value','.attr( attributeName, value )')
+    </script>
+
+    <script type="text/javascript">
+    	//找到第二个input，通过attr获取属性value的值
+    	$("input:eq(1)").attr('value')
+    </script>
+
+    <script type="text/javascript">
+    	//找到第三个input，通过使用一个函数来设置属性
+    	//可以根据该元素上的其它属性值返回最终所需的属性值
+    	//例如，我们可以把新的值与现有的值联系在一起：
+    	$("input:eq(2)").attr('value',function(i, val){
+    		return '通过function设置' + val
+    	})
+    </script>
+
+    <script type="text/javascript">
+    	//找到第四个input，通过使用removeAttr删除属性
+    	$("input:eq(3)").removeAttr('value')
+    </script>
+
+
+</body>
+
+</html>
