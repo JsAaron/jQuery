@@ -21,9 +21,6 @@ function Swipe(container, options) {
     var slides = element.children;
     var length = slides.length;
 
-    //创建一个记录数组
-    var slidePos = new Array(slides.length);
-
     //获取容器尺寸
     var pageSize = container.getBoundingClientRect();
     var width    = pageSize.width;
