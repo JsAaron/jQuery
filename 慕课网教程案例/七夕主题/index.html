@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>七夕主题</title>
+    <link href='css/style.css' rel='stylesheet' />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="js/swipe.js"></script>
+    <script type="text/javascript">
+
+	    $(function(){
+
+			var elem = document.getElementById('swipe');
+			var swipe = Swipe(elem);
+
+            $("button").click(function(){
+                swipe.next();
+            })
+
+	    })
+
+    </script>
+</head>
+
+<body>
+
+    <div id='swipe'>
+        <ul class='swipe-wrap'>
+            <li>111</li>
+            <li>222</li>
+            <li>333</li>
+            <li>444</div>
+        </ul>
+    </div>
+
+    <button>下一页</button>
+
+</body>
+
+</html>
