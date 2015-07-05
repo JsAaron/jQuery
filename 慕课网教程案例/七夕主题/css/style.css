@@ -71,3 +71,9 @@ ul,li{
   -webkit-perspective         :1000;
   background-size             : 100% 100%;
 }
+
+
+.swipe-wrap> li:first-child{
+  background-image:url('../images/background.jpg'); 
+  background-size: 100% 100%;
+}

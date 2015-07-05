@@ -37,7 +37,6 @@ function Swipe(container, options) {
     var pos = slides.length;
     for (var i = 0; i < pos; i++) {
         var slide = slides[i];  //获取到每一个li元素    
-        slide.setAttribute('data-index', i);
         slide.style.width = width + 'px';
         slide.style.height = height +'px';
     }
