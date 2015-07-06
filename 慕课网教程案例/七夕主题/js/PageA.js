@@ -8,15 +8,10 @@ var PageA = function() {
 
     //鸟动画
     $('#leftBird').spState(1).sprite({
-            fps: 9,
-            no_of_frames: 3
-        })
-        .spRandom({
-            top: 50,
-            bottom: 200,
-            left: 300,
-            right: 320
-        })
+        fps: 9,
+        no_of_frames: 3
+    }).scrollTo(450,300)
+
 
     $('#rightBird').spState(2).sprite({
         fps: 9,

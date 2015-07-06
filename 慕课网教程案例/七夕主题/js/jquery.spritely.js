@@ -421,6 +421,27 @@
             }
             return this;
         },
+        
+        //滑动到指定位置
+        scrollTo: function(x, y, speed, pause) {
+            speed = speed || 4000
+            pause = pause || 0
+
+            var el_id = $(this).attr('id');
+            if (!$._spritely.instances[el_id]) {
+                return this;
+            }
+            if (!$._spritely.instances[el_id].stop_random) {
+                $('#' + el_id).animate({
+                    top: y + 'px',
+                    left: x + 'px'
+                }, speed)
+            }
+            window.setTimeout(function() {
+                $('#' + el_id).scrollTo(x,y,speed,pause);
+            }, speed + pause)
+            return this;
+        },
         spRandom: function(options) {
             var options = $.extend({
                 top: 50,
