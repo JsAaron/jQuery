@@ -7,6 +7,7 @@
     <link rel='stylesheet' href='css/style.css' />
     <link rel='stylesheet' href='css/page_a.css' />
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.spritely.js"></script>
     <script type="text/javascript" src="js/Sprite.js"></script>
     <script type="text/javascript" src="js/Swipe.js"></script>
     <script type="text/javascript" src="js/Qixi.js"></script>
@@ -20,13 +21,18 @@
         <ul class='swipe-wrap'>
             <!-- 第一副画面 -->
             <li>
-                <!-- 桥 -->
-                <div class="bridge"></div>
+                <!-- 背景图 -->
+                <div class="background"></div>
                 <!-- 云 -->
                 <div id="cloudArea">
                     <div id="cloud1" class="cloud"></div>
                     <div id="cloud2" class="cloud"></div>
                 </div>
+            
+                <!-- 左边鸟 -->
+                <div id="leftBird"></div>
+
+
                 <!-- 太阳 -->
                 <div id="weather">
                     <img src="images/cloud.png" width="300"/>
