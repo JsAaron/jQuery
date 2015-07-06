@@ -6,6 +6,8 @@
  */
 var PageA = function() {
 
+	
+
 
 	//构建水波浪图
 	new WaveEffect("qx_water_1_1", -10, -1, 9, 1.5, 1.5)
