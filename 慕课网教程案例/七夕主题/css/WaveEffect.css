@@ -1,0 +1,62 @@
+/*波浪水布局*/
+
+.qx_water {
+    position: relative;
+    top: 80%;
+    width: 100%;
+    height: 25%;
+}
+
+#qx_water_1 {
+    height: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+#qx_water_2 {
+    height: 50%;
+    background: #00f8fe;
+    position: relative;
+    z-index: 2;
+}
+
+
+.qx_water_a,
+.qx_water_b,
+.qx_water_c {
+    width: 100%;
+    height: 50px;
+    background: url(../images/water.png) repeat-x;
+    position: absolute;
+}
+
+.qx_water_a {
+    z-index: 1;
+    height: 40px;
+    top: 10px;
+}
+
+.qx_water_b {
+    top: 18px;
+    z-index: 2;
+}
+
+.qx_water_c {
+    top:25px;
+    z-index: 3;
+}
+
+
+#qx_water_1_4 {
+  background: #00f8fe;
+}
+
+.qx_water_d {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    top: 50px;
+    z-index: 0;
+}
+
+

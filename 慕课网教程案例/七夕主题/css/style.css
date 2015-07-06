@@ -44,7 +44,7 @@ html, body {
 
 #swipe{
     max-width                   : 1000px; 
-    height                      : 400px;
+    height                      : 600px;
     margin                      : 0px auto;
     overflow                    : hidden;
     background                  : #ccc;
@@ -71,7 +71,6 @@ ul,li{
   -webkit-perspective         :1000;
   background-size             : 100% 100%;
 }
-
 
 .swipe-wrap> li:first-child{
   background-image:url('../images/background.jpg'); 
