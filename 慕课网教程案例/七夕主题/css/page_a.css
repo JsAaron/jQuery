@@ -32,12 +32,22 @@
 /*左边鸟*/
 
 #leftBird {
-    background: transparent url("../images/bird-forward-back.png") 0 0 no-repeat;
+    background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
     position: absolute;
     top: 150px;
     left: 65px;
-    width: 180px;
-    height: 123px;
+    width: 140px;
+    height: 96px;
+    z-index: 2000;
+    cursor: pointer;
+}
+#rightBird{
+    background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
+    position: absolute;
+    top: 150px;
+    right: 65px;
+    width: 140px;
+    height: 96px;
     z-index: 2000;
     cursor: pointer;
 }

@@ -7,21 +7,21 @@ var PageA = function() {
 
 
     //鸟动画
-    $('#leftBird')
-        .sprite({
-            fps          : 9,
-            no_of_frames : 3
+    $('#leftBird').spState(1).sprite({
+            fps: 9,
+            no_of_frames: 3
         })
         .spRandom({
-            top    : 50,
-            bottom : 200,
-            left   : 300,
-            right  : 320
+            top: 50,
+            bottom: 200,
+            left: 300,
+            right: 320
         })
-        .isDraggable()
-        .activeOnClick()
-        .active();
 
+    $('#rightBird').spState(2).sprite({
+        fps: 9,
+        no_of_frames: 3
+    })
 
     //执行云动画
     CloudEffect()
