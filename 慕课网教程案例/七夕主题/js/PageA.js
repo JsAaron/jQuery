@@ -7,10 +7,10 @@ var PageA = function() {
 
 
     //鸟动画
-    $('#leftBird').spState(1).sprite({
+    $('#leftBird').sprite({
         fps: 9,
         no_of_frames: 3
-    }).scrollTo(450,300)
+    }).scrollTo(450,150,10000)
 
 
     $('#rightBird').spState(2).sprite({

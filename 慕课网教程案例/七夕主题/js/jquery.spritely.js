@@ -1,19 +1,12 @@
-/*
- * jQuery spritely 0.6.7
- * http://spritely.net/
- *
- * Documentation:
- * http://spritely.net/documentation/
- *
- * Copyright 2010-2011, Peter Chater, Artlogic Media Ltd, http://www.artlogic.net/
- * Dual licensed under the MIT or GPL Version 2 licenses.
- *
+/**
+ * 精灵动画
+ * @param  {[type]} $ [description]
+ * @return {[type]}   [description]
  */
-
 (function($) {
     $._spritely = {
-        // shared methods and variables used by spritely plugin
-        instances: {},
+        //实例
+        instances: {}, 
         animate: function(options) {
             var el = $(options.el);
             var el_id = el.attr('id');
@@ -212,10 +205,8 @@
             return r;
         },
 
+        //去掉url
         _spStrip: function(s, chars) {
-            // Strip any character in 'chars' from the beginning or end of
-            // 'str'. Like Python's .strip() method, or jQuery's $.trim()
-            // function (but allowing you to specify the characters).
             while (s.length) {
                 var i, sr, nos = false,
                     noe = false;
@@ -236,11 +227,14 @@
                         noe = true;
                 }
                 if (nos && noe)
+
                     return s;
             }
             return '';
         }
     };
+
+    //扩充jQuery方法
     $.fn.extend({
 
         spritely: function(options) {
@@ -261,8 +255,10 @@
                 }, options || {}),
 
                 background_image = (new Image()),
+                //获取的地址去掉url()
                 background_image_src = $._spritely._spStrip($this.css('background-image') || '', 'url("); ');
 
+            //如果没有创建
             if (!$._spritely.instances[el_id]) {
                 if (options.start_at_frame) {
                     $._spritely.instances[el_id] = {
@@ -309,7 +305,6 @@
             return this;
 
         },
-
         sprite: function(options) {
             var options = $.extend({
                 type: 'sprite',
@@ -317,116 +312,10 @@
             }, options || {});
             return $(this).spritely(options);
         },
-        pan: function(options) {
-            var options = $.extend({
-                type: 'pan',
-                dir: 'left',
-                continuous: true,
-                speed: 1 // 1 pixel per frame
-            }, options || {});
-            return $(this).spritely(options);
-        },
-        flyToTap: function(options) {
-            var options = $.extend({
-                el_to_move: null,
-                type: 'moveToTap',
-                ms: 1000, // milliseconds
-                do_once: true
-            }, options || {});
-            if (options.el_to_move) {
-                $(options.el_to_move).active();
-            }
-            if ($._spritely.activeSprite) {
-                if (window.Touch) { // iphone method see http://cubiq.org/remove-onclick-delay-on-webkit-for-iphone/9 or http://www.nimblekit.com/tutorials.html for clues...
-                    $(this)[0].ontouchstart = function(e) {
-                        var el_to_move = $._spritely.activeSprite;
-                        var touch = e.touches[0];
-                        var t = touch.pageY - (el_to_move.height() / 2);
-                        var l = touch.pageX - (el_to_move.width() / 2);
-                        el_to_move.animate({
-                            top: t + 'px',
-                            left: l + 'px'
-                        }, 1000);
-                    };
-                } else {
-                    $(this).click(function(e) {
-                        var el_to_move = $._spritely.activeSprite;
-                        $(el_to_move).stop(true);
-                        var w = el_to_move.width();
-                        var h = el_to_move.height();
-                        var l = e.pageX - (w / 2);
-                        var t = e.pageY - (h / 2);
-                        el_to_move.animate({
-                            top: t + 'px',
-                            left: l + 'px'
-                        }, 1000);
-                    });
-                }
-            }
-            return this;
-        },
-        // isDraggable requires jQuery ui
-        isDraggable: function(options) {
-            if ((!$(this).draggable)) {
-                //console.log('To use the isDraggable method you need to load jquery-ui.js');
-                return this;
-            }
-            var options = $.extend({
-                type: 'isDraggable',
-                start: null,
-                stop: null,
-                drag: null
-            }, options || {});
-            var el_id = $(this).attr('id');
-            if (!$._spritely.instances[el_id]) {
-                return this;
-            }
-            $._spritely.instances[el_id].isDraggableOptions = options;
-            $(this).draggable({
-                start: function() {
-                    var el_id = $(this).attr('id');
-                    $._spritely.instances[el_id].stop_random = true;
-                    $(this).stop(true);
-                    if ($._spritely.instances[el_id].isDraggableOptions.start) {
-                        $._spritely.instances[el_id].isDraggableOptions.start(this);
-                    }
-                },
-                drag: options.drag,
-                stop: function() {
-                    var el_id = $(this).attr('id');
-                    $._spritely.instances[el_id].stop_random = false;
-                    if ($._spritely.instances[el_id].isDraggableOptions.stop) {
-                        $._spritely.instances[el_id].isDraggableOptions.stop(this);
-                    }
-                }
-            });
-            return this;
-        },
-        active: function() {
-            // the active sprite
-            $._spritely.activeSprite = this;
-            return this;
-        },
-        activeOnClick: function() {
-            // make this the active script if clicked...
-            var el = $(this);
-            if (window.Touch) { // iphone method see http://cubiq.org/remove-onclick-delay-on-webkit-for-iphone/9 or http://www.nimblekit.com/tutorials.html for clues...
-                el[0].ontouchstart = function(e) {
-                    $._spritely.activeSprite = el;
-                };
-            } else {
-                el.click(function(e) {
-                    $._spritely.activeSprite = el;
-                });
-            }
-            return this;
-        },
-        
         //滑动到指定位置
         scrollTo: function(x, y, speed, pause) {
             speed = speed || 4000
             pause = pause || 0
-
             var el_id = $(this).attr('id');
             if (!$._spritely.instances[el_id]) {
                 return this;
@@ -437,137 +326,6 @@
                     left: x + 'px'
                 }, speed)
             }
-            window.setTimeout(function() {
-                $('#' + el_id).scrollTo(x,y,speed,pause);
-            }, speed + pause)
-            return this;
-        },
-        spRandom: function(options) {
-            var options = $.extend({
-                top: 50,
-                left: 50,
-                right: 290,
-                bottom: 320,
-                speed: 4000,
-                pause: 0
-            }, options || {});
-            var el_id = $(this).attr('id');
-            if (!$._spritely.instances[el_id]) {
-                return this;
-            }
-            if (!$._spritely.instances[el_id].stop_random) {
-                var r = $._spritely.randomIntBetween;
-                var t = r(options.top, options.bottom);
-                var l = r(options.left, options.right);
-                $('#' + el_id).animate({
-                    top: t + 'px',
-                    left: l + 'px'
-                }, options.speed)
-            }
-            window.setTimeout(function() {
-                $('#' + el_id).spRandom(options);
-            }, options.speed + options.pause)
-            return this;
-        },
-        makeAbsolute: function() {
-            // remove an element from its current position in the DOM and
-            // position it absolutely, appended to the body tag.
-            return this.each(function() {
-                var el = $(this);
-                var pos = el.position();
-                el.css({
-                        position: "absolute",
-                        marginLeft: 0,
-                        marginTop: 0,
-                        top: pos.top,
-                        left: pos.left
-                    })
-                    .remove()
-                    .appendTo("body");
-            });
-
-        },
-        spSet: function(prop_name, prop_value) {
-            var el_id = $(this).attr('id');
-            $._spritely.instances[el_id][prop_name] = prop_value;
-            return this;
-        },
-        spGet: function(prop_name, prop_value) {
-            var el_id = $(this).attr('id');
-            return $._spritely.instances[el_id][prop_name];
-        },
-        spStop: function(bool) {
-            this.each(function() {
-                var $this = $(this),
-                    el_id = $this.attr('id');
-                if ($._spritely.instances[el_id]['options']['fps']) {
-                    $._spritely.instances[el_id]['_last_fps'] = $._spritely.instances[el_id]['options']['fps'];
-                }
-                if ($._spritely.instances[el_id]['type'] == 'sprite') {
-                    $this.spSet('fps', 0);
-                }
-                $._spritely.instances[el_id]['_stopped'] = true;
-                $._spritely.instances[el_id]['_stopped_f1'] = bool;
-                if (bool) {
-                    // set background image position to 0
-                    var bp_top = $._spritely.getBgY($(this));
-                    $this.css('background-position', '0 ' + bp_top);
-                }
-            });
-            return this;
-        },
-        spStart: function() {
-            $(this).each(function() {
-                var el_id = $(this).attr('id');
-                var fps = $._spritely.instances[el_id]['_last_fps'] || 12;
-                if ($._spritely.instances[el_id]['type'] == 'sprite') {
-                    $(this).spSet('fps', fps);
-                }
-                $._spritely.instances[el_id]['_stopped'] = false;
-            });
-            return this;
-        },
-        spToggle: function() {
-            var el_id = $(this).attr('id');
-            var stopped = $._spritely.instances[el_id]['_stopped'] || false;
-            var stopped_f1 = $._spritely.instances[el_id]['_stopped_f1'] || false;
-            if (stopped) {
-                $(this).spStart();
-            } else {
-                $(this).spStop(stopped_f1);
-            }
-            return this;
-        },
-        fps: function(fps) {
-            $(this).each(function() {
-                $(this).spSet('fps', fps);
-            });
-            return this;
-        },
-        goToFrame: function(n) {
-            var el_id = $(this).attr('id');
-            if ($._spritely.instances && $._spritely.instances[el_id]) {
-                $._spritely.instances[el_id]['current_frame'] = n - 1;
-            }
-            return this;
-        },
-        spSpeed: function(speed) {
-            $(this).each(function() {
-                $(this).spSet('speed', speed);
-            });
-            return this;
-        },
-        spRelSpeed: function(speed) {
-            $(this).each(function() {
-                var rel_depth = $(this).spGet('depth') / 100;
-                $(this).spSet('speed', speed * rel_depth);
-            });
-            return this;
-        },
-        spChangeDir: function(dir) {
-            $(this).each(function() {
-                $(this).spSet('dir', dir);
-            });
             return this;
         },
         spState: function(n) {
@@ -578,36 +336,6 @@
                 var xPos = $._spritely.getBgX($(this));
                 var bp = xPos + ' -' + yPos;
                 $(this).css('background-position', bp);
-            });
-            return this;
-        },
-        lockTo: function(el, options) {
-            $(this).each(function() {
-                var el_id = $(this).attr('id');
-                if (!$._spritely.instances[el_id]) {
-                    return this;
-                }
-                $._spritely.instances[el_id]['locked_el'] = $(this);
-                $._spritely.instances[el_id]['lock_to'] = $(el);
-                $._spritely.instances[el_id]['lock_to_options'] = options;
-                $._spritely.instances[el_id]['interval'] = window.setInterval(function() {
-                    if ($._spritely.instances[el_id]['lock_to']) {
-                        var locked_el = $._spritely.instances[el_id]['locked_el'];
-                        var locked_to_el = $._spritely.instances[el_id]['lock_to'];
-                        var locked_to_options = $._spritely.instances[el_id]['lock_to_options'];
-                        var locked_to_el_w = locked_to_options.bg_img_width;
-                        var locked_to_el_h = locked_to_el.height();
-                        var locked_to_el_y = $._spritely.getBgY(locked_to_el);
-                        var locked_to_el_x = $._spritely.getBgX(locked_to_el);
-                        var el_l = (parseInt(locked_to_el_x) + parseInt(locked_to_options['left']));
-                        var el_t = (parseInt(locked_to_el_y) + parseInt(locked_to_options['top']));
-                        el_l = $._spritely.get_rel_pos(el_l, locked_to_el_w);
-                        $(locked_el).css({
-                            'top': el_t + 'px',
-                            'left': el_l + 'px'
-                        });
-                    }
-                }, options.interval || 20);
             });
             return this;
         },
@@ -625,7 +353,3 @@
         }
     })
 })(jQuery);
-// Stop IE6 re-loading background images continuously
-try {
-    document.execCommand("BackgroundImageCache", false, true);
-} catch (err) {}
