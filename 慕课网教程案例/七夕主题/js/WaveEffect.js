@@ -7,29 +7,33 @@ var WaveEffect = Qixi.createClass();
 
 WaveEffect.prototype = {
 
-	/**
-	 * 背景图的新位置
-	 * backgroundPositionX
-	 * backgroundPositionY
-	 *
-	 * 改变的倍数
-	 * 通过改了速率，形成不同的波纹
-	 * stepMultiple
-	 *
-	 * 改变的基数
-	 * stepBaseX
-	 * stepBaseY
-	 */
-    initialize: function(element, backgroundPositionX,backgroundPositionY,stepMultiple,stepBaseX,stepBaseY) {
+    /**
+     * 背景图的新位置
+     * backgroundPositionX
+     * backgroundPositionY
+     *
+     * 改变的倍数
+     * 通过改了速率，形成不同的波纹
+     * stepMultiple
+     *
+     * 改变的基数
+     * stepBaseX
+     * stepBaseY
+     *
+     * 动画调用的时间
+     * timer
+     */
+    initialize: function(element, backgroundPositionX, backgroundPositionY, stepMultiple, stepBaseX, stepBaseY, timer) {
         this.el = document.getElementById(element)
-		this.posX      = backgroundPositionX;
-		this.posY      = backgroundPositionY;
-		this.count     = stepMultiple;
-		this.stepBaseX = stepBaseX;
-		this.stepBaseY = stepBaseY;
-		this.step      = 0;
-		this.isChange  = true;
-		this.play()
+        this.posX = backgroundPositionX;
+        this.posY = backgroundPositionY;
+        this.count = stepMultiple;
+        this.stepBaseX = stepBaseX;
+        this.stepBaseY = stepBaseY;
+        this.step = 0;
+        this.isChange = true;
+        this.timer = timer || 100
+        this.play()
     },
 
     //播放
@@ -37,7 +41,7 @@ WaveEffect.prototype = {
         var self = this;
         setInterval(function() {
             self.toMove()
-        }, 100);
+        }, self.timer);
         //设置新的坐标
         self.el.style.backgroundPosition = self.posX + "px " + self.posY + "px"
     },

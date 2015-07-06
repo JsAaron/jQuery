@@ -1,0 +1,179 @@
+/*桥布局*/
+
+.bridge {
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/bridge.jpg");
+    background-size: 100% 100%;
+    z-index: -10;
+    position: absolute;
+}
+/*云布局*/
+
+#cloudArea {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.cloud {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: url("../images/cloud.png") no-repeat;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+#cloud2 {
+    z-index: 3;
+}
+/*太阳*/
+
+#weather {
+    background: url("../images/sun.png") no-repeat;
+    border-radius: 90px;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    left: 40px;
+    top: 30px;
+    z-index: 2;
+    -webkit-animation-name: 'round';
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes 'round' {
+    from {
+        -webkit-transform: scale(1);
+    }
+    5% {
+        -webkit-transform: scale(1.005)
+    }
+    10% {
+        -webkit-transform: scale(1.01);
+    }
+    15% {
+        -webkit-transform: scale(1.015);
+    }
+    20% {
+        -webkit-transform: scale(1.02);
+    }
+    35% {
+        -webkit-transform: scale(1.025);
+    }
+    30% {
+        -webkit-transform: scale(1.03);
+    }
+    35% {
+        -webkit-transform: scale(1.035);
+    }
+    40% {
+        -webkit-transform: scale(1.04);
+    }
+    45% {
+        -webkit-transform: scale(1.045);
+    }
+    50% {
+        -webkit-transform: scale(1.05);
+    }
+    55% {
+        -webkit-transform: scale(1.055);
+    }
+    60% {
+        -webkit-transform: scale(1.05);
+    }
+    65% {
+        -webkit-transform: scale(1.045);
+    }
+    70% {
+        -webkit-transform: scale(1.04);
+    }
+    75% {
+        -webkit-transform: scale(1.035);
+    }
+    80% {
+        -webkit-transform: scale(1.03);
+    }
+    85% {
+        -webkit-transform: scale(1.025);
+    }
+    90% {
+        -webkit-transform: scale(1.02);
+    }
+    95% {
+        -webkit-transform: scale(1.015);
+    }
+    100% {
+        -webkit-transform: scale(1.01);
+    }
+    to {
+        -webkit-transform: scale(1);
+    }
+}
+
+#weather img {
+    margin: 30px -90px;
+}
+/*波浪水布局*/
+
+.qx_water {
+    position: relative;
+    top: 80%;
+    width: 100%;
+    height: 25%;
+}
+
+#qx_water_1 {
+    height: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+#qx_water_2 {
+    height: 50%;
+    background: #00f8fe;
+    position: relative;
+    z-index: 2;
+}
+
+.qx_water_a,
+.qx_water_b,
+.qx_water_c {
+    width: 100%;
+    height: 50px;
+    background: url(../images/water.png) repeat-x;
+    position: absolute;
+}
+
+.qx_water_a {
+    z-index: 1;
+    height: 40px;
+    top: 10px;
+}
+
+.qx_water_b {
+    top: 18px;
+    z-index: 2;
+}
+
+.qx_water_c {
+    top: 25px;
+    z-index: 3;
+}
+
+#qx_water_1_4 {
+    background: #00f8fe;
+}
+
+.qx_water_d {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    top: 50px;
+    z-index: 0;
+}
