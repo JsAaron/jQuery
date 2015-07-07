@@ -13,7 +13,7 @@ function Swipe(container, options) {
     //开始索引
     var index = 1;
     //切换速度
-    var speed = 300;
+    var speed = 5000;
     //是否动画中
     var isAnimation = false
 

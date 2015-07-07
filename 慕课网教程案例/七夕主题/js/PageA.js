@@ -19,10 +19,10 @@ var PageA = function(container,complete) {
         no_of_frames: 3
     }).scrollTo(containerWidth/3 - leftBirdWidht,150,10000)
 
-    // $('#rightBird').spState(2).sprite({
-    //     fps: 9,
-    //     no_of_frames: 3
-    // })
+    $('#rightBird').spState(2).sprite({
+        fps: 9,
+        no_of_frames: 3
+    })
 
     var audio = new Html5Audio('gallery/md7c51d955288dc9c7d142db712a08f3a.mp3')
     setTimeout(function(){
@@ -46,10 +46,19 @@ var PageA = function(container,complete) {
     new WaveEffect("qx_water_1_3", 50, 7, 8, 0.8, 1.5)
 
 
-    $("#js_wrap").attr("class","class charector-wrap slow")
+    $("#js_wrap").attr("class", "class charector-wrap slow")
     $("#js_wrap").animate({
-        left: '200px'
-    }, 20000)
+        left: '80%'
+    }, 8000, function() {
+        $(this).hide()
+        setTimeout(function() {
+            $("#js_wrap").css('left', '60%').show().animate({
+                left: '55%'
+            }, 5000, function() {
+                complete();
+            })
+        }, 1000)
+    })
 
 
 

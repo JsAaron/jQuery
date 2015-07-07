@@ -131,3 +131,8 @@ li {
     background-image: url('../images/background.jpg');
     background-size: 100% 100%;
 }
+
+.swipe-wrap> li:nth-child(2) {
+    background-image: url('../images/76b1OOOPIC4a.jpg');
+    background-size: 100% 100%;
+}
