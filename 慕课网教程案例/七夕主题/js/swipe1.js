@@ -53,6 +53,11 @@ function Swipe(container, options) {
         }, 500)
     }
 
+    //注册监听器
+    api.watch = function(eventNmae,callback){
+        console.log(eventNmae,callback)
+    }
+
     api = {
         //监控完成与移动
         scrollTo: function(x, speed, complete) {

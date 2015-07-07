@@ -22,7 +22,7 @@ var Qixi = {
         // 小孩走路 //
         //////////
         var $girl = $("#girl");
-        
+
         //增加一个css3的效果动作变化
         $girl.attr("class", "class charector-wrap slow")
 
@@ -30,28 +30,29 @@ var Qixi = {
         var distance = container.width()
         var startPox = distance / 2 - $girl.width() / 2
 
-  
-        $girl.animate({
-            left: startPox  //第一给li中间距离
-        },{
-            easing:'linear',//匀速
-            duration:2000,
-            progress:function(){
-                var percentage = arguments[1];
-                if(percentage>0.8){
-                    swipe
-                    //滑动到最后一页
-                    .scrollTo(distance * 2, 30000 , function(){
 
-                    })
-                    //监听动画变化
-                    .monitorAnimMove = function(distance){
-                        console.log(distance)
-                    }              
-         
+        $girl.animate({
+            left: startPox //第一给li中间距离
+        }, {
+            easing: 'linear', //匀速
+            duration: 2000,
+            progress: function() {
+                var percentage = arguments[1];
+                if (percentage > 0.8) {
+                //滑动到最后一页
+                   swipe.scrollTo(distance * 2, 30000)
                 }
-    
             }
+        })
+
+        //监听动画变化
+        swipe.watch('move', function(distance) {
+            console.log(distance)
+        })
+
+        //监听动画完成
+        swipe.watch('complete', function(distance) {
+            console.log(distance)
         })
 
 
