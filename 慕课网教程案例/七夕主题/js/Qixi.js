@@ -35,9 +35,6 @@ var Qixi = {
 }
 
 
-
-
-
 $(function() {
     //七夕主题效果，开始
     Qixi.init();

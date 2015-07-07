@@ -200,3 +200,60 @@
     top: 50px;
     z-index: 0;
 }
+
+
+/*女孩*/
+.charector-wrap {
+  position: absolute;
+  width: 180px;
+  height: 300px;
+  left: 80%;
+  top:30%;
+  margin-left: -90px;
+}
+
+.charector {
+  position: absolute;
+  width: 180px;
+  height: 300px;
+  background: url(../images/charector.png) 0 0 no-repeat;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: step-start;
+}
+
+.slow .charector {
+    /* 慢 */
+    
+    -webkit-animation-name: person-slow;
+    -webkit-animation-duration: 1000ms;
+}
+
+
+@-webkit-keyframes person-slow {
+    /* 慢 */
+    
+    0% {
+        background-position: 0 0;
+    }
+    14.3% {
+        background-position: -180px 0;
+    }
+    28.6% {
+        background-position: -360px 0;
+    }
+    42.9% {
+        background-position: -540px 0;
+    }
+    57.2% {
+        background-position: -720px 0;
+    }
+    71.5% {
+        background-position: -900px 0;
+    }
+    85.8% {
+        background-position: -1080px 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}

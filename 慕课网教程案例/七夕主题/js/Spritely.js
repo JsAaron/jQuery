@@ -4,164 +4,97 @@
  * @return {[type]}   [description]
  */
 (function($) {
+
+    //保存精灵动画的实例
+    var instances = {};
+
     $._spritely = {
-        //实例
-        instances: {},
         animate: function(options) {
             var el = $(options.el);
             var el_id = el.attr('id');
-            if (!$._spritely.instances[el_id]) {
+            if (!instances[el_id]) {
                 return this;
             }
-            options = $.extend(options, $._spritely.instances[el_id] || {});
-            if (options.type == 'sprite' && options.fps) {
-                if (options.play_frames && !$._spritely.instances[el_id]['remaining_frames']) {
-                    $._spritely.instances[el_id]['remaining_frames'] = options.play_frames + 1;
-                } else if (options.do_once && !$._spritely.instances[el_id]['remaining_frames']) {
-                    $._spritely.instances[el_id]['remaining_frames'] = options.no_of_frames;
-                }
-                var frames;
-                var animate = function(el) {
-                    var w = options.width,
-                        h = options.height;
-                    if (!frames) {
-                        frames = [];
-                        total = 0
-                        for (var i = 0; i < options.no_of_frames; i++) {
-                            frames[frames.length] = (0 - total);
-                            total += w;
-                        }
-                    }
-                    if ($._spritely.instances[el_id]['current_frame'] == 0) {
-                        if (options.on_first_frame) {
-                            options.on_first_frame(el);
-                        }
-                    } else if ($._spritely.instances[el_id]['current_frame'] == frames.length - 1) {
-                        if (options.on_last_frame) {
-                            options.on_last_frame(el);
-                        }
-                    }
-                    if (options.on_frame && options.on_frame[$._spritely.instances[el_id]['current_frame']]) {
-                        options.on_frame[$._spritely.instances[el_id]['current_frame']](el);
-                    }
-                    if (options.rewind == true) {
-                        if ($._spritely.instances[el_id]['current_frame'] <= 0) {
-                            $._spritely.instances[el_id]['current_frame'] = frames.length - 1;
-                        } else {
-                            $._spritely.instances[el_id]['current_frame'] = $._spritely.instances[el_id]['current_frame'] - 1;
-                        };
-                    } else {
-                        if ($._spritely.instances[el_id]['current_frame'] >= frames.length - 1) {
-                            $._spritely.instances[el_id]['current_frame'] = 0;
-                        } else {
-                            $._spritely.instances[el_id]['current_frame'] = $._spritely.instances[el_id]['current_frame'] + 1;
-                        }
-                    }
+            options = $.extend(options, instances[el_id] || {});
 
-                    var yPos = $._spritely.getBgY(el);
-                    el.css('background-position', frames[$._spritely.instances[el_id]['current_frame']] + 'px ' + yPos);
-                    if (options.bounce && options.bounce[0] > 0 && options.bounce[1] > 0) {
-                        var ud = options.bounce[0]; // up-down
-                        var lr = options.bounce[1]; // left-right
-                        var ms = options.bounce[2]; // milliseconds
-                        el
-                            .animate({
-                                top: '+=' + ud + 'px',
-                                left: '-=' + lr + 'px'
-                            }, ms)
-                            .animate({
-                                top: '-=' + ud + 'px',
-                                left: '+=' + lr + 'px'
-                            }, ms);
+            if (options.play_frames && !instances[el_id]['remaining_frames']) {
+                instances[el_id]['remaining_frames'] = options.play_frames + 1;
+            } else if (options.do_once && !instances[el_id]['remaining_frames']) {
+                instances[el_id]['remaining_frames'] = options.no_of_frames;
+            }
+
+            var frames;
+
+            var animate = function(el) {
+                var w = options.width,
+                    h = options.height;
+                if (!frames) {
+                    frames = [];
+                    total = 0
+                    for (var i = 0; i < options.no_of_frames; i++) {
+                        frames[frames.length] = (0 - total);
+                        total += w;
                     }
                 }
-                if ($._spritely.instances[el_id]['remaining_frames'] && $._spritely.instances[el_id]['remaining_frames'] > 0) {
-                    $._spritely.instances[el_id]['remaining_frames']--;
-                    if ($._spritely.instances[el_id]['remaining_frames'] == 0) {
-                        $._spritely.instances[el_id]['remaining_frames'] = -1;
-                        delete $._spritely.instances[el_id]['remaining_frames'];
-                        return this;
-                    } else {
-                        animate(el);
+                if (instances[el_id]['current_frame'] == 0) {
+                    if (options.on_first_frame) {
+                        options.on_first_frame(el);
                     }
-                } else if ($._spritely.instances[el_id]['remaining_frames'] != -1) {
-                    animate(el);
+                } else if (instances[el_id]['current_frame'] == frames.length - 1) {
+                    if (options.on_last_frame) {
+                        options.on_last_frame(el);
+                    }
                 }
-            } else if (options.type == 'pan') {
-                if (!$._spritely.instances[el_id]['_stopped']) {
-
-                    // As we pan, reduce the offset to the smallest possible
-                    // value to ease the load on the browser. This step is
-                    // skipped if the image hasn't loaded yet.
-                    var speed = options.speed || 1,
-                        start_x = $._spritely.instances[el_id]['l'] || parseInt($._spritely.getBgX(el).replace('px', ''), 10) || 0,
-                        start_y = $._spritely.instances[el_id]['t'] || parseInt($._spritely.getBgY(el).replace('px', ''), 10) || 0;
-
-                    if (options.do_once && !$._spritely.instances[el_id].remaining_frames || $._spritely.instances[el_id].remaining_frames <= 0) {
-                        switch (options.dir) {
-                            case 'up':
-                            case 'down':
-                                $._spritely.instances[el_id].remaining_frames = Math.floor((options.img_height || 0) / speed);
-                                break;
-                            case 'left':
-                            case 'right':
-                                $._spritely.instances[el_id].remaining_frames = Math.floor((options.img_width || 0) / speed);
-                                break;
-                        }
-                        $._spritely.instances[el_id].remaining_frames++;
-                    } else if (options.do_once) {
-                        $._spritely.instances[el_id].remaining_frames--;
-                    }
-
-                    switch (options.dir) {
-
-                        case 'up':
-                            speed *= -1;
-                        case 'down':
-                            if (!$._spritely.instances[el_id]['l'])
-                                $._spritely.instances[el_id]['l'] = start_x;
-                            $._spritely.instances[el_id]['t'] = start_y + speed;
-                            if (options.img_height)
-                                $._spritely.instances[el_id]['t'] %= options.img_height;
-                            break;
-
-                        case 'left':
-                            speed *= -1;
-                        case 'right':
-                            if (!$._spritely.instances[el_id]['t'])
-                                $._spritely.instances[el_id]['t'] = start_y;
-                            $._spritely.instances[el_id]['l'] = start_x + speed;
-                            if (options.img_width)
-                                $._spritely.instances[el_id]['l'] %= options.img_width;
-                            break;
-
-                    }
-
-                    // When assembling the background-position string, care must be taken
-                    // to ensure correct formatting.
-                    var bg_left = $._spritely.instances[el_id]['l'].toString();
-                    if (bg_left.indexOf('%') == -1) {
-                        bg_left += 'px ';
+                if (options.on_frame && options.on_frame[instances[el_id]['current_frame']]) {
+                    options.on_frame[instances[el_id]['current_frame']](el);
+                }
+                if (options.rewind == true) {
+                    if (instances[el_id]['current_frame'] <= 0) {
+                        instances[el_id]['current_frame'] = frames.length - 1;
                     } else {
-                        bg_left += ' ';
-                    }
-
-                    var bg_top = $._spritely.instances[el_id]['t'].toString();
-                    if (bg_top.indexOf('%') == -1) {
-                        bg_top += 'px ';
+                        instances[el_id]['current_frame'] = instances[el_id]['current_frame'] - 1;
+                    };
+                } else {
+                    if (instances[el_id]['current_frame'] >= frames.length - 1) {
+                        instances[el_id]['current_frame'] = 0;
                     } else {
-                        bg_top += ' ';
+                        instances[el_id]['current_frame'] = instances[el_id]['current_frame'] + 1;
                     }
+                }
 
-                    $(el).css('background-position', bg_left + bg_top);
-
-                    if (options.do_once && !$._spritely.instances[el_id].remaining_frames) {
-                        return this;
-                    }
+                var yPos = $._spritely.getBgY(el);
+                el.css('background-position', frames[instances[el_id]['current_frame']] + 'px ' + yPos);
+                if (options.bounce && options.bounce[0] > 0 && options.bounce[1] > 0) {
+                    var ud = options.bounce[0]; // up-down
+                    var lr = options.bounce[1]; // left-right
+                    var ms = options.bounce[2]; // milliseconds
+                    el
+                        .animate({
+                            top: '+=' + ud + 'px',
+                            left: '-=' + lr + 'px'
+                        }, ms)
+                        .animate({
+                            top: '-=' + ud + 'px',
+                            left: '+=' + lr + 'px'
+                        }, ms);
                 }
             }
-            $._spritely.instances[el_id]['options'] = options;
-            $._spritely.instances[el_id]['timeout'] = window.setTimeout(function() {
+
+            if (instances[el_id]['remaining_frames'] && instances[el_id]['remaining_frames'] > 0) {
+                instances[el_id]['remaining_frames']--;
+                if (instances[el_id]['remaining_frames'] == 0) {
+                    instances[el_id]['remaining_frames'] = -1;
+                    delete instances[el_id]['remaining_frames'];
+                    return this;
+                } else {
+                    animate(el);
+                }
+            } else if (instances[el_id]['remaining_frames'] != -1) {
+                animate(el);
+            }
+
+            instances[el_id]['options'] = options;
+            instances[el_id]['timeout'] = window.setTimeout(function() {
                 $._spritely.animate(options);
             }, parseInt(1000 / options.fps));
         },
@@ -224,11 +157,15 @@
     //扩充jQuery方法
     $.fn.extend({
 
+        /**
+         * 加载精灵动画
+         * @param  {[type]} options [description]
+         * @return {[type]}         [description]
+         */
         spritely: function(options) {
 
             var $this = $(this),
                 el_id = $this.attr('id'),
-
                 options = $.extend({
                     type: 'sprite',
                     do_once: false,
@@ -241,7 +178,6 @@
                     play_frames: 0
                 }, options || {}),
 
-
                 /**
                  * 计算出加载的雪碧图的实际大小
                  * @type {[type]}
@@ -252,20 +188,20 @@
 
             //如果没有创建
             //存在当前精灵实例的信息
-            if (!$._spritely.instances[el_id]) {
+            if (!instances[el_id]) {
                 if (options.start_at_frame) {
-                    $._spritely.instances[el_id] = {
+                    instances[el_id] = {
                         current_frame: options.start_at_frame - 1
                     };
                 } else {
-                    $._spritely.instances[el_id] = {
+                    instances[el_id] = {
                         current_frame: -1
                     };
                 }
             }
 
-            $._spritely.instances[el_id]['type'] = options.type;
-            $._spritely.instances[el_id]['depth'] = options.depth;
+            instances[el_id]['type'] = options.type;
+            instances[el_id]['depth'] = options.depth;
 
             options.el = $this;
 
@@ -280,16 +216,17 @@
                 options.img_height = background_image.height;
                 options.img = background_image;
                 var get_rate = function() {
+                        //每秒执行的帧数
                         return parseInt(1000 / options.fps);
                     }
                     //是否只执行一次
                 if (!options.do_once) {
                     //执行动画
-                    setTimeout(function() {
+                    options.timer = setTimeout(function() {
                         $._spritely.animate(options);
                     }, get_rate(options.fps));
                 } else {
-                    setTimeout(function() {
+                    options.timer = setTimeout(function() {
                         $._spritely.animate(options);
                     }, 0);
                 }
@@ -310,10 +247,10 @@
             speed = speed || 4000
             pause = pause || 0
             var el_id = $(this).attr('id');
-            if (!$._spritely.instances[el_id]) {
+            if (!instances[el_id]) {
                 return this;
             }
-            if (!$._spritely.instances[el_id].stop_random) {
+            if (!instances[el_id].stop_random) {
                 $('#' + el_id).animate({
                     top: y + 'px',
                     left: x + 'px'
@@ -335,13 +272,13 @@
         destroy: function() {
             var el = $(this);
             var el_id = $(this).attr('id');
-            if ($._spritely.instances[el_id] && $._spritely.instances[el_id]['timeout']) {
-                window.clearTimeout($._spritely.instances[el_id]['timeout']);
+            if (instances[el_id] && instances[el_id]['timeout']) {
+                window.clearTimeout(instances[el_id]['timeout']);
             }
-            if ($._spritely.instances[el_id] && $._spritely.instances[el_id]['interval']) {
-                window.clearInterval($._spritely.instances[el_id]['interval']);
+            if (instances[el_id] && instances[el_id]['interval']) {
+                window.clearInterval(instances[el_id]['interval']);
             }
-            delete $._spritely.instances[el_id]
+            delete instances[el_id]
             return this;
         }
     })
