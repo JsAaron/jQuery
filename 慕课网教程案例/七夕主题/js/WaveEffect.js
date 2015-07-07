@@ -39,7 +39,7 @@ WaveEffect.prototype = {
     //播放
     play: function() {
         var self = this;
-        setInterval(function() {
+        this.interval = setInterval(function() {
             self.toMove()
         }, self.timer);
         //设置新的坐标
@@ -48,7 +48,8 @@ WaveEffect.prototype = {
 
     //停止
     stop: function() {
-
+        clearInterval(this.interval)
+        this.interval = null;
     },
 
     //开始动画

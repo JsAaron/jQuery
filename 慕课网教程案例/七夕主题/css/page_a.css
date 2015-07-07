@@ -35,7 +35,7 @@
     background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
     position: absolute;
     top: 150px;
-    left: 65px;
+    left: -40px;
     width: 140px;
     height: 96px;
     z-index: 2000;
@@ -45,7 +45,7 @@
     background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
     position: absolute;
     top: 150px;
-    right: 65px;
+    right: -20px;
     width: 140px;
     height: 96px;
     z-index: 2000;

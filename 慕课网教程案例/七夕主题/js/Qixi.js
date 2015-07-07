@@ -20,10 +20,12 @@ var Qixi = {
         var swipe = Swipe(container);
 
         //构建第一个页面
-        PageA()
+        PageA(container,pageAcomplete)
 
-        swipe.initComplete = function() {
-            page1.start() //开始执行
+        //第一个页面的所有动作完成后
+        function pageAcomplete() {
+            //页面到下一个页面
+            swipe.next();
         }
 
         $("button").click(function() {
