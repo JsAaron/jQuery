@@ -6,6 +6,8 @@
     <title>七夕主题</title>
     <link rel='stylesheet' href='css/style.css' />
     <link rel='stylesheet' href='css/page_a.css' />
+    <link rel='stylesheet' href='css/page_b.css' />
+    <link rel='stylesheet' href='css/page_c.css' />
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
     <script type="text/javascript" src="js/Spritely.js"></script>
     <script type="text/javascript" src="js/Swipe.js"></script>
@@ -17,61 +19,38 @@
 </head>
 
 <body>
-    <div id='swipe'>
-        <ul class='swipe-wrap'>
+    <div id='content'>
+        <ul class='content-wrap'>
             <!-- 第一副画面 -->
             <li>
                 <!-- 背景图 -->
-                <div class="background"></div>
+                <div class="a_background"></div>
                 <!-- 云 -->
                 <div id="cloudArea">
                     <div id="cloud1" class="cloud"></div>
                     <div id="cloud2" class="cloud"></div>
                 </div>
-                <!-- 鸟 -->
-                <div id="Bird">
-                    <!-- 左边鸟与字幕 -->
-                    <div id="leftBird"></div>
-                    <div id="leftSubtitle">
-                        <div id="Content_1_49" style="width: 190px; height: 67px; top: 102px; left: 200px; position: absolute;background-image:url('gallery/e4f61d40e41f0ed16e36510beae371e7.png');background-size:100% 100%;">
-                        </div>
-                        <div id="Content_1_51" style="width: 190px; display:none;height: 67px; top: 102px; left: 200px; position: absolute;background-image:url('gallery/969a5bf40f1955b4c3c427006f79b9b3.png');background-size:100% 100%;">
-                        </div>
-                    </div>
-                    <!-- 右边鸟与字幕 -->
-                    <div id="rightBird"></div>
-                    <div id="rightSubtitle"></div>
-                </div>
                 <!-- 太阳 -->
                 <div id="weather">
                     <img src="images/cloud.png" width="300" />
                 </div>
-
-                <!-- 女孩子 -->
-                <div class="charector-wrap " id="js_wrap">
-                    <div class="charector"></div>
-                </div>
-
-
-                <!-- 水 -->
-                <div class="qx_water">
-                    <div id="qx_water_1">
-                        <div id="qx_water_1_1" class="qx_water_a"></div>
-                        <div id="qx_water_1_2" class="qx_water_b"></div>
-                        <div id="qx_water_1_3" class="qx_water_c"></div>
-                        <!-- 中间波纹 -->
-                        <div id="qx_water_1_4" class="qx_water_d"></div>
-                    </div>
-                    <div id="qx_water_2"></div>
-                </div>
             </li>
             <!-- 第二副画面 -->
-            <li>222</li>
-            <li>333</li>
-            <li>444</div>
-    </ul>
+            <li>
+                <!-- 背景图 -->
+                <div class="b_background"></div>
+            </li>
+            <!-- 第二副画面 -->
+            <li>
+                <!-- 背景图 -->
+                <div class="c_background"></div>
+            </li>
+        </ul>
+        <!-- 女孩子 -->
+        <div id="girl" class="charector-wrap ">
+            <div class="charector"></div>
+        </div>
     </div>
-    <button>下一页</button>
 </body>
 
 </html>

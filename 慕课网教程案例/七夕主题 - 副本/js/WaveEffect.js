@@ -3,7 +3,7 @@
  * @type {[type]}
  */
 
-var WaveEffect = function(){};
+var WaveEffect = Qixi.createClass();
 
 WaveEffect.prototype = {
 

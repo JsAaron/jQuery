@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS3动画animation实现漂浮的云</title>
+    <style type="text/css">
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .wrap {
+        height: 190px;
+        width: 600px;
+        margin: 150px auto 0;
+        background: url('bg-clouds.png');
+        -webkit-animation: cloud 40s linear infinite;
+        -o-animation: cloud 40s linear infinite;
+    }
+    
+    @-webkit-keyframes cloud {
+        from {
+            background-position: 0% 0%
+        }
+        to {
+            background-position: 50% 50%
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="wrap"></div>
+</body>
+
+</html>

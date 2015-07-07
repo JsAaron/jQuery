@@ -89,42 +89,33 @@ img {
     border: 0;
 }
 
+html,
+body {
+    background: #f3f3f3;
+}
+/*主体部分*/
+
+#swipe {
+    width: 1000px;
+    height: 600px;
+    margin: 0px auto;
+    overflow: hidden;
+    background: #ccc;
+}
+
 ol,
 ul,
 li {
     list-style-type: none;
 }
 
-
-html,
-body {
-    width: 100%;
-    height: 100%;
-    background: #f3f3f3;
-}
-
-
-/*主体部分*/
-
-#content {
-    width: 100%;
-    height: 100%;
-    margin: 0px auto;
-    overflow: hidden;
-    background: #ccc;
-}
-
-
-.content-wrap {
+.swipe-wrap {
     overflow: hidden;
     position: relative;
-    width: 100%;
-    height: 100%;
+    -webkit-transform-style: ;
 }
 
-.content-wrap > li {
-    width: 100%;
-    height: 100%;
+.swipe-wrap > li {
     float: left;
     overflow: hidden;
     transform-style: preserve-3d;
@@ -136,3 +127,12 @@ body {
     background-size: 100% 100%;
 }
 
+.swipe-wrap> li:first-child {
+    background-image: url('../images/background.jpg');
+    background-size: 100% 100%;
+}
+
+.swipe-wrap> li:nth-child(2) {
+    background-image: url('../images/76b1OOOPIC4a.jpg');
+    background-size: 100% 100%;
+}

@@ -1,0 +1,34 @@
+/*背景图*/
+.b_background {
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/background.jpg");
+    background-size: 100% 100%;
+    position: absolute;
+}
+
+
+
+
+/*左边鸟*/
+
+#leftBird {
+    background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
+    position: absolute;
+    top: 150px;
+    left: -40px;
+    width: 140px;
+    height: 96px;
+    z-index: 2000;
+    cursor: pointer;
+}
+#rightBird{
+    background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
+    position: absolute;
+    top: 150px;
+    right: -20px;
+    width: 140px;
+    height: 96px;
+    z-index: 2000;
+    cursor: pointer;
+}
