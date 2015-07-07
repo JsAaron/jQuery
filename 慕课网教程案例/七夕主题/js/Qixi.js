@@ -56,32 +56,19 @@ var Qixi = {
         }
         Qixi.calculateRange();
 
-        $girl.animate({
-            left: startPox / 1.5 //第一给li中间距离
-        }, {
-            easing: 'linear', //匀速
-            duration: 7000,
-
-            //要完成80%的时候开始提速
-            progress: function() {
-                var percentage = arguments[1];
-                if (!$girl.prop('progressRepeat') && percentage > 0.8) {
-                    $girl.prop('progressRepeat', true) //加锁,去重
-                        //滑动到最后一页
-                    swipe.scrollTo(distance * 2, 30000)
-                    console.log(1)
-                }
-            },
-
-            //完成一次后，继续慢跑,随着背景
-            complete: function() { 
-                $girl.transition({
-                    left: startPox
-                }, 30000, 'linear', function() {
-                    console.log('人物到达中间')
-                });
-            }
-        })
+        //用transition运行走动
+        $girl.transition({ 
+            left: startPox / 3 //第一次之运行1.5/3的距离
+        }, 7000, 'linear', function() {
+            //页面开始滚动
+            swipe.scrollTo(distance * 2, 30000)
+            //用transition继续运动
+            $girl.transition({
+                left: startPox
+            }, 30000, 'linear', function() {
+                console.log('人物到达中间')
+            });
+        });
 
 
         //监听动画变化

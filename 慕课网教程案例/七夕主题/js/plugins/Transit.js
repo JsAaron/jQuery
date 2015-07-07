@@ -227,6 +227,7 @@
                 return elem.style[support.transition];
             },
             set: function(elem, value) {
+              console.log(elem,value)
                 elem.style[support.transition] = value;
             }
         };
