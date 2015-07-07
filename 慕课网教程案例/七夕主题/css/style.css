@@ -120,6 +120,12 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
 }
 
 .content-wrap > li {
@@ -127,12 +133,6 @@ body {
     height: 100%;
     float: left;
     overflow: hidden;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    perspective: 1000;
-    -webkit-transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000;
     background-size: 100% 100%;
 }
 
