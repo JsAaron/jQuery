@@ -16,7 +16,7 @@ function Swipe(container, options) {
     var slides = element.find(">")
 
     //获取容器尺寸
-    var width = container.width();
+    var width  = container.width();
     var height = container.height();
 
     //设置li页面总宽度
@@ -34,21 +34,45 @@ function Swipe(container, options) {
         })
     })
 
-    //动画结束后通知事件
-    container[0].addEventListener('transitionend', function() {
-        api.monitorAnimComplete && api.monitorAnimComplete();
-    }, false)
+
+    //动画重复运动时的事件
+    // container[0].addEventListener("transitionIteration", function(event) {　　
+    //     console.log(11);　　
+    // }, false);
+
+    var isComplete = false;
+    var timer;
+    function monitorOffet(element) {
+        timer = setTimeout(function() {
+            if (isComplete) {
+                clearInterval(timer)
+                return;
+            }
+            api.monitorAnimMove(element.offset().left);
+            monitorOffet(element)
+        }, 500)
+    }
 
     api = {
-        scrollTo: function(x, speed) {
+        //监控完成与移动
+        scrollTo: function(x, speed, complete) {
+            //执行动画移动
             element.css({
                 'transition-timing-function': 'linear',
                 'transition-duration': speed + 'ms',
                 'transform': 'translate3d(-' + x + 'px,0px,0px)'
             })
+            //获取当前坐标
+            monitorOffet(element);
+            //动画结束后通知事件
+            container[0].addEventListener('transitionend', function() {
+                isComplete = true;
+                complete();
+            }, false)
             return this;
         }
     }
 
     return api;
 }
+
