@@ -10,13 +10,13 @@
 function Swipe(container, options) {
     //获取第一个子节点
     var element = container.find(":first")
-    var api;
+    var swipe = {};
 
     //li页面数量
     var slides = element.find(">")
 
     //获取容器尺寸
-    var width  = container.width();
+    var width = container.width();
     var height = container.height();
 
     //设置li页面总宽度
@@ -42,42 +42,42 @@ function Swipe(container, options) {
 
     var isComplete = false;
     var timer;
+    var callbacks = {};//注册回调
+
     function monitorOffet(element) {
         timer = setTimeout(function() {
             if (isComplete) {
                 clearInterval(timer)
                 return;
             }
-            api.monitorAnimMove(element.offset().left);
+            callbacks.move(element.offset().left);
             monitorOffet(element)
         }, 500)
     }
 
     //注册监听器
-    api.watch = function(eventNmae,callback){
-        console.log(eventNmae,callback)
+    swipe.watch = function(eventName, callback) {
+        callbacks[eventName] = callback;
     }
 
-    api = {
-        //监控完成与移动
-        scrollTo: function(x, speed, complete) {
-            //执行动画移动
-            element.css({
-                'transition-timing-function': 'linear',
-                'transition-duration': speed + 'ms',
-                'transform': 'translate3d(-' + x + 'px,0px,0px)'
-            })
-            //获取当前坐标
-            monitorOffet(element);
-            //动画结束后通知事件
-            container[0].addEventListener('transitionend', function() {
-                isComplete = true;
-                complete();
-            }, false)
-            return this;
-        }
+    //监控完成与移动
+    swipe.scrollTo = function(x, speed) {
+        //执行动画移动
+        element.css({
+            'transition-timing-function': 'linear',
+            'transition-duration': speed + 'ms',
+            'transform': 'translate3d(-' + x + 'px,0px,0px)'
+        })
+        //获取当前坐标
+        monitorOffet(element);
+        //动画结束后通知事件
+        container[0].addEventListener('transitionend', function() {
+            isComplete = true;
+            callbacks.complete();
+        }, false)
+        return this;
     }
 
-    return api;
+
+    return swipe;
 }
-
