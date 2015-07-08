@@ -18,7 +18,7 @@ var Qixi = {
 
         //页面滑动对象
         var swipe = Swipe(container);
-        
+
         //第一页页码
         Qixi.data.width = container.width()
 
@@ -28,9 +28,9 @@ var Qixi = {
             swipe     : swipe
         })
 
-
         //监听动画变化
         swipe.watch('move', function(distance) {
+            qixiA.update(distance) //更新外部移动的值
             Qixi.disposeAction(distance, qixiA.offset().left)
         })
 
@@ -105,25 +105,28 @@ var Qixi = {
 
 var QixiA = function(options) {
     var container = options.container;
-    var swipe = options.swipe;
-    //云动画 
-    var cloud = CloudEffect();
+    var swipe     = options.swipe;
     //走路对象
     var $girl = $("#girl");
     //开始走路
     var width = container.width()
     //目标中间位置
     var middlePos = width / 2 - $girl.width() / 2;
+
+    //场景移动的值
+    var sceneMoveValue = 0
+
     //走路
     function toWalk() {
         //增加一个css3的效果动作变化
-        $girl.attr("class", "class charector-wrap slow")
-            //用transition运行走动
+        $girl.addClass('slowWalk')
+
+        //用transition运行走动
         $girl.transition({
             left: middlePos / 3 //第一次之运行1/3的距离
         }, 700, 'linear', function() {
             //页面开始滚动
-            swipe.scrollTo(width * 2, 5000)
+            swipe.scrollTo(500, 5000)
                 //用transition继续运动
             $girl.transition({
                 left: middlePos
@@ -133,16 +136,62 @@ var QixiA = function(options) {
         });
     }
 
+    //云动画
+    var cloud = function() {
+        //屏幕宽度
+        var screenWidth = $(window).width();
+        var offset1  = screenWidth * 0.3;
+        var offset2  = screenWidth * 0.6;
+        var timer    = 0;
+        var $cloud1 = $("#cloud1");
+        var $cloud2 = $("#cloud2");
+        var $cloud3 = $("#cloud3");
+        function random(){
+            return Number( (Math.random() + 1).toFixed(2) )
+        }
+
+        return {
+            run: function() {
+                timer = setInterval(function flutter() {
+                    //运动范围
+                    var range = screenWidth + sceneMoveValue;
+                    //如果运动的范围超过屏幕宽度，从580的地方开始
+                    if (offset1 >= range) {
+                        offset1 = -80;
+                    }
+                    if (offset2 >= range) {
+                        offset2 = -80;
+                    }
+                    offset1 += (random());  
+                    offset2 += (random());
+                    $cloud1.css("background-position", offset1 + "px 0px")
+                    $cloud2.css("background-position", offset2 + "px 10px")
+                }, 50);
+                $cloud3.addClass('cloudLarge')
+            },
+            //停止动画
+            stop: function() {
+                clearInterval(timer)
+                $cloud3.removeClass('cloudLarge')
+            }
+        }
+    }()
+
+
     return {
         run: function() {
+            $("#weather").addClass('weatherAnimation')
             cloud.run()
-            toWalk();
+            // toWalk();
         },
         stop: function() {
-
+            cloud.stop()
         },
         offset: function() {
             return $girl.offset()
+        },
+        update:function(instance){
+            sceneMoveValue = instance;
         }
     }
 }
@@ -173,7 +222,7 @@ var QixiC = function() {
     return {
         run: function() {
             //执行运动化
-            cloud.run()
+            // cloud.run()
         },
         stop: function() {
 

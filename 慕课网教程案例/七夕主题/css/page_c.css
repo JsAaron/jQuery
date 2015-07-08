@@ -36,7 +36,7 @@
 .qx_water_c {
     width: 100%;
     height: 50px;
-    background: url(../images/water.png) repeat-x;
+  /*  background: url(../images/water.png) repeat-x;*/
     position: absolute;
 }
 

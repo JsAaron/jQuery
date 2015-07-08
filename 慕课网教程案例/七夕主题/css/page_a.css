@@ -7,13 +7,15 @@
     background-size: 100% 100%;
     position: absolute;
 }
-/*云布局*/
+/*天空云*/
 
 #cloudArea {
     position: absolute;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
+/*天空云*/
 
 .cloud {
     position: absolute;
@@ -24,101 +26,31 @@
     background: url("../images/cloud.png") no-repeat;
     z-index: 1;
     opacity: 0.8;
+    overflow: hidden;
+}
+
+.cloudLarge {
+    z-index: 2;
+    top: 5%;
+    right: 15%;
+    width: 100%;
+    height: 100%;
+    -webkit-animation: cloudLarge 30s infinite;
+}
+
+@keyframes cloudLarge {
+    0% {
+        left: 0%;
+    }
+    100% {
+        left: 30%;
+    }
 }
 
 #cloud2 {
     z-index: 2;
 }
-/*太阳*/
-
-#weather {
-    background: url("../images/sun.png") no-repeat;
-    border-radius: 90px;
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    left: 40px;
-    top: 30px;
-    z-index: 2;
-    -webkit-animation-name: 'round';
-    -webkit-animation-duration: 2s;
-    -webkit-animation-timing-function: ease;
-    -webkit-animation-iteration-count: infinite;
-}
-
-@-webkit-keyframes 'round' {
-    from {
-        -webkit-transform: scale(1);
-    }
-    5% {
-        -webkit-transform: scale(1.005)
-    }
-    10% {
-        -webkit-transform: scale(1.01);
-    }
-    15% {
-        -webkit-transform: scale(1.015);
-    }
-    20% {
-        -webkit-transform: scale(1.02);
-    }
-    35% {
-        -webkit-transform: scale(1.025);
-    }
-    30% {
-        -webkit-transform: scale(1.03);
-    }
-    35% {
-        -webkit-transform: scale(1.035);
-    }
-    40% {
-        -webkit-transform: scale(1.04);
-    }
-    45% {
-        -webkit-transform: scale(1.045);
-    }
-    50% {
-        -webkit-transform: scale(1.05);
-    }
-    55% {
-        -webkit-transform: scale(1.055);
-    }
-    60% {
-        -webkit-transform: scale(1.05);
-    }
-    65% {
-        -webkit-transform: scale(1.045);
-    }
-    70% {
-        -webkit-transform: scale(1.04);
-    }
-    75% {
-        -webkit-transform: scale(1.035);
-    }
-    80% {
-        -webkit-transform: scale(1.03);
-    }
-    85% {
-        -webkit-transform: scale(1.025);
-    }
-    90% {
-        -webkit-transform: scale(1.02);
-    }
-    95% {
-        -webkit-transform: scale(1.015);
-    }
-    100% {
-        -webkit-transform: scale(1.01);
-    }
-    to {
-        -webkit-transform: scale(1);
-    }
-}
-
-#weather img {
-    margin: 30px -90px;
-}
-/*女孩*/
+/*女孩走路*/
 
 .charector-wrap {
     position: absolute;
@@ -137,14 +69,12 @@
     -webkit-animation-timing-function: step-start;
 }
 
-.slow .charector {
+.slowWalk .charector {
     -webkit-animation-name: person-slow;
     -webkit-animation-duration: 1000ms;
 }
 
 @-webkit-keyframes person-slow {
-    /* 慢 */
-    
     0% {
         background-position: 0 0;
     }
@@ -169,4 +99,40 @@
     100% {
         background-position: 0 0;
     }
+}
+/*太阳*/
+
+#weather {
+    background: url("../images/sun.png") no-repeat;
+    border-radius: 90px;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    left: 40px;
+    top: 30px;
+    z-index: 2;
+}
+
+.weatherAnimation{
+    animation-name: round;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    /*-webkit-animation:'round' 0.1s infinite linear;*/  
+}
+
+@keyframes round {
+    0% {
+        -webkit-transform: scale(1)
+    }
+    50% {
+        -webkit-transform: scale(1.03);
+    }
+    100% {
+        -webkit-transform: scale(1);
+    }
+}
+
+#weather img {
+    margin: 30px -90px;
 }

@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CSS3动画animation实现漂浮的云</title>
+    <title>CSS3动画</title>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
     <style type="text/css">
     html,
     body {
@@ -11,28 +12,242 @@
         margin: 0;
     }
     
-    .wrap {
-        height: 190px;
-        width: 600px;
-        margin: 150px auto 0;
-        background: url('bg-clouds.png');
-        -webkit-animation: cloud 40s linear infinite;
-        -o-animation: cloud 40s linear infinite;
+    .menu ul {
+        border-top: 15px solid black;
+        padding: 0 10px;
     }
     
-    @-webkit-keyframes cloud {
-        from {
-            background-position: 0% 0%
+    .menu ul li a {
+        color: #fff;
+        float: left;
+        margin: 0 5px;
+        font-size: 14px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        width: 65px;
+        padding: 10px 5px;
+        background: #151515;
+        -moz-border-radius: 0 0 5px 5px;
+        -webkit-border-radius: 0 0 5px 5px;
+        border-radius: 0 0 5px 5px;
+        -moz-box-shadow: 0 0 1px #ccc, inset 0 0 2px #fff;
+        -webkit-box-shadow: 0 0 1px #ccc, inset 0 0 2px #fff;
+        box-shadow: 0 0 1px #ccc, inset 0 0 2px #fff;
+        text-shadow: 0 1px 1px #686868;
+        text-decoration: none;
+    }
+    
+    .menu ul li.translate a {
+        background: #2EC7D2;
+    }
+    
+    .menu ul li.translate-x a {
+        background: #8FDD21;
+    }
+    
+    .menu ul li.translate-y a {
+        background: #F45917;
+    }
+    
+    .menu ul li.rotate a {
+        background: #D50E19;
+    }
+    
+    .menu ul li.scale a {
+        background: #cdddf2;
+    }
+    
+    .menu ul li.scale-x a {
+        background: #0fDD21;
+    }
+    
+    .menu ul li.scale-y a {
+        background: #cd5917;
+    }
+    
+    .menu ul li.skew a {
+        background: #519;
+    }
+    
+    .menu ul li.skew-x a {
+        background: #D50;
+    }
+    
+    .menu ul li.skew-y a {
+        background: #E19;
+    }
+    
+    .menu ul li.matrix a {
+        background: #919;
+    }
+    
+    #timings-demo {
+        border: 1px solid #ccc;
+        padding: 10px;
+        height: 400px;
+        width: 400px;
+    }
+    
+    .demo-box {
+        width: 100px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        text-align: center;
+        color: #fff;
+        background: #96c;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        -moz-box-shadow: inset 0 0 5px rgba(102, 153, 0, 0.5);
+        -webkit-box-shadow: inset 0 0 5px rgba(102, 153, 0, 0.5);
+        box-shadow: inset 0 0 5px rgba(102, 153, 0, 0.5);
+        margin-bottom: 10px;
+    }
+    
+    #ease {
+        -moz-transition: all 5s ease 0.3s;
+        -webkit-transition: all 5s ease 0.3s;
+        -o-transition: all 5s ease 0.3s;
+        transition: all 5s ease 0.1s;
+        background: #f36;
+    }
+    
+    #ease-in {
+        -moz-transition: all 3s ease-in 0.5s;
+        -webkit-transition: all 3s ease-in 0.5s;
+        -o-transition: all 3s ease-in 0.5s;
+        transition: all 3s ease-in 0.5s;
+        background: #369;
+    }
+    
+    #ease-out {
+        -moz-transition: all 5s ease-out 0s;
+        -webkit-transition: all 5s ease-out 0s;
+        -o-transition: all 5s ease-out 0s;
+        transition: all 5s ease-out 0s;
+        background: #636;
+    }
+    
+    #ease-in-out {
+        -moz-transition: all 1s ease-in-out 2s;
+        -webkit-transition: all 1s ease-in-out 2s;
+        -o-transition: all 1s ease-in-out 2s;
+        transition: all 1s ease-in-out 2s;
+        background: #3e6;
+    }
+    
+    #linear {
+        -moz-transition: all 6s linear 0s;
+        -webkit-transition: all 6s linear 0s;
+        -o-transition: all 6s linear 0s;
+        transition: all 6s linear 0s;
+        background: #999;
+    }
+    
+    #cubic-bezier {
+        -moz-transition: all 4s cubic-bezier 1s;
+        -webkit-transition: all 4s cubic-bezier 1s;
+        -o-transition: all 4s cubic-bezier 1s;
+        transition: all 4s cubic-bezier 1s;
+        background: #6d6;
+    }
+    
+    #timings-demo.timings-demo-hover .demo-box,
+    #timings-demo:hover .demo-box {
+        /*        -moz-transform: rotate(360deg) scale(1.2);
+        -webkit-transform: rotate(360deg) scale(1.2);
+        -o-transform: rotate(360deg) scale(1.2);
+        transform: rotate(360deg) scale(1.2);
+        background: #369;
+        border: 1px solid rgba(255, 230, 255, 08);
+        -moz-border-radius: 25px;
+        -webkit-border-radius: 25px;
+        border-radius: 25px;
+        margin-left: 280px;
+        height: 30px;
+        line-height: 30px;
+        margin-bottom: 15px;*/
+    }
+    
+    #ease {
+        transition-property: all;
+        transition-delay: 0.3s;
+        tranistion-timing-function: linear;
+        traninstion-duration: 3s background: #f36;
+        position: relative;
+        left: 20px;
+    }
+    /*    #ease {
+        -moz-transition: all 5s ease 0.3s;
+        -webkit-transition: all 5s ease 0.3s;
+        -o-transition: all 5s ease 0.3s;
+        transition: all 5s ease 0.1s;
+        background: #f36;
+    }
+    */
+    
+    @keyframes aa {
+        0% {
+            background: red
         }
-        to {
-            background-position: 50% 50%
+        50% {
+            padding: 0 20px;
+            background-color: rgba(190, 206, 235, 0.2);
         }
+        100% {
+            padding: 0 100px;
+            background-color: rgba(190, 206, 235, 0.9);
+        }
+    }
+    
+    #ease:hover {
+        animation-name: aa;
+        animation-duration: 1.5s;
+        animation-timing-funciton: linear;
+/*        animation-iteratin-count: 4;
+        animation-direction: alternate;*/
     }
     </style>
 </head>
+<script type="text/javascript">
+$(document).ready(function() {
+    // $("#timings-demo-btn").toggle(
+    //     function() {
+    //         $(this).next("div#timings-demo").addClass("timings-demo-hover");
+    //     },
+    //     function() {
+    //         $(this).next("div#timings-demo").removeClass("timings-demo-hover");
+    //     });
+});
+</script>
 
 <body>
-    <div class="wrap"></div>
+    <a id="timings-demo-btn">click</a>
+    <div id="timings-demo">
+        <div id="ease" class="demo-box">Ease</div>
+        <div id="ease-in" class="demo-box">Ease-in</div>
+        <div id="ease-out" class="demo-box">Ease-out</div>
+        <div id="ease-in-out" class="demo-box">Ease-in-out</div>
+        <div id="linear" class="demo-box">Linear</div>
+        <div id="cubic-bezier" class="demo-box">Cubic-bezier</div>
+    </div>
+    <div class="menu">
+        <ul class="clearfix">
+            <li class="item translate"><a href="#">Translate</a></li>
+            <li class="item translate-x"><a href="#">TranslateX</a></li>
+            <li class="item translate-y"><a href="#">TranslateY</a></li>
+            <li class="item rotate"><a href="#">Rotate</a></li>
+            <li class="item scale"><a href="#">Scale</a></li>
+            <li class="item scale-x"><a href="#">ScaleX</a></li>
+            <li class="item scale-y"><a href="#">ScaleY</a></li>
+            <li class="item skew"><a href="#">Skew</a></li>
+            <li class="item skew-x"><a href="#">SkewX</a></li>
+            <li class="item skew-y"><a href="#">SkewY</a></li>
+            <li class="item matrix"><a href="#">Matrix</a></li>
+        </ul>
+    </div>
 </body>
 
 </html>

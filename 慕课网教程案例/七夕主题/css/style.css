@@ -95,15 +95,12 @@ li {
     list-style-type: none;
 }
 
-
 html,
 body {
     width: 100%;
     height: 100%;
-    background: #f3f3f3;
+   /* background: #f3f3f3;*/
 }
-
-
 /*主体部分*/
 
 #content {
@@ -111,9 +108,8 @@ body {
     height: 100%;
     margin: 0px auto;
     overflow: hidden;
-    background: #ccc;
+/*    background: #ccc;*/
 }
-
 
 .content-wrap {
     overflow: hidden;
@@ -136,3 +132,43 @@ body {
     overflow: hidden;
 }
 
+/*天空变化*/
+.stage {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background: #ddf5f7;
+    z-index: 10;
+    animation: skyset 5s infinite linear;
+}
+
+@keyframes skyset {
+    0% {
+        background: #ddf5f7;
+    }
+    23% {
+        background: #ddf5f7;
+    }
+    25% {
+        background: #350847;
+    }
+    27% {
+        background: #0f192c;
+    }
+    50% {
+        background: #0f192c;
+    }
+    68% {
+        background: #0f192c;
+    }
+    75% {
+        background: #f9c7b8;
+    }
+    82% {
+        background: #ddf5f7;
+    }
+    100% {
+        background: #ddf5f7;
+    }
+}
