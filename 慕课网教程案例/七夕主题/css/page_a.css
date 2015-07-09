@@ -87,13 +87,25 @@
 
 
 /*女孩走路*/
-
 .charector-wrap {
     position: absolute;
     left: -180px;
     top: 30%;
     width: 180px;
     height: 300px;
+}
+
+
+.charector-wrap .flower{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-size: 100% 100%;
+    top:120px;
+    left:100px;
+    z-index: 5;
+    display: none;
+    background: url(../images/flower.png)
 }
 
 .charector {
@@ -114,6 +126,7 @@
 .slowWalkFixed .charector{
     background: url(../images/charector.png) -900px 0 no-repeat;
 }
+
 
 @-webkit-keyframes person-slow {
     0% {

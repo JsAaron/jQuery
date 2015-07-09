@@ -52,18 +52,7 @@
 }
 
 
-/*左边鸟*/
-#leftBird {
-    background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
-    position: absolute;
-    top: 150px;
-    left: -40px;
-    width: 140px;
-    height: 96px;
-    z-index: 2000;
-    cursor: pointer;
-}
-
+/*右边鸟*/
 #rightBird {
     background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
     position: absolute;

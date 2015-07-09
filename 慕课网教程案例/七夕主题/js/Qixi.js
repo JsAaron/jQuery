@@ -109,7 +109,7 @@ var Qixi = {
  * 商店
  * @return {[type]} [description]
  */
-var toShop = function() {
+var toShop = function(shopComplete) {
 
     function doorAction(left, right, time, callback) {
         var count = 2;
@@ -139,39 +139,57 @@ var toShop = function() {
         doorAction('0%', '0%', time, callback)
     }
 
-
     //走进商店
-    function toDoor(callback){
+    function toDoor(time, callback) {
         var $girl = $("#girl")
         $girl.addClass('slowWalk')
         $girl.transition({
-            transform : 'rotateX(30deg) translateZ(60px) translateX(60px)',
-            opacity   : 0
-        }, 5000, function() {
+            transform: 'rotateX(30deg) translateZ(60px) translateX(60px)',
+            opacity: 0
+        }, time, function() {
             callback()
         })
     }
 
-    return {
-        //进去
-        in : function(goShow) {
-            //开门
-            openDoor(500,function(){
-                //走进去
-                toDoor(function() {
-                    //取花
-
-                })
-            });
-
-        },
-        //出来
-        out: function() {
-
-        }
+    //出商店
+    function outDoor(time, callback) {
+        var $girl = $("#girl")
+        $girl.addClass('slowWalk')
+        $girl.transition({
+            transform: 'rotateX(0deg) translateZ(0px) translateX(0px)',
+            opacity: 1
+        }, time, function() {
+            callback()
+        })
     }
+
+    //去花
+    function talkFlower() {
+        $('.flower').show()
+    }
+
+    //开门
+    openDoor(500, function() {
+        //走进去
+        toDoor(500, function() {
+            //取花
+            talkFlower();
+            setTimeout(function() {
+                //走出商店
+                outDoor(500, function() {
+                    shopComplete()
+                });
+            }, 500)
+        })
+    });
 }
 
+/**
+ * 鸟飞出
+ */
+var Bird = function(){
+
+}
 
 /**
  * 走路动作
@@ -207,28 +225,31 @@ var QixiWalk = function(container) {
         $girl.addClass('slowWalk')
 
         //开始走路
-        var d1 = run(startPox, 100);
+        var d1 = run(startPox, 30);
 
         //第一段走路结束
         d1.done(function() {
 
             //开始滚动页面
-            swipe.scrollTo(width, 500)
+            swipe.scrollTo(width, 10)
 
-                //继续走路
-            var d2 = run(middlePos, 500)
+            //继续走路
+            var d2 = run(middlePos, 10)
 
             //第二段走路结束
             d2.done(function() {
+                //停止走路
+                $girl.removeClass('slowWalk')
+                $girl.addClass('slowWalkFixed')
 
                 //去商店
-                var shop = toShop();
-                shop.in(function() {
-                    //进去购物成功
-                    //开始出商店
-                    shop.out()
+                toShop(function() {
+                    //右边飞鸟
+                    Bird()
+                    // 购物完成
+                    // 继续往后走
+                    // swipe.scrollTo(width * 2, 1000)
                 });
-
             })
         })
     }
