@@ -110,6 +110,11 @@
     -webkit-animation-duration: 1000ms;
 }
 
+/*固定位置*/
+.slowWalkFixed .charector{
+    background: url(../images/charector.png) -900px 0 no-repeat;
+}
+
 @-webkit-keyframes person-slow {
     0% {
         background-position: 0 0;

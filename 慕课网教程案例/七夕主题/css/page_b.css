@@ -1,8 +1,8 @@
-.layerB{
+.layerB {
     position: relative;
 }
-
 /*背景图*/
+
 .b_background {
     width: 100%;
     height: 100%;
@@ -11,20 +11,48 @@
     position: absolute;
 }
 
-.shop{
+/*商店*/
+.shop {
     width: 30%;
     height: 30%;
     background-image: url("../images/shop.jpg");
     background-size: 100% 100%;
-    position: relative; 
+    position: relative;
     margin: 0 auto;
-    top:20%;
+    top: 20%;
+}
+
+.door {
+    position: relative;
+    width: 626px;
+    height: 471px;
+    overflow: hidden;   
+}
+
+.door-left,
+.door-right {
+    z-index: 1000;
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 100%;
+    background: #f00;
+    box-sizing: border-box;
+    background-size: 100% 100%;
+}
+
+.door-left {
+    left: 0%;
+    background: url(../images/shop.jpg) 0 0 no-repeat;
+}
+
+.door-right {
+    left: 0%;
+    background: url(../images/shop.jpg) -313px 0 no-repeat;
 }
 
 
-
 /*左边鸟*/
-
 #leftBird {
     background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
     position: absolute;
@@ -35,7 +63,8 @@
     z-index: 2000;
     cursor: pointer;
 }
-#rightBird{
+
+#rightBird {
     background: transparent url("../images/bird-forward-back-sm.png") 0 0 no-repeat;
     position: absolute;
     top: 150px;

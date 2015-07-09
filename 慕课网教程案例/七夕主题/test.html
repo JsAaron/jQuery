@@ -218,8 +218,95 @@
         text-align: center;
         background: #96c;
         margin-bottom: 10px;
-        position:absolute;
-        left:0;
+        position: absolute;
+        left: 0;
+    }
+    
+    .door {
+        position: relative;
+        width: 400px;
+        height: 300px;
+        overflow: hidden;
+        border: 2px solid #000;
+        background: #000;
+    }
+    
+    .door:before,
+    .door:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        border-color: #000 transparent transparent transparent;
+        border-style: solid;
+        border-width: 0 200px;
+        z-index: 2;
+        transition: all .8s ease;
+    }
+    
+    .door:before {
+        top: 0;
+    }
+    
+    .door:after {
+        bottom: 0;
+        border-color: transparent transparent #000 transparent;
+    }
+    
+    .door:hover:before,
+    .door:hover:after {
+        border-width: 40px 200px;
+    }
+    
+    .door-left,
+    .door-right {
+        position: relative;
+        float: left;
+        width: 50%;
+        height: 100%;
+        background: #f00;
+        box-sizing: border-box;
+        transition: all .5s ease;
+    }
+    
+    .door-left {
+        border-right: 2px solid #000;
+        -webkit-transform-origin: 0 0;
+    }
+    
+    .door-left:before,
+    .door-right:before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        top: 50%;
+        margin-top: -5px;
+        border-radius: 50%;
+        background: #000;
+    }
+    
+    .door-left:before {
+        right: 5px;
+    }
+    
+    .door-right:before {
+        left: 5px;
+    }
+    
+    .door-right {
+        border-left: 2px solid #000;
+        -webkit-transform-origin: 100% 0;
+    }
+    
+    .door:hover .door-left {
+        -webkit-transform: rotateY(-90deg);
+    }
+    
+    .door:hover .door-right {
+        -webkit-transform: rotateY(90deg);
     }
     </style>
 </head>
@@ -229,8 +316,8 @@ $(document).ready(function() {
     var test = $("#test")
 
     test.transition({
-        transform:'translate3d(100px,0,0)'
-    },5000);
+        transform: 'translate3d(100px,0,0)'
+    }, 5000);
 
 
     // $("#timings-demo-btn").toggle(
@@ -246,6 +333,10 @@ $(document).ready(function() {
 
 });
 </script>
+<div class="door">
+    <div class="door-left"></div>
+    <div class="door-right"></div>
+</div>
 
 <body>
     <div id="test"></div>
