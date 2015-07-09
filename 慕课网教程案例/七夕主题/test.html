@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>CSS3动画</title>
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="js/plugins/Transit.js"></script>
     <style type="text/css">
     html,
     body {
@@ -206,13 +207,32 @@
         animation-name: aa;
         animation-duration: 1.5s;
         animation-timing-funciton: linear;
-/*        animation-iteratin-count: 4;
+        /*        animation-iteratin-count: 4;
         animation-direction: alternate;*/
+    }
+    
+    #test {
+        width: 100px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background: #96c;
+        margin-bottom: 10px;
+        position:absolute;
+        left:0;
     }
     </style>
 </head>
 <script type="text/javascript">
 $(document).ready(function() {
+
+    var test = $("#test")
+
+    test.transition({
+        transform:'translate3d(100px,0,0)'
+    },5000);
+
+
     // $("#timings-demo-btn").toggle(
     //     function() {
     //         $(this).next("div#timings-demo").addClass("timings-demo-hover");
@@ -220,10 +240,15 @@ $(document).ready(function() {
     //     function() {
     //         $(this).next("div#timings-demo").removeClass("timings-demo-hover");
     //     });
+    //     
+
+
+
 });
 </script>
 
 <body>
+    <div id="test"></div>
     <a id="timings-demo-btn">click</a>
     <div id="timings-demo">
         <div id="ease" class="demo-box">Ease</div>

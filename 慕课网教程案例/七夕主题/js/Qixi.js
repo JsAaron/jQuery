@@ -6,6 +6,9 @@
  */
 var Qixi = {
 
+    //默认页面页码
+    pageIndex: 1,
+
     //实例对象
     instance: {},
 
@@ -14,28 +17,27 @@ var Qixi = {
 
     //初始化
     init: function() {
+        //页面容器
         var container = $("#content");
+        //页面可视宽度
+        Qixi.data.visualWidth = container.width()
 
         //页面滑动对象
         var swipe = Swipe(container);
 
         //走路
-        var walk = QixiWalk(container,swipe)
-        walk.run();
-
-        //第一页页码
-        Qixi.data.width = container.width()
+        var walk = QixiWalk(container)
+            walk.run(swipe);
 
         //构建第一个场景
-        var qixiA = Qixi.createPage(1, {
+        var qixiA = Qixi.createPage(Qixi.pageIndex, {
             container : container,
             swipe     : swipe
         })
 
         //监听动画变化
         swipe.watch('move', function(distance) {
-            qixiA.update(distance) //更新外部移动的值
-            Qixi.disposeAction(distance, qixiA.offset().left)
+            Qixi.disposeAction(distance, walk.getDistance())
         })
 
         //监听动画完成
@@ -48,7 +50,7 @@ var Qixi = {
     getCurrentPage: function(pageLeft, girlLeft) {
         //实际移动的距离
         var movePos = Math.abs(pageLeft) + girlLeft;
-        var pageIndex = Math.floor(movePos / Qixi.data.width)
+        var pageIndex = Math.floor(movePos / Qixi.data.visualWidth)
         return ++pageIndex //从1开始索引
     },
 
@@ -61,13 +63,13 @@ var Qixi = {
             return;
         }
         //停止上一页动作
-        Qixi.stopAction(Qixi.data.pageIndex)
-            //创建新的页面
+        Qixi.stopPage(Qixi.data.pageIndex)
+        //创建新的页面
         Qixi.createPage(pageIndex)
     },
 
     //停止动作
-    stopAction: function(pageIndex) {
+    stopPage: function(pageIndex) {
         Qixi.findInstance(pageIndex).stop();
     },
 
@@ -96,6 +98,7 @@ var Qixi = {
         return qixi;
     },
 
+    //找到对应的页面对象
     findInstance: function(pageIndex) {
         return Qixi.instance[pageIndex]
     }
@@ -104,24 +107,17 @@ var Qixi = {
 /**
  * 走路动作
  */
-var QixiWalk = function(container,swipe){
+var QixiWalk = function(container) {
     //走路对象
     var $girl = $("#girl");
     //开始走路
     var width = container.width()
     //运动的位置
     var middlePos = width / 2 - $girl.width() / 2;
-    var startPox  = middlePos / 3 //第一次之运行1/3的距离
-
-    function run(pox, callback) {
-        //用transition运动
-        $girl.transition({
-            left: middlePos
-        }, 50, 'linear', callback);
-    }
+    var startPox = middlePos / 3 //第一次之运行1/3的距离
 
     //得到鲜花
-    function flowers(){
+    function flowers() {
         //开始消失
         $girl.transition({
             opacity: 0
@@ -134,25 +130,47 @@ var QixiWalk = function(container,swipe){
         }, 2000)
     }
 
+
+    //用transition做运动
+    function run(pox, time) {
+        var dfd = $.Deferred();
+        $girl.transition({
+            left: pox
+        }, time, 'linear', function(){
+            dfd.resolve();
+        });
+        return dfd;
+    }
+
     //走路
-    function toWalk() {
+    function toWalk(swipe) {
         //增加一个css3的效果动作变化
         $girl.addClass('slowWalk')
-
         //开始走路
-        run(startPox,function(){
-            //页面开始滚动
-            swipe.scrollTo(width, 50)
+        var d1 = run(startPox, 1000);
+        //走路结束
+        d1.done(function() {
+            //开始滚动页面
+            swipe.scrollTo(width, 5000)
             //继续走路
-            run(middlePos,function(){
-                flowers()
-            })
+            return run(middlePos, 5000)
+        }).done(function(){
+            console.log()
         })
     }
 
     return {
-        run:function(){
-            toWalk();
+        //开始走路
+        run: function(swipe) {
+            toWalk(swipe);
+        },
+        //停止走路
+        stop: function() {
+            $girl.removeClass('slowWalk')
+        },
+        //获取人物走过的距离
+        getDistance: function() {
+            return $girl.offset().left
         }
     }
 }
@@ -162,69 +180,56 @@ var QixiWalk = function(container,swipe){
  * @type {[type]}
  */
 
-var QixiA = function(options) {
-    var container = options.container;
-
-    //场景移动的值
-    var sceneMoveValue = 0
+var QixiA = function() {
 
     //云动画
     var cloud = function() {
-        //屏幕宽度
-        var screenWidth = $(window).width();
-        var offset1  = screenWidth * 0.3;
-        var offset2  = screenWidth * 0.6;
-        var timer    = 0;
         var $cloud1 = $("#cloud1");
         var $cloud2 = $("#cloud2");
         var $cloud3 = $("#cloud3");
-        function random(){
-            return Number( (Math.random() + 1).toFixed(2) )
-        }
-
         return {
-            run: function() {
-                timer = setInterval(function flutter() {
-                    //运动范围
-                    var range = screenWidth + sceneMoveValue;
-                    //如果运动的范围超过屏幕宽度，从580的地方开始
-                    if (offset1 >= range) {
-                        offset1 = -80;
-                    }
-                    if (offset2 >= range) {
-                        offset2 = -80;
-                    }
-                    offset1 += (random());  
-                    offset2 += (random());
-                    $cloud1.css("background-position", offset1 + "px 0px")
-                    $cloud2.css("background-position", offset2 + "px 10px")
-                }, 50);
-                $cloud3.addClass('cloudLarge')
+            play: function() {
+                $cloud1.addClass('cloud_1')
+                $cloud2.addClass('cloud_2')
+                $cloud3.addClass('cloud_3')
             },
             //停止动画
             stop: function() {
-                clearInterval(timer)
-                $cloud3.removeClass('cloudLarge')
+                $cloud1.removeClass('cloud_1')
+                $cloud2.removeClass('cloud_2')
+                $cloud3.removeClass('cloud_3')
+                $cloud1 = $cloud2 = $cloud3 = null;
             }
         }
     }()
 
+    var weather = function() {
+        var $weather = $("#weather")
+        return {
+            play: function() {
+                $weather.addClass('weatherAnimation')
+            },
+            //停止动画
+            stop: function() {
+                $weather.removeClass('weatherAnimation')
+                $weather = null;
+            }
+        }
+    }()
+
+
     return {
         run: function() {
-            // $("#weather").addClass('weatherAnimation')
-            // cloud.run()
+            weather.play()
+            cloud.play()
         },
         stop: function() {
             cloud.stop()
-        },
-        offset: function() {
-            return $girl.offset()
-        },
-        update:function(instance){
-            sceneMoveValue = instance;
+            weather.stop();
         }
     }
 }
+
 
 /**
  * 七夕场景二
@@ -234,7 +239,7 @@ var QixiB = function() {
 
     return {
         run: function() {
-            
+
         },
         stop: function() {
 

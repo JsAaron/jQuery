@@ -48,15 +48,12 @@
     var div = document.createElement('div');
     var support = {};
 
-    // Helper function to get the proper vendor property name.
-    // (`transition` => `WebkitTransition`)
     function getVendorPropertyName(prop) {
-        // Handle unprefixed versions (FF16+, for example)
+        // 是否支持标准
         if (prop in div.style) return prop;
-
         var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
         var prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
-
+        //增加前缀
         for (var i = 0; i < prefixes.length; ++i) {
             var vendorProp = prefixes[i] + prop_;
             if (vendorProp in div.style) {
@@ -75,7 +72,7 @@
 
     var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
-    // Check for the browser's transitions support.
+    //检测浏览器transitions的支持情况
     support.transition = getVendorPropertyName('transition');
     support.transitionDelay = getVendorPropertyName('transitionDelay');
     support.transform = getVendorPropertyName('transform');
@@ -83,15 +80,16 @@
     support.filter = getVendorPropertyName('Filter');
     support.transform3d = checkTransform3dSupport();
 
+
     var eventNames = {
-        'transition': 'transitionend',
-        'MozTransition': 'transitionend',
-        'OTransition': 'oTransitionEnd',
-        'WebkitTransition': 'webkitTransitionEnd',
-        'msTransition': 'MSTransitionEnd'
+        'transition'       : 'transitionend',
+        'MozTransition'    : 'transitionend',
+        'OTransition'      : 'oTransitionEnd',
+        'WebkitTransition' : 'webkitTransitionEnd',
+        'msTransition'     : 'MSTransitionEnd'
     };
 
-    // Detect the 'transitionend' event needed.
+    // 检测是否支持transitionend事件
     var transitionEnd = support.transitionEnd = eventNames[support.transition] || null;
 
     // Populate jQuery's `$.support` with the vendor prefixes we know.
