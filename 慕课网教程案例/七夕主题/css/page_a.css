@@ -3,23 +3,23 @@
 .a_background {
     width: 100%;
     height: 100%;
-    background-image: url("../images/background.jpg");
+    background-image: url("../images/QixiA.png");
     background-size: 100% 100%;
     position: absolute;
 }
 /*天空云*/
 
 .cloud {
-    z-index  : 2;
-    width    : 580px;
-    height   : 250px;
-    position : absolute;
-    background: url("../images/cloud.png") no-repeat;
+    z-index: 2;
+    width: 580px;
+    height: 250px;
+    position: absolute;
+    background: url("../images/cloud1.png") no-repeat;
 }
 
 #cloud1 {
-    top  : 0%;
-    left : -20%;
+    top: 0%;
+    left: -20%;
 }
 
 #cloud2 {
@@ -28,8 +28,8 @@
 }
 
 #cloud3 {
-    top  : 0%;
-    left : 50%;
+    top: 0%;
+    left: 50%;
 }
 
 .cloud_1 {
@@ -66,7 +66,6 @@
     }
 }
 
-
 .cloud_3 {
     animation-name: cloud_3;
     animation-duration: 30s;
@@ -83,110 +82,35 @@
         left: 100%;
     }
 }
+/*-------- 太阳自转以及动画 --------*/
 
-
-
-/*女孩走路*/
-.charector-wrap {
-    position: absolute;
-    left: -180px;
-    top: 30%;
-    width: 180px;
-    height: 300px;
+#sun {
+    background : url("../images/sun.png") no-repeat;
+    position   : absolute;
+    z-index    : 1;
+    top        :-30px;
+    height     : 201px;
+    width      : 201px;
+    -webkit-transform: rotate(45deg);
+    -webkit-animation-name: rotation;
+    -webkit-animation-duration:60s;
+    -webkit-animation-iteration:1;
+    -webkit-animation-fill-mode:forwards;
 }
 
-
-.charector-wrap .flower{
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    background-size: 100% 100%;
-    top:120px;
-    left:100px;
-    z-index: 5;
-    display: none;
-    background: url(../images/flower.png)
-}
-
-.charector {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url(../images/charector.png) 0 0 no-repeat;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: step-start;
-}
-
-.slowWalk .charector {
-    -webkit-animation-name: person-slow;
-    -webkit-animation-duration: 1000ms;
-}
-
-/*固定位置*/
-.slowWalkFixed .charector{
-    background: url(../images/charector.png) -900px 0 no-repeat;
-}
-
-
-@-webkit-keyframes person-slow {
+@-webkit-keyframes rotation {
     0% {
-        background-position: 0 0;
-    }
-    14.3% {
-        background-position: -180px 0;
-    }
-    28.6% {
-        background-position: -360px 0;
-    }
-    42.9% {
-        background-position: -540px 0;
-    }
-    57.2% {
-        background-position: -720px 0;
-    }
-    71.5% {
-        background-position: -900px 0;
-    }
-    85.8% {
-        background-position: -1080px 0;
+        transform: translateX(0) rotate(45deg);
     }
     100% {
-        background-position: 0 0;
+        transform: translateX(1000px)  rotate(70deg);
     }
 }
-/*太阳*/
 
-#weather {
-    background: url("../images/sun.png") no-repeat;
-    border-radius: 90px;
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    left: 40px;
-    top: 30px;
-    z-index: 2;
-}
-
-.weatherAnimation {
-    animation-name: round;
+.sunAnimation {
+/*    animation-name: round;
     animation-duration: 1s;
     animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    animation-iteration-count: infinite;*/
     /*-webkit-animation:'round' 0.1s infinite linear;*/
-}
-
-@keyframes round {
-    0% {
-        -webkit-transform: scale(1)
-    }
-    50% {
-        -webkit-transform: scale(1.03);
-    }
-    100% {
-        -webkit-transform: scale(1);
-    }
-}
-
-#weather img {
-    margin: 30px -90px;
 }

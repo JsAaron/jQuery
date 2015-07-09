@@ -47,15 +47,15 @@ var Qixi = {
     },
 
     //获取当前的页面
-    getCurrentPage: function(pageLeft, girlLeft) {
+    getCurrentPage: function(pageLeft, boyLeft) {
         //实际移动的距离
-        var movePos = Math.abs(pageLeft) + girlLeft;
+        var movePos = Math.abs(pageLeft) + boyLeft;
         var pageIndex = Math.floor(movePos / Qixi.data.visualWidth)
         return ++pageIndex //从1开始索引
     },
 
     //处理当前动作
-    disposeAction: function(pageLeft, girlLeft) {
+    disposeAction: function(pageLeft, boyLeft) {
         //当前页码
         var pageIndex = Qixi.getCurrentPage.apply(null, arguments);
         //去重
@@ -122,64 +122,76 @@ var toShop = function(shopComplete) {
             count--
         }
         $('.door-left').transition({
-            'left': '-50%'
+            'left': left
         }, time, complete)
         $('.door-right').transition({
-            'left': '50%'
+            'left': right
         }, time, complete)
     }
 
     //开门
     function openDoor(time, callback) {
-        doorAction('-50%', '50%', time, callback)
+        doorAction('-50%', '100%', time, callback)
     }
 
     //关门
-    function shutDoor(time, callback) {
-        doorAction('0%', '0%', time, callback)
+    function shutDoor(time) {
+        doorAction('0%', '50%', time)
     }
 
     //走进商店
     function toDoor(time, callback) {
-        var $girl = $("#girl")
-        $girl.addClass('slowWalk')
-        $girl.transition({
-            transform: 'rotateX(30deg) translateZ(60px) translateX(60px)',
-            opacity: 0
+        var $boy = $("#boy")
+        var $door = $('.door');
+        var $doorMiddle = $door.width() / 4 //门中间
+        var offsetBoy = $boy.offset();
+        var offsetDoor = $door.offset();
+
+        var instanceX = offsetDoor.left - offsetBoy.left + $doorMiddle
+        var instanceZ = offsetBoy.top - offsetDoor.top
+
+        $boy.addClass('slowWalk')
+        $boy.transition({
+            transform: 'rotateX(30deg) translateZ(' + instanceZ + 'px) translateX(' + instanceX + 'px) scale(0.8)',
+            opacity: 0.5
         }, time, function() {
+            $boy.css({
+                opacity: 0
+            })
             callback()
         })
     }
 
     //出商店
     function outDoor(time, callback) {
-        var $girl = $("#girl")
-        $girl.addClass('slowWalk')
-        $girl.transition({
-            transform: 'rotateX(0deg) translateZ(0px) translateX(0px)',
+        var $boy = $("#boy")
+        $boy.addClass('slowWalk')
+        $boy.transition({
+            transform: 'rotateX(0deg) translateZ(0px) translateX(200px)',
             opacity: 1
         }, time, function() {
             callback()
         })
     }
 
-    //去花
+    //取花
     function talkFlower() {
-        $('.flower').show()
+        $("#boy").addClass('slowFlolerWalk')
     }
 
     //开门
-    openDoor(500, function() {
+    openDoor(2000, function() {
         //走进去
-        toDoor(500, function() {
-            //取花
-            talkFlower();
+        toDoor(3000, function() {
             setTimeout(function() {
+                //取花
+                talkFlower();
                 //走出商店
-                outDoor(500, function() {
+                outDoor(3000, function() {
+                    shutDoor(2000)
                     shopComplete()
                 });
-            }, 500)
+            }, 2000) //模拟2秒等待取花
         })
     });
 }
@@ -187,7 +199,7 @@ var toShop = function(shopComplete) {
 /**
  * 鸟飞出
  */
-var Bird = function(){
+var Bird = function() {
 
 }
 
@@ -197,20 +209,20 @@ var Bird = function(){
 var QixiWalk = function(container) {
 
     //走路对象
-    var $girl = $("#girl");
+    var $boy = $("#boy");
 
     //开始走路
     var width = container.width()
 
     //运动的位置
-    var middlePos = width / 2 - $girl.width() / 2;
+    var middlePos = width / 2 - $boy.width() / 2;
     var startPox = middlePos / 3 //第一次之运行1/3的距离
 
 
     //用transition做运动
     function run(pox, time) {
         var dfd = $.Deferred();
-        $girl.transition({
+        $boy.transition({
             left: pox
         }, time, 'linear', function() {
             dfd.resolve();
@@ -221,34 +233,36 @@ var QixiWalk = function(container) {
     //走路
     function toWalk(swipe) {
 
+        var baseTime = 1;
+
         //增加一个css3的效果动作变化
-        $girl.addClass('slowWalk')
+        $boy.addClass('slowWalk')
+
+        //开始滚动页面
+        swipe.scrollTo(width, baseTime * 3)
 
         //开始走路
-        var d1 = run(startPox, 30);
+        var d1 = run(startPox, baseTime);
 
         //第一段走路结束
         d1.done(function() {
 
-            //开始滚动页面
-            swipe.scrollTo(width, 10)
-
             //继续走路
-            var d2 = run(middlePos, 10)
+            var d2 = run(middlePos, baseTime * 3)
 
             //第二段走路结束
             d2.done(function() {
                 //停止走路
-                $girl.removeClass('slowWalk')
-                $girl.addClass('slowWalkFixed')
+                $boy.removeClass('slowWalk')
+                $boy.addClass('slowWalkFixed')
 
                 //去商店
                 toShop(function() {
                     //右边飞鸟
                     Bird()
-                    // 购物完成
-                    // 继续往后走
-                    // swipe.scrollTo(width * 2, 1000)
+                        // 购物完成
+                        // 继续往后走
+                    swipe.scrollTo(width * 2, 100000)
                 });
             })
         })
@@ -261,11 +275,11 @@ var QixiWalk = function(container) {
         },
         //停止走路
         stop: function() {
-            $girl.removeClass('slowWalk')
+            $boy.removeClass('slowWalk')
         },
         //获取人物走过的距离
         getDistance: function() {
-            return $girl.offset().left
+            return $boy.offset().left
         }
     }
 }
@@ -298,16 +312,16 @@ var QixiA = function() {
         }
     }()
 
-    var weather = function() {
-        var $weather = $("#weather")
+    var sun = function() {
+        var $sun = $("#sun")
         return {
             play: function() {
-                $weather.addClass('weatherAnimation')
+                $sun.addClass('sunAnimation')
             },
             //停止动画
             stop: function() {
-                $weather.removeClass('weatherAnimation')
-                $weather = null;
+                $sun.removeClass('sunAnimation')
+                $sun = null;
             }
         }
     }()
@@ -315,12 +329,12 @@ var QixiA = function() {
 
     return {
         run: function() {
-            weather.play()
+            sun.play()
             cloud.play()
         },
         stop: function() {
             cloud.stop()
-            weather.stop();
+            sun.stop();
         }
     }
 }

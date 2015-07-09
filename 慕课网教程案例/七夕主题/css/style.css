@@ -99,7 +99,7 @@ html,
 body {
     width: 100%;
     height: 100%;
-   /* background: #f3f3f3;*/
+    /* background: #f3f3f3;*/
 }
 /*主体部分*/
 
@@ -108,7 +108,7 @@ body {
     height: 100%;
     margin: 0px auto;
     overflow: hidden;
-/*    background: #ccc;*/
+    /*    background: #ccc;*/
 }
 
 .content-wrap {
@@ -132,8 +132,8 @@ body {
     overflow: hidden;
     position: relative;
 }
-
 /*天空变化*/
+
 .stage {
     position: relative;
     overflow: hidden;
@@ -173,3 +173,86 @@ body {
         background: #ddf5f7;
     }
 }
+/*************男孩走路***************/
+
+.charector-wrap {
+    position : absolute;
+    left     : -6%;
+    top      : 60%;
+    width    : 6%;
+    height   : 20%;
+}
+
+.charector {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: step-start;
+}
+
+.slowWalk .charector {
+    -webkit-animation-name: person-slow;
+    -webkit-animation-duration: 700ms;
+}
+
+.slowFlolerWalk .charector {
+    -webkit-animation-name: person-floler-slow;
+    -webkit-animation-duration: 700ms;
+}
+
+
+/*固定位置*/
+.slowWalkFixed .charector {
+        background: url(../images/boy/boy2.png);
+        background-size: 100% 100%;
+}
+
+/*普通慢走*/
+@-webkit-keyframes person-slow {
+    0% {
+        background: url(../images/boy/boy1.png);
+        background-size: 100% 100%;
+    }
+    25% {
+        background: url(../images/boy/boy2.png);
+        background-size: 100% 100%;
+    }
+    50% {
+        background: url(../images/boy/boy3.png);
+        background-size: 100% 100%;
+    }
+    75% {
+        background: url(../images/boy/boy4.png);
+        background-size: 100% 100%;
+    }
+    100% {
+        background: url(../images/boy/boy1.png);
+        background-size: 100% 100%;
+    }
+}
+
+/*带花*/
+@-webkit-keyframes person-floler-slow {
+    0% {
+        background: url(../images/boy/boy-flower1.png);
+        background-size: 100% 100%;
+    }
+    25% {
+        background: url(../images/boy/boy-flower2.png);
+        background-size: 100% 100%;
+    }
+    50% {
+        background: url(../images/boy/boy-flower3.png);
+        background-size: 100% 100%;
+    }
+    75% {
+        background: url(../images/boy/boy-flower4.png);
+        background-size: 100% 100%;
+    }
+    100% {
+        background: url(../images/boy/boy-flower1.png);
+        background-size: 100% 100%;
+    }
+}
+
