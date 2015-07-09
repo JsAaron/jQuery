@@ -139,13 +139,29 @@ var toShop = function() {
         doorAction('0%', '0%', time, callback)
     }
 
+
+    //走进商店
+    function toDoor(callback){
+        var $girl = $("#girl")
+        $girl.addClass('slowWalk')
+        $girl.transition({
+            transform : 'rotateX(30deg) translateZ(60px) translateX(60px)',
+            opacity   : 0
+        }, 5000, function() {
+            callback()
+        })
+    }
+
     return {
         //进去
-        in : function() {
+        in : function(goShow) {
             //开门
             openDoor(500,function(){
-                //开门成功
-                console.log(1)
+                //走进去
+                toDoor(function() {
+                    //取花
+
+                })
             });
 
         },
@@ -186,29 +202,32 @@ var QixiWalk = function(container) {
 
     //走路
     function toWalk(swipe) {
+
         //增加一个css3的效果动作变化
         $girl.addClass('slowWalk')
-            //开始走路
+
+        //开始走路
         var d1 = run(startPox, 100);
+
         //第一段走路结束
         d1.done(function() {
+
             //开始滚动页面
             swipe.scrollTo(width, 500)
+
                 //继续走路
             var d2 = run(middlePos, 500)
-                //第二段走路结束
-            d2.done(function() {
 
-                //停止走路
-                $girl.removeClass('slowWalk')
-                $girl.addClass('slowWalkFixed')
+            //第二段走路结束
+            d2.done(function() {
 
                 //去商店
                 var shop = toShop();
-                shop.in();
-
-
-
+                shop.in(function() {
+                    //进去购物成功
+                    //开始出商店
+                    shop.out()
+                });
 
             })
         })
