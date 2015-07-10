@@ -112,11 +112,12 @@ var Qixi = {
 var toShop = function(shopComplete) {
 
     function doorAction(left, right, time, callback) {
+        var defer = $.Deferred();
         var count = 2;
         //等待开门完成
         var complete = function() {
             if (count == 1) {
-                callback();
+                callback && callback() ;
                 return;
             }
             count--
@@ -127,6 +128,7 @@ var toShop = function(shopComplete) {
         $('.door-right').transition({
             'left': right
         }, time, complete)
+        return defer
     }
 
     //开门
@@ -146,11 +148,9 @@ var toShop = function(shopComplete) {
         var $doorMiddle = $door.width() / 4 //门中间
         var offsetBoy = $boy.offset();
         var offsetDoor = $door.offset();
-
         var instanceX = offsetDoor.left - offsetBoy.left + $doorMiddle
         var instanceZ = offsetBoy.top - offsetDoor.top
-
-        $boy.addClass('slowWalk')
+        $boy.removeClass('pausedWalk')
         $boy.transition({
             transform: 'rotateX(30deg) translateZ(' + instanceZ + 'px) translateX(' + instanceX + 'px) scale(0.8)',
             opacity: 0.5
@@ -165,7 +165,7 @@ var toShop = function(shopComplete) {
     //出商店
     function outDoor(time, callback) {
         var $boy = $("#boy")
-        $boy.addClass('slowWalk')
+        $boy.removeClass('pausedWalk')
         $boy.transition({
             transform: 'rotateX(0deg) translateZ(0px) translateX(200px)',
             opacity: 1
@@ -179,29 +179,41 @@ var toShop = function(shopComplete) {
         $("#boy").addClass('slowFlolerWalk')
     }
 
-    //开门
-    openDoor(2000, function() {
-        //走进去
-        toDoor(3000, function() {
-            setTimeout(function() {
-                //取花
-                talkFlower();
-                //走出商店
-                outDoor(3000, function() {
-                    shutDoor(2000)
-                    shopComplete()
+    var timer = 3000;
+
+    openDoor(timer, function() { //开门
+        toDoor(timer, function() { //走进去
+            setTimeout(function() { //模拟2秒等待取花
+                talkFlower(); //取花
+                outDoor(timer, function() { //走出商店
+                    shutDoor(timer); //关门
+                    shopComplete() //购物结束
                 });
-            }, 2000) //模拟2秒等待取花
+            }, timer)
         })
     });
 }
 
 /**
- * 鸟飞出
+ * 鸟
  */
 var Bird = function() {
+    var $brid = $(".bird");
+    function run(){
+        $brid.addClass('birdFly')
+        $brid.transition({
+            right: Qixi.data.visualWidth/2
+        }, 5000, 'linear');
+    }
+    return {
+        fly:function(){
+            run();
+        },
+        stop:function(){
 
-}
+        }
+    }
+}   
 
 /**
  * 走路动作
@@ -216,8 +228,6 @@ var QixiWalk = function(container) {
 
     //运动的位置
     var middlePos = width / 2 - $boy.width() / 2;
-    var startPox = middlePos / 3 //第一次之运行1/3的距离
-
 
     //用transition做运动
     function run(pox, time) {
@@ -233,7 +243,7 @@ var QixiWalk = function(container) {
     //走路
     function toWalk(swipe) {
 
-        var baseTime = 1;
+        var baseTime = 2000;
 
         //增加一个css3的效果动作变化
         $boy.addClass('slowWalk')
@@ -242,29 +252,21 @@ var QixiWalk = function(container) {
         swipe.scrollTo(width, baseTime * 3)
 
         //开始走路
-        var d1 = run(startPox, baseTime);
+        var d1 = run(middlePos, baseTime * 3);
 
         //第一段走路结束
         d1.done(function() {
-
-            //继续走路
-            var d2 = run(middlePos, baseTime * 3)
-
-            //第二段走路结束
-            d2.done(function() {
-                //停止走路
-                $boy.removeClass('slowWalk')
-                $boy.addClass('slowWalkFixed')
-
+            //暂停走路
+            $boy.addClass('pausedWalk')
                 //去商店
-                toShop(function() {
-                    //右边飞鸟
-                    Bird()
-                        // 购物完成
-                        // 继续往后走
-                    swipe.scrollTo(width * 2, 100000)
-                });
-            })
+            toShop(function() {
+                //右边飞鸟
+                var brid = Bird();
+                brid.fly();
+                // 购物完成
+                // 继续往后走
+                swipe.scrollTo(width * 2, 100000)
+            });
         })
     }
 

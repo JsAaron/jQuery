@@ -201,12 +201,11 @@ body {
     -webkit-animation-duration: 700ms;
 }
 
-
-/*固定位置*/
-.slowWalkFixed .charector {
-        background: url(../images/boy/boy2.png);
-        background-size: 100% 100%;
+/*人物暂停*/
+.pausedWalk .charector{
+    -webkit-animation-play-state:paused;
 }
+
 
 /*普通慢走*/
 @-webkit-keyframes person-slow {

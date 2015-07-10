@@ -13,11 +13,11 @@
 /*商店*/
 
 .shop {
-    width    : 39.5%;
-    height   : 35.5%;
-    position : absolute;
-    left     : 29%;
-    top      : 36.5%;
+    width: 39.5%;
+    height: 35.5%;
+    position: absolute;
+    left: 29%;
+    top: 36.5%;
 }
 
 .door {
@@ -34,7 +34,7 @@
 .door-right {
     width: 50%;
     height: 100%;
-    position:absolute;
+    position: absolute;
 }
 
 .door-left {
@@ -47,4 +47,47 @@
     left: 50%;
     background: url(../images/door-right.png);
     background-size: 100% 100%;
+}
+
+/*鸟*/
+
+.bird {
+    min-width: 91px;
+    min-height: 71px;
+    top:10%;
+/*    width: 5%;
+    height: 5%;*/
+    position:absolute;
+    z-index: 10;
+    right: -91px;
+    background: url(../images/bird1.png);
+
+}
+
+.birdFly{
+    -webkit-animation-name:bird-slow;
+    -webkit-animation-duration:400ms;
+    -webkit-animation-timing-function:step-start;
+    -webkit-animation-iteration-count:infinite;
+}
+
+
+/*鸟慢飞*/
+@-webkit-keyframes bird-slow {
+    0% {
+        background: url(../images/bird1.png) ;
+        background-size: 100% 100%;
+    }
+    50% {
+        background: url(../images/bird2.png);
+        background-size: 100% 100%;
+    }
+    75% {
+        background: url(../images/bird3.png);
+        background-size: 100% 100%;
+    }
+    100% {
+        background: url(../images/bird1.png);
+        background-size: 100% 100%;
+    }
 }

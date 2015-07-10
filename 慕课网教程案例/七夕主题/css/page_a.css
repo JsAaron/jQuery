@@ -93,7 +93,7 @@
     width      : 201px;
     -webkit-transform: rotate(45deg);
     -webkit-animation-name: rotation;
-    -webkit-animation-duration:60s;
+    -webkit-animation-duration:30s;
     -webkit-animation-iteration:1;
     -webkit-animation-fill-mode:forwards;
 }
