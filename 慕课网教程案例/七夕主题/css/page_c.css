@@ -8,6 +8,16 @@
 }
 
 
+.girl{
+    background-image: url("../images/girl.png");
+    position : absolute;
+    right    : 42%;
+    top      : 38%;
+    width    : 151px;
+    height   : 291px;
+    background-size: 100% 100%;
+}
+
 
 /*波浪水布局*/
 

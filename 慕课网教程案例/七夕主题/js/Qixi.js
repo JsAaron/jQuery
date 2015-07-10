@@ -4,380 +4,310 @@
  * http://code.ciaoca.com/jquery/transit/demo/
  * @type {Object}
  */
-var Qixi = {
+var Qixi = function() {
 
-    //默认页面页码
-    pageIndex: 1,
+    //页面容器
+    var container = $("#content");
+    //页面可视宽度
+    var visualWidth = container.width()
 
-    //实例对象
-    instance: {},
+    //时间设置
+    var walkTime         = 500; //正常走路
+    var inShopWalkTime   = 500; //进商店时间
+    var outShopWalkTime  = 500; //出商店时间
+    var simulateWaitTime = 0; //模拟等待时间
+    var openDoorTime     = 100; //开门时间
+    var shutDoorTime     = 100 //关门时间
 
-    //数据
-    data: {},
+    ///////////
+    //场景页面滑动对象 //
+    ///////////
+    var swipe = Swipe(container);
 
-    //初始化
-    init: function() {
-        //页面容器
-        var container = $("#content");
-        //页面可视宽度
-        Qixi.data.visualWidth = container.width()
-
-        //页面滑动对象
-        var swipe = Swipe(container);
-
-        //走路
-        var walk = QixiWalk(container)
-        walk.run(swipe);
-
-        //构建第一个场景
-        var qixiA = Qixi.createPage(Qixi.pageIndex, {
-            container: container,
-            swipe: swipe
-        })
-
-        //监听动画变化
-        swipe.watch('move', function(distance) {
-            Qixi.disposeAction(distance, walk.getDistance())
-        })
-
-        //监听动画完成
-        swipe.watch('complete', function() {
-
-        })
-    },
-
-    //获取当前的页面
-    getCurrentPage: function(pageLeft, boyLeft) {
-        //实际移动的距离
-        var movePos = Math.abs(pageLeft) + boyLeft;
-        var pageIndex = Math.floor(movePos / Qixi.data.visualWidth)
-        return ++pageIndex //从1开始索引
-    },
-
-    //处理当前动作
-    disposeAction: function(pageLeft, boyLeft) {
-        //当前页码
-        var pageIndex = Qixi.getCurrentPage.apply(null, arguments);
-        //去重
-        if (pageIndex === Qixi.data.pageIndex) {
-            return;
-        }
-        //停止上一页动作
-        Qixi.stopPage(Qixi.data.pageIndex)
-            //创建新的页面
-        Qixi.createPage(pageIndex)
-    },
-
-    //停止动作
-    stopPage: function(pageIndex) {
-        Qixi.findInstance(pageIndex).stop();
-    },
-
-    //开始新的动作
-    createPage: function(pageIndex, options) {
-        var qixi;
-        //构建新的页面动作
-        function update(classNane) {
-            qixi = eval(classNane)(options)
-            Qixi.instance[pageIndex] = qixi;
-            qixi.run();
-        }
-        switch (pageIndex) {
-            case 1:
-                update('QixiA')
-                break
-            case 2:
-                update('QixiB')
-                break
-            case 3:
-                update('QixiC')
-                break
-        }
-        //更新页面
-        Qixi.data.pageIndex = pageIndex;
-        return qixi;
-    },
-
-    //找到对应的页面对象
-    findInstance: function(pageIndex) {
-        return Qixi.instance[pageIndex]
-    }
-}
-
-
-/**
- * 商店
- * @return {[type]} [description]
- */
-var toShop = function(shopComplete) {
-
-    function doorAction(left, right, time, callback) {
-        var defer = $.Deferred();
-        var count = 2;
-        //等待开门完成
-        var complete = function() {
-            if (count == 1) {
-                callback && callback() ;
-                return;
-            }
-            count--
-        }
-        $('.door-left').transition({
-            'left': left
-        }, time, complete)
-        $('.door-right').transition({
-            'left': right
-        }, time, complete)
-        return defer
-    }
-
-    //开门
-    function openDoor(time, callback) {
-        doorAction('-50%', '100%', time, callback)
-    }
-
-    //关门
-    function shutDoor(time) {
-        doorAction('0%', '50%', time)
-    }
-
-    //走进商店
-    function toDoor(time, callback) {
-        var $boy = $("#boy")
-        var $door = $('.door');
-        var $doorMiddle = $door.width() / 4 //门中间
-        var offsetBoy = $boy.offset();
-        var offsetDoor = $door.offset();
-        var instanceX = offsetDoor.left - offsetBoy.left + $doorMiddle
-        var instanceZ = offsetBoy.top - offsetDoor.top
-        $boy.removeClass('pausedWalk')
-        $boy.transition({
-            transform: 'rotateX(30deg) translateZ(' + instanceZ + 'px) translateX(' + instanceX + 'px) scale(0.8)',
-            opacity: 0.5
-        }, time, function() {
-            $boy.css({
-                opacity: 0
-            })
-            callback()
-        })
-    }
-
-    //出商店
-    function outDoor(time, callback) {
-        var $boy = $("#boy")
-        $boy.removeClass('pausedWalk')
-        $boy.transition({
-            transform: 'rotateX(0deg) translateZ(0px) translateX(200px)',
-            opacity: 1
-        }, time, function() {
-            callback()
-        })
-    }
-
-    //取花
-    function talkFlower() {
-        $("#boy").addClass('slowFlolerWalk')
-    }
-
-    var timer = 3000;
-
-    openDoor(timer, function() { //开门
-        toDoor(timer, function() { //走进去
-            setTimeout(function() { //模拟2秒等待取花
-                talkFlower(); //取花
-                outDoor(timer, function() { //走出商店
-                    shutDoor(timer); //关门
-                    shopComplete() //购物结束
-                });
-            }, timer)
-        })
-    });
-}
-
-/**
- * 鸟
- */
-var Bird = function() {
-    var $brid = $(".bird");
-    function run(){
-        $brid.addClass('birdFly')
-        $brid.transition({
-            right: Qixi.data.visualWidth/2
-        }, 5000, 'linear');
-    }
-    return {
-        fly:function(){
-            run();
-        },
-        stop:function(){
-
-        }
-    }
-}   
-
-/**
- * 走路动作
- */
-var QixiWalk = function(container) {
-
-    //走路对象
-    var $boy = $("#boy");
-
+    //////////
+    // 小孩走路 //
+    //////////
+    var boy = BoyWalk();
     //开始走路
-    var width = container.width()
-
-    //运动的位置
-    var middlePos = width / 2 - $boy.width() / 2;
-
-    //用transition做运动
-    function run(pox, time) {
-        var dfd = $.Deferred();
-        $boy.transition({
-            left: pox
-        }, time, 'linear', function() {
-            dfd.resolve();
-        });
-        return dfd;
-    }
-
-    //走路
-    function toWalk(swipe) {
-
-        var baseTime = 2000;
-
-        //增加一个css3的效果动作变化
-        $boy.addClass('slowWalk')
-
-        //开始滚动页面
-        swipe.scrollTo(width, baseTime * 3)
-
-        //开始走路
-        var d1 = run(middlePos, baseTime * 3);
-
-        //第一段走路结束
-        d1.done(function() {
-            //暂停走路
-            $boy.addClass('pausedWalk')
+        boy.walk(3)
+            .then(function() {
+                //开始滚动页面
+                swipe.scrollTo(visualWidth, walkTime)
+            }).then(function() {
+                //第二次走路
+                return boy.walk(2)
+            }).then(function() {
                 //去商店
-            toShop(function() {
+                return toShop(boy);
+            }).then(function() {
                 //右边飞鸟
                 var brid = Bird();
                 brid.fly();
-                // 购物完成
-                // 继续往后走
-                swipe.scrollTo(width * 2, 100000)
-            });
-        })
-    }
+            }).then(function() {
+                //页面继续滚动
+                swipe.scrollTo(2 * visualWidth, walkTime)
+                //人物要往回走1/7处
+                return boy.walk(7)
+            }).then(function() {
 
-    return {
+            })
+
+
+    //监听页面移动变化
+    swipe.watch('move', function(distance) {})
+        //监听页面移动完成
+    swipe.watch('complete', function() {})
+
+    /**
+     * 小孩走路
+     * @param {[type]} container [description]
+     */
+    function BoyWalk() {
+
+        //走路对象
+        var $boy = $("#boy");
+        var boyWidth = $boy.width();
+        //中间位置
+        var middleDist = visualWidth / 2 + boyWidth
+        //走过的位置
+        var instanceX;
+
+        //用transition做运动
+        function stratRun(options, runTime) {
+            var dfdPlay = $.Deferred();
+            //恢复走路
+            restoreWalk();
+            //运动的属性
+            $boy.transition(
+                options,
+                runTime,
+                'linear',
+                function() {
+                    dfdPlay.resolve(); //动画完成
+                });
+            return dfdPlay;
+        }
+
+        //暂停走路
+        function pauseWalk() {
+            $boy.addClass('pauseWalk')
+        }
+        //恢复走路
+        function restoreWalk() {
+            $boy.removeClass('pauseWalk')
+        }
+
+        //css3的动作变化
+        function slowWalk() {
+            $boy.addClass('slowWalk')
+        }
+
         //开始走路
-        run: function(swipe) {
-            toWalk(swipe);
-        },
-        //停止走路
-        stop: function() {
-            $boy.removeClass('slowWalk')
-        },
-        //获取人物走过的距离
-        getDistance: function() {
-            return $boy.offset().left
+        function walkRun(dist) {
+            //脚动作
+            slowWalk()
+                //开始走路
+            var d1 = stratRun({
+                'left': dist + 'px'
+            }, walkTime);
+            d1.done(function() {
+                //暂停
+                // pauseWalk()
+            })
+            return d1;
         }
-    }
-}
 
-/**
- * 七夕场景一
- * @type {[type]}
- */
+        //计算移动距离
+        function calculateDist(proportion) {
+            return visualWidth / proportion
+        }
 
-var QixiA = function() {
 
-    //云动画
-    var cloud = function() {
-        var $cloud1 = $("#cloud1");
-        var $cloud2 = $("#cloud2");
-        var $cloud3 = $("#cloud3");
+        //走进商店
+        function walkToShop(offsetDoor, doorMiddle, runTime) {
+            var inShop = $.Deferred();
+            //小孩当前的坐标
+            var offsetBoy = $boy.offset();
+            //当前的坐标
+            instanceX = offsetDoor.left - offsetBoy.left + doorMiddle;
+            var instanceZ = offsetBoy.top - offsetDoor.top
+
+            //开始走路
+            var walkPlay = stratRun({
+                transform: 'rotateX(50deg) translateZ(' + instanceZ + 'px) translateX(' + instanceX + 'px) scale(0.8)',
+                opacity: 0.3
+            }, runTime);
+            //走路完毕
+            walkPlay.done(function() {
+                $boy.css({
+                    opacity: 0
+                })
+                inShop.resolve();
+            })
+            return inShop;
+        }
+
+        //走出店
+        function walkOutShop(runTime) {
+            var outShop = $.Deferred();
+            restoreWalk();
+            //开始走路
+            var walkPlay = stratRun({
+                    transform : 'rotateX(0deg) translateZ(0px) translateX('+ instanceX +'px)',
+                    opacity   : 1
+                }, runTime)
+                //走路完毕
+            walkPlay.done(function() {
+                outShop.resolve();
+            })
+            return outShop;
+        }
+
         return {
-            play: function() {
-                $cloud1.addClass('cloud_1')
-                $cloud2.addClass('cloud_2')
-                $cloud3.addClass('cloud_3')
+            //开始走路
+            //第一次走路 0.3
+            //第一次走路 0.5
+            //第一次走路 0.7
+            walk: function(proportion) {
+                var dist = calculateDist(proportion)
+                return walkRun(dist);
             },
-            //停止动画
+            //停止走路
             stop: function() {
-                $cloud1.removeClass('cloud_1')
-                $cloud2.removeClass('cloud_2')
-                $cloud3.removeClass('cloud_3')
-                $cloud1 = $cloud2 = $cloud3 = null;
+                pauseWalk();
+            },
+            //恢复走路
+            restoreWalk: function() {
+                restoreWalk();
+            },
+            //走进商店
+            goShop: function() {
+                return walkToShop.apply(null, arguments);
+            },
+            //走出商店
+            outShop: function() {
+                return walkOutShop.apply(null, arguments);
+            },
+            //获取人物走过的距离
+            getDistance: function() {
+                return $boy.offset().left
             }
         }
-    }()
+    }
 
-    var sun = function() {
-        var $sun = $("#sun")
+    /**
+     * 商店
+     * @return {[type]} [description]
+     */
+    var toShop = function(walk) {
+
+        var shopDefer = $.Deferred();
+        var doorLeft  = $('.door-left');
+        var doorRight =  $('.door-right')
+
+        function doorAction(left, right, time) {
+            var defer = $.Deferred();
+            var count = 2;
+            //等待开门完成
+            var complete = function() {
+                if (count == 1) {
+                    defer.resolve();
+                    return;
+                }
+                count--
+            }
+            doorLeft.transition({
+                'left': left
+            }, time, complete)
+            doorRight.transition({
+                'left': right
+            }, time, complete)
+            return defer
+        }
+
+        //开门
+        function openDoor(time) {
+            return doorAction('-50%', '100%', time)
+        }
+
+        //关门
+        function shutDoor(time) {
+            return doorAction('0%', '50%', time)
+        }
+
+        //取花
+        function talkFlower() {
+            $("#boy").addClass('slowFlolerWalk')
+        }
+
+        var $door = $('.door');
+
+        //门中间位置
+        var doorMiddle = $door.width() / 4;
+
+        //开门动作
+        var waitOpen = openDoor(openDoorTime)
+
+        //等待开门
+        //开始执行一系列动作
+        waitOpen
+            .then(function() {
+                //进入商店
+                return walk.goShop($door.offset(), doorMiddle, inShopWalkTime)
+            })
+            .then(function() {
+                //取花
+                talkFlower();
+            })
+            .then(function() {
+                //增加延时等待效果
+                var defer = $.Deferred();
+                setTimeout(function() {
+                    defer.resolve()
+                }, simulateWaitTime)
+                return defer
+            })
+            .then(function() {
+                //走出商店
+                return walk.outShop(outShopWalkTime)
+            })
+            .then(function() {
+                //商店关门
+                return shutDoor(shutDoorTime);
+            })
+            .then(function() {
+                //新的动作
+                shopDefer.resolve();
+            })
+
+        return shopDefer;
+    }
+
+    /**
+     * 左边飞鸟
+     */
+    var Bird = function() {
+        var $brid = $(".bird");
+
+        function run() {
+            $brid.addClass('birdFly')
+            $brid.transition({
+                right: visualWidth
+            }, 20000, 'linear');
+        }
         return {
-            play: function() {
-                $sun.addClass('sunAnimation')
+            fly: function() {
+                run();
             },
-            //停止动画
             stop: function() {
-                $sun.removeClass('sunAnimation')
-                $sun = null;
+
             }
         }
-    }()
-
-
-    return {
-        run: function() {
-            sun.play()
-            cloud.play()
-        },
-        stop: function() {
-            cloud.stop()
-            sun.stop();
-        }
     }
-}
-
-
-/**
- * 七夕场景二
- * @type {[type]}
- */
-var QixiB = function() {
-
-    return {
-        run: function() {
-
-        },
-        stop: function() {
-
-        }
-    }
-}
-
-/**
- * 七夕场景三
- * @type {[type]}
- */
-var QixiC = function() {
-
-    return {
-        run: function() {
-            //执行运动化
-            // cloud.run()
-        },
-        stop: function() {
-
-        }
-    }
-}
-
+};
 
 
 $(function() {
     //七夕主题效果，开始
-    Qixi.init();
+    Qixi()
 })

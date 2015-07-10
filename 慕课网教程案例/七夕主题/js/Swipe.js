@@ -34,12 +34,6 @@ function Swipe(container, options) {
         })
     })
 
-
-    //动画重复运动时的事件
-    // container[0].addEventListener("transitionIteration", function(event) {　　
-    //     console.log(11);　　
-    // }, false);
-
     var isComplete = false;
     var timer;
     var callbacks = {};//注册回调

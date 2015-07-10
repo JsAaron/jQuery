@@ -11,91 +11,64 @@
 
 .cloud {
     z-index: 2;
-    width: 580px;
-    height: 250px;
     position: absolute;
+}
+
+.cloud1 {
+    width: 20%;
+    height: 30%;
+    left: -5%;
+    top:15%;
     background: url("../images/cloud1.png") no-repeat;
+    -webkit-animation-name: smallCloud;
+    -webkit-animation-duration: 30s;
+    -webkit-animation-iteration: infinite;
 }
 
-#cloud1 {
-    top: 0%;
-    left: -20%;
+.cloud2 {
+    width  : 20%;
+    height : 30%;
+    right  : -5%;
+    background: url("../images/cloud2.png") no-repeat;
+    -webkit-animation-name: largeCloud;
+    -webkit-animation-duration: 60s;
+    -webkit-animation-iteration: infinite;
 }
 
-#cloud2 {
-    top: -5%;
-    left: 10%;
-}
-
-#cloud3 {
-    top: 0%;
-    left: 50%;
-}
-
-.cloud_1 {
-    animation-name: cloud_1;
-    animation-duration: 60s;
-    animation-delay: 15s;
-    animation-timing-function: ease;
-    animation-iteration-count: infinite;
-}
-
-@keyframes cloud_1 {
+@-webkit-keyframes smallCloud{
     0% {
-        left: -20%;
+        left:-5%;
     }
     100% {
-        left: 80%;
+        left:100%;
     }
 }
 
-.cloud_2 {
-    animation-name: cloud_2;
-    animation-duration: 30s;
-    animation-delay: 0.3s;
-    animation-timing-function: ease-in;
-    animation-iteration-count: infinite;
-}
-
-@keyframes cloud_2 {
+@-webkit-keyframes largeCloud{
     0% {
-        left: 10%;
+        right:-5%;
     }
     100% {
-        left: 100%;
+        right:100%;
     }
 }
 
-.cloud_3 {
-    animation-name: cloud_3;
-    animation-duration: 30s;
-    animation-delay: 0.3s;
-    animation-timing-function: ease-out;
-    animation-iteration-count: infinite;
-}
 
-@keyframes cloud_3 {
-    0% {
-        left: 50%;
-    }
-    100% {
-        left: 100%;
-    }
-}
+
 /*-------- 太阳自转以及动画 --------*/
 
 #sun {
-    background : url("../images/sun.png") no-repeat;
-    position   : absolute;
-    z-index    : 1;
-    top        :-30px;
-    height     : 201px;
-    width      : 201px;
+    background: url("../images/sun.png") no-repeat;
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    height: 201px;
+    width: 201px;
     -webkit-transform: rotate(45deg);
     -webkit-animation-name: rotation;
-    -webkit-animation-duration:30s;
-    -webkit-animation-iteration:1;
-    -webkit-animation-fill-mode:forwards;
+    -webkit-animation-duration: 30s;
+    -webkit-animation-iteration: 1;
+    -webkit-animation-fill-mode: forwards;
 }
 
 @-webkit-keyframes rotation {
@@ -103,12 +76,12 @@
         transform: translateX(0) rotate(45deg);
     }
     100% {
-        transform: translateX(1000px)  rotate(70deg);
+        transform: translateX(1000px) rotate(70deg);
     }
 }
 
 .sunAnimation {
-/*    animation-name: round;
+    /*    animation-name: round;
     animation-duration: 1s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;*/
