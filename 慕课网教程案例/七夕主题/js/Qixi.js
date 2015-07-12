@@ -12,45 +12,51 @@ var Qixi = function() {
     var visualWidth = container.width()
 
     //时间设置
-    var walkTime         = 500; //正常走路
-    var inShopWalkTime   = 500; //进商店时间
-    var outShopWalkTime  = 500; //出商店时间
+    var walkTime = 500; //正常走路
+    var inShopWalkTime = 500; //进商店时间
+    var outShopWalkTime = 500; //出商店时间
     var simulateWaitTime = 0; //模拟等待时间
-    var openDoorTime     = 100; //开门时间
-    var shutDoorTime     = 100 //关门时间
+    var openDoorTime = 100; //开门时间
+    var shutDoorTime = 100 //关门时间
 
     ///////////
     //场景页面滑动对象 //
     ///////////
     var swipe = Swipe(container);
-
+    //页面滚动到指定的位置
+    function scrollTo(dist) {
+        swipe.scrollTo(dist, walkTime)
+    }
+    return
     //////////
     // 小孩走路 //
     //////////
     var boy = BoyWalk();
-    //开始走路
-        boy.walk(3)
-            .then(function() {
-                //开始滚动页面
-                swipe.scrollTo(visualWidth, walkTime)
-            }).then(function() {
-                //第二次走路
-                return boy.walk(2)
-            }).then(function() {
-                //去商店
-                return toShop(boy);
-            }).then(function() {
-                //右边飞鸟
-                var brid = Bird();
-                brid.fly();
-            }).then(function() {
-                //页面继续滚动
-                swipe.scrollTo(2 * visualWidth, walkTime)
-                //人物要往回走1/7处
-                return boy.walk(7)
-            }).then(function() {
 
-            })
+    //开始走路
+    boy.walkTo(3)
+        .then(function() {
+            //开始滚动页面
+            scrollTo(visualWidth)
+        }).then(function() {
+            //第二次走路
+            return boy.walkTo(2)
+        }).then(function() {
+            //去商店
+            return toShop(boy);
+        }).then(function() {
+            //右边飞鸟
+            var brid = Bird();
+            brid.fly();
+        }).then(function() {
+            //页面继续滚动
+            scrollTo(2 * visualWidth);
+            //人物要往回走1/7处
+            return boy.walkTo(7)
+        }).then(function() {
+            //上桥
+
+        });
 
 
     //监听页面移动变化
@@ -68,9 +74,24 @@ var Qixi = function() {
         var $boy = $("#boy");
         var boyWidth = $boy.width();
         //中间位置
-        var middleDist = visualWidth / 2 + boyWidth
+        var middleDist = visualWidth / 2 + boyWidth;
         //走过的位置
         var instanceX;
+
+        //暂停走路
+        function pauseWalk() {
+            $boy.addClass('pauseWalk')
+        }
+
+        //恢复走路
+        function restoreWalk() {
+            $boy.removeClass('pauseWalk')
+        }
+
+        //css3的动作变化
+        function slowWalk() {
+            $boy.addClass('slowWalk')
+        }
 
         //用transition做运动
         function stratRun(options, runTime) {
@@ -88,40 +109,16 @@ var Qixi = function() {
             return dfdPlay;
         }
 
-        //暂停走路
-        function pauseWalk() {
-            $boy.addClass('pauseWalk')
-        }
-        //恢复走路
-        function restoreWalk() {
-            $boy.removeClass('pauseWalk')
-        }
-
-        //css3的动作变化
-        function slowWalk() {
-            $boy.addClass('slowWalk')
-        }
-
         //开始走路
         function walkRun(dist) {
             //脚动作
-            slowWalk()
-                //开始走路
+            slowWalk();
+            //开始走路
             var d1 = stratRun({
                 'left': dist + 'px'
             }, walkTime);
-            d1.done(function() {
-                //暂停
-                // pauseWalk()
-            })
             return d1;
         }
-
-        //计算移动距离
-        function calculateDist(proportion) {
-            return visualWidth / proportion
-        }
-
 
         //走进商店
         function walkToShop(offsetDoor, doorMiddle, runTime) {
@@ -134,7 +131,7 @@ var Qixi = function() {
 
             //开始走路
             var walkPlay = stratRun({
-                transform: 'rotateX(50deg) translateZ(' + instanceZ + 'px) translateX(' + instanceX + 'px) scale(0.8)',
+                transform: 'rotateX(20deg) translateZ(' + instanceZ + 'px) translateX(' + instanceX + 'px) scale(0.8)',
                 opacity: 0.3
             }, runTime);
             //走路完毕
@@ -153,8 +150,8 @@ var Qixi = function() {
             restoreWalk();
             //开始走路
             var walkPlay = stratRun({
-                    transform : 'rotateX(0deg) translateZ(0px) translateX('+ instanceX +'px)',
-                    opacity   : 1
+                    transform: 'rotateX(0deg) translateZ(0px) translateX(' + instanceX + 'px)',
+                    opacity: 1
                 }, runTime)
                 //走路完毕
             walkPlay.done(function() {
@@ -163,14 +160,16 @@ var Qixi = function() {
             return outShop;
         }
 
+        //计算移动距离
+        function calculateDist(proportion) {
+            return visualWidth / proportion
+        }
+
         return {
             //开始走路
-            //第一次走路 0.3
-            //第一次走路 0.5
-            //第一次走路 0.7
-            walk: function(proportion) {
-                var dist = calculateDist(proportion)
-                return walkRun(dist);
+            walkTo: function(proportionX, proportionY) {
+                var distX = calculateDist(proportionX)
+                return walkRun(distX);
             },
             //停止走路
             stop: function() {
@@ -202,8 +201,8 @@ var Qixi = function() {
     var toShop = function(walk) {
 
         var shopDefer = $.Deferred();
-        var doorLeft  = $('.door-left');
-        var doorRight =  $('.door-right')
+        var doorLeft = $('.door-left');
+        var doorRight = $('.door-right')
 
         function doorAction(left, right, time) {
             var defer = $.Deferred();
