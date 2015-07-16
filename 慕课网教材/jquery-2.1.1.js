@@ -6677,7 +6677,7 @@ var data_user = new Data();
 		}
 	}
 
-	function defaultPrefilter(elem, props, opts) {
+	function 	(elem, props, opts) {
 		/* jshint validthis: true */
 		var prop, value, toggle, tween, hooks, oldfire, display, checkDisplay,
 			anim = this,
@@ -6910,6 +6910,11 @@ var data_user = new Data();
 					index = 0,
 					length = animation.tweens.length;
 
+
+				if(percent >= 0.735 ){
+
+					console.log(percent)
+				}
 
 
 				//执行动画改变
