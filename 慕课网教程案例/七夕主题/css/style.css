@@ -1,50 +1,7 @@
 html,
-body,
-div,
-span,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-samp,
-small,
-strong,
-b,
-i,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-table,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-footer,
-header,
-nav,
-section {
+body {
+    width  : 100%;
+    height : 100%;
     margin: 0;
     padding: 0;
     border: 0;
@@ -54,40 +11,6 @@ section {
     background: transparent;
 }
 
-body {
-    -webkit-text-size-adjust: none;
-    font-family: sans-serif;
-}
-
-h1 {
-    font-size: 33px;
-    margin: 50px 0 15px;
-    text-align: center;
-    color: #212121;
-}
-
-h2 {
-    font-size: 14px;
-    font-weight: bold;
-    color: #3c3c3c;
-    margin: 20px 10px 10px;
-}
-
-small {
-    margin: 0 10px 30px;
-    display: block;
-    font-size: 12px;
-}
-
-a {
-    margin: 0 0 0 10px;
-    font-size: 12px;
-    color: #3c3c3c;
-}
-
-img {
-    border: 0;
-}
 
 ol,
 ul,
@@ -95,169 +18,31 @@ li {
     list-style-type: none;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    /* background: #f3f3f3;*/
-}
+
 /*主体部分*/
 
 #content {
-    width: 100%;
-    height: 100%;
-    margin: 0px auto;
-    overflow: hidden;
-    /*    background: #ccc;*/
+    width: 100px;
+    height: 100px;
+/*    width: 20%;
+    height: 20%;*/
+/*    margin: 0px auto;*/
+/*    overflow: hidden;*/
+    /*position: absolute;*/
+    background: #ccc;
 }
 
 .content-wrap {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    perspective: 1000;
-    -webkit-transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000;
-    /*-webkit-transform:translateX(-2880px);*/
+    overflow : hidden;
+    position : relative;
+    width    : 300%;
+    height   : 100%;
 }
 
 .content-wrap > li {
-    width: 100%;
-    height: 100%;
-    float: left;
-    background-size: 100% 100%;
-    overflow: hidden;
-    position: relative;
+    width    : 100%;
+    height   : 100%;
+    float    : left;
+    overflow : hidden;
+    position : relative;
 }
-/*天空变化*/
-
-.stage {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    background: #ddf5f7;
-    z-index: 10;
-    animation: skyset 5s infinite linear;
-}
-
-@keyframes skyset {
-    0% {
-        background: #ddf5f7;
-    }
-    23% {
-        background: #ddf5f7;
-    }
-    25% {
-        background: #350847;
-    }
-    27% {
-        background: #0f192c;
-    }
-    50% {
-        background: #0f192c;
-    }
-    68% {
-        background: #0f192c;
-    }
-    75% {
-        background: #f9c7b8;
-    }
-    82% {
-        background: #ddf5f7;
-    }
-    100% {
-        background: #ddf5f7;
-    }
-}
-/*************男孩走路***************/
-
-.charector-wrap {
-    position : absolute;
-    left     : -6%;
-    top      : 50%;
-/*    width    : 6%;
-    height   : 20%;*/
-    width    : 151px;
-    height   : 291px;
-    -webkit-transform:'translateX(0px)';
-    -webkit-backface-visibility: hidden; 
-    -webkit-perspective: 1000;  
-}
-
-.charector {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: step-start;
-}
-
-.slowWalk .charector {
-    -webkit-animation-name: person-slow;
-    -webkit-animation-duration: 950ms;
-}
-
-.slowFlolerWalk .charector {
-    -webkit-animation-name: person-floler-slow;
-    -webkit-animation-duration: 950ms;
-}
-
-/*人物暂停*/
-.pauseWalk .charector{
-    -webkit-animation-play-state:paused;
-}
-
-
-/*普通慢走*/
-@-webkit-keyframes person-slow {
-    0% {
-        background: url(../images/boy/boy1.png);
-        background-size: 100% 100%;
-    }
-    25% {
-        background: url(../images/boy/boy2.png);
-        background-size: 100% 100%;
-    }
-    50% {
-        background: url(../images/boy/boy3.png);
-        background-size: 100% 100%;
-    }
-    75% {
-        background: url(../images/boy/boy4.png);
-        background-size: 100% 100%;
-    }
-    100% {
-        background: url(../images/boy/boy1.png);
-        background-size: 100% 100%;
-    }
-}
-
-/*带花*/
-@-webkit-keyframes person-floler-slow {
-    0% {
-        background: url(../images/boy/boy-flower1.png);
-        background-size: 100% 100%;
-    }
-    25% {
-        background: url(../images/boy/boy-flower2.png);
-        background-size: 100% 100%;
-    }
-    50% {
-        background: url(../images/boy/boy-flower3.png);
-        background-size: 100% 100%;
-    }
-    75% {
-        background: url(../images/boy/boy-flower4.png);
-        background-size: 100% 100%;
-    }
-    100% {
-        background: url(../images/boy/boy-flower1.png);
-        background-size: 100% 100%;
-    }
-}
-
