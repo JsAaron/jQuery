@@ -19,7 +19,57 @@
     height: 100%;
     width: 151px;
     height: 291px;
-   background: url(http://img.mukewang.com/55ade248000198ae10550582.png) -0px -291px no-repeat;
+    background: url(http://img.mukewang.com/55ade248000198ae10550582.png) -0px -291px no-repeat;
+}
+
+.slowWalk {
+    -webkit-animation-name: person-slow;
+    -webkit-animation-duration: 950ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: steps(1, start);
+    -moz-animation-name: person-slow;
+    -moz-animation-duration: 950ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: steps(1, start)
+}
+
+
+/*普通慢走*/
+
+@-webkit-keyframes person-slow {
+    0% {
+        background-position: -0px -291px;
+    }
+    25% {
+        background-position: -602px -0px;
+    }
+    50% {
+        background-position: -302px -291px;
+    }
+    75% {
+        background-position: -151px -291px;
+    }
+    100% {
+        background-position: -0px -291px;
+    }
+}
+
+@-moz-keyframes person-slow {
+    0% {
+        background-position: -0px -291px;
+    }
+    25% {
+        background-position: -602px -0px;
+    }
+    50% {
+        background-position: -302px -291px;
+    }
+    75% {
+        background-position: -151px -291px;
+    }
+    100% {
+        background-position: -0px -291px;
+    }
 }
 </style>
 
@@ -36,34 +86,34 @@
             <li> 页面2 </li>
             <li> 页面3 </li>
         </ul>
-        <div id="boy" class="charector"></div>
+        <div id="boy" class="charector slowWalk"></div>
     </div>
     <script type="text/javascript">
-        var swipe = Swipe($("#content"));
+    var swipe = Swipe($("#content"));
 
-        //获取数据
-        var getValue = function(className) {
-            var $elem = $('' + className + '')
-                //走路的路线坐标
-            return {
-                height: $elem.height(),
-                top: $elem.position().top
-            }
+    //获取数据
+    var getValue = function(className) {
+        var $elem = $('' + className + '')
+            //走路的路线坐标
+        return {
+            height: $elem.height(),
+            top: $elem.position().top
         }
-        
-        //路的Y轴
-        var pathY = function() {
-            var data = getValue('.a_background_middle')
-            return data.top + data.height / 2
-        }()
+    }
 
-        var $boy = $("#boy");
-        var boyHeight = $boy.height();
+    //路的Y轴
+    var pathY = function() {
+        var data = getValue('.a_background_middle')
+        return data.top + data.height / 2
+    }()
 
-        //修正小男孩的正确位置
-        $boy.css({
-            top: pathY - boyHeight + 25
-        })
+    var $boy = $("#boy");
+    var boyHeight = $boy.height();
+
+    //修正小男孩的正确位置
+    $boy.css({
+        top: pathY - boyHeight + 25
+    })
     </script>
 </body>
 
