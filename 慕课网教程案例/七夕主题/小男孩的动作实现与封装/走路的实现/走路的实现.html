@@ -7,6 +7,7 @@
     <link rel='stylesheet' href='style.css' />
     <link rel='stylesheet' href='pageA.css' />
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
     <script type="text/javascript" src="Swipe.js"></script>
 </head>
 <style type="text/css">
@@ -26,11 +27,10 @@
             <li> 页面2 </li>
             <li> 页面3 </li>
         </ul>
-        <div id="boy" class="charector slowWalk"></div>
+        <div id="boy" class="charector slowWalk">点击人物走路</div>
     </div>
     <script type="text/javascript">
     var swipe = Swipe($("#content"));
-
     //获取数据
     var getValue = function(className) {
         var $elem = $('' + className + '')
@@ -40,20 +40,27 @@
             top: $elem.position().top
         }
     }
-
     //路的Y轴
     var pathY = function() {
         var data = getValue('.a_background_middle')
         return data.top + data.height / 2
     }()
-
     var $boy = $("#boy");
     var boyHeight = $boy.height();
-
     //修正小男孩的正确位置
     $boy.css({
         top: pathY - boyHeight + 25
     })
+
+
+    //绑定一个点击事件，开始走路
+    $boy.click(function() {
+        //left的变化
+        $boy.transition({
+            'left': $("#content").width() + 'px',
+        }, 10000, 'linear', function() {});
+    })
+
     </script>
 </body>
 
