@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>慕课七夕主题</title>
+    <style type="text/css">
+    div {
+        background-color: yellow;
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        border: 2px solid red;
+        margin: 3px;
+        font-size: 14px;
+    }
+    #block3,#block4{
+        background-color: #CAE1FF;
+    }
+    button {
+        font-size: 14px;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <button>点击测试回调处理</button>
+    <button>点击测试$.Deferred处理</button>
+    </br>
+    </br>
+    <div id="block1">block1执行动画</div>
+    <div id="block2">block2执行动画</div>
+    <div id="block3">block3执行动画</div>
+    <div id="block4">block4执行动画</div>
+
+    <script type="text/javascript">
+    //回调处理
+    $('button:first').click(function() {
+        $("#block1").animate({
+            width: "50%"
+        }, 2000, function() {  //嵌套回调
+            $("#block2").animate({
+                width: "50%"
+            }, 2000)
+        })
+    })
+
+    $('button:last').click(function() {
+
+        function animate1() {
+            var dtd = $.Deferred(); // 生成Deferred对象
+            $("#block3").animate({
+                width: "50%"
+            }, 2000, function() {
+                dtd.resolve(); // 改变Deferred对象的执行状态
+            })
+            return dtd;
+        }
+
+        function animate2() {
+            var dtd = $.Deferred(); // 生成Deferred对象
+            $("#block4").animate({
+                width: "50%"
+            }, 2000, function() {
+                dtd.resolve(); // 改变Deferred对象的执行状态
+            })
+            return dtd;
+        }
+
+        var anim = animate1()
+
+        anim.then(function() {
+            $("#block3").text('block3动画动画直接结束')
+            return animate2();
+        }).then(function() {
+            $("#block4").text('block4动画动画直接结束')
+        })
+
+    })
+
+
+    </script>
+</body>
+
+</html>

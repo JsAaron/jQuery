@@ -1,0 +1,149 @@
+/*背景图*/
+
+.a_background {
+    width: 100%;
+    height: 100%;
+/*    background-image: url("../images/QixiA.png");
+    background-size: 100% 100%;*/
+    position: absolute;
+}
+
+.a_background_top{
+    width: 100%;
+    height: 71.6%;
+    background-image: url("../images/background/a_background_top.png");
+    background-size: 100% 100%;
+}
+
+
+.a_background_middle{
+    width: 100%;
+    height: 13.1%;
+    background-image: url("../images/background/a_background_middle.png");
+    background-size: 100% 100%;
+}
+
+.a_background_botton{
+    width: 100%;
+    height: 15.3%;
+    background-image: url("../images/background/a_background_botton.png");
+    background-size: 100% 100%;
+}
+
+/*天空云*/
+
+.cloud {
+    z-index: 2;
+    position: absolute;
+}
+
+.cloud1 {
+    width: 20%;
+    height: 30%;
+    left: -5%;
+    top:15%;
+    background: url("../images/cloud1.png") no-repeat;
+    -webkit-animation-name: smallCloud;
+    -webkit-animation-duration: 30s;
+    -webkit-animation-iteration: infinite;
+
+    -moz-animation-name: smallCloud;
+    -moz-animation-duration: 30s;
+    -moz-animation-iteration: infinite
+}
+
+.cloud2 {
+    width  : 20%;
+    height : 30%;
+    right  : -5%;
+    background: url("../images/cloud2.png") no-repeat;
+    -webkit-animation-name: largeCloud;
+    -webkit-animation-duration: 60s;
+    -webkit-animation-iteration: infinite;
+
+    -moz-animation-name: largeCloud;
+    -moz-animation-duration: 60s;
+    -moz-animation-iteration: infinite;
+}
+
+@-webkit-keyframes smallCloud{
+    0% {
+        left:-5%;
+    }
+    100% {
+        left:100%;
+    }
+}
+
+
+@-moz-keyframes smallCloud{
+    0% {
+        left:-5%;
+    }
+    100% {
+        left:100%;
+    }
+}
+
+@-webkit-keyframes largeCloud{
+    0% {
+        right:-5%;
+    }
+    100% {
+        right:100%;
+    }
+}
+
+@-moz-keyframes largeCloud{
+    0% {
+        right:-5%;
+    }
+    100% {
+        right:100%;
+    }
+}
+
+
+
+/*-------- 太阳自转以及动画 --------*/
+
+#sun {
+    background: url("../images/sun.png") no-repeat;
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    height: 201px;
+    width: 201px;
+	right:900px;
+    -webkit-transform: rotate(45deg);
+    -webkit-animation-name: rotation;
+    -webkit-animation-duration: 30s;
+    -webkit-animation-iteration: 1;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-transform: rotate(45deg);
+    -moz-animation-name: rotation;
+    -moz-animation-duration: 30s;
+    -moz-animation-iteration: 1;
+    -moz-animation-fill-mode: forwards;
+
+}
+
+@-webkit-keyframes rotation {
+    0% {
+        transform: translateX(0) translateY(0) rotate(45deg);
+    }
+    100% {
+        transform: translateX(-2000px) translateY(400px) rotate(70deg);
+    }
+}
+
+
+@-moz-keyframes rotation {
+    0% {
+        transform: translateX(0) translateY(0) rotate(45deg);
+    }
+    100% {
+        transform: translateX(-2000px) translateY(400px) rotate(70deg);
+    }
+}

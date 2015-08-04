@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>慕课七夕主题</title>
+    <link rel='stylesheet' href='style.css' />
+    <link rel='stylesheet' href='pageA.css' />
+    <link rel='stylesheet' href='pageB.css' />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
+</head>
+
+<body>
+    <div id='content'>
+        <ul class='content-wrap'>
+            <!-- 第一副画面 -->
+            <li>
+                <!-- 背景 -->
+                <div class="a_background">
+                    <div class="a_background_top"></div>
+                    <div class="a_background_middle"></div>
+                    <div class="a_background_botton"></div>
+                </div>
+                <!-- 云 -->
+                <div class="cloudArea">
+                    <div class="cloud"></div>
+                    <div class="cloud"></div>
+                </div>
+                <!-- 太阳 -->
+                <div id="sun"></div>
+            </li>
+            <!-- 第二副画面 -->
+            <li>
+                <!-- 背景图 -->
+                <div class="b_background"></div>
+                <div class="b_background_preload"></div>
+                <!-- 商店 -->
+                <div class="shop">
+                    <div class="door">
+                        <div class="door-left"></div>
+                        <div class="door-right"></div>
+                    </div>
+                    <!-- 灯 -->
+                    <div class="lamp"></div>
+                </div>
+            </li>
+            <li> 页面3 </li>
+        </ul>
+        <div id="boy" class="charector"></div>
+        <div class="button">
+            <button>开始</button>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+$(function() {
+
+    var container = $("#content");
+    var swipe = Swipe(container);
+    //页面滚动到指定的位置
+    function scrollTo(time, proportionX) {
+        var distX = container.width() * proportionX
+        swipe.scrollTo(distX, time)
+    }
+
+    ////////////////////////////////////////////////////////
+    //===================动画处理============================ //
+    ////////////////////////////////////////////////////////
+
+    //用来临时调整页面
+    swipe.scrollTo(container.width(), 0)
+
+    var boy = BoyWalk()
+
+    function startRun() {
+
+        boy.walkTo(2000, 0.45)
+            .then(function() {
+                //暂停走路
+                boy.stopWalk()
+            })
+            .then(function() {
+                //开门
+                return openDoor();
+            })
+            .then(function() {
+                //开灯
+                lamp.bright()
+            })
+            .then(function() {
+                //进商店
+                return boy.toShop(2000)
+            }).then(function() {
+                //出商店
+                return boy.outShop(2000)
+            }).then(function() {
+                //灯暗
+                lamp.dark()
+            })
+    }
+
+
+    //开始
+    $("button:first").click(startRun)
+
+})
+</script>
+<script type="text/javascript" src="Swipe.js"></script>
+<script type="text/javascript" src="Qixi.js"></script>
+
+</html>

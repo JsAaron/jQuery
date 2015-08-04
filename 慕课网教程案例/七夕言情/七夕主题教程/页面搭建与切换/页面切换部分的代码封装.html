@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>慕课七夕主题</title>
+    <link rel='stylesheet' href='style.css' />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="Swipe.js"></script>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    ol,
+    ul,
+    li {
+        list-style-type: none;
+    }
+    /*主体部分*/
+    
+    #content {
+        width: 60%;
+        height: 60%;
+        top: 20%;
+        left: 20%;
+        overflow: hidden;
+        position: absolute;
+    }
+    
+    .content-wrap {
+        position: relative;
+    }
+    
+    .content-wrap > li {
+        background: #CAE1FF;
+        color: red;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    li:nth-child(2) {
+        background: #9BCD9B;
+    }
+    
+    li:nth-child(3) {
+        background: yellow;
+    }
+    
+    a {
+        position: absolute;
+        top: 50%;
+        left: 30%;
+    }
+    
+    button {
+        width: 100px;
+        height: 50px;
+    }
+    
+    .button {
+        position: absolute;
+        bottom: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div id='content'>
+        <ul class='content-wrap'>
+            <!-- 第一副画面 -->
+            <li> 页面1 </li>
+            <!-- 第二副画面 -->
+            <li> 页面2 </li>
+            <!-- 第三副画面 -->
+            <li> 页面3 </li>
+        </ul>
+        <div class="button">
+            <button>点击切换页面</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+    $('button').click(function() {
+        var swipe = Swipe($("#content"));
+        swipe.scrollTo($("#content").width() * 2, 5000)
+    })
+    </script>
+</body>
+
+</html>

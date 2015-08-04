@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>慕课七夕主题</title>
+    <link rel='stylesheet' href='style.css' />
+    <link rel='stylesheet' href='pageA.css' />
+    <style type="text/css">
+    button {
+        width: 80px;
+        height: 50px;
+    }
+    
+    .button {
+        position: absolute;
+        top: 80%;
+    }
+    /*人物暂停*/
+    
+    .pauseWalk {
+        animation-play-state: paused;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
+    <script type="text/javascript" src="Swipe.js"></script>
+    <script type="text/javascript" src="BoyWalk.js"></script>
+</head>
+
+<body>
+    <div id='content'>
+        <ul class='content-wrap'>
+            <li>
+                <div class="a_background">
+                    <div class="a_background_top"></div>
+                    <div class="a_background_middle"></div>
+                    <div class="a_background_botton"></div>
+                </div>
+            </li>
+            <li> 页面2 </li>
+            <li> 页面3 </li>
+        </ul>
+        <div id="boy" class="charector"></div>
+    </div>
+    <div class="button">
+        <button>开始</button>
+    </div>
+</body>
+<script type="text/javascript">
+$(function() {
+
+    var container = $("#content");
+    var swipe = Swipe(container);
+    //页面滚动到指定的位置
+    function scrollTo(time, proportionX) {
+        var distX = container.width() * proportionX
+        swipe.scrollTo(distX, time)
+    }
+
+    ////////////////////////////////////////////////////////
+    //===================动画处理============================ //
+    ////////////////////////////////////////////////////////
+
+
+    //开始
+    $("button:first").click(function() {
+        //////////
+        // 小孩走路 //
+        //////////
+        var boy = BoyWalk();
+
+        //开始第一次走路
+        boy.walkTo(2000, 0.2)
+            .then(function() {
+                //第一次走路完成
+                //开始页面滚动
+                scrollTo(5000, 1)
+            }).then(function() {
+                //第二次走路
+                return boy.walkTo(5000, 0.5)
+            })
+    })
+
+})
+</script>
+
+</html>

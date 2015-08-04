@@ -1,0 +1,147 @@
+/*背景图*/
+
+.c_background {
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    position: absolute;
+}
+
+.c_background_top{
+    width: 100%;
+    height: 71.6%;
+    background-image: url("http://img.mukewang.com/55ade19b0001d92c14410645.png");
+    background-size: 100% 100%;
+}
+
+
+.c_background_middle{
+    width: 100%;
+    height: 13.1%;
+    background-image: url("http://img.mukewang.com/55ade1b3000135c114410118.png");
+    background-size: 100% 100%;
+}
+
+.c_background_botton{
+    width: 100%;
+    height: 15.3%;
+    background-image: url("http://img.mukewang.com/55ade1c30001db5d14410138.png");
+    background-size: 100% 100%;
+}
+
+/*小女孩*/
+
+.girl {
+    background: url(http://img.mukewang.com/55ade30d000100dc10570291.png) -755px -0px no-repeat;
+    position: absolute;
+    right: 40%;
+    top: 37%;
+    width: 151px;
+    height: 291px;
+}
+
+/*桥*/
+
+.bridge-bottom {
+    position: absolute;
+    width: 41%;
+    height: 24%;
+    left: 29.5%;
+    top: 76%;
+    overflow: hidden;
+    /*    -webkit-transform:perspective(8px) rotateX(.8deg); */
+}
+/*波浪水布局*/
+
+.water {
+    width: 100%;
+    height: 100%;
+}
+
+.water_1,
+.water_2,
+.water_3,
+.water_4 {
+    width: 100%;
+    position: absolute;
+    height: 50%;
+}
+
+.water_1 {
+    width: 131px;
+    height: 15px;
+    top: 13%;
+    left: 35%;
+    background: url(http://img.mukewang.com/55ade1e000010f2908540027.png) -261px -0px no-repeat;
+}
+
+.water_2 {
+    width: 161px;
+    height: 9px;
+    top: 30%;
+    left: 45%;
+    background: url(http://img.mukewang.com/55ade1e000010f2908540027.png) -693px -0px no-repeat;
+}
+
+.water_3 {
+    width: 261px;
+    height: 29px;
+    top: 50%;
+    left: 15%;
+    background: url(http://img.mukewang.com/55ade1e000010f2908540027.png) -0px -0px no-repeat;
+}
+
+.water_4 {
+    width: 301px;
+    height: 12px;
+    top: 75%;
+    left: 30%;
+    background: url(http://img.mukewang.com/55ade1e000010f2908540027.png) -392px -0px no-repeat;
+}
+
+
+
+/*星星*/
+
+.stars {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.stars > li {
+    position: absolute;
+    width: 30px;
+    height: 31px;
+    background-image: url("http://img.mukewang.com/55ade1fe00016b8900300031.png");
+}
+
+.stars1 {
+    top: 20%;
+    left: 30%;
+}
+
+.stars2 {
+    top: 15%;
+    left: 20%;
+}
+
+.stars3 {
+    top: 25%;
+    left: 85%;
+}
+
+.stars4 {
+    top: 30%;
+    left: 70%;
+}
+
+.stars5 {
+    top: 25%;
+    left: 20%;
+}
+
+.stars6 {
+    top: 10%;
+    left: 65%;
+}

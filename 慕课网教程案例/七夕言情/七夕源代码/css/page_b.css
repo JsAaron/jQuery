@@ -1,0 +1,119 @@
+.layerB {
+    position: relative;
+}
+
+
+/*背景图*/
+
+.b_background {
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/QixiB-dark.png");
+    background-size: 100% 100%;
+    position: absolute;
+}
+
+.b_background_preload {
+    background: url("../images/QixiB-bright.png") no-repeat -9999px -9999px;
+}
+
+.lamp-bright {
+   background-image: url("../images/QixiB-bright.png");
+}
+
+
+/*商店*/
+
+.shop {
+    width: 39.5%;
+    height: 35.5%;
+    position: absolute;
+    left: 29%;
+    top: 36.5%;
+}
+
+.door {
+    position: absolute;
+    width: 32%;
+    height: 100%;
+    top: 32%;
+    height: 68%;
+    overflow: hidden;
+    left: 58.5%;
+}
+
+.door-left,
+.door-right {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+}
+
+.door-left {
+    left: 0%;
+    background: url(../images/door-left.png);
+    background-size: 100% 100%;
+}
+
+.door-right {
+    left: 50%;
+    background: url(../images/door-right.png);
+    background-size: 100% 100%;
+}
+
+
+/*鸟*/
+
+.bird {
+    min-width: 91px;
+    min-height: 71px;
+    top: 10%;
+    position: absolute;
+    z-index: 10;
+    right: -91px;
+    background: url(../images/bird.png) -182px 0px no-repeat;
+}
+
+.birdFly {
+    -webkit-animation-name: bird-slow;
+    -webkit-animation-duration: 400ms;
+    -webkit-animation-timing-function: step-start;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: bird-slow;
+    -moz-animation-duration: 400ms;
+    -moz-animation-timing-function: step-start;
+    -moz-animation-iteration-count: infinite;
+}
+
+
+/*鸟慢飞*/
+
+@-webkit-keyframes bird-slow {
+    0% {
+        background-position: -182px 0px;
+    }
+    50% {
+        background-position: 0px 0px;
+    }
+    75% {
+        background-position: -91px 0px;
+    }
+    100% {
+        background-position: -182px 0px;
+    }
+}
+
+@-moz-keyframes bird-slow {
+    0% {
+        background-position: -182px 0px;
+    }
+    50% {
+        background-position: 0px 0px;
+    }
+    75% {
+        background-position: -91px 0px;
+    }
+    100% {
+        background-position: -182px 0px;
+    }
+}

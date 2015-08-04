@@ -1,0 +1,153 @@
+/*背景图*/
+
+.a_background {
+    width: 100%;
+    height: 100%;
+    /*    background-image: url("../images/QixiA.png");
+    background-size: 100% 100%;*/
+    
+    position: absolute;
+}
+
+.a_background_top {
+    width: 100%;
+    height: 71.6%;
+    background-image: url("http://img.mukewang.com/55addf6900019d8f14410645.png");
+    background-size: 100% 100%;
+}
+
+.a_background_middle {
+    width: 100%;
+    height: 13.1%;
+    background-image: url("http://img.mukewang.com/55addf800001ff2e14410118.png");
+    background-size: 100% 100%;
+}
+
+.a_background_botton {
+    width: 100%;
+    height: 15.3%;
+    background-image: url("http://img.mukewang.com/55addfcb000189b314410138.png");
+    background-size: 100% 100%;
+}
+
+button {
+    width: 80px;
+    height: 50px;
+}
+
+.button {
+    position: absolute;
+    bottom: 0;
+}
+/*人物暂停*/
+
+.pauseWalk {
+    animation-play-state: paused;
+}
+/*-------- 太阳自转以及动画 --------*/
+
+#sun {
+    background: url("http://img.mukewang.com/55ade004000106c202010201.png") no-repeat;
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    height: 201px;
+    width: 201px;
+    right: 40%;
+}
+
+.rotation {
+    -webkit-animation-name: rotation;
+    -webkit-animation-duration: 30s;
+    -webkit-animation-iteration: 1;
+    -moz-animation-name: rotation;
+    -moz-animation-duration: 30s;
+    -moz-animation-iteration: 1;
+}
+
+@-webkit-keyframes rotation {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        transform: translateX(-2000px) translateY(400px);
+    }
+}
+
+@-moz-keyframes rotation {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        transform: translateX(-2000px) translateY(400px);
+    }
+}
+/*天空云*/
+
+.cloud {
+    z-index: 2;
+    position: absolute;
+}
+
+.cloud1 {
+    width: 20%;
+    height: 30%;
+    left: -5%;
+    top: 15%;
+    background: url("http://img.mukewang.com/55addfde0001aec501810101.png") no-repeat;
+    -webkit-animation-name: smallCloud;
+    -webkit-animation-duration: 30s;
+    -webkit-animation-iteration: infinite;
+    -moz-animation-name: smallCloud;
+    -moz-animation-duration: 30s;
+    -moz-animation-iteration: infinite
+}
+
+.cloud2 {
+    width: 20%;
+    height: 30%;
+    right: -5%;
+    background: url("http://img.mukewang.com/55addff500016df503010140.png") no-repeat;
+    -webkit-animation-name: largeCloud;
+    -webkit-animation-duration: 60s;
+    -webkit-animation-iteration: infinite;
+    -moz-animation-name: largeCloud;
+    -moz-animation-duration: 60s;
+    -moz-animation-iteration: infinite;
+}
+
+@-webkit-keyframes smallCloud {
+    0% {
+        left: -5%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@-moz-keyframes smallCloud {
+    0% {
+        left: -5%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes largeCloud {
+    0% {
+        right: -5%;
+    }
+    100% {
+        right: 100%;
+    }
+}
+
+@-moz-keyframes largeCloud {
+    0% {
+        right: -5%;
+    }
+    100% {
+        right: 100%;
+    }
+}

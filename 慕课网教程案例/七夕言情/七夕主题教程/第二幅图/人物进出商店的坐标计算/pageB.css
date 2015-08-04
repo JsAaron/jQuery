@@ -1,0 +1,59 @@
+
+
+/*背景图*/
+
+.b_background {
+    width: 100%;
+    height: 100%;
+    background-image: url("http://img.mukewang.com/55ade06f00015a0d14410901.png");
+    background-size: 100% 100%;
+    position: absolute;
+}
+
+.b_background_preload {
+    background: url("http://img.mukewang.com/55ade0be0001a37914410901.png") no-repeat -9999px -9999px;
+}
+
+.lamp-bright {
+   background-image: url("http://img.mukewang.com/55ade0be0001a37914410901.png");
+}
+
+
+/*商店*/
+
+.shop {
+    width: 39.5%;
+    height: 35.5%;
+    position: absolute;
+    left: 29%;
+    top: 36.5%;
+}
+
+.door {
+    position: absolute;
+    width: 32%;
+    height: 100%;
+    top: 32%;
+    height: 68%;
+    overflow: hidden;
+    left: 58.5%;
+}
+
+.door-left,
+.door-right {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+}
+
+.door-left {
+    left: 0%;
+    background: url(http://img.mukewang.com/55ade1140001050d00910231.png);
+    background-size: 100% 100%;
+}
+
+.door-right {
+    left: 50%;
+    background: url(http://img.mukewang.com/55ade12100019f5b00910231.png);
+    background-size: 100% 100%;
+}
