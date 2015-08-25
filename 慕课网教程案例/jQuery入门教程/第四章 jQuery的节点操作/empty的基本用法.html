@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <style>
+    .left,
+    .right {
+        width: 300px;
+        height: 120px;
+    }
+    
+    .left div,
+    .right div {
+        width: 100px;
+        height: 90px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>通过empty移除元素</h2>
+    <div class="left">
+        <div class="aaron">点击通过jQuery的empty移除元素</div>
+    </div>
+    <div class="right">
+        <div id="test"><p class="test1">移除p元素1</p><p class="test1">移除p元素2</p></div>
+    </div>
+
+    <script type="text/javascript">
+
+    	$(".left .aaron:first").on('click', function() {
+            //通过empty移除了当前div元素下的所有p元素
+            //但是本身id=test的div元素没有被删除
+            $("#test").empty()
+    	})
+
+    </script>
+
+
+</body>
+
+</html>
