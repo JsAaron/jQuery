@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        $('p').click(function(e) {
+            alert(e.target.innerHTML)
+        })
+        var p
+        $("button:first").click(function() {
+        	if(!$("p").length) return; //去重
+        	//通过detach方法删除元素
+        	//只是页面不可见，但是这个节点还是保存在内存中
+        	//数据与事件都不会丢失
+            p = $("p").detach()
+        });
+
+        $("button:last").click(function() {
+        	//把p元素在添加到页面中
+        	//事件还是存在
+            $("body").append(p);
+        });
+
+    });
+    </script>
+</head>
+
+<body>
+    <p>P元素1，默认给绑定一个点击事件</p>
+    <p>P元素2，默认给绑定一个点击事件</p>
+    <button>点击删除 p 元素</button>
+    <button>点击移动 p 元素</button>
+</body>
+
+</html>
