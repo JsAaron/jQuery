@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <style>
+    .left,
+    .right {
+        width: 300px;
+        height: 120px;
+    }
+    
+    .left div,
+    .right div {
+        width: 100px;
+        height: 90px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+        background: #bbffaa;
+    }
+    .right div{
+        background: yellow;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>replaceWith()和replaceAll()</h2>
+    <div class="left">
+        <div class="aaron1">点击,通过replaceWith替换内容</div>
+        <div class="aaron2">点击,clone深拷贝</div>
+    </div>
+    <div class="right">
+        <div><p>第一段</p><p>第二段</p><p>第三段</p></div>
+        <div><p>测试prependTo</p></div>
+    </div>
+
+    <script type="text/javascript">
+    	//只克隆节点
+    	//不克隆事件
+	    $(".aaron1").on('click', function() {
+	       //找到内容为第二段则换个p元素
+           //通过replaceWith删除并替换这个节点
+          $(".right > div:first p:eq(1)").replaceWith('<a style="color:red">替换第二段的内容</a>')
+	    })
+    </script>
+
+    <script type="text/javascript">
+    	//克隆节点
+    	//克隆事件
+	    $(".aaron2").on('click', function() {
+	        $(".left").append($(this).clone(true).css('color','blue'))
+	    })
+    </script>
+</body>
+
+</html>
