@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left {
+        width: auto;
+        height: 150px;
+    }
+    
+    .left div {
+        width: 150px;
+        height: 120px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>each方法</h2>
+    <div class="left first-div">
+        <div class="div">
+            <ul>
+                <li>list item 1</li>
+                <li>list item 2</li>
+                <li>list item 3</li>
+            </ul>
+        </div>
+        <div class="div">
+            <ul>
+                <li>list item 1</li>
+                <li>list item 2</li>
+                <li>list item 3</li>
+            </ul>
+        </div>
+    </div>
+
+    <br/>
+    <button>点击：each方法遍历元素</button>
+    <button>点击：each方法回调判断</button>
+    <script type="text/javascript">
+    $("button:first").click(function() {
+        //遍历所有的li
+        //修改每个li内的字体颜色
+        $("li").each(function(index, element) {
+            $(this).css('color','red')
+        })
+
+    })
+    </script>
+    <script type="text/javascript">
+    $("button:last").click(function() {
+        //遍历所有的li
+        //修改偶数li内的字体颜色
+        $("li").each(function(index, element) {
+            if (index % 2) {
+                $(this).css('color','blue')
+            }
+        })
+    })
+    </script>
+</body>
+
+</html>
