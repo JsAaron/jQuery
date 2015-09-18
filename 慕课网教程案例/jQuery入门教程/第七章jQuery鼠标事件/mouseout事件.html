@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 350px;
+        height: 150px;
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #ccc;
+    }
+    p{
+        height: 50px;
+        border: 1px solid red;
+        margin: 30px;
+    }
+    .left div {
+        background: #bbffaa;
+    }
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>.mouseout()方法</h2>
+    <div class="left">
+        <div class="aaron1">
+            <p>鼠标离开此区域触发mouseout事件</p>
+            <a>离开元素,mouseout事件触发次数：</a>
+        </div>
+    </div>
+    <div class="right">
+        <div class="aaron2">
+            <p>鼠标移动：不同函数传递数据</p>
+            <a>离开元素,mouseout事件触发次数：</a>
+        </div>
+    </div>
+    <br/>
+    <button>点击：指定触发mouseout事件</button>
+    
+    <script type="text/javascript">
+        var n = 0;
+        //绑定一个mouseout事件
+        $(".aaron1 p:first").mouseout(function(e) {
+            $(".aaron1 a").html('离开元素,mouseout事件触发次数：' + (++n))
+        })
+    </script>
+
+
+    <script type="text/javascript">
+        $('h2').mouseout(function(e) {
+            alert('触发h2元素绑定的mouseout')
+        })
+        $("button:eq(0)").click(function(e) {
+            $('h2').mouseout() //指定触发绑定的事件
+        })
+    </script>
+
+
+    <script type="text/javascript">
+        var n = 0;
+        //不同函数传递数据
+        function data(e) {
+            $(".right a").html('mouseout事件触发次数：' + (++n) + '<br/> 传入数据为 ：'+ e.data)
+        }
+
+        function a() {
+            $(".right p:first").mouseout('data = 慕课网', data)
+        }
+        a();
+
+    </script>
+</body>
+
+</html>
