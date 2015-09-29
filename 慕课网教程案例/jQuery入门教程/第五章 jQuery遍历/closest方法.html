@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style>
+    .left {
+        width: auto;
+        height: 200px;
+    }
+    
+    .left div {
+        width: 350px;
+        height: 150px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    
+    span {
+        color: blue;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>closest方法()</h2>
+    <div class="left first-div">
+    <div class="div">
+        <ul class="level-2">
+            <li class="item-a">A</li>
+            <li class="item-b">B
+                <ul class="level-3">
+                    <li class="item-1">1</li>
+                    <li class="item-2">2</li>
+                    <li class="item-3">3</li>
+                </ul>
+            </li>
+            <li class="item-c">C</li>
+        </ul>
+    </div>
+    </div>
+    <br/>
+    <button>点击：closest传递选择器 </button>
+    <button>点击：closest传递一个元素对象</button>
+    <script type="text/javascript">
+    $("button:first").click(function() {
+        //找到class="item-1"的li元素
+        //通过closest方法往上找到class=".level-2"的li元素
+        //加上边框颜色
+        $('li.item-1')
+            .closest('.level-2')
+            .css('border', '1px solid red');
+
+    })
+    </script>
+    <script type="text/javascript">
+    $("button:last").click(function() {
+        var itemB = $('.item-b')
+        $('li.item-1')
+            .closest(itemB)
+            .css('border', '1px solid blue');
+    })
+    </script>
+</body>
+
+</html>
