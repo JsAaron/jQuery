@@ -27,21 +27,22 @@
 </head>
 
 <body>
-    <h2>keydown</h2>
+    <h2>keypress()事件</h2>
     <div class="left">
-        <div class="aaron">监听keydown输入:
+        <div class="aaron">监听keypress输入:
             <input class="target1" type="text" value="" /><br />
-            显示输入的值:<em>1</em>
+            输入中文测试，无法显示:<em></em>
         </div>
-
     </div>
 
     <script type="text/javascript">
     //监听键盘按键
     //获取输入的值
-    $('.target1').keydown(function(e) {
+    $('.target1').keypress(function(e) {
         $("em").text(e.target.value)
     });
+
+
 
     </script>
 
