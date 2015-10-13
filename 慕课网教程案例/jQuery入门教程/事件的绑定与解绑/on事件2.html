@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>删除事件</h2>
+    <div class="left">
+        off('mousedown')
+        <div class="aaron"></div>
+    </div>
+    <div class="right">
+        off() 
+        <div class="aaron"> </div>
+    </div>
+    <script type="text/javascript">
+
+    //多事件删除
+    var a = 0;
+    $(".aaron:first").on('mousedown mouseup', function(e) {
+        $(this).text( '触发次数' +  (++a))
+        $(".aaron:first").off('mousedown')
+    })
+
+
+    //多事件删除
+    var b = 0;
+    $(".aaron:last").on('mousedown mouseup', function(e) {
+        $(this).text( '触发次数' +  (++b))
+        $(".aaron:last").off()
+    })
+    </script>
+</body>
+
+</html>
