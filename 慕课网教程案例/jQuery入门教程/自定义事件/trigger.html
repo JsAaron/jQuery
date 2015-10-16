@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>自定义事件trigger</h2>
+    <div class="left">
+        <div><span></span><span>0</span>点击次数</div>
+        <button>直接点击</button>
+        <button>通过自定义点击</button>
+    </div>
+    <script type="text/javascript">
+
+    //点击更新次数
+    $("button:first").click(function(event,bottonName) {
+        bottonName = bottonName || 'first';
+        update($("span:first"),$("span:last"),bottonName);
+    });
+
+    //通过自定义事件调用，更新次数
+    $("button:last").click(function() {
+        $("button:first").trigger('click','last');
+    });
+
+    function update(first,last,bottonName) {
+        first.text(bottonName);
+        var n = parseInt(last.text(), 10);
+        last.text(n + 1);
+    }
+    </script>
+</body>
+
+</html>
