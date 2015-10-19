@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>slideToggle</h2>
+    <div class="left">
+        <div id="a1"></div>
+        <button>点击slideToggle上下卷滚切换</button>
+        <script type="text/javascript">
+
+        $("button").click(function() {
+            $("#a1").slideToggle(3000)
+        });
+        
+        </script>
+</body>
+
+</html>
