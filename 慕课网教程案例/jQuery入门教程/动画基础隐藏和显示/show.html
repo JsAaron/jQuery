@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left {
+        background: #bbffaa;
+    }
+    
+    .right {
+        background: yellow;
+        display: none;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>通过toggle切换显示与隐藏</h2>
+    <div class="left">显示到隐藏</div>
+    <div class="right">隐藏到显示</div>
+    <button>直接show-hide动画</button>
+    <button>直接hide-show动画</button>
+    <script type="text/javascript">
+    $("button:first").click(function() {
+        $(".left").toggle(3000)
+    });
+    </script>
+
+    <script type="text/javascript">
+    $("button:last").click(function() {
+        $(".right").toggle(3000)
+    });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>hide</h2>
+    <div class="left">
+    
+        <div id="a1">hide操作</div>
+
+        <div id="a2">hide动画操作</div>
+
+        <button>直接hide</button>
+        <button>hide带动画</button>
+    </div>
+    <script type="text/javascript">
+
+    //点击buttom1 直接隐藏
+    $("button:first").click(function() {
+        $("#a1").hide()
+    });
+
+    //点击buttom2 执行动画隐藏
+    $("button:last").click(function() {
+         $("#a2").hide({
+            duration:3000,
+            complete:function(){
+                alert('执行3000ms动画完毕')
+            }
+         })
+    });
+
+
+    </script>
+</body>
+
+</html>
