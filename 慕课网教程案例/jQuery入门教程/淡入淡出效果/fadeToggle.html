@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    p {
+        color: red;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>fadeToggle</h2>
+    <p>测试文字淡入淡出切换效果</p>
+    <p>慕课网,专注分享</p>
+    淡出的隐藏效果：
+    <select id="animation">
+        <option value="1">fadeToggle( )</option>
+        <option value="2">fadeToggle( "slow" )</option>
+        <option value="3">fadeToggle( 3000 )</option>
+        <option value="4">fadeToggle( 1000, complete )</option>
+        <option value="5">fadeToggle( 1000, "linear" )</option>
+        <option value="6">fadeToggle( options )</option>
+    </select>
+    <input id="btnFadeSwitch" type="button" value="点击切换显示/隐藏">
+    <script type="text/javascript">
+    //【切换显示/隐藏】按钮
+    $("#btnFadeSwitch").click(function() {
+        var v = $("#animation").val();
+        if (v == "1") {
+            $("p").fadeToggle();
+        } else if (v == "2") {
+            $("p").fadeToggle("slow");
+        } else if (v == "3") {
+            $("p").fadeToggle(3000);
+        } else if (v == "4") {
+            $("p").fadeToggle(1000, function() {
+                alert("切换完毕!");
+            });
+        } else if (v == "5") {
+            $("p").fadeToggle(1000, "linear");
+        } else if (v == "6") {
+            $("p").fadeToggle({
+                duration: 1000
+            });
+        }
+    });
+    </script>
+</body>
+
+</html>
