@@ -20,13 +20,13 @@
 </head>
 
 <body>
-    <h2>inArray方法</h2>
+    <h2>each方法</h2>
     <p>慕课网,专注分享</p>
     <div id="aaron"></div>
     点击观察结果：
     <select id="animation">
-        <option value="1">inArray</option>
-        <option value="2">inArray</option>
+        <option value="1">each数组</option>
+        <option value="2">each对象</option>
     </select>
     <input id="exec" type="button" value="执行动画">
     <script type="text/javascript">
@@ -36,16 +36,18 @@
         $aaron.empty();
         if (v == "1") {
 
-            var index = $.inArray('Aaron', ['test', 'Aaron', 'array', '慕课网']);
-
-            $aaron.text('Aaron的索引是: ' + index)
-
+            // 遍历数组元素
+            $.each(['Aaron', '慕课网'], function(i, item) {
+                $aaron.append("索引=" + i + "; 元素=" + item);
+            });
         } else if (v == "2") {
-
-            //指定索引开始的位置
-            var index = $.inArray('a', ['a', 'b', 'c', 'd', 'a', 'c'], 2);
-
-            $aaron.text('a的索引是: ' + index)
+            // 遍历对象属性
+            $.each({
+                name: "张三",
+                age: 18
+            }, function(property, value) {
+                $aaron.append("属性名=" + property + "; 属性值=" + value);
+            });
         }
     });
     </script>
