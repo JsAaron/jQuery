@@ -25,29 +25,26 @@
     点击观察结果：
     <select id="animation">
         <option value="1">inArray</option>
-        <option value="2">each对象</option>
+        <option value="2">inArray</option>
     </select>
     <input id="exec" type="button" value="执行动画">
     <script type="text/javascript">
     $("#exec").click(function() {
         var v = $("#animation").val();
         var $aaron = $("#aaron");
-        $aaron.empty();
+           $aaron.empty();
         if (v == "1") {
 
-            // 遍历数组元素
-            var exist = $.inArray('Aaron',['Aaron', '慕课网']);
-            
-            alert(exist)
+            var index = $.inArray('Aaron',['test','Aaron', 'array','慕课网']);
+
+            $aaron.text('Aaron的索引是: '+ index)
 
         } else if (v == "2") {
-            // 遍历对象属性
-            $.each({
-                name: "张三",
-                age: 18
-            }, function(property, value) {
-                $aaron.append("属性名=" + property + "; 属性值=" + value);
-            });
+
+            //指定索引开始的位置
+            var index = $.inArray('a',['a','b','c','d','a','c'],2);
+
+            $aaron.text('a的索引是: '+ index)
         } 
     });
     </script>
