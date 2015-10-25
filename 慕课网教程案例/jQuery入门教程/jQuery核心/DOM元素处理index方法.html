@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    a {
+        font-size: 30px;
+        font-weight: 900;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>index方法</h2>
+    <ul>
+        <a></a>
+        <a></a>
+        <li id="test1">1</li>
+        <li id="test2">2</li>
+        <li id="test3">3</li>
+    </ul>
+    <ul>
+        <li id="test4">4</li>
+        <li id="test5">5</li>
+        <li id="test6">6</li>
+    </ul>
+    <select id="animation">
+        <option value="1">index无参数</option>
+        <option value="2">index传递dom</option>
+        <option value="3">index传递jQuery对象</option>
+    </select>
+    <input id="exec" type="button" value="点击执行">
+    <br />
+    <br /> 索引结果：
+    <span></span>
+    <script type="text/javascript">
+    $("#exec").click(function() {
+        var v = $("#animation").val();
+
+        var $span = $("span");
+        $span.empty();
+
+        if (v == "1") {
+            //找到第一个li的同辈节点中的索引位置
+            $span.text($("li").index())
+        } else if (v == "2") {
+
+            //通过传递dom查找
+            $span.text($("li").index(document.getElementById("test5")))
+
+        } else if (v == "3") {
+            //通过传递jQuery对象查找
+            $span.text($("li").index($("#test6")))
+
+        }
+    });
+    </script>
+</body>
+
+</html>
