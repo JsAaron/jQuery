@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        p{
+            color:red;
+        }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>fadeOut</h2>
+    <p>测试文字淡入效果</p>
+    <p>慕课网,专注分享</p>
+    淡出的隐藏效果：
+    <select id="animation">
+        <option value="1">fadeOut( )</option>
+        <option value="2">fadeOut( "slow" )</option>
+        <option value="3">fadeOut( 3000 )</option>
+        <option value="4">fadeOut( 1000, complete )</option>
+        <option value="5">fadeOut( 1000, "linear" )</option>
+        <option value="6">fadeOut( options )</option>
+    </select>
+    <input id="btnShow" type="button" value="显示" />
+    <input id="btnFadeOut" type="button" value="点击隐藏" />
+    <script type="text/javascript">
+    //【显示】按钮
+    $("#btnShow").click(function() {
+        $("p").show();
+    });
+
+    //【隐藏】按钮
+    $("#btnFadeOut").click(function() {
+        var v = $("#animation").val();
+        if (v == "1") {
+            $("p").fadeOut();
+        } else if (v == "2") {
+            $("p").fadeOut("slow");
+        } else if (v == "3") {
+            $("p").fadeOut(3000);
+        } else if (v == "4") {
+            $("p").fadeOut(2000, function() {
+                alert("隐藏完毕!");
+            });
+        } else if (v == "5") {
+            $("p").fadeOut(1000, "linear");
+        } else if (v == "6") {
+            $("p").fadeOut({
+                duration: 1000
+            });
+        }
+    });
+    </script>
+</body>
+
+</html>

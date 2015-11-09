@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>trim方法</h2>
+
+    未处理
+    <input type="text" name="" id="results1" value=" 前后留空 " />
+    <input id="exec1" type="button" value="点击执行"> <br />
+    
+    trim处理
+    <input type="text" name="" id="results2" value=" 前后留空 " />
+    <input id="exec2" type="button" value="点击执行">
+    <script type="text/javascript">
+    $("#exec1").click(function() {
+        alert("值的长度：" + $("#results1").val().length)
+    });
+
+    $("#exec2").click(function() {
+         alert("值的长度：" + $.trim($("#results2").val()).length)
+    });
+    </script>
+</body>
+
+</html>

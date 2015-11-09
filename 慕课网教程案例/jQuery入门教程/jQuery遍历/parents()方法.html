@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left {
+        width: auto;
+        height: 350px;
+    }
+    
+    .left div {
+        width: 350px;
+        height: 150px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    
+    span {
+        color: blue;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>parents方法()</h2>
+    <div class="left first-div">
+
+        <div class="div">
+            <ul class="level-2">
+                <!-- A -->
+                <li class="item-a">A</li>
+                <!-- B -->
+                <li class="item-b">B
+                    <ul class="level-3">
+                        <li class="item-1">1</li>
+                        <li class="item-2">2</li>
+                        <li class="item-3">3</li>
+                    </ul>
+                </li>
+                <!-- C -->
+                <li class="item-c">C</li>
+            </ul>
+        </div>
+
+        <div class="div">
+            <ul class="level-2">
+                <!-- A -->
+                <li class="item-a">A</li>
+                <!-- B -->
+                <li class="item-b">B
+                    <ul class="level-3">
+                        <li class="item-1">1</li>
+                        <li class="item-2">2</li>
+                        <li class="item-3">3</li>
+                    </ul>
+                </li>
+                <!-- C -->
+                <li class="item-c">C</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <button>点击：parents无参数</button>
+    <button>点击：parents传递选择器</button>
+
+    <script type="text/javascript">
+    $("button:first").click(function() {
+        //找到当前元素的所有祖辈元素
+        //并且附上一个边
+        $('.item-b').parents().css('border', '2px solid red')
+    })
+    </script>
+
+    <script type="text/javascript">
+    $("button:last").click(function() {
+        //找到当前元素的所有祖辈元素,筛选出class="first-div"的元素
+        //并且附上一个边
+        $('.item-b').parents('.first-div').css('border', '2px solid blue')
+    })
+    </script>
+</body>
+
+</html>

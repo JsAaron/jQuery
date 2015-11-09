@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 300px;
+        height: 80px;
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>.mousemove()方法</h2>
+    <div class="left">
+        <div class="aaron1">
+            <p>鼠标在绿色区域移动触发mousemove</p>
+            <p>移动的X位置：</p>
+        </div>
+    </div>
+    <div class="right">
+        <div class="aaron3">
+            <p>鼠标移动：不同函数传递数据</p>
+            <p>数据：</p>
+        </div>
+    </div>
+
+    <button>点击：指定触发mousemove事件</button>
+
+    <script type="text/javascript">
+        //绑定一个mousemove事件
+        //触发后修改内容
+         $(".aaron1").mousemove(function(e) {
+            $(this).find('p:last').html('移动的X位置：' +e.pageX)
+        })
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        $('h2').mousemove(function(e) {
+            alert('触发h2元素绑定的mousemove')
+        })
+
+        $("button:eq(0)").click(function(e) {
+            $('h2').mousemove() //指定触发绑定的事件
+        })
+
+    </script>
+
+
+    <script type="text/javascript">
+        //不同函数传递数据
+        function data(e) {
+            $(this).find('p:last').html('数据:' + e.data)
+        }
+
+        function a() {
+            $(".right").mousemove(1111, data)
+        }
+        a();
+
+    </script>
+</body>
+
+</html>

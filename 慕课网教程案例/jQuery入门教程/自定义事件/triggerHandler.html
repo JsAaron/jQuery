@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>自定义事件triggerHandler</h2>
+    <div class="left">
+        <div>
+            <input type="text" value="" />
+        </div>
+        <button>trigger聚焦触发浏览器事件</button>
+        <button>triggerHandler聚焦没有触发浏览器事件</button>
+    </div>
+    <script type="text/javascript">
+
+    //给input绑定一个聚焦事件
+    $("input").on("focus",function(event,titie) {
+        $(this).val('聚焦')
+    });
+
+
+    //trigger触发focus
+    $("button:first").click(function() {
+        $("input").trigger("focus",['触发默认事件']);
+    });
+
+     //triggerHandler触发focus
+    $("button:last").click(function() {
+        $("input").triggerHandler("focus",'没有触发默认事件');
+    });
+
+
+
+    </script>
+</body>
+
+</html>

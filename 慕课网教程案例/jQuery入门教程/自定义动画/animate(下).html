@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    p {
+        color: red;
+    }
+    
+    div {
+        width: 200px;
+        height: 100px;
+        background-color: yellow;
+        color: red;
+    }
+    a{
+        display: block
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>animate(下)</h2>
+    <p>慕课网,专注分享</p>
+    <div id="aaron">内部动画</div>
+    点击观察动画效果：
+    <select id="animation">
+        <option value="1">动画step动画</option>
+        <option value="2">动画progress回调</option>
+    </select>
+    <a></a>
+    <input id="exec" type="button" value="执行动画">
+    <script type="text/javascript">
+    $("#exec").click(function() {
+        var v = $("#animation").val();
+        var $aaron = $("#aaron");
+        if (v == "1") {
+            //观察每一次动画的改变
+            $aaron.animate({
+                height: '50'
+            }, {
+                duration :2000,
+                //每一个动画都会调用
+                step: function(now, fx) {
+                   $aaron.text('高度的改变值:'+now)
+                }
+            })
+        } else if (v == "2") {
+            //观察每一次进度的变化
+            $aaron.animate({
+                height: '50'
+            }, {
+                duration :2000,
+                //每一步动画完成后调用的一个函数，
+                //无论动画属性有多少，每个动画元素都执行单独的函数
+                progress: function(now, fx) {
+                   $aaron.text('进度:'+arguments[1])
+                    // var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
+                    // alert(data)
+                }
+            })
+        } 
+    });
+    </script>
+</body>
+
+</html>

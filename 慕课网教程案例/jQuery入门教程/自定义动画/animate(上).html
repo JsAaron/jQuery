@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    p {
+        color: red;
+    }
+    div{
+        width:200px; 
+        height: 100px; 
+        background-color: yellow;
+        color:red;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>animate(上)</h2>
+    <p>慕课网,专注分享</p>
+    <div id="aaron">内部动画</div>
+    点击观察动画效果：
+    <select id="animation">
+        <option value="1">动画1</option>
+        <option value="2">动画2</option>
+        <option value="3">动画3</option>
+        <option value="4">动画4</option>
+    </select>
+    <input id="exec" type="button" value="执行动画">
+    <script type="text/javascript">
+    $("#exec").click(function() {
+        var v = $("#animation").val();
+        var $aaron = $("#aaron");
+        if (v == "1") {
+            // 数值的单位默认是px
+            $aaron.animate({
+                width  :300,
+                height :300
+            });
+        } else if (v == "2") {
+            // 在现有高度的基础上增加100px
+            $aaron.animate({
+                 width  : "+=100px",
+                 height : "+=100px"
+            });
+        } else if (v == "3") {
+            $aaron.animate({
+                fontSize: "5em"
+            }, 2000, function() {
+                alert("动画 fontSize执行完毕!");
+            });
+        } else if (v == "4") {
+            //通过toggle参数切换高度
+            $aaron.animate({
+                width: "toggle"
+            });
+        } 
+    });
+    </script>
+</body>
+
+</html>

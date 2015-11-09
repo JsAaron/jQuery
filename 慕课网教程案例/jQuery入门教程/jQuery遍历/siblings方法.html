@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style>
+    .left {
+        width: auto;
+        height: 150px;
+    }
+    
+    .left div {
+        width: 150px;
+        height: 100px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    
+    a {
+        display: block;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>siblings方法()</h2>
+    <div class="left first-div">
+        <div class="div">
+            <ul class="level-1">
+                <li class="item-1">1</li>
+                <li class="item-2">2</li>
+                <li class="item-3">3</li>
+            </ul>
+        </div>
+        <div class="div">
+            <ul class="level-2">
+                <li class="item-1">1</li>
+                <li class="item-2">2</li>
+                <li class="item-3">3</li>
+            </ul>
+        </div>
+        <div class="div">
+            <ul class="level-3">
+                <li class="item-1">1</li>
+                <li class="item-2">2</li>
+                <li class="item-3">3</li>
+            </ul>
+        </div>
+    </div>
+    <button>点击：siblingsv无参数</button>
+    <button>点击：siblings传递选择器</button>
+    <script type="text/javascript">
+    $("button:first").click(function() {
+        //找到class=item-2的所有兄弟节点
+        //然后给每个li加上红色的边
+        $('.item-2').siblings().css('border', '2px solid red')
+    })
+    </script>
+
+    <script type="text/javascript">
+    $("button:last").click(function() {
+        //找到class=item-2的所有兄弟节点
+        //然后筛选出最后一个，加上蓝色的边
+       $('.item-2').siblings(':last').css('border', '2px solid blue')
+    })
+    </script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left,
+    .right {
+        width: 300px;
+        height: 120px;
+    }
+    
+    .left div,
+    .right div {
+        width: 100px;
+        height: 90px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>jQuery.data()静态方法</h2>
+    <div class="left">
+        <div class="aaron">
+            <p>点击看结果</p>
+            <p>jQuery.data</p>
+        </div>
+        <div><span></span></div>
+    </div>
+    <h2>.data()实例方法</h2>
+    <div class="right">
+        <div class="aaron">
+            <p>点击看结果</p>
+            <p>.data</p>
+        </div>
+        <div><span></span></div>
+    </div>
+    <script type="text/javascript">
+    $('.left').click(function() {
+        var ele = $(this);
+        //通过$.data方式设置数据
+        $.data(ele, "a", "data test")
+        $.data(ele, "b", {
+            name : "慕课网"
+        })
+        //通过$.data方式取出数据
+        var reset = $.data(ele, "a") + "</br>" + $.data(ele, "b").name
+        ele.find('span').append(reset)
+    })
+    </script>
+    <script type="text/javascript">
+    $('.right').click(function() {
+        var ele = $(this);
+        //通过.data方式设置数据
+        ele.data("a", "data test")
+        ele.data("b", {
+            name: "慕课网"
+        })
+        //通过.data方式取出数据
+        var reset = ele.data("a") + "</br>" + ele.data("b").name
+        ele.find('span').append(reset)
+    })
+    </script>
+</body>
+
+</html>

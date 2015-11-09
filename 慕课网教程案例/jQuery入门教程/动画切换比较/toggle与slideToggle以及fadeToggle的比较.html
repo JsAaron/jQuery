@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        p{
+            color:red;
+        }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>toggle与slideToggle以及fadeToggle的比较</h2>
+    <p>测试文字淡入效果</p>
+    <p>慕课网,专注分享</p>
+    动画切换：
+    <select id="animation">
+        <option value="1">toggle</option>
+        <option value="2">slideToggle</option>
+        <option value="3">fadeToggle</option>
+    </select>
+    <input id="btnShow" type="button" value="点击切换" />
+    <script type="text/javascript">
+
+    $("#btnShow").click(function() {
+        var v = $("#animation").val();
+        if (v == "1") {
+            $("p").toggle();
+        } else if (v == "2") {
+            $("p").slideToggle("slow");
+        } else if (v == "3") {
+            $("p").fadeToggle(1000, "linear");
+        }
+    });
+    </script>
+</body>
+
+</html>

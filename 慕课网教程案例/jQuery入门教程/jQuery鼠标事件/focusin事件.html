@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>.focusin()方法</h2>
+    <div class="left">
+        <div class="aaron">
+            点击聚焦：<input type="text" />
+        </div>
+    </div>
+    <div class="right">
+        <div class="aaron1">
+            点击聚焦并传递参数：<input type="text" />
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+        //input聚焦
+        //给input元素增加一个边框
+        $("input:first").focusin(function() {
+             $(this).css('border','2px solid red')
+        })
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        //不同函数传递数据
+        function fn(e) {
+             $(this).val(e.data)
+        }
+
+        function a() {
+            $("input:last").focusin('慕课网', fn)
+        }
+        a();
+
+    </script>
+</body>
+
+</html>

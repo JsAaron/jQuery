@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>.mouseup()方法</h2>
+    <div class="left">
+        <div class="aaron">
+            <p>$('button:first').mouseup(function(e) {alert(this)})</p>
+        </div>
+    </div>
+    <div class="right">
+        <div class="aaron">
+            <p>$('.right').mouseup(1111, set)</p>
+        </div>
+    </div>
+    <button>绑定事件this</button>
+    <button>指定触发事件</button>
+    <button>不同函数传递数据</button>
+
+
+
+    <script type="text/javascript">
+        //this指向button元素
+         $("button:eq(0)").mouseup(function(e) {
+           alert('e.which: ' + e.which)
+        })
+    </script>
+
+
+    <script type="text/javascript">
+
+        $('p').mouseup(function(e) {
+            alert(e.target.textContent)
+        })
+
+        //this指向button元素
+        $("button:eq(1)").mouseup(function() {
+            $('p').mouseup() //指定触发绑定的事件
+        })
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        //不同函数传递数据
+        function data(e) {
+            alert(e.data) //1111
+        }
+
+        function a() {
+            $("button:eq(2)").mouseup(1111, data)
+        }
+        a();
+
+    </script>
+</body>
+
+</html>

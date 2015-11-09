@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 350px;
+        height: 150px;
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #ccc;
+    }
+    p{
+        height: 50px;
+        border: 1px solid red;
+        margin: 30px;
+    }
+    .left div {
+        background: #bbffaa;
+    }
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>.mouseout()方法</h2>
+    <div class="left">
+        <div class="aaron1">
+            <p>鼠标离开此区域触发mouseout事件</p>
+            <a>mouseout事件触发次数：</a><br/>
+            <a>mouseout冒泡事件触发次数：</a>
+        </div>
+    </div>
+
+    <h2>.mouseleave()方法</h2>
+    <div class="right">
+        <div class="aaron2">
+            <p>鼠标离开此区域触发mouseleave事件</p>
+            <a>mouseleave事件触发次数：</a><br/>
+            <a>mouseleave冒泡事件触发次数：</a>
+        </div>
+    </div>
+    <br/>
+   
+    
+    <script type="text/javascript">
+
+        var i = 0;
+        $(".aaron1 p").mouseout(function(e) {
+            $(".aaron1 a:first").html('mouseout事件触发次数：' + (++i))
+        })
+
+        var n = 0;
+        $(".aaron1").mouseout(function() {
+            $(".aaron1 a:last").html('mouseout冒泡事件触发次数：' + (++n))
+        })
+
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        var i = 0;
+        $(".aaron2 p").mouseleave(function(e) {
+            $(".aaron2 a:first").html('mouseleave事件触发次数：' + (++i))
+        })
+
+        var n = 0;
+        $(".aaron2").mouseleave(function() {
+            $(".aaron2 a:last").html('mouseleave冒泡事件触发次数：' + (++n))
+        })
+
+    </script>
+
+
+</body>
+
+</html>
