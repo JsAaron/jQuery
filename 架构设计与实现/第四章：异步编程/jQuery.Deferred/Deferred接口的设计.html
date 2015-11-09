@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+
+
+		var tuples = [
+			["resolve", "done", jQuery.Callbacks("once memory"), "resolved"],
+			["reject", "fail", jQuery.Callbacks("once memory"), "rejected"],
+			["notify", "progress", jQuery.Callbacks("memory")]
+		]
+
+		var promise = {},
+			deferred = {};
+		for (var i = 0; i < tuples.length; i++) {
+			var triggerName  = tuples[i][0] //触发器方法 resolve、reject、reject
+			var callbackName = tuples[i][1] //监听的回调 done、fail、progress
+			var operate      = tuples[i][2] //具体操作的方法 callback对象
+			var statusName   = tuples[i][3] //状态值 resolved、rejected
+
+			//给promise上附加done、fail、progress，
+			//对应的回调用callback.add保存
+			promise[ callbackName ] = operate.add;
+
+// 如果有状态控制
+if ( statusName ) {
+	//增加三个预处理函数
+	operate.add(function() {
+		// state = [ resolved | rejected ]
+		// 执行操作时候，修改对应的状态
+		state = statusName;
+
+	// [ reject_list | resolve_list ].disable; progress_list.lock
+	// 增加对应的方法，让操作不可逆
+	}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
+}
+
+
+
+			//触发方法
+			// resolve、reject、reject
+			deferred[ triggerName ] = function() {
+				deferred[ triggerName+ "With" ]( this === deferred ? promise : this, arguments );
+				return this;
+			};
+			//resolveWith、rejectWith、rejectWith
+			deferred[triggerName + "With" ] = operate.fireWith;
+		}
+
+		console.log(promise ,deferred)
+
+
+
+		// var dfd = jQuery.Deferred();
+
+		// dfd.then(function(){
+		// 	console.log(1)
+		// }).done(function(){
+		// 	console.log(2)
+		// })
+
+		// console.log(dfd)
+
+		// setTimeout(function() {
+		// 	dfd.resolve("成功");
+		// }, 1000);
+
+
+		// 	var dfd = jQuery.Deferred();
+
+		// 	//成功触发
+		// 	setTimeout(function() {
+		// 		dfd.resolve("成功");
+		// 	}, Math.floor( 400 + Math.random() * 2000 ) );
+
+		// 	//失败触发
+		// 	setTimeout(function() {
+		// 	   dfd.reject( "sorry" );
+		// 	}, Math.floor( 400 + Math.random() * 2000 ) );
+			 
+		// 	//进行中
+		// 	setTimeout(function working() {
+		// 		if (dfd.state() === "pending") {
+		// 			dfd.notify("working... ");
+		// 			setTimeout(working, 100);
+		// 		}
+		// 	}, 100);
+		// 	return dfd.promise();
+		// }
+
+		// $.when(asyncEvent()).then(
+		// 	function(status) {
+		// 		console.log(status,'成功回调');
+		// 	},
+		// 	function(status) {
+		// 		console.log(status,'失败回调');
+		// 	},
+		// 	function(status) {
+		// 		console.log(status,'运行中');
+		// 	}
+		// );
+
+
+	</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    .box {
+        background-color: #cd0000;
+        width: 100px;
+        height: 100px;
+    }
+    
+    .box:empty {
+        background-color: #fae6e6;
+    }
+    
+    .pseudo::after {
+        content: '伪元素生成内容';
+    }
+    
+    .test1 {
+        width: 90px;
+        height: 60px;
+        background: #ccc;
+        /*background: url(http://img.xiaoho.com/2014/12/test.png) no-repeat 0 0;*/
+        
+        -webkit-animation-name: skyset;
+        -webkit-animation-duration: 1000ms;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear
+    }
+    
+    @-webkit-keyframes skyset {
+        0% {
+            background: red;
+        }
+        /*        50%{
+            background: blue
+        }*/
+        
+        100% {
+            background: yellow;
+        }
+    }
+    
+    @-webkit-keyframes run {
+        /*        0% {
+            background-position: 0;
+        }*/
+        /*        20% {
+            background-position: -90px 0;
+        }
+        40% {
+            background-position: -180px 0;
+        }
+        60% {
+            background-position: -270px 0;
+        }
+        80% {
+            background-position: -360px 0;
+        }*/
+        /*     100% {
+            background-position: -90px 0;
+        }*/
+    }
+    
+    .dotting {
+        display: inline-block;
+        min-width: 2px;
+        min-height: 2px;
+        box-shadow: 2px 0 currentColor, 6px 0 currentColor, 10px 0 currentColor;
+        /* for IE9+, ..., 3个点 */
+        
+        -webkit-animation: dot 4s infinite step-start both;
+        /* for IE10+, ... */
+        
+        *zoom: expression(this.innerHTML='...');
+        /*  for IE7. 若无需兼容IE7, 此行删除 */
+    }
+    
+    .dotting:before {
+        content: '...';
+    }
+    /* for IE8. 若无需兼容IE8, 此行以及下一行删除*/
+    
+    .dotting::before {
+        content: '';
+    }
+    /* for IE9+ 覆盖 IE8 */
+    
+    :root .dotting {
+        margin-right: 8px;
+    }
+    /* for IE9+,FF,CH,OP,SF 占据空间*/
+    
+    @-webkit-keyframes dot {
+        25% {
+            box-shadow: none;
+        }
+        /* 0个点 */
+        
+        50% {
+            box-shadow: 2px 0 currentColor;
+        }
+        /* 1个点 */
+        
+        75% {
+            box-shadow: 2px 0 currentColor, 6px 0 currentColor;
+            /* 2个点 */
+        }
+    }
+
+
+    .loading {
+        /*background: url(loading3.png) 0 0;*/
+        width: 128px;
+        height: 128px;
+        -webkit-animation:circle 30s steps(100,start) 1;
+        margin: 20px;
+    }
+    
+    @-webkit-keyframes circle {
+        0% {background: red}
+        1% {background: #ccc}
+        50%{background: yellow}
+        100% {background: blue}
+    }
+
+    
+    @-webkit-keyframes auto-circle {
+        0% {
+            background-position-x: 0;
+            background: red
+        }
+        10% {
+            background-position-x: -100%;
+             /*background: red*/
+        }
+        20% {
+            background-position-x: -200%;
+             /*background: yellow*/
+        }
+        30% {
+            background-position-x: -300%;
+             /*background: blue*/
+        }
+        40% {
+            background-position-x: -400%;
+        }
+        50% {
+            background-position-x: -500%;
+        }
+        60% {
+            background-position-x: -600%;
+        }
+        70% {
+            background-position-x: -700%;
+        }
+        80% {
+            background-position-x: -800%;
+        }
+        90% {
+            background-position-x: -900%;
+        }
+        100% {
+            background-position-x: -1000%;
+        }
+    }
+
+ 
+    </style>
+</head>
+<script type="text/javascript">
+    
+
+
+</script>
+
+<body>
+    <div class="loading"></div>
+    <!--    <p style="width:96px; height:96px; border:2px solid #beceeb; overflow:hidden;">
+        <img src="mm1.jpg"style="position:absolute;" />
+    </p> -->
+    <div class="test1"></div>
+    订单提交中<span class="dotting"></span>
+</body>
+
+</html>

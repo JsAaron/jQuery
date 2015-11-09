@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jquery拖动图片移动拼图小游戏</title>
+    <link rel="stylesheet" href="css/puzzleGame.css" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/puzzleGame.js"></script>
+    <script type="text/javascript">
+    //配置文件
+    var config = {
+        'img': 'images/man.jpg', //图片
+        'width': 509, //图拼宽度
+        'height': 509 //图片高度
+    }
+
+    $(function() {
+        var pg = new puzzleGame(config)
+    }); 
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="left">
+            <ul>
+                <li id="gameRule"> 游戏介绍：
+                    <p>1、点击游戏难度以更改</p>
+                    <p>2、点击开始游戏，打乱图片</p>
+                    <p>3、交换图片位置，复原图片</p>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <ul>
+                <li id="start"> <span><button>开始游戏</button></span> </li>
+                <li id="level"> <span><button>难度选择:3x3</button></span> </li>
+            </ul>
+            <div id="imgArea"></div>
+        </div>
+    </div>
+</body>
+
+</html>

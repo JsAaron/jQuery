@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style>
+    .left {
+        width: auto;
+        height: 120px;
+    }
+    
+    .left div {
+        width: 100px;
+        height: 70px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    
+    .bottom {
+        width: 800px;
+    }
+    
+    .bottom div,
+    .bottom span {
+        display: block;
+        width: 80px;
+        height: 80px;
+        margin: 5px;
+        background: #bbffaa;
+        float: left;
+        font-size: 14px;
+    }
+    
+    .bottom .small {
+        width: 60px;
+        height: 25px;
+        font-size: 12px;
+        background: #fab;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>属性筛选选择器</h2>
+    <h3>[att=val]、[att]、[att|=val]、[att~=val]</h3>
+    <div class="left" testattr="true" >
+        <div class="div" testattr="true" name='p1'>
+            <a>[att=val]</a>
+        </div>
+        <div class="div" testattr="true" p2>
+            <a>[att]</a>
+        </div>
+        <div class="div" testattr="true" name="a-b">
+            <a>[att|=val]</a>
+        </div>
+        <div class="div" testattr="true" name="a b">
+            <a>[att~=val]</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+         //查找所有div中，属性name=p1的div元素
+         $('div[name=p1]').css("border", "3px groove red"); 
+    </script>
+
+    <script type="text/javascript">
+        //查找所有div中，有属性p2的div元素
+        $('div[p2]').css("border", "3px groove blue"); 
+    </script>
+
+    <script type="text/javascript">
+        //查找所有div中，有属性name中的值包含一个连字符“-”的div元素
+        $('div[name|="a"]').css("border", "3px groove #00FF00"); 
+    </script>
+
+    <script type="text/javascript">
+        //查找所有div中，有属性name中的值包含一个连字符“空”的div元素
+        $('div[name~="a"]').css("border", "3px groove #668B8B"); 
+    </script>
+
+
+    <h3>[att^=val]、[att*=val]、[att$=val]、[att!=val]</h3>
+    <div class="left" testattr="true" >
+        <div class="div" testattr="true"  name='imooc-aaorn'>
+            <a>[att^=val]</a>
+        </div>
+        <div class="div" testattr="true"  name='aaorn-imooc'>
+            <a>[att$=val]</a>
+        </div>
+        <div class="div" testattr="true"  name="attr-test-selector">
+            <a>[att*=val]</a>
+        </div>
+        <div class="div" name="a b">
+            <a>[att!=val]</a>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+         //查找所有div中，属性name的值是用imooc开头的
+         $('div[name^=imooc]').css("border", "3px groove red"); 
+    </script>
+
+    <script type="text/javascript">
+         //查找所有div中，属性name的值是用imooc结尾的
+         $('div[name$=imooc]').css("border", "3px groove blue"); 
+    </script>
+
+    <script type="text/javascript">
+        //查找所有div中，有属性name中的值包含一个test字符串的div元素
+        $('div[name*="test"]').css("border", "3px groove #00FF00"); 
+    </script>
+
+    <script type="text/javascript">
+    console.log($('div[testattr!="true"]'))
+        //查找所有div中，有属性testattr中的值没有包含"true"的div
+        $('div[testattr!="true"]').css("border", "3px groove #668B8B"); 
+    </script>
+
+
+</body>
+
+</html>

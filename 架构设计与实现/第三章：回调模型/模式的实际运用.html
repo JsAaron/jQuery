@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+    <script type="text/javascript" src="../jquery-2.1.4.js"></script>
+    <script type="text/javascript">
+    window.onload = function() {
+
+        function fn1(parameter) { //回调一
+            console.log("fn1 : " + parameter);
+        }
+
+        function fn2(parameter) { //回调二
+            console.log("fn2 : " + parameter);
+        }
+
+        var callbacks = $.Callbacks(); //生成实例
+        callbacks.add(fn1);
+        //输出 => fn1 : Aaron 
+        callbacks.fire("Aaron");
+        callbacks.add(fn2); //添加多一个回调
+        //输出 => fn1 : 慕课网, fn2 : 慕课网
+        callbacks.fire("慕课网");
+
+        callbacks.remove(fn1); //删除回调一
+        //输出 => fn2 : 慕课网
+        callbacks.fire("慕课网");
+
+
+        var callbacks = $.Callbacks("once"); //只触发一次事件的管理器
+        callbacks.add(fn1);
+        callbacks.fire("Aaron"); //输出 => fn1 : Aaron
+        callbacks.add(fn2);
+        callbacks.fire("慕课网"); //触发不再生效了
+
+
+
+    }
+    </script>
+</head>
+
+<body>
+    <div>
+        <p>子元素</p>
+    </div>
+</body>
+
+</html>

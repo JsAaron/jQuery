@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>特殊选择器this</h2>
+
+
+        <div class="imooc">
+            <article>
+                <p>div下的article下的p元素</p>
+            </article>
+        </div>
+        <div class="imooc">
+            <article>
+                <p>div下的article下的p元素</p>
+            </article>
+        </div>
+
+    <p id="test1">点击测试：通过原生DOM处理</p>
+    
+    <p id="test2">点击测试：通过原生jQuery处理</p>
+
+    <script type="text/javascript">
+        var p1 = document.getElementById('test1')
+        p1.addEventListener('click',function(){
+            //改变p1元素颜色
+            this.style.color = "red" 
+        },false)
+    </script>
+
+    <script type="text/javascript">
+        $('#test2').click(function(){
+            $(this).css('color','blue')
+        })
+    </script>
+
+</body>
+
+</html>

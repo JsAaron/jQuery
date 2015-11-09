@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    p {
+        color: red;
+        margin: 4px;
+    }
+    
+    b {
+        color: blue;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h3>.val()</h3>
+    
+    <select id="single">
+        <option>慕课网</option>
+        <option>博客园</option>
+    </select>
+    <select id="multiple" multiple="multiple">
+        <option selected="selected">imocc</option>
+        <option>慕课网</option>
+        <option selected="selected">博客园</option>
+    </select>
+    <input type="text" value="click a button" />
+    <p></p>
+
+    <script type="text/javascript">
+        //单个select，返回第一个
+        $("p").text( $("#single").? )
+    </script>
+
+    <script type="text/javascript">
+        //多个select被选择，返回["imocc", "博客园"]
+        $("p").text( $("#multiple").? ) 
+    </script>
+
+
+    <script type="text/javascript">
+        //选择一个表单，修改value的值
+        $("input[type='text']").?('修改表单的字段') 
+    </script>
+
+
+</body>
+
+</html>

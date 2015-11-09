@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left {
+        width: auto;
+        height: 120px;
+    }
+    
+    .left div {
+        width: 70px;
+        height: 70px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    
+    .bottom {
+        width: 800px;
+    }
+    
+    .bottom div,
+    .bottom span {
+        display: block;
+        width: 80px;
+        height: 80px;
+        margin: 5px;
+        background: #bbffaa;
+        float: left;
+        font-size: 14px;
+    }
+    
+    .bottom .small {
+        width: 60px;
+        height: 25px;
+        font-size: 12px;
+        background: #fab;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>基本筛选器</h2>
+    <h3>:first/:last/:even/:odd</h3>
+    <div class="left">
+        <div class="div">
+            <p>div:first</p>
+            <p>:even</p>
+        </div>
+        <div class="div">
+            <p>:odd</p>
+        </div>
+        <div class="div">
+            <p>:even</p>
+        </div>
+        <div class="div">
+            <p>:odd</p>
+        </div>
+        <div class="div">
+            <p>:even</p>
+        </div>
+        <div class="div">
+            <p>div:last</p>
+            <p>:odd</p>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //:first
+    $(".div:first").css("color", "#CD00CD");
+
+    //:last
+    $(".div:last").css("color", "#CD00CD");
+
+    //:even 选择所引值为偶数的元素，从 0 开始计数
+    $(".div:even").css("border", "3px groove red");
+
+    //:odd 选择所引值为奇数的元素，从 0 开始计数
+    $(".div:odd").css("border", "3px groove blue");
+    </script>
+    <h3>:eq/:gt/:lt</h3>
+    <div class="left">
+        <div class="aaron">
+            <p>:lt(3)</p>
+        </div>
+        <div class="aaron">
+            <p>:lt(3)</p>
+        </div>
+        <div class="aaron">
+            <p>:eq(2)</p>
+        </div>
+        <div class="aaron">
+        </div>
+        <div class="aaron">
+            <p>:gt(3)</p>
+        </div>
+        <div class="aaron">
+            <p>:gt(3)</p>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //:eq
+    //选着单个
+    $(".aaron:eq(2)").css("border", "3px groove blue");
+
+    //:gt
+    //gt选择的是一个段落，从选中的大于指定索引到结束
+    $(".aaron:gt(3)").css("color", "blue")
+
+
+    //:lt 选择匹配集合中所有索引值小于给定index参数的元素
+    //与:gt相反
+    $(".aaron:lt(2)").css("color", "#CD00CD")
+    </script>
+    <h3>:not</h3>
+    <div class="left">
+        <div>
+            <input type="checkbox" name="a" />
+            <p>Aaron</p>
+        </div>
+        <div>
+            <input type="checkbox" name="b" />
+            <p>慕课</p>
+        </div>
+        <div>
+            <input type="checkbox" name="c" checked="checked" />
+            <p>其他</p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //:not 选择所有元素去除不匹配给定的选择器的元素
+        //选取所有input中,没有checked属性的p元素，赋予颜色
+        $("input:not(:checked) + p").css("background-color", "#CD00CD");
+    </script>
+</body>
+
+</html>

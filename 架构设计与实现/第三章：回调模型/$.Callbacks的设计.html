@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+    <script type="text/javascript" src="../jquery-2.1.4.js"></script>
+    <script type="text/javascript">
+    window.onload = function() {
+
+        function fn1(parameter) { //回调一
+            console.log("fn1 : " + parameter);
+        }
+
+        function fn2(parameter) { //回调二
+            console.log("fn2 : " + parameter);
+        }
+
+        var callbacks = $.Callbacks(); //生成实例
+
+        console.log(callbacks)
+
+        jQuery.Callbacks = function(options) {
+            //内部创建的self对象，也就是回调对象
+            //返回的就是对应的对象接口
+            var self = {
+                add: function() {},
+                fire: function() {}
+                    //省略...
+            };
+            return self;
+        };
+
+
+        // add: function() {}   //回调列表中添加一个回调或回调的集合
+        // disable: function() {} // 禁用回调列表中的回调
+        // disabled: function() {} //回调列表是否禁用
+        // empty: function() {} // 从列表中删除所有的回调
+        // fire: function() {}  // 传入指定的参数调用所有的回调
+        // fireWith: function() // {} 访问给定的上下文和参数列表中的所有回调
+        // fired: function() {}  // 是否已经触发过
+        // has: function(fn) {}  // 确定列表是否有绑定任何回调
+        // lock: function() {}   // 锁定回调列表的当前状态
+        // locked: function() {} // 确定回调列表是否已被锁定
+        // remove: function() {} // 从回调列表中的删除一个回调或回调集合
+
+
+    }
+    </script>
+</head>
+
+<body>
+    <div>
+        <p>子元素</p>
+    </div>
+</body>
+
+</html>

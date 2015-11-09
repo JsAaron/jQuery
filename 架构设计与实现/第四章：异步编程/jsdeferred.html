@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			/**
+			 * 迷你版的deferred
+			 */
+			function Deferred(func) {
+				if (this instanceof Deferred === false) {
+					return new Deferred(func)
+				}
+				var tuple = [];
+				var promise = {
+					resolve: function() {
+						var t = tuple.shift(),
+							n;
+						t && (n = t.apply(null, arguments), n instanceof Deferred && (n.tuple = tuple));
+					},
+					then: function(n) {
+						return tuple.push(n), this;
+					}
+				}
+				if (func) {
+					func.call(promise, promise.resolve);
+				}
+				return promise;
+			};
+
+			var d = new Deferred();
+
+			setTimeout(function() {
+				d.resolve(100)
+			}, 500)
+
+			d.then(function(bbb) {
+				console.log(111)
+			})
+		}	
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+</div>
+</body>
+</html>

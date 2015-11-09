@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+    <script type="text/javascript" src="../jquery-2.1.4.js"></script>
+    <script type="text/javascript">
+    
+		function doSomething_A(callback) {
+			setTimeout(function() {
+				console.log('doSomeA: 先执行');
+				callback()
+			}, 1000);
+		}
+		function doSomething_B() {
+			console.log('doSomeB: 后执行');
+		}
+
+		doSomething_A(function(){
+			doSomething_B()
+		});
+
+
+		var func1 = function(callback1,callback2) {
+
+			//动画
+
+		}
+
+		func1(function(){
+
+		},function(){
+
+		});
+		
+
+
+    }
+    </script>
+</head>
+
+<body>
+    <div>
+        <p>子元素</p>
+    </div>
+</body>
+
+</html>

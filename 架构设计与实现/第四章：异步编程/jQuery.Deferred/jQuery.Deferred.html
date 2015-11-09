@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../../jquery-2.1.1.js"></script>
+	<script type="text/javascript">
+
+		function asyncEvent() {
+
+			var dfd = jQuery.Deferred();
+
+			//成功触发
+			setTimeout(function() {
+				dfd.resolve("成功");
+			}, Math.floor( 400 + Math.random() * 2000 ) );
+
+			//失败触发
+			setTimeout(function() {
+			   dfd.reject( "sorry" );
+			}, Math.floor( 400 + Math.random() * 2000 ) );
+			 
+			//进行中
+			setTimeout(function working() {
+				if (dfd.state() === "pending") {
+					dfd.notify("working... ");
+					setTimeout(working, 100);
+				}
+			}, 100);
+			return dfd.promise();
+		}
+
+		$.when(asyncEvent()).then(
+			function(status) {
+				console.log(status,'成功回调');
+			},
+			function(status) {
+				console.log(status,'失败回调');
+			},
+			function(status) {
+				console.log(status,'运行中');
+			}
+		);
+
+
+	</script>
+</head>
+<body>
+</body>
+</html>

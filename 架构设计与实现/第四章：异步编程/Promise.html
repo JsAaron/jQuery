@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			var promise = new Promise(function(resolve, reject) {
+				//模拟一段任务，执行1000毫秒
+				setTimeout(function() {
+					resolve(100);
+				}, 1000)
+
+			})
+			//给3个匿名函数传递引用名，便于理解
+			promise.then(function fn1(val) {
+				return val + 100
+			}).then(function fn2(val) { 
+				alert(val); //返回return val + 100 = 200
+				return val*2 
+			}).then(function fn3(val) {
+				alert(val); //返回return val*2  = 400
+			})
+
+		}	
+
+	</script>
+</head>
+<body>
+<div>
+	<p>子元素</p>
+</div>
+</body>
+</html>

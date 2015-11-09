@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    p {
+        color: red;
+    }
+    
+    div {
+        width: 200px;
+        height: 100px;
+        background-color: yellow;
+        color: red;
+    }
+    a{
+        display: block
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>stop</h2>
+    <p>慕课网,专注分享</p>
+    <div id="aaron">内部动画</div>
+    <input id="exec" type="button" value="执行动画"><br /><br />
+
+    点击观察动画效果：
+    <select id="animation">
+        <option value="1">stop()</option>
+        <option value="2">stop(true)</option>
+        <option value="3">stop(true,true)</option>
+    </select>
+    <a></a>
+    <input id="stop" type="button" value="停止动画">
+    <script type="text/javascript">
+
+    //点击执行动画
+    $("#exec").click(function(){
+        $("#aaron").animate({
+            height: 300
+        }, 5000)
+        $("#aaron").animate({
+            width: 300
+        }, 5000)
+        $("#aaron").animate({
+            opacity: 0.6
+        }, 2000)
+    })
+
+
+    $("#stop").click(function() {
+        var v = $("#animation").val();
+        var $aaron = $("#aaron");
+        if (v == "1") {
+            //当前当前动画
+            $aaron.stop()
+        } else if (v == "2") {
+            //停止所以队列
+            $aaron.stop(true)
+        } else if (v == "3") {
+            //停止动画，直接跳到当前动画的结束
+            $aaron.stop(true,true)
+        } 
+    });
+    </script>
+</body>
+
+</html>

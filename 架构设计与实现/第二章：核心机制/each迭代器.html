@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<!-- // <script type="text/javascript" src="../jquery-2.1.4.js"></script> -->
+	<script type="text/javascript">
+		window.onload = function(){
+			// jQuery构造器
+			var jQuery = function(selector, context) {
+				return new jQuery.fn.init(selector, context);
+			}
+			jQuery.fn = jQuery.prototype = {
+				constructor: jQuery,
+				//给所有元素设置颜色
+				setColor: function(color) {
+					for (var i = 0; i < this.length; i++) {
+						this[i].style.color = color
+					}
+					return this;
+				},
+				//返回第一个元素
+				first: function() {
+					return this[0]
+				}
+			}
+			var init = jQuery.fn.init = function(selector, context) {
+				var elem = document.querySelectorAll(selector)
+				for (var i = 0; i < elem.length; i++) {
+					this[i] = elem[i]
+				}
+				this.length   = elem.length;
+				this.context  = document;
+				this.selector = selector;
+				return this;
+			}
+			init.prototype = jQuery.fn;
+			var $div = jQuery('div')
+
+			$div.setColor('red').first()
+
+
+			function each(obj, callback) {
+				var value,
+					i = 0,
+					length = obj.length,
+					isArray = isArraylike(obj); //判断类型
+				if (isArray) { //如果是数组
+					for (; i < length; i++) {
+						value = callback.call(obj[i], i, obj[i]);
+						//获取到返回值，是否需要强行中断
+						if (value === false) {
+							break;
+						}
+					}
+				} else { //如果是对象
+					for (i in obj) {
+						value = callback.call(obj[i], i, obj[i]);
+						//获取到返回值，是否需要强行中断
+						if (value === false) {
+							break;
+						}
+					}
+				}
+				return obj;
+			}
+
+		jQuery.each(("blur focus focusin focusout  " +
+			"load resize scroll unload click dblclick " +
+			"mousedown mouseup mousemove mouseover " +
+			"mouseout mouseenter mouseleave change select " +
+			"submit keydown keypress keyup error contextmenu").split(" "), function(i, name) {
+			//name代表事件名
+			//把对应的事件名添加到jQuery.fn的原型中
+			jQuery.fn[name] = function(data, fn) {
+				return arguments.length > 0 ?
+					this.on(name, null, data, fn) :
+					this.trigger(name);
+			};
+		});
+
+
+		}
+	
+
+	</script>
+</head>
+<body>
+	<div>链式调用1</div>
+	<div>链式调用2</div>
+	<div>链式调用3</div>
+</body>
+</html>

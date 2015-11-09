@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery标签切换效果</title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    body {
+        font-size: 12px;
+    }
+    
+    #menu {
+        width: 360px;
+        overflow: hidden;
+        margin: 100px auto;
+        border: 1px solid #BF9660;
+    }
+    
+    #menu #nav {
+        display: block;
+        width: 100%;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+    
+    #menu #nav li {
+        float: left;
+        width: 120px;
+    }
+    
+    #menu #nav li a {
+        display: block;
+        line-height: 27px;
+        text-decoration: none;
+        padding: 0 0 0 5px;
+        text-align: center;
+        color: #333;
+    }
+    
+    #menu_con {
+        width: 358px;
+        height: 135px;
+        border-top: none
+    }
+    
+    .tag {
+        padding: 10px;
+        overflow: hidden;
+    }
+    
+    .selected {
+        background: #C5A069;
+        color: #fff;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <!--代码部分begin-->
+    <div id="menu">
+        <!--tag标题-->
+        <ul id="nav">
+            <li class="selected"><a href="#">男装</a></li>
+            <li><a href="#">女装</a></li>
+            <li><a href="#">配饰</a></li> </ul>
+        <!--二级菜单-->
+        <div id="menu_con">
+            <div class="tag" style="display:block">
+                <dl>
+                    <dd>
+                        <a>衬衫</a>
+                        <a>T恤</a>
+                        <a>牛仔裤</a>
+                        <a>休闲裤</a>
+                        <a>短裤</a>
+                        <a>针织衫</a>
+                        <a>西服</a>
+                        <a>西裤</a>
+                        <a>西服套装</a>
+                        <a>马甲/背心</a>
+                        <a>羽绒服</a>
+                        <a>棉服</a>
+                        <a>夹克</a>
+                        <a>POLO衫</a>
+                        <a>卫衣</a>
+                        <a>卫裤/运动裤</a>
+                        <a>真皮皮衣</a>
+                        <a>仿皮皮衣</a>
+                        <a>风衣</a>
+                        <a>羊毛衫</a>
+                        <a>羊绒衫</a>
+                        <a>毛呢大衣</a>
+                        <a>中老年男装</a>
+                        <a>大码男装</a>
+                        <a>工装</a>
+                        <a>加绒裤</a>
+                        <a>唐装/中山装</a>
+                        <a>设计师/潮牌</a>
+                    </dd>
+                    <dd><a href="">显示更多</a></dd>
+                </dl>
+            </div>
+            <div class="tag" style="display:none">
+                <dl>
+                    <dd>
+                        <a>连衣裙</a>
+                        <a>衬衫</a>
+                        <a>雪纺衫</a>
+                        <a>T恤</a>
+                        <a>牛仔裤</a>
+                        <a>针织衫</a>
+                        <a>休闲裤</a>
+                        <a>小西装</a>
+                        <a>卫衣</a>
+                        <a>风衣</a>
+                        <a>短外套</a>
+                        <a>毛呢大衣</a>
+                        <a>半身裙</a>
+                        <a>短裤</a>
+                        <a>打底衫</a>
+                        <a>打底裤</a>
+                        <a>吊带/背心</a>
+                        <a>马甲</a>
+                        <a>正装裤</a>
+                        <a>中老年女装</a>
+                        <a>大码女装</a>
+                        <a>真皮皮衣</a>
+                        <a>棉服</a>
+                        <a>羊毛衫</a>
+                        <a>羊绒衫</a>
+                        <a>羽绒服</a>
+                        <a>皮草</a>
+                        <a>仿皮皮衣</a>
+                        <a>加绒裤</a>
+                        <a>婚纱</a>
+                        <a>旗袍/唐装</a>
+                    </dd>
+                    <dd>
+                        <a href="" change ="color">偶数变色</a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="tag" style="display:none">
+                <dl>
+                    <dd>
+                        <a>太阳镜</a>
+                        <a>光学镜架/镜片</a>
+                        <a>防辐射眼镜</a>
+                        <a>男士腰带/礼盒</a>
+                        <a>棒球帽</a>
+                        <a>遮阳帽</a>
+                        <a>鸭舌帽</a>
+                        <a>遮阳伞/雨伞</a>
+                        <a>老花镜</a>
+                        <a>女士丝巾/围巾/披肩</a>
+                        <a>男士丝巾/围巾</a>
+                        <a>女士腰带/礼盒</a>
+                        <a>假领</a>
+                        <a>防晒手套</a>
+                        <a>装饰眼镜</a>
+                        <a>游泳镜</a>
+                        <a>领带/领结/领带夹</a>
+                        <a>礼帽</a>
+                        <a>贝雷帽</a>
+                        <a>毛线/布面料</a>
+                        <a>袖扣</a>
+                        <a>真皮手套</a>
+                        <a>毛线手套</a>
+                        <a>毛线帽</a>
+                        <a>口罩</a>
+                        <a>围巾/手套/帽子套装</a>
+                        <a>耳罩/耳包</a>
+                        <a>钥匙扣</a>
+                    </dd>
+                    <dd>
+                    	<a href="">给基数a元素加上颜色，并且隐藏偶数a元素</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <script>
+    //==============给tag设置一些样式与功能=========================
+
+    //=====================	
+    //	第一个tag处理
+    //=====================
+
+    //把a元素从顺序1-15给隐藏起来
+    $("#menu_con > div:first dd:eq(0) > a:lt(20)").hide();
+
+    //绑定事件
+    //找到显示更多,绑定一个点击事件，点击后展示更多的内容
+    $("#menu_con > div:first dd:last").click(function(event) {
+
+
+        //把a元素从顺序1-15给显示起来
+        $("#menu_con > div:first dd:eq(0) > a:lt(20)").show()
+
+        //用class选择器找到第一个a元素中包含"衣"的关键字，改变颜色
+        $(".tag:first a:contains('衣')").css('color','red')
+
+        $(this).remove() //删除 "显示更多"
+
+        return false //去掉a元素的默认跳转行为
+    })
+
+
+
+    //=====================	
+    //	第二个tag处理
+    //=====================
+
+    //通过找到第一个div，利用 + 兄弟选择器找到下一个div，就是第二个div
+    //通过属性选择器[name=value]找到对应的元素
+    $("#menu_con > div:first + div dd a[change='color']").click(function(event){
+    	 //通过eq(1)找到第2个tag，然后通过not排除掉属性[change='color']的a元素
+    	 //最后给匹配到的偶数的a元素增加一个颜色
+    	 $("#menu_con > div:eq(1) a:not([change='color']):even").css('color','red')
+    	 $(this).remove() //删除 "偶数变色"
+    	 return false //去掉a元素的默认跳转行为
+    })
+
+
+
+    //=====================	
+    //	第三个tag处理
+    //=====================
+
+    //任务：给基数a元素加上颜色，并且隐藏偶数a元素
+    //最后删除这个显示
+    $("#menu_con > div:last a:last").click(function(){
+    	$(".tag:last a:odd").hide(),
+    	$(".tag:last a:even").css('color','red')
+    	$(this).remove() 
+    	return false //去掉a元素的默认跳转行为
+    })
+
+
+
+    //==============给nav导航绑定事件可以相互切换=========================
+
+    //找到id=nav下的所有li
+    var $navs = $("#nav li")
+        //找打id="menu_con"的div元素
+    var $tabs = $("#menu_con > div")
+
+    $navs.each(function(index) {
+        var slef = this; //这个this指向的是li元素
+        var $this = $(this); //把$(li)包装成jQuery对象  
+
+        //这里涉及this的转化
+        //$navs是一个合集对象，给每一个$navs中的li元素绑定一个click事件
+        //通过点击每一个li元素用来切换导航栏
+        $this.on('click', function() {
+
+            //给当前的当行标签增加一个样式
+            $this.addClass('selected') //使用jQuery方法增加class样式
+            $tabs.eq(index).show()
+
+            //去掉其余导航的标签样式
+            $navs.each(function(index) {
+                if (this != slef) {
+                    $(this).removeClass('selected') //使用jQuery方法删除class样式
+                    $tabs.eq(index).hide()
+                }
+            })
+
+        })
+    })
+    </script>
+</body>
+
+</html>

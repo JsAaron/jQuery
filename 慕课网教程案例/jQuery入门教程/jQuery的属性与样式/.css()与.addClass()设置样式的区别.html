@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left,
+    .right {
+        width: 300px;
+        height: 120px;
+    }
+    
+    .left div,
+    .right div {
+        width: 200px;
+        height: 90px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+    }
+    a{
+        font-size: 14px;
+        display:block;
+    }
+    .newClass{
+        background: #bbffaa;
+    }
+
+    .imoocClass{
+        background: red;
+    }
+    .addBorder{
+        border: 1px solid red;
+    }
+
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>.addClss()与.css()方法区别</h2>
+    <div class="left">
+        <div class="aaron">
+            <a>css优先级高于addClass</a>
+            <a>1：第一次addClss背景色</a>
+            <a>2：第二次css修改背景色</a>
+        </div>
+    </div>
+    <div class="right">
+        <div class="aa bb imooc">
+            <article>
+                <a>imoocClass</a>
+            </article>
+        </div>
+    </div>
+
+    
+    <script type="text/javascript"> 
+        //给所有的div统一增加边宽
+        $('div').addClass('addBorder')
+    </script>
+
+    <script type="text/javascript"> 
+        //class=left下div元素增加一个新的样式，增加背景颜色
+        $('.aaron').addClass('newClass')
+    </script>
+
+    <script type="text/javascript"> 
+        //通过css覆盖addClass方式设置背景色
+        $('.aaron').css({
+            'background':'yellow'
+        })
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    div {
+        width: 100px;
+        height: 90px;
+        float: left;
+        padding: 5px;
+        margin: 5px;
+        background-color: #EEEEEE;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="aaron">
+        <p>class="aaron"</p>
+        <p>选中</p>
+    </div>
+    <div class="aaron">
+        <p>class="aaron"</p>
+        <p>选中</p>
+    </div>
+    <div class="imooc">
+        <p>class="imooc"</p>
+        <p>jQuery选中</p>
+    </div>
+    <div class="imooc">
+        <p>class="imooc"</p>
+        <p>jQuery选中</p>
+    </div>
+
+    <script type="text/javascript">
+    //通过原生方法处理
+    //获取到所有的节点标记名为div的元素
+    //给每一个div加上蓝色的边框
+    var divs = document.getElementsByTagName('div');
+    for (var i = 0; i < divs.length; i++) {
+        divs[i].style.border = "3px solid blue"
+    }
+    </script>
+    <script type="text/javascript">
+    //通过jQuery直接传入标签名p
+    //标签是可以多个的，所以得到的同样也是一个合集
+    $("p").css("border", "3px solid red")
+    </script>
+</body>
+
+</html>

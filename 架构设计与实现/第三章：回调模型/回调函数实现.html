@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+    <script type="text/javascript" src="../jquery-2.1.4.js"></script>
+    <script type="text/javascript">
+    
+	    function each(obj, callback) {
+	        var value,
+	            i = 0,
+	            length = obj.length;
+	        for (; i < length; i++) {
+	            value = callback.call(obj[i], i, obj[i]);
+	        }
+	    }
+
+	    each(['java', 'php', 'javascript', 'node'], function(index, value) {
+	        //index: 0,1,2,3
+	        //value:'java','php','javascript','node'
+	        console.log(index, value, this)
+	    })
+
+
+	    function getName(callback) {
+	        setTimeout(function() {
+	            callback('Aaron')
+	        }, 1000)
+	    }
+
+	    //等待callback回调
+	    getName(function(name) {
+	        // alert(name)
+	    })
+
+
+
+
+
+    }
+    </script>
+</head>
+
+<body>
+    <div>
+        <p>子元素</p>
+    </div>
+</body>
+
+</html>

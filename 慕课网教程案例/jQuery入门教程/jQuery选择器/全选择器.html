@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    div {
+        width: 100px;
+        height: 90px;
+        float: left;
+        padding: 5px;
+        margin: 5px;
+        background-color: #EEEEEE;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+<body>
+    <div class="aaron">
+        <p>class="aaron"</p>
+        <p>选中</p>
+    </div>
+    <div class="aaron">
+        <p>class="aaron"</p>
+        <p>选中</p>
+    </div>
+    <div class="imooc">
+        <p>class="imooc"</p>
+        <p>jQuery选中</p>
+    </div>
+    <div class="imooc">
+        <p>class="imooc"</p>
+        <p>jQuery选中</p>
+    </div>
+
+    <script type="text/javascript">
+        //获取页面中所有的元素
+        var elements1 = document.getElementsByTagName('*')
+    </script>
+    <script type="text/javascript">
+        //获取页面中所有的元素
+        var elements2 = $("*")
+        //如果获取的数量一直
+        if(elements2.length === elements1.length){
+           elements2.css("border","1px solid red")
+        }
+    </script>
+</body>
+
+</html>

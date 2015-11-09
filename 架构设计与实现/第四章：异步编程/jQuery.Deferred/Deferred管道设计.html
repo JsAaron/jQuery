@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+
+
+		var defer = $.Deferred();
+
+		//返回一个新的对象
+		var filtered = defer.then(function(value) {
+			var d = $.Deferred();
+			setTimeout(function(){ //模拟一个异步管道
+				d.resolve(value * 2)
+			},1000)
+			return d;
+		}).then(function(value) {
+			return value * 3;
+		})
+
+		filtered.done(function(value) {
+			console.log("值是: " + value);
+		});
+
+		defer.resolve(5);
+
+
+
+
+		// then: function( /* fnDone, fnFail, fnProgress */ ) {
+		// 	var fns       = arguments;
+		// 	var currDefer = this;  //当前的deferred对象
+		// 	var nextDefer = jQuery.Deferred(); //下一个deferred对象
+
+		// 	currDefer.done(function(){   //给当前的deferred对象注册个done回调
+		// 		nextDefer.resolve(arguments) //执行的是下一个deferred对象的resolve方法
+		// 	})
+
+		// 	currDefer.fail(function(){//给当前的deferred对象注册个fail回调
+		// 		nextDefer.resolve(arguments)//执行的是下一个deferred对象的reject方法
+		// 	})
+
+		// 	currDefer.progress(function(){//给当前的deferred对象注册个progress回调
+		// 		nextDefer.resolve(arguments)//执行的是下一个deferred对象的notify方法
+		// 	})
+
+		// 	return nextDefer;
+		// }
+
+		// function then( /* fnDone, fnFail, fnProgress */ ) {
+
+		// 	var currDefer = this; //当前的deferred对象
+		// 	var nextDefer = jQuery.Deferred(); //下一个deferred对象
+
+		// 	currDefer.done(function() { //给当前的deferred对象注册个done回调
+		// 		var returnDone = fnDone() //执行回调，拿到返回值
+
+		// 		if (returnDone.promise) { //如果是一个新的deferred对象
+		// 			returnDone.done(nextDefer.resolve) //连接到下一个deferred对象的resolve方法	
+		// 		} else {
+		// 			//数值类型
+		// 			nextDefer.resolve(arguments) //执行的是下一个deferred对象的resolve方法	
+		// 		}
+		// 	})
+			
+		// 	return nextDefer; //返回新创建的这个Deferred对象
+		// }
+
+
+
+
+		// var dfd = jQuery.Deferred();
+
+		// dfd.then(function(){
+		// 	console.log(1)
+		// }).done(function(){
+		// 	console.log(2)
+		// })
+
+		// console.log(dfd)
+
+		// setTimeout(function() {
+		// 	dfd.resolve("成功");
+		// }, 1000);
+
+
+		// 	var dfd = jQuery.Deferred();
+
+		// 	//成功触发
+		// 	setTimeout(function() {
+		// 		dfd.resolve("成功");
+		// 	}, Math.floor( 400 + Math.random() * 2000 ) );
+
+		// 	//失败触发
+		// 	setTimeout(function() {
+		// 	   dfd.reject( "sorry" );
+		// 	}, Math.floor( 400 + Math.random() * 2000 ) );
+			 
+		// 	//进行中
+		// 	setTimeout(function working() {
+		// 		if (dfd.state() === "pending") {
+		// 			dfd.notify("working... ");
+		// 			setTimeout(working, 100);
+		// 		}
+		// 	}, 100);
+		// 	return dfd.promise();
+		// }
+
+		// $.when(asyncEvent()).then(
+		// 	function(status) {
+		// 		console.log(status,'成功回调');
+		// 	},
+		// 	function(status) {
+		// 		console.log(status,'失败回调');
+		// 	},
+		// 	function(status) {
+		// 		console.log(status,'运行中');
+		// 	}
+		// );
+
+
+	</script>
+</head>
+<body>
+</body>
+</html>

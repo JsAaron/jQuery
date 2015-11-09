@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+    <script type="text/javascript">
+
+    	$(function(){
+			var div = document.getElementsByTagName('div') //dom对象
+			var $div = $(div) //jQuery对象
+			var $first = $div.first() //找到第一个div元素
+			$first.css('color', 'red') //给第一个元素设置颜色
+    	})
+
+    </script>
+</head>
+
+<body>
+<div>元素一</div>
+<div>元素二</div>
+<div>元素三</div>
+</body>
+
+</html>

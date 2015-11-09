@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>隔行换色</title>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <style type="text/css">
+    body,
+    table,
+    td,
+    {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+    }
+    
+    .h {
+        background: #f3f3f3;
+        color: #000;
+    }
+    
+    .c {
+        background: #ebebeb;
+        color: #000;
+    }
+    </style>
+</head>
+
+<body>
+    <h4>.toggleClass(className)和.toggleClass(className,switch)</h4>
+    <table id="table" width="50%" border="0" cellpadding="3" cellspacing="1">
+        <tr>
+            <td>慕课jQuery入门</td>
+            <td>慕课jQuery入门</td>
+        </tr>
+        <tr>
+            <td>慕课jQuery入门</td>
+            <td>慕课jQuery入门</td>
+        </tr>
+        <tr>
+            <td>慕课jQuery入门</td>
+            <td>慕课jQuery入门</td>
+        </tr>
+        <tr>
+            <td>慕课jQuery入门</td>
+            <td>慕课jQuery入门</td>
+        </tr>
+        <tr>
+            <td>慕课jQuery入门</td>
+            <td>慕课jQuery入门</td>
+        </tr>
+    </table>
+    </div>
+    <script type="text/javascript">
+    //给所有的tr元素加一个class="c"的样式
+    $("#table tr").toggleClass("c");
+    </script>
+    <script type="text/javascript">
+    //给所有的偶数tr元素切换class="c"的样式
+    //所有基数的样式保留，偶数的被删除
+    $("#table tr:odd").toggleClass("c");
+    </script>
+    <script type="text/javascript">
+    //第二个参数判断样式类是否应该被添加或删除
+    //true，那么这个样式类将被添加;
+    //false，那么这个样式类将被移除
+    //所有的奇数tr元素，应该都保留class="c"样式
+    $("#table tr:even").toggleClass("c", true); //这个操作没有变化，因为样式已经是存在的
+
+</body>
+
+</html>

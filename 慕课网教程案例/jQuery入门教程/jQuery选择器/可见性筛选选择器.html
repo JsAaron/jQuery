@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style>
+    .left {
+        width: auto;
+        height: 120px;
+    }
+    
+    .left div {
+        width: 100px;
+        height: 70px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    
+    .bottom {
+        width: 800px;
+    }
+    
+    .bottom div,
+    .bottom span {
+        display: block;
+        width: 80px;
+        height: 80px;
+        margin: 5px;
+        background: #bbffaa;
+        float: left;
+        font-size: 14px;
+    }
+    
+    .bottom .small {
+        width: 60px;
+        height: 25px;
+        font-size: 12px;
+        background: #fab;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h2>可见性筛选选择器</h2>
+    <h3>:visible/:hidden</h3>
+    <div class="left">
+        <div class="div">
+            <a>display</a>
+            <p id="div1" style="display:none;">display</p>
+        </div>
+        <div class="div">
+            <a>width</a>
+            <a>height</a>
+            <p id="div2" style="width:0;height:0">width/height</p>
+        </div>
+        <div class="div">
+            <a>visibility</a>
+            <a>opacity</a>
+            <p id="div3" style="visibility:hidden;opacity:0">visibility</p>
+        </div>
+    </div>
+
+	<p id="show"></p>
+	<script type="text/javascript">
+		function show (ele) {
+			if (ele instanceof jQuery) {
+				$("#show").html('元素的长度的 = ' + ele.length)
+			} else {
+				alert(ele+' 不是jQuery对象')
+			}
+		}
+	</script>
+
+
+    <script type="text/javascript">
+    	//查找id = div1的DOM元素,是否可见
+    	show( $('#div1:visible') )
+    </script>
+
+    <script type="text/javascript">
+    	//查找id = div2的DOM元素,是否可见
+    	show( $('#div2:visible') )
+    </script>
+
+    <script type="text/javascript">
+    	//查找id = div3的DOM元素,是否可见
+    	show(  $('#div3:visible') )
+    </script>
+
+    <script type="text/javascript">
+    	//查找id = div1的DOM元素,是否隐藏
+    	show(  $('#div1:hidden') )
+    </script>
+
+    <script type="text/javascript">
+    	//查找id = div2的DOM元素,是否隐藏
+    	show(  $('#div2:hidden') )
+    </script>
+
+    <script type="text/javascript">
+    	//查找id = div3的DOM元素,是否隐藏
+    	show( $('#div3:hidden') )
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="../../jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+
+
+		var d1 = $.Deferred();
+		var d2 = $.Deferred();
+		 
+		$.when( d1, d2 ).done(function ( v1, v2 ) {
+		    console.log( v1 ); // "Fish"
+		    console.log( v2 ); // "Pizza"
+		});
+		 
+		//解决
+		d1.resolve( "Fish" );
+		d2.resolve( "Pizza" )
+
+
+		
+function customer( telephone  ){
+
+	//等待鞋子....
+
+	telephone() //通知顾客鞋子到了
+}
+
+
+	</script>
+</head>
+<body>
+</body>
+</html>

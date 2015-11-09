@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery jGravity插件模拟重力物体下落后散开效果</title>
+<style>
+body {overflow:hidden; margin:0; padding:0; height:100%;}
+.box {height:100px; width:100px; float:left; margin:10px; color:white; text-align:center;}
+
+.blackHeader {width:100%; clear:both; height:30px;}
+.blackHeader div.headPiece {background:#333; width:5%; float:left; height:30px;}
+.blackHeader div.headPiece p {color: white;text-align: center;padding-top: 5px;}
+.blackHeader div.headPiece p a {color: white;text-decoration: none;}
+.logoBar {width:100%; clear:both; height:70px;}
+.logoBar div.barPiece {background:#F1F1F1; width:20%; height:70px; border-bottom:1px solid #E2E2E2; float:left;}
+.logoBar h1 {color:#333; text-align:center; font-size:30px; padding-top:12px; font-weight:normal;}	
+.logoBar h1 a {color: #333; padding-bottom: 2px;}
+.goBtnCentre {width:100%; clear:both; height: 80px; margin:20px 0;}
+.goButton {height: 80px; background: #E7534A;border: 1px solid #CE2117;width:200px; margin:0 auto;}
+.goButton h2 {text-align: center;font-size: 25px;color: white;font-weight: normal;line-height: 80px;cursor: pointer;}
+.goButton h2 a {color: white;}
+.duckCentre {width:100%; clear:both; height: 500px; margin:20px 0;}
+.duckCentre div.duckInner {width:740px; margin:0 auto;}
+.duckCentre div.duck {background:#FFF; float:left; width:200px; height:200px; margin:10px; padding:10px; border:1px solid #eee;}
+</style>
+</head>
+<body>
+<!-- 代码部分begin -->
+<div class="blackHeader ignoreMe">
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+    <div class="headPiece"></div>
+</div>
+
+<div class="logoBar ignoreMe">
+	<div class="barPiece"></div>
+    <div class="barPiece"></div>
+    <div class="barPiece">
+		<h1 class="ignoreMe">tiny<strong class="ignoreMe">BIG</strong>ideas</h1>
+    </div>
+    <div class="barPiece"></div>
+    <div class="barPiece"></div>
+</div>
+
+<div class="goBtnCentre ignoreMe">
+    <div class="goButton jGravity">
+        <h2 class="ignoreMe">启动 jGravity</h2>
+    </div>
+</div>
+
+<div class="duckCentre ignoreMe">
+	<div class="duckInner ignoreMe">
+        <div class="duck"><img class="ignoreMe" src="http://demo.lanrenzhijia.com/2015/jGravity0121/images/duck1.jpg" /></div>
+        <div class="duck"><img class="ignoreMe" src="http://demo.lanrenzhijia.com/2015/jGravity0121/images/duck2.jpg" /></div>
+        <div class="duck"><img class="ignoreMe" src="http://demo.lanrenzhijia.com/2015/jGravity0121/images/duck3.jpg" /></div>
+   </div>
+</div>
+<script src="jquery-2.1.1.js"></script>
+<script src="jGravity.js"></script>
+<script>
+$(document).ready(function() {
+	$('div.jGravity').on('click', function() { // This can be changed to anything you like in order to trigger jGravity effect
+		$('body').jGravity({ // jGravity works best when targeting the body
+			target: 'everything', // Enter your target critera e.g. 'div, p, span', 'h2' or 'div#specificDiv', or even 'everything' to target everything in the body
+			ignoreClass: 'ignoreMe', // Specify if you would like to use an ignore class, and then specify the class
+			weight: 25, // Enter any number 1-100 ideally (25 is default), you can also use 'heavy' or 'light'
+			depth: 5, // Enter a value between 1-10 ideally (1 is default), this is used to prevent targeting structural divs or other items which may break layout in jGravity
+			drag: true // Decide if users can drag elements which have been effected by jGravity
+		});
+
+		// Misc code for demo purposes
+		$(this).removeClass('jGravity');
+		$(this).delay(1000).queue(function() {
+			$(this).html("<h2>Get jGravity</h2>");
+		});
+		// ----- \\
+		
+	});
+});
+</script>
+<!-- 代码部分end -->
+</body>
+</html>

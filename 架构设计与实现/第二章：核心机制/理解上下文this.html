@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>理解上下文this</title>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script type="text/javascript" src="jquery-2.1.4"></script>
+	<script type="text/javascript">
+
+	// var person = {
+	// 	name: 'aaron',
+	// 	getName: function() {
+	// 		function getName(){
+	// 			return this.name
+	// 		}
+	// 		return getName.call(this)
+	// 	}
+	// };
+
+	public class Person {
+
+		private String name;
+		private int age;
+
+		public Person(String name, int age) {
+			super();
+			this.name = name;
+			this.sex = sex;
+			this.age = age;
+			this.job = job;
+		}
+
+		private void showPerson() {
+			System.out.println("姓名：" + this.name);
+			System.out.println("性别：" + this.sex);
+			System.out.println("年龄：" + this.age);
+			System.out.println("工作：" + this.job);
+		}
+
+		public void printInfo() {
+			this.showPerson();
+		}
+
+		public static void main(String[] args) {
+			Person person = new Person("马云", "男", 46, "董事长");
+			person.printInfo();
+		}
+
+	}
+
+
+
+
+	
+	function Person(name) {
+		this.name = name
+	}
+
+	Person.prototype.getName = function() {
+		return this.name;
+	}
+
+	var person = new Person('aaron')
+
+	person.getName()
+	</script>
+</head>
+<body>
+	<div></div>
+</body>
+</html>

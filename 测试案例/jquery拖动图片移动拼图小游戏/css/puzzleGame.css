@@ -1,0 +1,130 @@
+@charset "utf-8";
+* {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    background-color: #F7F7F7;
+     font-family: "微软雅黑";
+}
+
+
+#wrap {
+    width: 530px;
+    height: 320px;
+    margin: 50px auto;
+}
+
+/* 左侧选项栏 */
+#wrap #left {
+    width: 200px;
+    height: 160px;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
+#wrap #left ul {
+    width: 200px;
+    height: 300px;
+}
+
+/* 开始游戏与难度选择的统一样式 */
+#wrap #left ul li {
+    width: 190px;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+    position: relative;
+}
+
+#wrap #left ul li span {
+    display: block;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    margin: 5px 20px 0 0;
+    background: #FFF8DC;
+    border-right: solid 1px #aaa;
+    border-bottom: solid 1px #aaa;
+    position: absolute;
+    top: 0;
+    left: 100px;
+}
+
+#wrap #left ul li span.mouseOn {
+    border-right: none;
+    border-bottom: none;
+    border-top: solid 1px #aaa;
+    border-left: solid 1px #aaa;
+}
+
+/* 游戏规则样式 */
+#wrap #left ul li#gameRule p {
+    height: 30px;
+    font-size: 15px;
+}
+
+/* 右侧图片 */
+#wrap #content {
+    width: 600px;
+    height: auto;
+/*    padding: 10px 0 0 10px;*/
+}
+ #start {
+    float: left;
+ }
+ #level {
+   
+ }
+ span button{
+    margin:0 10px;
+	cursor: pointer;
+    border: none;
+    width:112px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 34px;
+    background: #2e99e6;
+    color:#fff;
+    letter-spacing: 1px;
+    border-radius: 4px;
+   
+
+}
+
+#wrap #content #imgArea {
+    width: 509px;
+    height: 509px;
+    position: relative;
+    top:40px;
+}
+
+#wrap #content #imgArea div.imgCell {
+    float: left;
+    width: 73px;
+    height: 73px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 10;
+    box-shadow: 0px 0px 8px #fff;
+    transition-property: background-position;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+#wrap #content #imgArea div.hover {
+    filter: alpha(opacity=80);
+    opacity: .8;
+    box-shadow: 0px 0px 8px #000;
+    z-index: 20;
+    *border: 1px solid #09F;
+}
+

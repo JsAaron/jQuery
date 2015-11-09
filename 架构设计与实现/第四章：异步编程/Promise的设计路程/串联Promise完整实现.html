@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript">
+	
+
+		var Deferred = function () {
+		    var cache = [], value;
+		    return {
+		        resolve: function (_value) {
+		            if (cache) {
+		                for (var i = 0, ii = cache.length; i < ii; i++) {
+		                    var callback = cache[i]; //取出的是一个在then中封装的callback
+		                    callback(_value)
+		                }
+						value = _value;
+		                cache = undefined;
+		            }
+		        },
+		        promise: {
+		            then: function (_callback) {
+						//创建一个新的Deferred对象
+						var d = Deferred();
+						var callback = function (value) { 
+							var ret = _callback(value); //执行回调，返回值
+						    d.resolve(ret); //关联到下一个then的回调处理
+						};
+		                //存入pending容器中
+		                if (cache) {
+		                    cache.push(callback);
+		                } else {
+		                	callback(value)
+		                }
+		                //返回新的then接口
+		                return d.promise;
+		            }
+		        }
+		    };
+		};
+
+
+		var d = Deferred();
+		promise = d.promise;
+
+
+		promise.then(function(value){
+		    console.log(value); // 100
+		    return 10 * value;
+		}).then(function(value){
+		    return 10 * value   // 1000
+		}).then(function(value){
+		    console.log(value); //10000
+		})
+
+
+
+
+		d.resolve(100)
+		
+		// setTimeout(function(){
+		// 	// d.resolve(100)
+		// },100)
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

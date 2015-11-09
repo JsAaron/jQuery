@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="imooc.css" type="text/css">
+    <style> 
+    .left {
+        width: auto;
+        height: 120px;
+    }
+    
+    .left div {
+        width: 150px;
+        height: 70px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        background: #bbffaa;
+        border: 1px solid #ccc;
+    }
+    a{
+        display: block;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>子元素筛选选择器</h2>
+    <h3>:first-child、:last-child、:only-child</h3>
+    <div class="left first-div">
+        <div class="div">
+            <a>:first-child</a>
+            <a>第二个元素</a>
+            <a>:last-child</a>
+        </div>
+        <div class="div">
+            <a>:first-child</a>
+        </div>
+        <div class="div">
+            <a>:first-child</a>
+            <a>第二个元素</a>
+            <a>:last-child</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //查找所有class="first-div"下的a元素，只取第一个
+        //针对所有父级下的第一个
+        $('.first-div a:first-child').css("color", "#CD00CD");
+    </script>
+
+
+    <h3>:nth-child、:nth-last-child</h3>
+    <div class="left last-div">
+        <div class="div">
+            <a>:first-child</a>
+            <a>第二个元素</a>
+            <a>第三个元素</a>
+            <a>:last-child</a>
+        </div>
+        <div class="div">
+            <a>:first-child</a>
+            <a>第二个元素</a>
+        </div>
+        <div class="div">
+            <a>:first-child</a>
+            <a>第二个元素</a>
+            <a>第三个元素</a>
+            <a>:last-child</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //查找所有class="last-div"下的a元素,选择第二个
+        $('.last-div a:nth-child(2)').css("color", "#CD00CD");
+    </script>
+
+    <script type="text/javascript">
+        //查找所有class="last-div"下的a元素,选择第倒数第二个
+        $('.last-div a:nth-last-child(2)').css("color", "red");
+    </script>
+
+
+</body>
+
+</html>

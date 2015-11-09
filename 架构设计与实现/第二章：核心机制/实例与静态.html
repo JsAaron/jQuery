@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<!-- // <script type="text/javascript" src="../jquery-2.1.4.js"></script> -->
+	<script type="text/javascript">
+
+		// jQuery构造器
+		var jQuery = function(selector, context) {
+			return new jQuery.fn.init(selector, context);
+		}
+		jQuery.fn = jQuery.prototype = {
+			constructor: jQuery,
+			//原型方法调用静态方法
+			each: function(callback, args) {
+				return jQuery.each(this, callback, args);
+			}
+		}
+
+		var init = jQuery.fn.init = function(selector, context) {
+			return this.name
+		}
+		init.prototype = jQuery.fn;
+
+
+
+	</script>
+</head>
+<body>
+	<div></div>
+</body>
+</html>
