@@ -6,23 +6,7 @@
     <title></title>
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
     <style>
-    .left,
-    .right {
-        width: 300px;
-        height: 120px;
-    }
-    
-    .left div,
-    .right div {
-        width: 100px;
-        height: 120px;
-        padding: 5px;
-        margin: 5px;
-        float: left;
-        border: 1px solid #ccc;
-        background: #bbffaa;
-    }
-    
+
     .right div {
         background: yellow;
     }
@@ -32,8 +16,8 @@
 <body>
     <h2>replaceWith()和replaceAll()</h2>
     <div class="left">
-        <div class="aaron1">点击,通过replaceWith替换内容</div>
-        <div class="aaron2">点击,通过rreplaceAll替换内容</div>
+        <button class="bt1">点击,通过replaceWith替换内容</button>
+        <button class="bt2">点击,通过rreplaceAll替换内容</button>
     </div>
     <div class="right">
         <div>
@@ -50,7 +34,7 @@
     <script type="text/javascript">
     //只克隆节点
     //不克隆事件
-    $(".aaron1").on('click', function() {
+    $(".bt1").on('click', function() {
         //找到内容为第二段的p元素
         //通过replaceWith删除并替换这个节点
         $(".right > div:first p:eq(1)").replaceWith('<a style="color:red">replaceWith替换第二段的内容</a>')
@@ -59,7 +43,7 @@
     <script type="text/javascript">
     //找到内容为第六段的p元素
     //通过replaceAll删除并替换这个节点
-    $(".aaron2").on('click', function() {
+    $(".bt2").on('click', function() {
         $('<a style="color:red">replaceAll替换第六段的内容</a>').replaceAll('.right > div:last p:last');
     })
     </script>
