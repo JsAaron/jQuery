@@ -15,7 +15,7 @@
     .left div,
     .right div {
         width: 100px;
-        height: 120px;
+        /*height: 120px;*/
         padding: 5px;
         margin: 5px;
         float: left;
@@ -26,9 +26,16 @@
     .right div {
         background: yellow;
     }
+    
+    p {
+        border: 1px solid red;
+    }
+    
+    a {
+        border: 1px solid blue;
+    }
     </style>
 </head>
-
 
 <body>
     <h2>DOM包裹wrapAll()方法</h2>
@@ -44,12 +51,10 @@
         <a>a元素</a>
         <a>a元素</a>
     </div>
-
-
     <script type="text/javascript">
     $(".aaron1").on('click', function() {
         //给所有p元素，增加父容器div
-       $('p').wrapAll('<div></div>');
+        $('p').wrapAll('<div></div>');
     })
     </script>
     <script type="text/javascript">
