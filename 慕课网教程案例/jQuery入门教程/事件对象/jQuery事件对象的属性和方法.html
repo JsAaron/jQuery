@@ -27,32 +27,30 @@
 </head>
 
 <body>
-    <h3>事件对象的属性与方法</h3>
+    <h3>事件委托，通过事件对象区别触发元素</h3>
     <div class="left">
-        <div id="content">
-            外层div元素
-            <br />
-            <span style="background: silver;">内层span元素</span>
-            <br /> 外层div元素
+        <div class="aaron">
+            <ul>
+                <li>点击：触发一</li>
+                <li>点击：触发二</li>
+                <li>点击：触发三</li>
+                <li>点击：触发四</li>
+            </ul>
         </div>
-        <br />
-        <div id="msg"></div>
     </div>
+
     <script type="text/javascript">
-    //为 <span> 元素绑定 click 事件  
-    $("span").click(function() {
-        $("#msg").html($("#msg").html() + "<p>内层span元素被单击</p>");
-    });
-    //为 Id 为 content 的 <div> 元素绑定 click 事件  
-    $("#content").click(function(event) {
-        $("#msg").html($("#msg").html() + "<p>外层div元素被单击</p>");
-        event.stopPropagation(); //阻止事件冒泡  
-    });
-    //为 <body> 元素绑定 click 事件  
-    $("body").click(function() {
-        $("#msg").html($("#msg").html() + "<p>body元素被单击</p>");
-    });
+
+        //多事件绑定一
+        $("ul").on('click',function(e){
+           alert('触发的元素是内容是: ' + e.target.textContent)
+        })
+
+
+
     </script>
+
 </body>
+
 
 </html>
