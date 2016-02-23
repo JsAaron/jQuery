@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    .left div,
+    .right div {
+        width: 500px;
+        height: 50px;
+        padding: 5px;
+        margin: 5px;
+        float: left;
+        border: 1px solid #ccc;
+    }
+    
+    .left div {
+        background: #bbffaa;
+    }
+    
+    .right div {
+        background: yellow;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <h2>on事件委托</h2>
+    <div class="left">
+        <div class="aaron">
+            <a>点击这里</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //给body绑定一个click事件
+    //没有直接a元素绑定点击事件
+    //通过委托机制，点击a元素的时候，事件触发
+    $('body').on('click', 'a', function(e) {
+       alert(e.target.textContent)
+    })
+    </script>
+</body>
+
+</html>
