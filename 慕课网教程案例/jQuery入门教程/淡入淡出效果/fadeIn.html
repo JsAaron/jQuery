@@ -5,6 +5,10 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title></title>
     <style>
+    select{
+        width:100%;
+        height: 30px;
+    }
     p {
         color: red;
         display: none;
@@ -17,7 +21,9 @@
     <h2>fadeIn</h2>
     <p>测试文字淡出效果</p>
     <p>慕课网,专注分享</p>
-    淡出的隐藏效果：
+    选择：淡出的隐藏效果
+    </br>
+    </br>
     <select id="animation">
         <option value="1">fadeIn( )</option>
         <option value="2">fadeIn( "slow" )</option>
@@ -26,7 +32,8 @@
         <option value="5">fadeIn( 1000, "linear" )</option>
         <option value="6">fadeIn( options )</option>
     </select>
-    <input id="btnFadeIn" type="button" value="显示" />
+    </br></br>
+    <input id="btnFadeIn" type="button" value="执行淡出效果" />
     <input id="btnHide" type="button" value="点击隐藏" />
     <script type="text/javascript">
     //【显示】按钮
