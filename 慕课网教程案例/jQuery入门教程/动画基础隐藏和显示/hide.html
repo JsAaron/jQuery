@@ -7,7 +7,7 @@
     <style>
     .left div,
     .right div {
-        width: 500px;
+        width: 100%;
         height: 50px;
         padding: 5px;
         margin: 5px;
@@ -29,33 +29,32 @@
 <body>
     <h2>hide</h2>
     <div class="left">
-    
+        <h4>测试一</h4>
         <div id="a1">hide操作</div>
-
-        <div id="a2">hide动画操作</div>
-
         <button>直接hide</button>
+        <script type="text/javascript">
+        //点击buttom1 直接隐藏
+        $("button:first").click(function() {
+            $("#a1").hide()
+        });
+        </script>
+
+
+        <h4>测试一</h4>
+        <div id="a2">hide动画操作</div>
         <button>hide带动画</button>
+        <script type="text/javascript">
+        //点击buttom2 执行动画隐藏
+        $("button:last").click(function() {
+            $("#a2").hide({
+                duration: 3000,
+                complete: function() {
+                    alert('执行3000ms动画完毕')
+                }
+            })
+        });
+        </script>
     </div>
-    <script type="text/javascript">
-
-    //点击buttom1 直接隐藏
-    $("button:first").click(function() {
-        $("#a1").hide()
-    });
-
-    //点击buttom2 执行动画隐藏
-    $("button:last").click(function() {
-         $("#a2").hide({
-            duration:3000,
-            complete:function(){
-                alert('执行3000ms动画完毕')
-            }
-         })
-    });
-
-
-    </script>
 </body>
 
 </html>

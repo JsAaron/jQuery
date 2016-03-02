@@ -8,7 +8,7 @@
     <style>
     .left {
         width: auto;
-        height: 120px;
+        height: 200px;
     }
     
     .left div {
@@ -21,9 +21,11 @@
         border: 1px solid #ccc;
     }
     
-    span { color: blue; }
+    span {
+        color: blue;
+    }
     </style>
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 </head>
 
 <body>
@@ -51,27 +53,27 @@
             </ul>
         </div>
     </div>
-    <h3>find表达式</h3>
-
-    <p>
-        <span>测试1</span>
-         <a>测试2</a>
-    </p>
-
-    <p>
-        <span>慕课网1</span>
-        <a>慕课网2</a>
-    </p>
-
-    <div>
-        <span>Aaron1</span>
-        <a>Aaron2</a>
-    </div>
-
-    <br/>
-    <br/>
-    <button>点击：find无参数</button>
     <button>点击：find传递表达式</button>
+    <br/>
+    <br/>
+    <h3>find表达式</h3>
+    <div style="border:1px solid red;">
+        <p>
+            <span>测试1</span>
+            <a>测试2</a>
+        </p>
+        <p>
+            <span>慕课网1</span>
+            <a>慕课网2</a>
+        </p>
+        <div>
+            <span>Aaron1</span>
+            <a>Aaron2</a>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <button>点击：find传递$对象</button>
     <script type="text/javascript">
     $("button:first").click(function() {
         //在class="left"的元素中

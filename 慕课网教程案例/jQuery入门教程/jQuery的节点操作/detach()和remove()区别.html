@@ -2,14 +2,21 @@
 
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+    p{
+        border: 1px solid red;
+    }
+    </style>
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
 </head>
 
 <body>
-    <p>元素p1，默认给绑定一个点击事件</p>
-    <p>元素p2，默认给绑定一个点击事件</p>
-    <button>通过remove处理元素p1</button>
-    <button>通过detach处理元素p2</button>
+    <h3>给页面2个p元素节点绑定点击事件,点击后弹出自己本身的节点内容</h3>
+    <p>元素p1，同时绑定点击事件</p>
+    <p>元素p2，同时绑定点击事件</p>
+    <h3>通过点击2个按钮后观察方法处理的区别</h3>
+    <button>点击通过remove处理元素p1</button>
+    <button>点击通过detach处理元素p2</button>
 </body>
 <script type="text/javascript">
     //给页面上2个p元素都绑定时间

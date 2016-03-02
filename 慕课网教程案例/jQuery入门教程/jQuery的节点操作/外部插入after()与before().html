@@ -4,63 +4,36 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
     <style>
-    .left,
-    .right {
-        width: 300px;
-        height: 120px;
-    }
-    
-    .left div,
-    .right div {
-        width: 100px;
-        height: 90px;
-        padding: 5px;
-        margin: 5px;
-        float: left;
-        border: 1px solid #ccc;
-    }
-    
-    .left div {
-        background: #bbffaa;
-    }
-    
-    .right div {
-        background: yellow;
+    .aaron{
+        border: 1px solid red;
     }
     </style>
 </head>
 
 <body>
     <h2>通过before与after添加元素</h2>
-    <div class="left">
-        <div class="aaron">点击通过jQuery的before添加元素</div>
-        <div class="aaron">点击通过jQuery的after添加元素</div>
+    <button id="bt1">点击通过jQuery的before添加元素</button>
+    <button id="bt2">点击通过jQuery的after添加元素</button>
+    <div class="aaron">
+        <p class="test1">测试before</p>
     </div>
-    <div class="right">
-        <div class="aaron"><p class="test1">测试before</p></div>
-        <div class="aaron"><p class="test2">测试after</p></div>
+    <div class="aaron">
+        <p class="test2">测试after</p>
     </div>
-
     <script type="text/javascript">
-
-    	$(".left .aaron:first").on('click', function() {
-            //在匹配test1元素集合中的每个元素前面插入p元素
-            $(".test1").before('<p style="color:red">before增加的p元素之前</p>','<p style="color:red">多参数</p>')
-    	})
-
+    $("#bt1").on('click', function() {
+        //在匹配test1元素集合中的每个元素前面插入p元素
+        $(".test1").before('<p style="color:red">before,在匹配元素之前增加</p>', '<p style="color:red">多参数</p>')
+    })
     </script>
-
     <script type="text/javascript">
+    $("#bt2").on('click', function() {
+        //在匹配test1元素集合中的每个元素后面插入p元素
+        $(".test2").after('<p style="color:blue">after,在匹配元素之后增加</p>', '<p style="color:blue">多参数</p>')
 
-    	$(".left .aaron:last").on('click', function() {
-            //在匹配test1元素集合中的每个元素后面插入p元素
-            $(".test2").after('<p style="color:blue">after增加的p元素之后</p>','<p style="color:blue">多参数</p>')
-    	})
-
+    })
     </script>
-
 </body>
 
-</html>

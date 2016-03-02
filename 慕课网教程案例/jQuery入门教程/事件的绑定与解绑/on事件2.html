@@ -7,7 +7,7 @@
     <style>
     .left div,
     .right div {
-        width: 500px;
+        width: 100%;
         height: 50px;
         padding: 5px;
         margin: 5px;
@@ -28,30 +28,50 @@
 
 <body>
     <h2>删除事件</h2>
-    <div class="left">
-        off('mousedown')
-        <div class="aaron"></div>
-    </div>
-    <div class="right">
-        off() 
-        <div class="aaron"> </div>
-    </div>
-    <script type="text/javascript">
 
-    //多事件删除
-    var a = 0;
+
+    <h4>测试一</h4>
+    <div class="left">
+        on('mousedown mouseup')
+        <div class="aaron">点击触发</div>
+    </div>
+    <button>点击删除mousedown事件</button>
+    <script type="text/javascript">
+    var n  = 0;
+    //绑定事件
     $(".aaron:first").on('mousedown mouseup', function(e) {
-        $(this).text( '触发次数' +  (++a))
+        $(this).text( '触发类型:' +  (e.type) + ",次数" + n)
+        ++n;
+    })
+
+    //删除事件
+    $("button").click(function() {
         $(".aaron:first").off('mousedown')
     })
+   
+    </script>
 
 
-    //多事件删除
-    var b = 0;
+
+    <h4>测试一</h4>
+    <div class="left">
+        on('mousedown mouseup')
+        <div class="aaron">点击触发</div>
+    </div>
+    <button>点击销毁所有事件off</button>
+    <script type="text/javascript">
+    var n  = 0;
+    //绑定事件
     $(".aaron:last").on('mousedown mouseup', function(e) {
-        $(this).text( '触发次数' +  (++b))
+        $(this).text( '触发类型:' +  (e.type) + ",次数" + n)
+        ++n;
+    })
+
+    //删除事件
+    $("button").click(function() {
         $(".aaron:last").off()
     })
+   
     </script>
 </body>
 

@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
     <style>
     .left,
     .right {
@@ -34,47 +34,37 @@
 
 <body>
     <h2>动态创建元素节点</h2>
-    <div class="left">
-        <div class="aaron">点击通过jQuery动态创建元素节点</div>
-    </div>
+    <button>点击通过jQuery动态创建元素节点</button>
     <script type="text/javascript">
-
-        var $body = $('body');
-
-        $body.on('click',function(){
-
-            //通过jQuery生成div元素节点
-            var div = $("<div class='right'><div class='aaron'>动态创建DIV元素节点</div></div>")
-            
-            $body.append(div)
-        })
+    var $body = $('body');
+    $body.on('click', function() {
+        //通过jQuery生成div元素节点
+        var div = $("<div class='right'><div class='aaron'>动态创建DIV元素节点</div></div>")
+        $body.append(div)
+    })
 
 
 
-	    // var body = document.querySelector('body');
+    // var body = document.querySelector('body');
 
-	    // document.addEventListener('click',function(){
-	    	
-	    // 	//创建2个div元素
-		   //  var rightdiv = document.createElement('div')
-		   //  var rightaaron = document.createElement("div");
+    // document.addEventListener('click',function(){
 
-		   //  //给2个div设置不同的属性
-		   //  rightdiv.setAttribute('class', 'right')
-		   //  rightaaron.className = 'aaron'
-		   //  rightaaron.innerHTML = "动态创建DIV元素节点";
+    //  //创建2个div元素
+    //  var rightdiv = document.createElement('div')
+    //  var rightaaron = document.createElement("div");
 
-		   //  //2个div合并成包含关系
-		   //  rightdiv.appendChild(rightaaron)
-		   	
-		   // 	//绘制到页面body
-		   // 	body.appendChild(rightdiv)
+    //  //给2个div设置不同的属性
+    //  rightdiv.setAttribute('class', 'right')
+    //  rightaaron.className = 'aaron'
+    //  rightaaron.innerHTML = "动态创建DIV元素节点";
 
-	    // },false)
+    //  //2个div合并成包含关系
+    //  rightdiv.appendChild(rightaaron)
 
+    //  //绘制到页面body
+    //  body.appendChild(rightdiv)
 
-
-
+    // },false)
     </script>
 </body>
 

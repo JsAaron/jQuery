@@ -23,24 +23,35 @@
         color: red;
     }
     </style>
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+   <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 </head>
 
 <body>
-    <h2>keydown</h2>
+    <h2>keydown()与keyup()事件</h2>
     <div class="left">
+        <h4>测试一</h4>
         <div class="aaron">监听keydown输入:
             <input class="target1" type="text" value="" /><br />
-            显示输入的值:<em>1</em>
+            按下显示输入的值:<em></em>
         </div>
-
+        <h4>测试二</h4>
+        <div class="aaron">监听keyup输入:
+            <input class="target2" type="text" value="" /><br />
+            松手显示输入的值:<em></em>
+        </div>
     </div>
 
     <script type="text/javascript">
     //监听键盘按键
     //获取输入的值
     $('.target1').keydown(function(e) {
-        $("em").text(e.target.value)
+        $("em:first").text(e.target.value)
+    });
+
+    //监听键盘按键
+    //获取输入的值
+    $('.target2').keyup(function(e) {
+        $("em:last").text(e.target.value)
     });
 
     </script>

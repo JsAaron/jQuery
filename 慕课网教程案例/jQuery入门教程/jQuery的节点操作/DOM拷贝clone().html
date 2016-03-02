@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
     <style>
     .left,
     .right {
@@ -29,7 +29,7 @@
     <h2>通过clone克隆元素</h2>
     <div class="left">
         <div class="aaron1">点击,clone浅拷贝</div>
-        <div class="aaron2">点击,clone深拷贝</div>
+        <div class="aaron2">点击,clone深拷贝,可以继续出发事件</div>
     </div>
     <script type="text/javascript">
     	//只克隆节点
@@ -43,7 +43,8 @@
     	//克隆节点
     	//克隆事件
 	    $(".aaron2").on('click', function() {
-	        $(".left").append($(this).clone(true).css('color','blue'))
+            console.log(1)
+	        $(".left").append( $(this).clone(true).css('color','blue') )
 	    })
     </script>
 </body>

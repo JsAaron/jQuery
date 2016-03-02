@@ -7,8 +7,7 @@
     <style>
     .left div,
     .right div {
-        width: 500px;
-        height: 50px;
+        width: 100%;
         padding: 5px;
         margin: 5px;
         float: left;
@@ -42,22 +41,25 @@
             <textarea class="target2" rows="3" cols="20">多行的文本输入控件</textarea>
         </div>
     </div>
-
+    输出结果：
+    <div id="result"></div>
     <script type="text/javascript">
+    
     //监听input值的改变
     $('.target1').change(function(e) {
-        alert(e.target.value)
+        $("#result").html(e.target.value)
     });
+
     //监听select：
-    $(".target2").focusin(function(e) {
-        alert(e.target.value)
+    $(".target2").change(function(e) {
+            $("#result").html(e.target.value)
     })
-    //监听textarea：
-    $(".target3").focusin(function(e) {
-        alert(e.target.value)
+
+     //监听textarea：
+    $(".target3").change(function(e) {
+        $("#result").html(e.target.value)
     })
     </script>
-
 </body>
 
 </html>

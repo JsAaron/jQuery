@@ -27,26 +27,37 @@
         height: 100px;
     }
     </style>
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 </head>
 
 <body>
     <h2>input与textarea</h2>
     <div class="left">
+        <h4>测试一</h4>
         <div class="aaron">
-            用鼠标选中文字：input
-            <input type="text" value="Hello 慕课网" />
+            选中文字：input
+            <input type="text" value="慕课网" />
         </div>
+        <button id="bt1">触发input元素的select事件</button>
+        
+        <h4>测试二</h4>
         <div class="aaron">
             textarea：
             <textarea rows="3" cols="20">用鼠标选中文字</textarea>
         </div>
     </div>
+ 
     <script type="text/javascript">
+
     //监听input元素中value的选中
-    $('input').select(function(e) {
-        alert(e.target.value);
-    });
+    //触发元素的select事件
+    $("input").select(function(e){
+        alert(e.target.value)
+    })
+    $("#bt1").click(function(){
+        $("input").select();
+    })
+
 
     //监听textarea元素中value的选中
     $('textarea').select(function(e) {

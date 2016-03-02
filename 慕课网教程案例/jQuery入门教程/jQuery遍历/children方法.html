@@ -25,7 +25,7 @@
         display: block;
     }
     </style>
-    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 </head>
 
 <body>
@@ -53,21 +53,21 @@
             </ul>
         </div>
     </div>
-    <button>点击：children无参数</button>
-    <button>点击：children传递表达式</button>
+    <button id="bt1">点击：children无参数</button>
+    <button id="bt2">点击：children传递表达式</button>
     <script type="text/javascript">
-    $("button:first").click(function() {
+    $("#bt1").click(function() {
         //找到所有class=div的元素
         //然后找到其对应的子元素，加上一个红色边框
-        $('.div').children().css('border', '1px solid red')
+        $('.div').children().css('border', '3px solid red')
     })
     </script>
 
     <script type="text/javascript">
-    $("button:last").click(function() {
+    $("#bt2").click(function() {
         //找到所有class=div的元素
         //找到其对应的子元素ul，然后筛选出最后一个，给边宽加上颜色
-        $('.div').children(':last').css('border', '1px solid blue')
+        $('.div').children(':last').css('border', '3px solid blue')
     })
     </script>
 
