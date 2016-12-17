@@ -10,7 +10,10 @@
 <body>
 
 <script type="text/javascript">
-
+//缺少这个方法，但是不影响结果。
+function show(data) {
+  $("body").append('<li>' + data + '</li>')
+}
 
 function Callbacks() {
   var list = [];
