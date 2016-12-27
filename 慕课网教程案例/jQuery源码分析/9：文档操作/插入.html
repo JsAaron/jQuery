@@ -69,22 +69,15 @@ function getText(elem) {
 }
 
 
-function empty() {
-	var elem,
-		i = 0;
-	for (;
-		(elem = this[i]) != null; i++) {
-		if (elem.nodeType === 1) {
-			elem.textContent = "";
+function setText(value){
+	// 分数组和元素两种情况
+	// 元素
+	if(this.nodeType ===1){
+		this.textContent = value
+	} else {
+		for (var i = 0; i < this.length; i++) {
+			this[i].textContent = value
 		}
-	}
-	return this;
-}
-
-function setText(value) {
-	empty.call(this)
-	if (this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9) {
-		this.textContent = value;
 	}
 }
 
@@ -116,6 +109,7 @@ $('#test3').click(function() {
 
 $('#test4').click(function() {
 	var p = document.querySelectorAll("p")[0]
+	// var p = document.querySelectorAll("p")
 	text.call(p,'慕课网')
 })
 
