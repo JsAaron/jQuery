@@ -84,7 +84,8 @@ function fix(event) {
     var event = new Event(originalEvent);
 
     //混入事件属性
-    i = props.length;
+    var i = props.length;
+    var prop;
     while (i--) {
         prop = props[i];
         event[prop] = originalEvent[prop];
